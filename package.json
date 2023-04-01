@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "dev:dumi": "dumi dev",
+    "dev_": "dumi dev",
     "pre:dumi": "dumi preview",
     "build:dumi": "dumi build",
     "prepare": "dumi setup",
@@ -30,6 +30,7 @@
     ]
   },
   "devDependencies": {
+    "tsup": "^6.7.0",
     "antd":"^5.3.3",
     "@umijs/plugins": "^4.0.64",
     "eslint": "^8.37.0",
@@ -42,7 +43,8 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "tailwindcss":"^3.3.1"
+    "tailwindcss":"^3.3.1",
+    "tailwind-config": "workspace:*"
   },
   "packageManager": "pnpm@7.15.0",
   "engines": {
