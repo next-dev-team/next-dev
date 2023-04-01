@@ -1,3 +1,4 @@
+import { Button, Space } from 'antd';
 import React from 'react';
 
 /**
@@ -25,8 +26,11 @@ export default function Components(props: ICardBlog1Props) {
   const { dataItems = {} } = props;
 
   return (
-    <button className="rounded-xl bg-gradient-to-br from-primary to-[#FF5555] px-5 py-3 text-base font-medium text-white transition duration-200 hover:shadow-lg hover:shadow-[#6025F5]/50">
-    Button 16
-    </button>
+   <Space>
+     <button className="bg-primary text-white py-xs px-md rounded-md font-bold hover:bg-primary-hover active:bg-primary-active">
+    Primary Antd Tw
+  </button>
+  <Button type='primary'>Primary Antd</Button>
+   </Space>
   );
 }

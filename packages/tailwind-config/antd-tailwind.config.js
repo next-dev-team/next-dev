@@ -17,7 +17,7 @@ const pick = (
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   plugins: [],
-  corePlugins: { preflight: false },
+  corePlugins: { preflight: true },
   theme: {
     extend: {
       colors: {

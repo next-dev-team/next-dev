@@ -1,4 +1,4 @@
-@tailwind base;
+@import url('tailwind-config/tw-antd-preflight.css');
 @tailwind components;
 @tailwind utilities;
 
