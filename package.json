@@ -30,6 +30,7 @@
     ]
   },
   "devDependencies": {
+    "antd":"^5.3.3",
     "@umijs/plugins": "^4.0.64",
     "eslint": "^8.37.0",
     "eslint-config-custom": "workspace:*",
