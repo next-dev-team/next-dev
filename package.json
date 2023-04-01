@@ -1,19 +1,51 @@
 {
-  "private": true,
+  "name": "",
+  "version": "0.0.1",
+  "description": "",
   "scripts": {
+    "dev:dumi": "dumi dev",
+    "pre:dumi": "dumi preview",
+    "build:dumi": "dumi build",
+    "prepare": "dumi setup",
+    "setup": "pnpm install",
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "concurrently \"dumi dev\"",
+    "doc:dev": "dumi dev",
+    "doc:build": "pnpm clean &&  turbo run build --filter ./doc... && pnpm build:dumi",
+    "doc:predeploy": "turbo run publish --filter ./boilerplate/doc...",
+    "doc:deploy": "pnpm doc:build",
     "lint": "turbo run lint",
-    "clean": "turbo run clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "upd": "pnpm --interactive update --latest"
   },
+  "authors": [],
+  "license": "MIT",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{md,json}": [
+      "prettier --write --no-error-on-unmatched-pattern"
+    ]
+  },
   "devDependencies": {
+    "@umijs/plugins": "^4.0.64",
     "eslint": "^8.37.0",
     "eslint-config-custom": "workspace:*",
-    "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.6",
-    "turbo": "^1.8.8"
+    "turbo": "^1.8.8",
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "dumi": "^2.0.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "tailwindcss":"^3.3.1"
   },
-  "packageManager": "pnpm@7.15.0"
+  "packageManager": "pnpm@7.15.0",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+
 }

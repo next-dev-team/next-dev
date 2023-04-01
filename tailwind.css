@@ -1,0 +1,13 @@
+
+
+@tailwind components;
+@tailwind utilities;
+
+/* youtube iframe */
+iframe {
+  border: none;
+  width: 100%;
+  /* min-height: 50vh; */
+  margin: 0;
+  padding: 10px 0;
+}
