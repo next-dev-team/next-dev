@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "author": "Sila Infinity <sila083.infinity@gmail.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "umi": "^4.0.64"
+  },
+  "devDependencies": {
+    "@types/react-beautiful-dnd": "^13.1.4",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
