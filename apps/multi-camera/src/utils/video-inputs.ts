@@ -1,4 +1,3 @@
-import { info, log } from './logger';
 
 const getVideoInputs = (devices: any[]): any[] => devices.reduce((carry: any[], device: any) => {
   const { kind } = device;
@@ -14,11 +13,9 @@ export const getDevices = (hide = false): Promise<MediaDeviceInfo[]> => {
       .enumerateDevices()
       .then(getVideoInputs)
       .then((devices) => {
-        info({ message: devices, title: 'getVideoInputs', hide });
         return devices;
       });
   } catch (error: any) {
-    log({ type: 'error', message: 'mediaDevices', title: 'mediaDevices' });
     return error;
   }
 };

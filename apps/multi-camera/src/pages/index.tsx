@@ -1,14 +1,14 @@
 import useVideoInput from '@/hooks/useVideoInput';
-import { Button, Card } from 'antd';
-import { useEffect, useMemo, useRef } from 'react';
+import { Button, Card, Col, Form, Row, Select, Space } from 'antd';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Webcam from 'react-webcam';
-const fs = require('fs');
 const imgDate = new Date().getTime();
 
 const isShowPlayerCame = true;
 
 export default function HomePage() {
   const [devices] = useVideoInput();
+  const [showPageVal, setShowVal] = useState(12);
 
   const webcamRef1 = useRef<Webcam>(null);
   const webcamRef2 = useRef<Webcam>(null);
@@ -22,7 +22,7 @@ export default function HomePage() {
     style: {
       position: isShowPlayerCame ? 'relative' : 'absolute',
       visibility: isShowPlayerCame ? 'visible' : 'hidden',
-      width: 700,
+      width: '100%',
     },
   } as Webcam['props'];
 
@@ -66,26 +66,13 @@ export default function HomePage() {
     },
   ].filter((dv) => dv.deviceId);
 
-  useEffect(() => {
-    console.log('getSelectDevice', cameras);
-  }, [getSelectDevice]);
-
-  function downloadBase64(uri, filename) {
-    const link = document.createElement('a');
-    link.href = uri;
-    link.download = filename;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
-
   const onCapture = () => {
     const captureData = [];
     cameras?.forEach(async (_, ind) => {
       const getCapture = cameras[ind].ref?.current?.getScreenshot();
 
       // This function converts a base64 encoded string to a Blob object
-      function convertBase64ToBlob(base64) {
+      function convertBase64ToBlob(base64: string) {
         const parts = base64.split(';base64,');
         const contentType = parts[0].split(':')[1];
         const raw = window.atob(parts[1]);
@@ -116,24 +103,67 @@ export default function HomePage() {
     console.log('captureData', captureData.length);
   };
 
+  const maxNumber = 24;
+  const options = Array.from({ length: 4 }, (_, i) => ({
+    label: i + 1,
+    value: Math.ceil(maxNumber / (i + 1)),
+  }));
+
+  useEffect(() => {
+    async function requestCameraPermission() {
+      try {
+        await navigator.mediaDevices.getUserMedia({ video: true });
+        console.log('Camera permission granted');
+      } catch (error) {
+        console.log('Camera permission denied:', error);
+      }
+    }
+    requestCameraPermission();
+  }, []);
+
   return (
-    <div style={{ maxWidth: '70%', margin: 'auto' }}>
+    <div style={{ maxWidth: '80%', margin: 'auto' }}>
       <Card
         title="Multiple camera capture"
-        extra={<Button onClick={onCapture}>Capture</Button>}
+        extra={
+          <Space align="baseline" style={{ marginTop: 20 }}>
+            <Form layout="horizontal">
+              <Form.Item
+                initialValue={showPageVal}
+                label="Show/row"
+                name="show"
+              >
+                <Select
+                  onSelect={(e) => {
+                    console.log(e);
+                    setShowVal(e);
+                  }}
+                  options={options}
+                  style={{ width: '120px' }}
+                />
+              </Form.Item>
+            </Form>
+            <Button type="primary" onClick={onCapture}>
+              Capture
+            </Button>
+          </Space>
+        }
       >
-        {cameras.map((came, index) => {
-          return (
-            <Webcam
-              key={index}
-              ref={came.ref}
-              {...webcamConfig}
-              videoConstraints={{
-                deviceId: came.deviceId,
-              }}
-            />
-          );
-        })}
+        <Row wrap gutter={[10, 10]}>
+          {cameras.map((came, index) => {
+            return (
+              <Col span={showPageVal} key={index}>
+                <Webcam
+                  ref={came.ref}
+                  {...webcamConfig}
+                  videoConstraints={{
+                    deviceId: came.deviceId,
+                  }}
+                />
+              </Col>
+            );
+          })}
+        </Row>
       </Card>
     </div>
   );

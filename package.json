@@ -15,7 +15,7 @@
     "doc:predeploy": "turbo run publish --filter ./boilerplate/doc...",
     "doc:deploy": "pnpm doc:build",
     "lint": "turbo run lint",
-    "upd": "pnpm --interactive update --latest"
+    "upd": "turbo run upd"
   },
   "authors": [],
   "license": "MIT",

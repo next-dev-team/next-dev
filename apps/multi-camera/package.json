@@ -6,7 +6,8 @@
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "upd": "pnpm --interactive update --latest"
   },
   "dependencies": {
     "umi": "^4.0.64"
