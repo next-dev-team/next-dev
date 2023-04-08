@@ -1,3 +1,4 @@
+import useKeyPress from '@/hooks/useKeyboard';
 import useVideoInput from '@/hooks/useVideoInput';
 import { Button, Card, Col, Form, Row, Select, Space } from 'antd';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -9,6 +10,7 @@ const isShowPlayerCame = true;
 export default function HomePage() {
   const [devices] = useVideoInput();
   const [showPageVal, setShowVal] = useState(12);
+  const spacePress = useKeyPress([' ']);
 
   const webcamRef1 = useRef<Webcam>(null);
   const webcamRef2 = useRef<Webcam>(null);
@@ -27,7 +29,7 @@ export default function HomePage() {
   } as Webcam['props'];
 
   // allow only devices with specific camera the same AI's training camera
-  const getSelectDevice = useMemo(() => {
+  const filterDevice = useMemo(() => {
     const filterDevice = (devices?.filter(
       (device) =>
         !device.label.includes('FaceTime') &&
@@ -42,27 +44,27 @@ export default function HomePage() {
     {
       ref: webcamRef1,
       file: `banker1_${imgDate}.jpeg`,
-      deviceId: getSelectDevice?.[0]?.deviceId,
-      label: getSelectDevice?.[0]?.label,
+      deviceId: filterDevice[0]?.deviceId,
+      label: filterDevice[0]?.label,
     },
     {
       ref: webcamRef2,
 
       file: `player1_${imgDate}.jpeg`,
-      deviceId: getSelectDevice?.[1]?.deviceId,
-      label: getSelectDevice?.[1]?.label,
+      deviceId: filterDevice[1]?.deviceId,
+      label: filterDevice[1]?.label,
     },
     {
       ref: webcamRef3,
       file: `player2_${imgDate}.jpeg`,
-      deviceId: getSelectDevice?.[2]?.deviceId,
-      label: getSelectDevice?.[2]?.label,
+      deviceId: filterDevice[2]?.deviceId,
+      label: filterDevice[2]?.label,
     },
     {
       file: `player3_${imgDate}.jpeg`,
       ref: webcamRef4,
-      deviceId: getSelectDevice?.[3]?.deviceId,
-      label: getSelectDevice?.[3]?.label,
+      deviceId: filterDevice[3]?.deviceId,
+      label: filterDevice[3]?.label,
     },
   ].filter((dv) => dv.deviceId);
 
@@ -112,14 +114,27 @@ export default function HomePage() {
   useEffect(() => {
     async function requestCameraPermission() {
       try {
-        await navigator.mediaDevices.getUserMedia({ video: true });
-        console.log('Camera permission granted');
+        const isAccess = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        console.log('Camera permission granted', isAccess);
+        if (isAccess?.active) {
+          // location.reload();
+        }
       } catch (error) {
         console.log('Camera permission denied:', error);
       }
     }
     requestCameraPermission();
   }, []);
+
+  useEffect(() => {
+    console.log('spacePress', spacePress);
+
+    if (spacePress.keyPressed) {
+      onCapture();
+    }
+  }, [spacePress.keyPressed]);
 
   return (
     <div style={{ maxWidth: '80%', margin: 'auto' }}>
