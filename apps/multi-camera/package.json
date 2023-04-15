@@ -10,12 +10,14 @@
     "upd": "pnpm --interactive update --latest"
   },
   "dependencies": {
-    "umi": "^4.0.64"
+    "ahooks": "3.7.6",
+    "dayjs": "^1.11.7",
+    "umi": "^4.0.65"
   },
   "devDependencies": {
+    "@types/react": "^18.0.35",
     "@types/react-beautiful-dnd": "^13.1.4",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "typescript": "^5.0.0"
+    "@types/react-dom": "^18.0.11",
+    "typescript": "^5.0.4"
   }
 }
