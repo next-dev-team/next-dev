@@ -10,7 +10,7 @@ const imgDate = () => dayjs().format('DD-MM-YYYY hh:mm:ss a');
 const captureImgName = (fileName = 'capture') => {
   return `${fileName}_${imgDate()}.jpg`.replace(/\s+/g, '_');
 };
-const isShowPlayerCame = true;
+// const isShowPlayerCame = true;
 
 // This function converts a base64 encoded string to a Blob object
 function convertBase64ToBlob(base64: string) {
@@ -27,11 +27,14 @@ function convertBase64ToBlob(base64: string) {
 
 export const useAppLogic = () => {
   const [devices = [], { showCamera }] = useVideoInput();
-  const [showPageVal, setShowVal] = useState(12);
+  const [showPageVal, setShowVal] = useState(8); // based antd grid
   const spacePress = useKeyPress([' ']);
   const state = useReactive({
     cameraType: consFilter.ALL,
+    preview: true,
   });
+
+  const isShowPlayerCame = state.preview;
 
   const webcamConfig = {
     audio: false,

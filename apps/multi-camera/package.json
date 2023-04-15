@@ -1,6 +1,6 @@
 {
   "private": true,
-  "author": "Sila Infinity <sila083.infinity@gmail.com>",
+  "author": "Sila",
   "scripts": {
     "dev": "umi dev",
     "build": "umi build",
@@ -12,7 +12,9 @@
   "dependencies": {
     "ahooks": "3.7.6",
     "dayjs": "^1.11.7",
-    "umi": "^4.0.65"
+    "umi": "^4.0.65",
+    "@ant-design/pro-components": "^2.4.4",
+    "@ant-design/icons": "^5.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.35",

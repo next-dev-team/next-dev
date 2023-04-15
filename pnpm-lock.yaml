@@ -77,9 +77,15 @@ importers:
 
   apps/multi-camera:
     dependencies:
+      '@ant-design/icons':
+        specifier: ^5.0.1
+        version: registry.npmjs.org/@ant-design/icons@5.0.1(react-dom@17.0.2)(react@16.14.0)
+      '@ant-design/pro-components':
+        specifier: ^2.4.4
+        version: registry.npmjs.org/@ant-design/pro-components@2.4.4(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0)
       ahooks:
         specifier: 3.7.6
-        version: registry.npmjs.org/ahooks@3.7.6(react@18.2.0)
+        version: registry.npmjs.org/ahooks@3.7.6(react@16.14.0)
       dayjs:
         specifier: ^1.11.7
         version: registry.npmjs.org/dayjs@1.11.7
@@ -201,7 +207,6 @@ packages:
     version: 6.0.0
     dependencies:
       '@ctrl/tinycolor': registry.npmjs.org/@ctrl/tinycolor@3.6.0
-    dev: true
 
   registry.npmjs.org/@ant-design/colors@7.0.0:
     resolution: {integrity: sha512-iVm/9PfGCbC0dSMBrz7oiEXZaaGH7ceU40OJEfKmyuzR9R5CRimJYPlRiFtMQGQcbNMea/ePcoIebi4ASGYXtg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/colors/-/colors-7.0.0.tgz}
@@ -251,7 +256,6 @@ packages:
       rc-util: registry.npmjs.org/rc-util@5.29.3(react-dom@17.0.2)(react@16.14.0)
       react: registry.npmjs.org/react@16.14.0
       react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/@ant-design/icons@5.0.1(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-ZyF4ksXCcdtwA/1PLlnFLcF/q8/MhwxXhKHh4oCHDA4Ip+ZzAHoICtyp4wZWfiCVDP0yuz3HsjyvuldHFb3wjA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/icons/-/icons-5.0.1.tgz}
@@ -293,7 +297,6 @@ packages:
     transitivePeerDependencies:
       - prop-types
       - react-dom
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-components@2.4.4(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-pSzERiJz0RdH/1Lf8PgHuOZNF9AEvLeIoVYs/1tUchasTCLqedVvS9gK/4RLG3R0YROIe/G6LSBqB2WMpRDvug==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-components/-/pro-components-2.4.4.tgz}
@@ -323,7 +326,6 @@ packages:
       - '@types/lodash.merge'
       - prop-types
       - rc-field-form
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-descriptions@2.2.3(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-/06dGLUGh469O3T8+cEBJp5IzQpjXr8gmX2Hyu93vYFZq5qYxoDzSbS5La3o9bveiItMxkjTozMQG38cU3X36A==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-descriptions/-/pro-descriptions-2.2.3.tgz}
@@ -348,7 +350,6 @@ packages:
       - prop-types
       - rc-field-form
       - react-dom
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-field@2.5.2(antd@5.4.0)(prop-types@15.8.1)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-n32ZtmxgbPIkPvJNd0hSw26PQKlThqTc6coMU4piOQH/PWg0H22/eGm57fpRPZKsOxNCHtVsT13+0SBBXrdwfA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-field/-/pro-field-2.5.2.tgz}
@@ -375,7 +376,6 @@ packages:
     transitivePeerDependencies:
       - prop-types
       - react-dom
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-form@2.10.1(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-OslUCqkITJHE1c6Oj2hIddvSiehPgkTFnNjCX99Ip7lJ8NIkT30UEvTM79jzJeue+y1lqLF8YH0HX4ajI3apIw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-form/-/pro-form-2.10.1.tgz}
@@ -412,7 +412,6 @@ packages:
       use-media-antd-query: registry.npmjs.org/use-media-antd-query@1.1.0(react@16.14.0)
     transitivePeerDependencies:
       - prop-types
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-layout@7.10.3(antd@5.4.0)(prop-types@15.8.1)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-r8S+KqtyKFmt9eG5/G7KS2O8oIpmxZA3/WIYGMbSOyD4YkwmK1MF9KCjUErdHxQxIS9IL8Fc6V23/8KVAZmZyQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-layout/-/pro-layout-7.10.3.tgz}
@@ -445,7 +444,6 @@ packages:
       warning: registry.npmjs.org/warning@4.0.3
     transitivePeerDependencies:
       - prop-types
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-list@2.3.4(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-Wi5/tvlATVfI0ueIdIzF23xGJjZpvOYOE1mbfypiiT5Fn55/+Jq4mIs1UWVvZE8dVscfqvbEarwvcEUXzl2w1g==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-list/-/pro-list-2.3.4.tgz}
@@ -474,7 +472,6 @@ packages:
       - '@types/lodash.merge'
       - prop-types
       - rc-field-form
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-provider@2.7.0(antd@5.4.0)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-5iKr0rIGekmOH7t5C6k0AsNp8CROroTzewjnaYLF3gt+kdz4+q8IQ5rmQG78e0npcJp6yQLJvIxevuJl5kFNfw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-provider/-/pro-provider-2.7.0.tgz}
@@ -494,7 +491,6 @@ packages:
       react: registry.npmjs.org/react@16.14.0
       react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
       swr: registry.npmjs.org/swr@2.1.2(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-skeleton@2.1.0(antd@5.4.0)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-+1fyj51v9DjCZgqwPIM64nMpLrWVfOs7q/b4kjYoa2kMsv3ECpfEabx5+iwj76Dy9JnZxAUTGM2aaoA3DyG6WA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-skeleton/-/pro-skeleton-2.1.0.tgz}
@@ -511,7 +507,6 @@ packages:
       react: registry.npmjs.org/react@16.14.0
       react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
       use-media-antd-query: registry.npmjs.org/use-media-antd-query@1.1.0(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-table@3.6.1(antd@5.4.0)(prop-types@15.8.1)(rc-field-form@1.29.2)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-t6B2al8HoX8WDVaPqmbtjYIRV1LG8Eo/WaWvFUlhWUaQ9h2rh+GxtFRe2pA3XBVB5TEYiBEu0fqPvjglNEox6g==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-table/-/pro-table-3.6.1.tgz}
@@ -545,7 +540,6 @@ packages:
     transitivePeerDependencies:
       - '@types/lodash.merge'
       - prop-types
-    dev: true
 
   registry.npmjs.org/@ant-design/pro-utils@2.7.2(antd@5.4.0)(prop-types@15.8.1)(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-1nzw9x4Hy/LXPUGWvCaFQd1g5SkX86yDp9KFZ3m4gvVREo4/7QTp0iyZasEWweaND3JNLcaXXU8sLfMiMgHIiw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/pro-utils/-/pro-utils-2.7.2.tgz}
@@ -570,7 +564,6 @@ packages:
       swr: registry.npmjs.org/swr@2.1.2(react@16.14.0)
     transitivePeerDependencies:
       - prop-types
-    dev: true
 
   registry.npmjs.org/@ant-design/react-slick@1.0.0(react@16.14.0):
     resolution: {integrity: sha512-OKxZsn8TAf8fYxP79rDXgLs9zvKMTslK6dJ4iLhDXOujUqC5zJPBRszyrcEHXcMPOm1Sgk40JgyF3yiL/Swd7w==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@ant-design/react-slick/-/react-slick-1.0.0.tgz}
@@ -2287,7 +2280,6 @@ packages:
       react: registry.npmjs.org/react@16.14.0
       reactcss: registry.npmjs.org/reactcss@1.2.3(react@16.14.0)
       tinycolor2: registry.npmjs.org/tinycolor2@1.6.0
-    dev: true
 
   registry.npmjs.org/@commitlint/cli@17.5.1:
     resolution: {integrity: sha512-pRRgGSzdHQHehxZbGA3qF6wVPyl+EEQgTe/t321rtMLFbuJ7nRj2waS17s/v5oEbyZtiY5S8PGB6XtEIm0I+Sg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@commitlint/cli/-/cli-17.5.1.tgz}
@@ -5561,7 +5553,6 @@ packages:
     resolution: {integrity: sha512-+1ixf1BTOLuH+ORb4x8vYMPeIt38n9q0fJDwhv9nSxrV46mxbLF0nmELIo9CKQB2gHfuC4+hww6xejJ6VYnBHQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@umijs/route-utils/-/route-utils-4.0.1.tgz}
     name: '@umijs/route-utils'
     version: 4.0.1
-    dev: true
 
   registry.npmjs.org/@umijs/server@4.0.65:
     resolution: {integrity: sha512-O1vuq1Rdj8Kfc6rBlgYOUe7y2+YNSXi5Tp9DDYwXo4IJKiIsbxCNWOyrP0d7o44GcEYjq+1DjJwBl6ZBwRDKGQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@umijs/server/-/server-4.0.65.tgz}
@@ -5608,7 +5599,6 @@ packages:
       react: '*'
     dependencies:
       react: registry.npmjs.org/react@16.14.0
-    dev: true
 
   registry.npmjs.org/@umijs/utils@4.0.64:
     resolution: {integrity: sha512-8+vn5mcFR9RWnXjs/IgUypRN05EARo9XPObgFHgSwobCqBdgpZ8kzlxTGbnUoJZaKDFqaQb+lj6XHLUM9qCTEQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/@umijs/utils/-/utils-4.0.64.tgz}
@@ -5861,7 +5851,6 @@ packages:
     version: 1.1.0
     dependencies:
       object-assign: registry.npmjs.org/object-assign@4.1.1
-    dev: true
 
   registry.npmjs.org/agent-base@4.3.0:
     resolution: {integrity: sha512-salcGninV0nPrwpGNn4VTXBb1SOuXQBiqbrNXoeizJsHrsL6ERFM2Ne3JUSBWRE6aeNJI2ROP/WEEIDUiDe3cg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/agent-base/-/agent-base-4.3.0.tgz}
@@ -5897,7 +5886,7 @@ packages:
     version: 1.0.0
     dev: false
 
-  registry.npmjs.org/ahooks@3.7.6(react@18.2.0):
+  registry.npmjs.org/ahooks@3.7.6(react@16.14.0):
     resolution: {integrity: sha512-p+2j4H/BI9vqXR0fZI7S/q6fUPxPklQnHqvU7zAVBljMFNSFeYRWB2iHHbjpXGOwUTOBYCh2OuvIHyJYj6Lpag==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/ahooks/-/ahooks-3.7.6.tgz}
     id: registry.npmjs.org/ahooks/3.7.6
     name: ahooks
@@ -5913,7 +5902,7 @@ packages:
       intersection-observer: registry.npmjs.org/intersection-observer@0.12.2
       js-cookie: registry.npmjs.org/js-cookie@2.2.1
       lodash: registry.npmjs.org/lodash@4.17.21
-      react: registry.npmjs.org/react@18.2.0
+      react: registry.npmjs.org/react@16.14.0
       resize-observer-polyfill: registry.npmjs.org/resize-observer-polyfill@1.5.1
       screenfull: registry.npmjs.org/screenfull@5.2.0
       tslib: registry.npmjs.org/tslib@2.5.0
@@ -6490,7 +6479,7 @@ packages:
       babel-plugin-syntax-jsx: registry.npmjs.org/babel-plugin-syntax-jsx@6.18.0
       lodash: registry.npmjs.org/lodash@4.17.21
       picomatch: registry.npmjs.org/picomatch@2.3.1
-      styled-components: registry.npmjs.org/styled-components@5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      styled-components: registry.npmjs.org/styled-components@5.3.9(react-dom@17.0.2)(react-is@18.2.0)(react@16.14.0)
 
   registry.npmjs.org/babel-plugin-styled-components@2.1.1(styled-components@5.3.9):
     resolution: {integrity: sha512-c8lJlszObVQPguHkI+akXv8+Jgb9Ccujx0EetL7oIvwU100LxO6XAGe45qry37wUL40a5U9f23SYrivro2XKhA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/babel-plugin-styled-components/-/babel-plugin-styled-components-2.1.1.tgz}
@@ -6505,7 +6494,7 @@ packages:
       babel-plugin-syntax-jsx: registry.npmjs.org/babel-plugin-syntax-jsx@6.18.0
       lodash: registry.npmjs.org/lodash@4.17.21
       picomatch: registry.npmjs.org/picomatch@2.3.1
-      styled-components: registry.npmjs.org/styled-components@5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
+      styled-components: registry.npmjs.org/styled-components@5.3.9(react-dom@17.0.2)(react-is@18.2.0)(react@16.14.0)
 
   registry.npmjs.org/babel-plugin-syntax-jsx@6.18.0:
     resolution: {integrity: sha512-qrPaCSo9c8RHNRHIotaufGbuOBN8rtdC4QrrFFc43vyWCCz7Kl7GL1PGaXtMGQZUXrkCjNEgxDfmAuAabr/rlw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/babel-plugin-syntax-jsx/-/babel-plugin-syntax-jsx-6.18.0.tgz}
@@ -12070,7 +12059,6 @@ packages:
     resolution: {integrity: sha512-SY0SwuPOHRwKcCNTdsntPYb+Zddz5mDUIVFABzRMqmAiL41pMeyoQFGxYAw5zdc9NnH4pbJqiqqp5ckfxa+zSA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/lodash.tonumber/-/lodash.tonumber-4.0.3.tgz}
     name: lodash.tonumber
     version: 4.0.3
-    dev: true
 
   registry.npmjs.org/lodash.truncate@4.4.2:
     resolution: {integrity: sha512-jttmRe7bRse52OsWIMDLaXxWqRAmtIUccAQ3garviCqJjafXOfNMO0yMfNpdD6zbGaTU0P5Nz7e7gAT6cKmJRw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/lodash.truncate/-/lodash.truncate-4.4.2.tgz}
@@ -13446,7 +13434,6 @@ packages:
     resolution: {integrity: sha512-hJmu9D+bNB40YpL9jYebQl4lsTW6yEHRTroJzNLqQJYHm7c+NQnJGfZmIWh8S3q3KoaxV1aLhV6B3+0N0/kyJg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/omit.js/-/omit.js-2.0.2.tgz}
     name: omit.js
     version: 2.0.2
-    dev: true
 
   registry.npmjs.org/on-exit-leak-free@0.2.0:
     resolution: {integrity: sha512-dqaz3u44QbRXQooZLTUKU41ZrzYrcvLISVgbrzbyCMxpmSLJvZ3ZamIJIZ29P6OhZIkNIQKosdeM6t1LYbA9hg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/on-exit-leak-free/-/on-exit-leak-free-0.2.0.tgz}
@@ -13846,7 +13833,6 @@ packages:
     resolution: {integrity: sha512-G6zHoVqC6GGTQkZwF4lkuEyMbVOjoBKAEybQUypI1WTkqinCOrq2x6U2+phkJ1XsEMTy4LjtwPI7HW+NVrRR2w==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-2.4.0.tgz}
     name: path-to-regexp
     version: 2.4.0
-    dev: true
 
   registry.npmjs.org/path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/path-type/-/path-type-4.0.0.tgz}
@@ -15113,7 +15099,6 @@ packages:
       rc-util: registry.npmjs.org/rc-util@5.29.3(react-dom@17.0.2)(react@16.14.0)
       react: registry.npmjs.org/react@16.14.0
       react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/rc-image@5.16.0(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-11DOye57IgTXh2yTsmxFNynZJG3tdx8RZnnaqb38eYWrBPPyhVHIuURxyiSZ8B68lEUAggR7SBA0Zb95KP/CyQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/rc-image/-/rc-image-5.16.0.tgz}
@@ -15572,7 +15557,6 @@ packages:
       react-is: registry.npmjs.org/react-is@16.13.1
       react-lifecycles-compat: registry.npmjs.org/react-lifecycles-compat@3.0.4
       shallowequal: registry.npmjs.org/shallowequal@1.1.0
-    dev: true
 
   registry.npmjs.org/rc-util@5.29.3(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-wX6ZwQTzY2v7phJBquN4mSEIFR0E0qumlENx0zjENtDvoVSq2s7cR95UidKRO1hOHfDsecsfM9D1gO4Kebs7fA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/rc-util/-/rc-util-5.29.3.tgz}
@@ -15676,18 +15660,6 @@ packages:
       loose-envify: registry.npmjs.org/loose-envify@1.4.0
       react: registry.npmjs.org/react@18.1.0
       scheduler: registry.npmjs.org/scheduler@0.22.0
-
-  registry.npmjs.org/react-dom@18.2.0(react@18.2.0):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz}
-    id: registry.npmjs.org/react-dom/18.2.0
-    name: react-dom
-    version: 18.2.0
-    peerDependencies:
-      react: ^18.2.0
-    dependencies:
-      loose-envify: registry.npmjs.org/loose-envify@1.4.0
-      react: registry.npmjs.org/react@18.2.0
-      scheduler: registry.npmjs.org/scheduler@0.23.0
 
   registry.npmjs.org/react-error-boundary@3.1.4(react@16.14.0):
     resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/react-error-boundary/-/react-error-boundary-3.1.4.tgz}
@@ -15815,7 +15787,6 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz}
     name: react-lifecycles-compat
     version: 3.0.4
-    dev: true
 
   registry.npmjs.org/react-merge-refs@1.1.0:
     resolution: {integrity: sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/react-merge-refs/-/react-merge-refs-1.1.0.tgz}
@@ -16025,7 +15996,6 @@ packages:
       prop-types: registry.npmjs.org/prop-types@15.8.1
       react: registry.npmjs.org/react@16.14.0
       react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/react-webcam@7.0.1(react-dom@17.0.2)(react@16.14.0):
     resolution: {integrity: sha512-8E/Eb/7ksKwn5QdLn67tOR7+TdP9BZdu6E5/DSt20v8yfW/s0VGBigE6VA7R4278mBuBUowovAB3DkCfVmSPvA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/react-webcam/-/react-webcam-7.0.1.tgz}
@@ -16065,6 +16035,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: registry.npmjs.org/loose-envify@1.4.0
+    dev: true
 
   registry.npmjs.org/reactcss@1.2.3(react@16.14.0):
     resolution: {integrity: sha512-KiwVUcFu1RErkI97ywr8nvx8dNOpT03rbnma0SSalTYjkrPYaEajR4a/MRt6DZ46K6arDRbWMNHF+xH7G7n/8A==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/reactcss/-/reactcss-1.2.3.tgz}
@@ -16076,7 +16047,6 @@ packages:
     dependencies:
       lodash: registry.npmjs.org/lodash@4.17.21
       react: registry.npmjs.org/react@16.14.0
-    dev: true
 
   registry.npmjs.org/read-cache@1.0.0:
     resolution: {integrity: sha512-Owdv/Ft7IjOgm/i0xvNDZ1LrRANRfew4b2prF3OWMQLxLfu3bS8FVhCsrSCMK4lR56Y9ya+AThoTpDCTxCmpRA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/read-cache/-/read-cache-1.0.0.tgz}
@@ -16707,13 +16677,6 @@ packages:
     resolution: {integrity: sha512-6QAm1BgQI88NPYymgGQLCZgvep4FyePDWFpXVK+zNSUgHwlqpJy8VEh8Et0KxTACS4VWwMousBElAZOH9nkkoQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/scheduler/-/scheduler-0.22.0.tgz}
     name: scheduler
     version: 0.22.0
-    dependencies:
-      loose-envify: registry.npmjs.org/loose-envify@1.4.0
-
-  registry.npmjs.org/scheduler@0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/scheduler/-/scheduler-0.23.0.tgz}
-    name: scheduler
-    version: 0.23.0
     dependencies:
       loose-envify: registry.npmjs.org/loose-envify@1.4.0
 
@@ -17397,7 +17360,7 @@ packages:
       inline-style-parser: registry.npmjs.org/inline-style-parser@0.1.1
     dev: true
 
-  registry.npmjs.org/styled-components@5.3.9(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
+  registry.npmjs.org/styled-components@5.3.9(react-dom@17.0.2)(react-is@18.2.0)(react@16.14.0):
     resolution: {integrity: sha512-Aj3kb13B75DQBo2oRwRa/APdB5rSmwUfN5exyarpX+x/tlM/rwZA2vVk2vQgVSP6WKaZJHWwiFrzgHt+CLtB4A==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/styled-components/-/styled-components-5.3.9.tgz}
     id: registry.npmjs.org/styled-components/5.3.9
     name: styled-components
@@ -17416,8 +17379,8 @@ packages:
       babel-plugin-styled-components: registry.npmjs.org/babel-plugin-styled-components@2.1.1(styled-components@5.3.9)
       css-to-react-native: registry.npmjs.org/css-to-react-native@3.2.0
       hoist-non-react-statics: registry.npmjs.org/hoist-non-react-statics@3.3.2
-      react: registry.npmjs.org/react@18.2.0
-      react-dom: registry.npmjs.org/react-dom@18.2.0(react@18.2.0)
+      react: registry.npmjs.org/react@16.14.0
+      react-dom: registry.npmjs.org/react-dom@17.0.2(react@16.14.0)
       react-is: registry.npmjs.org/react-is@18.2.0
       shallowequal: registry.npmjs.org/shallowequal@1.1.0
       supports-color: registry.npmjs.org/supports-color@5.5.0
@@ -17636,7 +17599,6 @@ packages:
     dependencies:
       react: registry.npmjs.org/react@16.14.0
       use-sync-external-store: registry.npmjs.org/use-sync-external-store@1.2.0(react@16.14.0)
-    dev: true
 
   registry.npmjs.org/symbol-observable@1.2.0:
     resolution: {integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz}
@@ -17905,7 +17867,6 @@ packages:
     resolution: {integrity: sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.6.0.tgz}
     name: tinycolor2
     version: 1.6.0
-    dev: true
 
   registry.npmjs.org/tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/tmp/-/tmp-0.0.33.tgz}
@@ -18608,7 +18569,6 @@ packages:
       react: '>=16.9.0'
     dependencies:
       react: registry.npmjs.org/react@16.14.0
-    dev: true
 
   registry.npmjs.org/use-media-antd-query@1.1.0(react@16.14.0):
     resolution: {integrity: sha512-B6kKZwNV4R+l4Rl11sWO7HqOay9alzs1Vp1b4YJqjz33YxbltBCZtt/yxXxkXN9rc1S7OeEL/GbwC30Wmqhw6Q==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/use-media-antd-query/-/use-media-antd-query-1.1.0.tgz}
@@ -18619,7 +18579,6 @@ packages:
       react: '>=16.9.0'
     dependencies:
       react: registry.npmjs.org/react@16.14.0
-    dev: true
 
   registry.npmjs.org/use-memo-one@1.1.3(react@16.14.0):
     resolution: {integrity: sha512-g66/K7ZQGYrI6dy8GLpVcMsBp4s17xNkYJVSMvTEevGy3nDxHOfE6z8BVE22+5G5x7t3+bhzrlTDB7ObrEE0cQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/use-memo-one/-/use-memo-one-1.1.3.tgz}
@@ -18641,7 +18600,6 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: registry.npmjs.org/react@16.14.0
-    dev: true
 
   registry.npmjs.org/util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz}
@@ -18829,7 +18787,6 @@ packages:
     version: 4.0.3
     dependencies:
       loose-envify: registry.npmjs.org/loose-envify@1.4.0
-    dev: true
 
   registry.npmjs.org/watchpack@2.4.0:
     resolution: {integrity: sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/watchpack/-/watchpack-2.4.0.tgz}
