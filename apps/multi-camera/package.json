@@ -2,7 +2,7 @@
   "private": true,
   "author": "Sila",
   "scripts": {
-    "dev": "umi dev",
+    "_dev": "umi dev",
     "build": "umi build",
     "postinstall": "umi setup",
     "setup": "umi setup",
@@ -14,7 +14,10 @@
     "dayjs": "^1.11.7",
     "umi": "^4.0.65",
     "@ant-design/pro-components": "^2.4.4",
-    "@ant-design/icons": "^5.0.1"
+    "@ant-design/icons": "^5.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@next-dev/utils":"workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.0.35",
