@@ -10,20 +10,6 @@ const imgDate = () => dayjs().format('DD-MM-YYYY hh:mm:ss a');
 const captureImgName = (fileName = 'capture') => {
   return `${fileName}_${imgDate()}.jpg`.replace(/\s+/g, '_');
 };
-// const isShowPlayerCame = true;
-
-// This function converts a base64 encoded string to a Blob object
-function convertBase64ToBlob(base64: string) {
-  const parts = base64.split(';base64,');
-  const contentType = parts[0].split(':')[1];
-  const raw = window.atob(parts[1]);
-  const rawLength = raw.length;
-  const uInt8Array = new Uint8Array(rawLength);
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i);
-  }
-  return new Blob([uInt8Array], { type: contentType });
-}
 
 export const useAppLogic = () => {
   const [devices = [], { showCamera }] = useVideoInput();
@@ -71,42 +57,44 @@ export const useAppLogic = () => {
   }));
 
   const onCaptureBy = (ind: number, fileName: string) => {
-    const capture = cameras[ind].ref?.current?.getScreenshot();
+    const capture = cameras[ind].ref?.current?.getCanvas();
     if (capture) {
-      const blob = convertBase64ToBlob(capture);
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = captureImgName(
-        ind.toString().padStart(2, '0') + '_' + fileName,
-      );
-      link.click();
+      capture.toBlob((blob: any) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = captureImgName(
+          ind.toString().padStart(2, '0') + '_' + fileName,
+        );
+        link.click();
+      });
     }
   };
-  const onCapture = () => {
+
+  const onCapture = async () => {
     const captureData = [];
-    cameras?.forEach(async (_, ind) => {
-      const getCapture = cameras[ind].ref?.current?.getScreenshot();
-
-      function handleDownload() {
-        const capture = cameras[ind].ref?.current?.getScreenshot();
-        if (capture) {
-          const blob = convertBase64ToBlob(capture);
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = captureImgName(
-            ind.toString().padStart(2, '0') + '_' + _.label,
-          );
-          link.click();
+    await Promise.allSettled(
+      cameras?.map(async (camera, ind) => {
+        const canvas = camera.ref?.current?.getCanvas();
+        if (canvas) {
+          try {
+            const blob = await new Promise((resolve) => {
+              canvas.toBlob(resolve);
+            });
+            const url = URL.createObjectURL(blob as Blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = captureImgName(
+              ind.toString().padStart(2, '0') + '_' + camera.label,
+            );
+            link.click();
+            captureData.push(blob);
+          } catch (error) {
+            console.error(`Camera ${ind} capture failed:`, error);
+          }
         }
-      }
-      if (getCapture) {
-        captureData.push(getCapture);
-        handleDownload();
-      }
-    });
-
+      }),
+    );
     console.log('captureData', captureData.length);
   };
 
