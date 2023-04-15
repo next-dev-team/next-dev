@@ -34,8 +34,6 @@
     "antd": "^5.3.3"
   },
   "devDependencies": {
-    "react-beautiful-dnd": "^13.1.1",
-    "react-webcam": "^7.0.1",
     "@commitlint/cli": "^17.5.1",
     "@commitlint/config-conventional": "^17.4.4",
     "@tailwindcss/line-clamp": "^0.4.4",
@@ -50,10 +48,12 @@
     "lint-staged": "^13.2.0",
     "prettier": "^2.8.7",
     "prettier-plugin-tailwindcss": "^0.2.6",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-webcam": "^7.0.1",
     "tailwind-config": "workspace:*",
     "tailwindcss": "^3.3.1",
     "tsup": "^6.7.0",
-    "turbo": "^1.8.8",
+    "turbo": "^1.9.1",
     "ui": "workspace:*"
   },
   "packageManager": "pnpm@7.15.0",

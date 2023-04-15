@@ -26,11 +26,11 @@ export default function Components(props: ICardBlog1Props) {
   const { dataItems = {} } = props;
 
   return (
-   <Space>
-     <button className="bg-primary text-white py-xs px-md rounded-md font-bold hover:bg-primary-hover active:bg-primary-active">
-    Primary Antd Tw
-  </button>
-  <Button type='primary'>Primary Antd</Button>
-   </Space>
+    <Space>
+      <button className="bg-primary cursor-pointer text-white py-xs px-md rounded-md font-bold hover:bg-primary-500 active:bg-primary">
+        Primary Antd Tw
+      </button>
+      <Button type="primary">Primary Antd</Button>
+    </Space>
   );
 }
