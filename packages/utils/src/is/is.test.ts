@@ -1,5 +1,108 @@
-import { isArray, isBoolean, isEmpty, isFunction, isObject } from './';
+import {
+  isArray,
+  isBoolean,
+  isDate,
+  isEmpty,
+  isEqual,
+  isFunction,
+  isNull,
+  isNumber,
+  isObject,
+  isUndefined,
+} from './';
 
+// --------------------- isDate --------------------------
+test('isEqual returns true for equal primitive values', () => {
+  expect(isEqual(1, 1)).toBe(true);
+  expect(isEqual('test', 'test')).toBe(true);
+  expect(isEqual(true, true)).toBe(true);
+});
+
+test('isEqual returns false for different primitive values', () => {
+  expect(isEqual(1, 2)).toBe(false);
+  expect(isEqual('test', 'testing')).toBe(false);
+  expect(isEqual(true, false)).toBe(false);
+});
+
+test('isEqual returns true for equal objects', () => {
+  const objA = { a: 1, b: 2, c: { d: 3 } };
+  const objB = { a: 1, b: 2, c: { d: 3 } };
+  expect(isEqual(objA, objB)).toBe(true);
+});
+
+test('isEqual returns false for different objects', () => {
+  const objA = { a: 1, b: 2, c: { d: 3 } };
+  const objB = { a: 1, b: 2, c: { d: 4 } };
+  expect(isEqual(objA, objB)).toBe(false);
+});
+// --------------------- isDate --------------------------
+describe('isDate', () => {
+  it('should return true for date objects', () => {
+    expect(isDate(new Date())).toBe(true);
+  });
+
+  it('should return false for non-date values', () => {
+    expect(isDate(undefined)).toBe(false);
+    expect(isDate(null)).toBe(false);
+    expect(isDate('')).toBe(false);
+    expect(isDate('2022-01-01')).toBe(false);
+    expect(isDate(0)).toBe(false);
+    expect(isDate(false)).toBe(false);
+    expect(isDate({})).toBe(false);
+    expect(isDate([])).toBe(false);
+    expect(isDate(NaN)).toBe(false);
+  });
+});
+// --------------------- isUndefined --------------------------
+describe('isUndefined', () => {
+  it('should return true for undefined values', () => {
+    expect(isUndefined(undefined)).toBe(true);
+  });
+
+  it('should return false for defined values', () => {
+    expect(isUndefined(null)).toBe(false);
+    expect(isUndefined('')).toBe(false);
+    expect(isUndefined(0)).toBe(false);
+    expect(isUndefined(false)).toBe(false);
+    expect(isUndefined({})).toBe(false);
+    expect(isUndefined([])).toBe(false);
+  });
+});
+// --------------------- isNumber --------------------------
+describe('isNumber', () => {
+  it('should return true for numbers', () => {
+    expect(isNumber(0)).toBe(true);
+    expect(isNumber(42)).toBe(true);
+    expect(isNumber(Math.PI)).toBe(true);
+  });
+
+  it('should return false for non-numbers', () => {
+    expect(isNumber(undefined)).toBe(false);
+    expect(isNumber(null)).toBe(false);
+    expect(isNumber('')).toBe(false);
+    expect(isNumber('42')).toBe(false);
+    expect(isNumber(true)).toBe(false);
+    expect(isNumber(false)).toBe(false);
+    expect(isNumber({})).toBe(false);
+    expect(isNumber([])).toBe(false);
+    expect(isNumber(NaN)).toBe(false);
+  });
+});
+// --------------------- isNull --------------------------
+describe('isNull', () => {
+  it('should return true for null values', () => {
+    expect(isNull(null)).toBe(true);
+  });
+
+  it('should return false for non-null values', () => {
+    expect(isNull(undefined)).toBe(false);
+    expect(isNull('')).toBe(false);
+    expect(isNull(0)).toBe(false);
+    expect(isNull(false)).toBe(false);
+    expect(isNull({})).toBe(false);
+    expect(isNull([])).toBe(false);
+  });
+});
 // --------------------- isFunction --------------------------
 describe('isFunction', () => {
   it('should return true for functions', () => {

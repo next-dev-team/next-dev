@@ -1,3 +1,37 @@
+export function isEqual(a: any, b: any): boolean {
+  if (a === b) return true;
+
+  if (typeof a !== 'object' || typeof b !== 'object') return false;
+
+  const keysA = Object.keys(a);
+  const keysB = Object.keys(b);
+
+  if (keysA.length !== keysB.length) return false;
+
+  for (const key of keysA) {
+    if (!keysB.includes(key)) return false;
+    if (!isEqual(a[key], b[key])) return false;
+  }
+
+  return true;
+}
+
+export function isDate(value: unknown): value is Date {
+  return value instanceof Date && !isNaN((value as Date).getTime());
+}
+
+export function isUndefined(value: unknown): value is undefined {
+  return typeof value === 'undefined';
+}
+
+export function isNumber(value: unknown): value is number {
+  return typeof value === 'number' && !isNaN(value);
+}
+
+export function isNull(value: unknown): value is null {
+  return value === null;
+}
+
 export const isFunction = (value: any): value is Function => {
   return typeof value === 'function';
 };
