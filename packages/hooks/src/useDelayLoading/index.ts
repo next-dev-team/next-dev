@@ -7,15 +7,17 @@ export default function useDelayLoading(
 ): UseDelayLoadingReturnType {
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  const startLoading = () => {
     setIsLoading(true);
-
-    const timeoutId = setTimeout(() => {
+    setTimeout(() => {
       setIsLoading(false);
     }, delayTimeMs);
+  };
 
-    return () => clearTimeout(timeoutId);
+  useEffect(() => {
+    const timeoutId = startLoading();
+    return () => clearTimeout(timeoutId as any);
   }, [delayTimeMs]);
 
-  return [isLoading, () => setIsLoading(false)];
+  return [isLoading, startLoading];
 }
