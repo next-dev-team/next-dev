@@ -39,3 +39,10 @@ yarn-error.log*
 
 # ui
 dist/
+
+# Jest test files
+__tests__/
+*.test.js
+*.spec.js
+# Coverage files
+.coverage
