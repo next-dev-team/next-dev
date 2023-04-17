@@ -6,6 +6,6 @@ export default defineConfig({
     slave: {},
   },
   model: {},
-  headScripts: [`window.publicPath = '//localhost:8001/';`],
+  // headScripts: [`window.publicPath = '//localhost:8001/';`],
   runtimePublicPath: {},
 });
