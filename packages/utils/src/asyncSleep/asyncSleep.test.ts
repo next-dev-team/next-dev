@@ -1,4 +1,4 @@
-import { asyncSleep } from './';
+import asyncSleep from '.';
 
 // --------------------------- asyncSleep ------------------------------
 describe('asyncSleep', () => {

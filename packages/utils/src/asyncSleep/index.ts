@@ -7,7 +7,7 @@
  *   console.log(result); // "Hello, world!"
  * }
  */
-export async function asyncSleep<T>(
+export default async function asyncSleep<T>(
   ms: number,
   mockValue?: T,
 ): Promise<unknown> {
