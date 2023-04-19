@@ -1,6 +1,6 @@
 [build]
 command = "npm run build"
-publish = "apps/multi-camera/"
+publish = "apps/multi-camera/dist"
 
 [[redirects]]
 from = "/*"
