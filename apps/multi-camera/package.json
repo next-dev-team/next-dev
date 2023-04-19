@@ -4,10 +4,11 @@
   "author": "Sila",
   "scripts": {
     "_dev": "cross-env PORT=8001 max dev",
-    "build": "max build",
+    "build": "cross-env UMI_ENV=prod max build",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "setup": "max setup",
+    "preview": "max preview",
     "upd": "pnpm --interactive update --latest"
   },
   "dependencies": {
