@@ -1,6 +1,11 @@
-# [build]
-# command = "npm run build"
-# publish = "apps/multi-camera/dist"
+[build.environment]
+NODE_VERSION = "16"
+NPM_FLAGS = "--version"
+
+[build]
+# for demo or preview
+command = "npx pnpm i --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm run build"
+publish = "dist"
 
 [[redirects]]
 from = "/*"
