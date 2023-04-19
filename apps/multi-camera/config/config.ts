@@ -5,8 +5,8 @@ export default defineConfig({
   // publicPath: '/multi-camera/',
   // mountElementId: 'multi-camera/',
   npmClient: 'pnpm',
-  qiankun: {
-    slave: {},
-  },
+  // qiankun: {
+  //   slave: {},
+  // },
   model: {},
 });

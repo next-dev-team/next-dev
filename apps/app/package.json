@@ -7,8 +7,9 @@
     "dev": "max dev",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
+    "preview": "max preview",
     "setup": "max setup",
-    "start": "npm run dev"
+    "start": "npm run dev" 
   },
   "dependencies": {
     "@ant-design/icons": "^5.0.1",
