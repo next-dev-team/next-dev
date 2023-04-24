@@ -223,6 +223,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.0.4
         version: registry.npmjs.org/@types/react-dom@18.0.11
+      ahooks:
+        specifier: ^3.7.6
+        version: registry.npmjs.org/ahooks@3.7.6(react@18.2.0)
       eslint:
         specifier: ^8.38.0
         version: registry.npmjs.org/eslint@8.38.0

@@ -17,6 +17,9 @@
     "upd": "pnpm --interactive update --latest",
     "test": "jest --watch"
   },
+  "dependencies": {
+    "ahooks": "^3.7.6"
+  },
   "peerDependencies": {
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
