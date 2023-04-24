@@ -68,7 +68,7 @@
     "ts-jest": "^29.1.0",
     "tsup": "^6.7.0",
     "turbo": "^1.9.3",
-    "ui": "workspace:*"
+    "@next-dev/ui": "workspace:*"
   },
   "packageManager": "pnpm@7.15.0",
   "engines": {

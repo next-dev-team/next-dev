@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "author": "",
+  "scripts": {
+    "build": "max build",
+    "dev": "max dev",
+    "format": "prettier --cache --write .",
+    "postinstall": "max setup",
+    "setup": "max setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "@umijs/max": "^4.0.66"
+  },
+  "devDependencies": {
+    "@next-dev/ui": "workspace:*",
+    "@types/react": "^18.0.38",
+    "@types/react-dom": "^18.0.11",
+    "lint-staged": "^13.2.1",
+    "prettier": "^2.8.8",
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "prettier-plugin-packagejson": "^2.4.3",
+    "typescript": "^5.0.4"
+  }
+}

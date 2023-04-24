@@ -35,5 +35,6 @@
     "xchange",
     "yalc",
     "Ybiz"
-  ]
+  ],
+  "vue.features.codeActions.enable": false
 }
