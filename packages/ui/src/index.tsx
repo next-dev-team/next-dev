@@ -1,5 +1,2 @@
-export * from '@ant-design/icons';
-export * from '@ant-design/pro-components';
-//@ts-ignore
-export * from 'antd';
-export { default as AntdProvider } from './Provider/AntdProvider';
+export { default as Button } from './Button';
+export { default as DataTable } from './DataTable';

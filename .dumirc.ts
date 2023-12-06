@@ -15,8 +15,8 @@ export default defineConfig({
     atomDirs: [
       // antd-ui
       // TW UI
-      { type: 'tw-ui', dir: 'packages/ui/src' },
-      { type: 'tw-ui', dir: 'packages/ui/' },
+      { type: 'antd-ui', dir: 'packages/ui/src' },
+      { type: 'antd-ui', dir: 'packages/ui/' },
     ],
   },
   favicons: [
