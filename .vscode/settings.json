@@ -1,4 +1,12 @@
 {
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "One Dark Pro Darker",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.inlineSuggest.enabled": true,
+  "editor.fontFamily": "'fira code'",
+  "editor.fontLigatures": "true",
+  "editor.fontWeight": "normal",
+  "editor.fontSize": 13,
   "eslint.validate": ["typescript", "typescriptreact"],
   "[typescript]": {
     "editor.formatOnSave": true,
@@ -36,5 +44,4 @@
     "yalc",
     "Ybiz"
   ],
-  "vue.features.codeActions.enable": false
 }
