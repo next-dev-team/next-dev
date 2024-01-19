@@ -4,7 +4,7 @@
   "author": "",
   "scripts": {
     "build": "max build",
-    "dev": "max dev",
+    "dev_": "max dev",
     "format": "prettier --cache --write .",
     "postinstall": "max setup",
     "setup": "max setup",

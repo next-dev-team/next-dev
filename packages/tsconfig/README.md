@@ -1,6 +1,6 @@
 ---
 nav:
-  title: Hooks
+  title: Config
   order: 1
 
 toc: content
