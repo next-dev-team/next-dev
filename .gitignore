@@ -46,3 +46,4 @@ __tests__/
 *.spec.js
 # Coverage files
 .coverage
+server

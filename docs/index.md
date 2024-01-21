@@ -10,7 +10,7 @@ hero:
     - text: Get started now
       link: /blog
     - text: GitHub
-      link: https://github.com/umijs/dumi
+      link: https://github.com/next-dev-team/next-dev-v2
 features:
   - title: Better compilation performance
     emoji: 🚀

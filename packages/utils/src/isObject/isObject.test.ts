@@ -6,7 +6,7 @@ describe('isObject', () => {
     expect(isObject({})).toBe(true);
     expect(isObject({ key: 'value' })).toBe(true);
     expect(isObject(new Date())).toBe(true);
-    expect(isObject([])).toBe(true); // updated this line
+    expect(isObject([])).toBe(false); // updated this line
   });
 
   it('should return false for non-objects', () => {

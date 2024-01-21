@@ -1,5 +1,7 @@
 import { defineConfig } from 'dumi';
 import type { SiteThemeConfig } from 'dumi-theme-antd-style';
+// more example about dumi https://github.com/thundersdata-frontend/td-design
+// https://github.com/ant-design/pro-components/blob/master/.dumirc.ts
 
 // @ts-ignore
 import { homepage, name } from './package.json';
@@ -7,9 +9,8 @@ import { homepage, name } from './package.json';
 const isProd = process.env.NODE_ENV === 'production';
 
 const themeConfig: SiteThemeConfig = {
-  name,
+  name: 'Next Dev',
   // logo: 'https://gw.alipayobjects.com/zos/hitu-asset/c88e3678-6900-4289-8538-31367c2d30f2/hitu-1609235995955-image.png',
-
   socialLinks: { github: homepage },
   apiHeader: {
     pkg: name,
@@ -27,7 +28,7 @@ export default defineConfig({
   ],
   locales: [
     { id: 'en-US', name: 'English' },
-    { id: 'zh-CN', name: '中文' },
+    // { id: 'zh-CN', name: '中文' },
   ],
   alias: {},
   styles: [
@@ -49,8 +50,6 @@ export default defineConfig({
     // entryFile: './packages/utils/src/index.ts',
     // auto generate docs
     atomDirs: [
-      // antd-ui
-      // TW UI
       { type: 'apps', dir: 'apps/' },
       { type: 'packages', dir: 'packages/' },
     ],

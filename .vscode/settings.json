@@ -44,4 +44,7 @@
     "yalc",
     "Ybiz"
   ],
+  "[ignore]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }
