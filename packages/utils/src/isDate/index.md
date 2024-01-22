@@ -1,10 +1,10 @@
 ---
-title: isClient
+title: isDate
 ---
 
- `isClient` function is used to check whether it client side
+ `isDate` function is used to check whether it's date
 
-## isClient
+## isDate
 
 ```tsx | pure
 const currentDate = new Date()
