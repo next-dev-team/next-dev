@@ -25,7 +25,7 @@ const tailPkgList = pkgList.map((path) => {
   };
 });
 
-console.log('tailPkgList', tailPkgList);
+console.log('tailPkgList', pkgList);
 
 const themeConfig: SiteThemeConfig = {
   name: 'Next Dev',
@@ -71,20 +71,10 @@ export default defineConfig({
     // Configure the entry file path, API parsing will start from here
     // entryFile: './packages/utils/src/index.ts',
     // auto generate docs
-    // atomDirs: [
-    //   { type: 'apps', dir: 'apps/' },
-    //   { type: 'packages', dir: 'packages/' },
-    // ],
     atomDirs: [
-      // packages
-      // ...tailPkgList.map(({ path, src }) => ({
-      //   type: path,
-      //   dir: `${src}`,
-      //   subType: `${path}`,
-      // })),
       ...tailPkgList.map(({ src, path }) => ({
         type: path,
-        dir: `${src.replace('src/', '')}`,
+        dir: src,
       })),
     ],
   },
