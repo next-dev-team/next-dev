@@ -1,5 +1,8 @@
 import { defineConfig } from 'dumi';
 import type { SiteThemeConfig } from 'dumi-theme-antd-style';
+import { readdirSync } from 'fs';
+import { join } from 'path';
+
 // more example about dumi https://github.com/thundersdata-frontend/td-design
 // https://github.com/ant-design/pro-components/blob/master/.dumirc.ts
 
@@ -7,6 +10,22 @@ import type { SiteThemeConfig } from 'dumi-theme-antd-style';
 import { homepage, name } from './package.json';
 
 const isProd = process.env.NODE_ENV === 'production';
+
+const headPkgList: string[] = [];
+// utils must build before core
+// runtime must build before renderer-react
+const pkgList = readdirSync(join(__dirname, 'packages')).filter(
+  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
+);
+
+const tailPkgList = pkgList.map((path) => {
+  return {
+    src: `packages/${path}/src/`,
+    path,
+  };
+});
+
+console.log('tailPkgList', tailPkgList);
 
 const themeConfig: SiteThemeConfig = {
   name: 'Next Dev',
@@ -21,7 +40,10 @@ const themeConfig: SiteThemeConfig = {
 };
 
 export default defineConfig({
-  themeConfig,
+  themeConfig: {
+    ...themeConfig,
+    // nav: [{ title: 'Docs', link: '/packages/utils' }],
+  },
   html2sketch: {},
   favicons: [
     'https://gw.alipayobjects.com/zos/hitu-asset/c88e3678-6900-4289-8538-31367c2d30f2/hitu-1609235995955-image.png',
@@ -49,9 +71,21 @@ export default defineConfig({
     // Configure the entry file path, API parsing will start from here
     // entryFile: './packages/utils/src/index.ts',
     // auto generate docs
+    // atomDirs: [
+    //   { type: 'apps', dir: 'apps/' },
+    //   { type: 'packages', dir: 'packages/' },
+    // ],
     atomDirs: [
-      { type: 'apps', dir: 'apps/' },
-      { type: 'packages', dir: 'packages/' },
+      // packages
+      // ...tailPkgList.map(({ path, src }) => ({
+      //   type: path,
+      //   dir: `${src}`,
+      //   subType: `${path}`,
+      // })),
+      ...tailPkgList.map(({ src, path }) => ({
+        type: path,
+        dir: `${src.replace('src/', '')}`,
+      })),
     ],
   },
 });
