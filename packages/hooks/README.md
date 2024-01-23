@@ -1,9 +1,8 @@
 ---
 nav:
   title: Hooks
-  order: 1
 
 toc: content
 ---
 
-# Getting-started
+# Hooks

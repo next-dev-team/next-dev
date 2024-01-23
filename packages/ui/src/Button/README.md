@@ -1,8 +1,7 @@
 ---
 nav:
-  title: Config
-
+  title: UI
 toc: content
+title: Button
 ---
 
-# Configs

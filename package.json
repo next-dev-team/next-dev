@@ -17,7 +17,7 @@
     "doc:deploy": "pnpm doc:build",
     "lint": "turbo run lint",
     "upd-main": "pnpm --interactive update --latest",
-    "upd": "turbo run upd"
+    "upd": "turbo run upd --no-cache --continue"
   },
   "authors": [],
   "license": "MIT",
@@ -36,19 +36,19 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@ant-design/pro-components": "^2.6.48",
-    "antd": "^5.13.2",
+    "@commitlint/cli": "^18.5.0",
+    "@commitlint/config-conventional": "^18.5.0",
     "@types/react": "^18.2.48",
-    "typescript": "^5.3.3",
+    "antd": "^5.13.2",
+    "babel-plugin-antd-style": "^1.0.4",
     "cross-env": "^7.0.3",
-    "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3",
-    "ts-jest": "^29.1.1",
+    "dumi-theme-antd-style": "^0.29.7",
+    "ts-jest": "^29.1.2",
     "tsup": "^8.0.1",
     "turbo": "^1.11.3",
-    "@ant-design/icons": "^5.2.6",
-    "dumi-theme-antd-style": "^0.29.7",
-    "babel-plugin-antd-style": "^1.0.4"
+    "typescript": "^5.3.3"
   },
   "packageManager": "pnpm@7.27.0",
   "engines": {
