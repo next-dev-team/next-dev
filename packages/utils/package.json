@@ -18,6 +18,9 @@
     "test": "jest --watch",
     "upd": "pnpm --interactive update --latest"
   },
+  "dependencies": {
+    "fast-equals": "^5.0.1"
+  },
   "devDependencies": {
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
