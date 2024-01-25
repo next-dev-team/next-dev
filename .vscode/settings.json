@@ -16,7 +16,8 @@
     "editor.formatOnSave": true,
     "editor.wordWrap": "on",
     "editor.renderWhitespace": "all",
-    "editor.acceptSuggestionOnEnter": "off"
+    "editor.acceptSuggestionOnEnter": "off",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "typescript.validate.enable": true,
   "eslint.alwaysShowStatus": true,
