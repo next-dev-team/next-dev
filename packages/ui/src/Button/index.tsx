@@ -1,3 +1,1 @@
-export function Button(props: any) {
-  return <button className="bg-red-900" {...props} />;
-}
+export { default as Button } from 'antd/es/button';
