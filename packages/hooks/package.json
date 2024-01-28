@@ -18,15 +18,15 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "ahooks": "^3.7.6"
+    "ahooks": "^3.7.9"
   },
   "peerDependencies": {
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "eslint": "^8.38.0",
     "eslint-config-custom": "workspace:*",
-    "tailwind-config": "workspace:*",
     "react": "^18.1.0",
+    "tailwind-config": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "^6.7.0",
     "typescript": "^5.0.4"
