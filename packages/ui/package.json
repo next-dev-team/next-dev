@@ -22,7 +22,7 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@types/react": "^18.0.35",
+    "@types/react": "^18.2.52",
     "eslint": "^8.38.0",
     "eslint-config-custom": "workspace:*",
     "lorem-ipsum": "^2.0.8",

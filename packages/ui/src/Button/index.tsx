@@ -1,1 +1,2 @@
-export { default as Button } from 'antd/es/button';
+export * from 'antd/es/button';
+export { default } from 'antd/es/button';

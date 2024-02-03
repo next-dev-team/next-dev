@@ -18,7 +18,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "ahooks": "^3.7.9"
+    "ahooks": "^3.7.10"
   },
   "peerDependencies": {
     "@types/react": "^18.0.9",
