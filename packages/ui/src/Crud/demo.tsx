@@ -1,14 +1,9 @@
-import { Space } from 'antd';
-import Button from '.';
+import Crud from '.';
 
 export default function Demo() {
   return (
-    <Space>
-      <Button>Default </Button>
-      <Button type="primary">Primary </Button>
-      <Button type="primary" danger>
-        Primary danger
-      </Button>
-    </Space>
+    <>
+      <Crud />
+    </>
   );
 }

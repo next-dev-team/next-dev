@@ -2,24 +2,23 @@
 nav:
   title: UI
 toc: content
-title: Button
+title: CRUD
 ---
 
 # Button
 
-`Button` is completely use antd button
+`CRUD` is completely build-in CRUD operation include create, view, update and delete etc
 
 ```tsx | pure
-import { Button } from '@next-dev/ui';
+import { Crud } from '@next-dev/ui';
 
 export default () => {
   return (
     <>
-      <Button>Default </Button>
-      <Button type="primary">Primary </Button>
+      <Crud />
     </>
   );
 };
 ```
 
-<code src="./demo.tsx">Button</code>
+<code src="./demo.tsx">Crud</code>
