@@ -10,7 +10,7 @@
 export default async function asyncSleep<T>(
   ms: number,
   mockValue?: T,
-): Promise<unknown> {
+): Promise<T> {
   await new Promise((resolve) => setTimeout(resolve, ms));
-  return Promise.resolve(mockValue);
+  return Promise.resolve(mockValue) as T;
 }

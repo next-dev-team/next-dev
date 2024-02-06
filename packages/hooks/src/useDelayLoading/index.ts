@@ -1,23 +1,32 @@
 import { useEffect, useState } from 'react';
 
-type UseDelayLoadingReturnType = [boolean, () => void];
-
-export default function useDelayLoading(
-  delayTimeMs = 300,
-): UseDelayLoadingReturnType {
+export default function useDelayLoading(delayTimeMs = 300) {
   const [isLoading, setIsLoading] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   const startLoading = () => {
     setIsLoading(true);
-    setTimeout(() => {
+    const id = setTimeout(() => {
       setIsLoading(false);
     }, delayTimeMs);
+    setTimeoutId(id);
+  };
+
+  const stopLoading = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    const timeoutId = startLoading();
-    return () => clearTimeout(timeoutId as any);
-  }, [delayTimeMs]);
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
 
-  return [isLoading, startLoading];
+  return [isLoading, { startLoading, stopLoading }] as const;
 }
