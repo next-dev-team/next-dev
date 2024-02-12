@@ -21,14 +21,14 @@
     "fast-equals": "^5.0.1"
   },
   "devDependencies": {
-    "@next-dev/eslint": "workspace:*",
-    "@next-dev/tsconfig": "workspace:*",
+    "@next-dev/eslint": "0.0.0",
+    "@next-dev/tsconfig": "0.0.0",
     "@types/react": "^18.2.52",
-    "@types/react-dom": "^18.0.4",
+    "@types/react-dom": "^18.2.17",
     "eslint": "^8.38.0",
     "father": "^4.4.0",
-    "react": "^18.1.0",
-    "typescript": "^5.0.4"
+    "react": "^18.2.0",
+    "typescript": "^5.3.3"
   },
   "publishConfig": {
     "access": "public"
