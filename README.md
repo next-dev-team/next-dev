@@ -1,95 +1,79 @@
-# Tamagui + Solito + Next + Expo Monorepo
+# WIP
+
+development in progress
+
+# Warning
+Monorepo is powerful with many benefit but also it's so terry
+
+# Next Dev
+
+Next Dev(Next Generation Dev) is an open source team to sharing all related fullstack resources with the community
+
+## Architecture
+
+We decided to use Monorepo to manage our system, we see [Turborepo](https://github.com/vercel/turbo) is powerful and fast speed monorepo working along with Changesets to manage versioning and package publishing.
+As well as a few others tools preconfigured:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+- [Changesets](https://github.com/changesets/changesets) for managing versioning and changelogs
+- [GitHub Actions](https://github.com/changesets/action) for fully automated package publishing
+
+## What's inside?
+
+Next Dev includes Boilerplate, Example, Docs and Packages
+
+### Packages Folder
+
+Inside the package folder is the packages that we can shared to boilerplate, example, docs or publish it to NPM and so on.
+
+- `@next-dev/cli`: UI components with Ant Design
+- `@next-dev/antd-ui`: UI components with Ant Design
+- `@next-dev/utils`: shared javascript utilities
+- `@next-dev/configs`: shared `config`
+- `@next-dev/lints`: Lint preset
+- `@next-dev/ui`: UI components with Tailwind CSS and more
+- `@next-dev/rn-ui`: React native UI components
+
+### Docs Folder
+
+Inside the docs folder is a placeholder site for documentation ,demo, blog for [Next Dev](https://next-dev-team.github.io/next-dev) powered by [Dumi v2](https://d.umijs.org/)
+
+### Boilerplate Folder
+
+Inside the Boilerplate folder is boilerplate both frontend and backend
+
+- `nextjs-web`: NextJs v13 - (ReactJs Framework), boilerplate for website with hybrid(SSR and SSG) rendering
+- `nuxt3-web`: Nuxt 3 - (VueJs Framework), VueJs boilerplate for website with hybrid(SSR and SSG) rendering
+- `react-next-admin`: Umi 4 - (ReactJs) ,boilerplate for Admin or backstage
+- `vue-next-admin`: Vue 3, boilerplate for Admin or backstage
+- `rn-next`: React Native, boilerplate for Hybrid Mobile(Android ad IOS)
+- `rn-next-universal`: React Native, boilerplate for universal (Android, iOS, macOS,tvOS, Windows, web, browser extensions, Electron.)
+
+### Development Commands
+
+- `pnpm build` - Build all packages including the Storybook site
+- `pnpm dev` - Run all packages locally and docs development
+- `pnpm lint` - Lint all packages
+- `pnpm changeset` - Generate a changeset
+- `pnpm clean` - Clean up all `node_modules` and `dist` folders (runs each package's clean script)
+
+### Clone a single example or boilerplate
+
+Run the following command:
 
 ```sh
-npm create tamagui
+npx degit next-dev-team/next-dev/boilerplate/nextjs-web nextjs-web
+cd nextjs-web
+pnpm install
+git init . && git add . && git commit -m "Init"
 ```
 
-## 🔦 About
+### Contributing
 
-This monorepo is a starter for an Expo + Next.js + Tamagui + Solito app.
+coming soon
 
-Many thanks to [@FernandoTheRojo](https://twitter.com/fernandotherojo) for the Solito starter monorepo which this was forked from. Check out his [talk about using expo + next together at Next.js Conf 2021](https://www.youtube.com/watch?v=0lnbdRweJtA).
+### Community
 
-## 📦 Included packages
-
-- [Tamagui](https://tamagui.dev) 🪄
-- [solito](https://solito.dev) for cross-platform navigation
-- Expo SDK
-- Next.js
-- Expo Router
-
-## 🗂 Folder layout
-
-The main apps are:
-
-- `expo` (native)
-- `next` (web)
-
-- `packages` shared packages across apps
-  - `ui` includes your custom UI kit that will be optimized by Tamagui
-  - `app` you'll be importing most files from `app/`
-    - `features` (don't use a `screens` folder. organize by feature.)
-    - `provider` (all the providers that wrap the app, and some no-ops for Web.)
-
-You can add other folders inside of `packages/` if you know what you're doing and have a good reason to.
-
-## 🏁 Start the app
-
-- Install dependencies: `yarn`
-
-- Next.js local dev: `yarn web`
-
-To run with optimizer on in dev mode (just for testing, it's faster to leave it off): `yarn web:extract`. To build for production `yarn web:prod`.
-
-To see debug output to verify the compiler, add `// debug` as a comment to the top of any file.
-
-- Expo local dev: `yarn native`
-
-## UI Kit
-
-Note we're following the [design systems guide](https://tamagui.dev/docs/guides/design-systems) and creating our own package for components.
-
-See `packages/ui` named `@my/ui` for how this works.
-
-## 🆕 Add new dependencies
-
-### Pure JS dependencies
-
-If you're installing a JavaScript-only dependency that will be used across platforms, install it in `packages/app`:
-
-```sh
-cd packages/app
-yarn add date-fns
-cd ../..
-yarn
-```
-
-### Native dependencies
-
-If you're installing a library with any native code, you must install it in `expo`:
-
-```sh
-cd apps/expo
-yarn add react-native-reanimated
-cd ..
-yarn
-```
-
-## Update new dependencies
-
-### Pure JS dependencies
-
-```sh
-yarn upgrade-interactive
-```
-
-You can also install the native library inside of `packages/app` if you want to get autoimport for that package inside of the `app` folder. However, you need to be careful and install the _exact_ same version in both packages. If the versions mismatch at all, you'll potentially get terrible bugs. This is a classic monorepo issue. I use `lerna-update-wizard` to help with this (you don't need to use Lerna to use that lib).
-
-You may potentially want to have the native module transpiled for the next app. If you get error messages with `Cannot use import statement outside a module`, you may need to use `transpilePackages` in your `next.config.js` and add the module to the array there.
-
-### Deploying to Vercel
-
-- Root: `apps/next`
-- Install command to be `yarn set version stable && yarn install`
-- Build command: leave default setting
-- Output dir: leave default setting
+coming soon
