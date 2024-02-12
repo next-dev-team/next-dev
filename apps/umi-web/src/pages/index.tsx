@@ -1,13 +1,13 @@
-import { useReactive } from '@next-dev/hooks';
-import { Button } from '@next-dev/ui';
+// import { useReactive } from '@next-dev/hooks';
+// import { Button } from '@next-dev/ui';
 import { isArray, isBoolean, strUpperCase } from '@next-dev/utils';
 
 export default function Test() {
-  const state = useReactive({ count: 0 });
-  const { count } = state;
+  // const state = useReactive({ count: 0 });
+  // const { count } = state;
 
   const inc = () => {
-    state.count++;
+    // state.count++;
   };
 
   const testUtil = {
@@ -16,10 +16,10 @@ export default function Test() {
     strUpperCase: strUpperCase('test'),
   };
 
-  console.log('=====>', { count, testUtil });
+  console.log('=====>', { testUtil });
   return (
-    <Button onClick={inc} type="primary">
-      Count {count}
-    </Button>
+    <button onClick={inc} type='button'>
+      Count
+    </button>
   );
 }

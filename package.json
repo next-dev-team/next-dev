@@ -1,57 +1,50 @@
 {
-  "name": "next-dev",
-  "version": "0.0.1",
-  "description": "",
+  "name": "starter-free",
+  "private": true,
+  "workspaces": [
+    "./apps/*",
+    "./packages/*"
+  ],
   "scripts": {
-    "dev_": "dumi dev",
-    "pre:dumi": "dumi preview",
-    "build:dumi": "dumi build",
+    "doc": "dumi dev",
+    "pre:doc": "dumi preview",
+    "build:doc": "dumi build",
     "prepare": "dumi setup",
-    "setup": "pnpm install",
-    "build": "turbo run build",
-    "dev": "turbo run dev --no-cache --continue",
-    "test": "turbo run test",
-    "doc:dev": "dumi dev",
-    "doc:build": "pnpm clean &&  turbo run build --filter ./doc... && pnpm build:dumi",
-    "doc:predeploy": "turbo run publish --filter ./boilerplate/doc...",
-    "doc:deploy": "pnpm doc:build",
-    "lint": "turbo run lint",
-    "upd-main": "pnpm --interactive update --latest",
-    "upd": "turbo run upd --no-cache --continue"
+    "setup": "yarn install",
+    "native": "cd apps/expo && yarn start",
+    "watch": "yarn workspaces foreach -pi run watch",
+    "vercel:install": "yarn set version 3.5 && yarn install",
+    "web": "yarn build && cd apps/next && yarn next",
+    "web:extract": "DISABLE_EXTRACTION=false yarn workspace next-app dev",
+    "web:prod": "yarn workspace next-app build",
+    "web:prod:serve": "yarn workspace next-app serve",
+    "fix": "manypkg fix",
+    "postinstall": "yarn check-deps && yarn build",
+    "build": "yarn workspaces foreach --all --exclude next-app run build",
+    "upgrade:tamagui": "yarn up '*tamagui*'@latest '@tamagui/*'@latest react-native-web-lite@latest",
+    "upgrade:tamagui:canary": "yarn up '*tamagui*'@canary '@tamagui/*'@canary react-native-web-lite@canary",
+    "check-deps": "check-dependency-version-consistency ."
   },
-  "authors": [],
-  "license": "MIT",
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "lint-staged": {
-    "*.{md,json}": [
-      "prettier --write --no-error-on-unmatched-pattern"
-    ]
+  "resolutions": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-refresh": "^0.14.0",
+    "react-native-svg": "13.9.0",
+    "react-native-web": "~0.19.6"
   },
   "dependencies": {
-    "dumi": "^2.2.17",
-    "react": "^18.2.0"
-  },
-  "devDependencies": {
-    "@ant-design/icons": "^5.2.6",
-    "@ant-design/pro-components": "^2.6.48",
-    "@commitlint/cli": "^18.5.0",
-    "@commitlint/config-conventional": "^18.5.0",
-    "@types/react": "^18.2.48",
-    "antd": "^5.13.2",
+    "@babel/runtime": "^7.18.9",
+    "@manypkg/cli": "^0.19.1",
     "babel-plugin-antd-style": "^1.0.4",
+    "check-dependency-version-consistency": "^3.0.3",
     "cross-env": "^7.0.3",
+    "dumi": "^2.2.17",
     "dumi-theme-antd-style": "^0.29.7",
-    "ts-jest": "^29.1.2",
-    "tsup": "^8.0.1",
-    "turbo": "^1.12.3",
+    "eslint": "^8.21.0",
+    "node-gyp": "^9.3.1",
+    "prettier": "^2.7.1",
+    "turbo": "^1.10.3",
     "typescript": "^5.3.3"
   },
-  "packageManager": "pnpm@7.27.0",
-  "engines": {
-    "node": ">=18.0.0"
-  }
+  "packageManager": "yarn@4.1.0"
 }
