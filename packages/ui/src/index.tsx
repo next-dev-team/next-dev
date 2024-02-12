@@ -1,2 +1,3 @@
-export * from './Button';
-export * from './Crud';
+export * from 'antd'
+export * from './Crud'
+export { default as Crud } from './Crud'
