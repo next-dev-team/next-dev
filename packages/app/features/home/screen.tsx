@@ -11,7 +11,7 @@ import {
   useToastController,
   XStack,
   YStack,
-} from '@my/ui'
+} from '@next-dev/rn-ui'
 import { ChevronDown, ChevronUp, X } from '@tamagui/lucide-icons'
 import { useState } from 'react'
 import { useLink } from 'solito/link'

@@ -1,4 +1,4 @@
-import { config } from '@my/ui'
+import { config } from '@next-dev/rn-ui'
 import NextDocument, {
   DocumentContext,
   DocumentInitialProps,

@@ -34,7 +34,7 @@ Remove this log in next.config.js.
 const plugins = [
   withTamagui({
     config: '../../packages/config/src/tamagui.config.ts',
-    components: ['tamagui', '@my/ui'],
+    components: ['tamagui', '@next-dev/ui'],
     importsWhitelist: ['constants.js', 'colors.js'],
     outputCSS: process.env.NODE_ENV === 'production' ? './public/tamagui.css' : null,
     logTimings: true,

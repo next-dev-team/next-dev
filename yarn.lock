@@ -113,7 +113,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/icons@npm:^5, @ant-design/icons@npm:^5.0.0, @ant-design/icons@npm:^5.3.0":
+"@ant-design/icons@npm:^5, @ant-design/icons@npm:^5.0.0, @ant-design/icons@npm:^5.0.1, @ant-design/icons@npm:^5.3.0":
   version: 5.3.0
   resolution: "@ant-design/icons@npm:5.3.0"
   dependencies:
@@ -155,7 +155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ant-design/pro-components@npm:^2.0.1":
+"@ant-design/pro-components@npm:^2.0.1, @ant-design/pro-components@npm:^2.4.4":
   version: 2.6.49
   resolution: "@ant-design/pro-components@npm:2.6.49"
   dependencies:
@@ -5321,17 +5321,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@my/ui@npm:0.0.1, @my/ui@workspace:packages/ui":
-  version: 0.0.0-use.local
-  resolution: "@my/ui@workspace:packages/ui"
-  dependencies:
-    "@my/config": "npm:0.0.1"
-    "@tamagui/build": "npm:^1.89.20"
-    "@tamagui/toast": "npm:^1.89.20"
-    tamagui: "npm:^1.89.20"
-  languageName: unknown
-  linkType: soft
-
 "@next-dev/eslint@npm:0.0.0, @next-dev/eslint@workspace:packages/eslint":
   version: 0.0.0-use.local
   resolution: "@next-dev/eslint@workspace:packages/eslint"
@@ -5343,9 +5332,53 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@next-dev/hooks@workspace:packages/hooks":
+  version: 0.0.0-use.local
+  resolution: "@next-dev/hooks@workspace:packages/hooks"
+  dependencies:
+    ahooks: "npm:^3.7.10"
+  peerDependencies:
+    "@next-dev/tsconfig": 0.0.0
+    "@types/react": ^18.0.9
+    "@types/react-dom": ^18.0.4
+    eslint: ^8.38.0
+    react: ^18.1.0
+    typescript: ^5.0.4
+  languageName: unknown
+  linkType: soft
+
+"@next-dev/rn-ui@npm:0.0.1, @next-dev/rn-ui@workspace:packages/rn-ui":
+  version: 0.0.0-use.local
+  resolution: "@next-dev/rn-ui@workspace:packages/rn-ui"
+  dependencies:
+    "@my/config": "npm:0.0.1"
+    "@tamagui/build": "npm:^1.89.20"
+    "@tamagui/toast": "npm:^1.89.20"
+    tamagui: "npm:^1.89.20"
+  languageName: unknown
+  linkType: soft
+
 "@next-dev/tsconfig@npm:0.0.0, @next-dev/tsconfig@workspace:packages/tsconfig":
   version: 0.0.0-use.local
   resolution: "@next-dev/tsconfig@workspace:packages/tsconfig"
+  languageName: unknown
+  linkType: soft
+
+"@next-dev/ui@workspace:packages/ui":
+  version: 0.0.0-use.local
+  resolution: "@next-dev/ui@workspace:packages/ui"
+  dependencies:
+    "@ant-design/icons": "npm:^5.0.1"
+    "@ant-design/pro-components": "npm:^2.4.4"
+    "@next-dev/eslint": "npm:0.0.0"
+    "@next-dev/tsconfig": "npm:0.0.0"
+    "@types/react": "npm:^18.2.52"
+    antd: "npm:^5.4.5"
+    eslint: "npm:^8.38.0"
+    father: "npm:^4.4.0"
+    lorem-ipsum: "npm:^2.0.8"
+    react: "npm:^18.2.0"
+    typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
 
@@ -9841,7 +9874,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ahooks@npm:^3":
+"ahooks@npm:^3, ahooks@npm:^3.7.10":
   version: 3.7.10
   resolution: "ahooks@npm:3.7.10"
   dependencies:
@@ -10140,7 +10173,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5":
+"antd@npm:^5, antd@npm:^5.4.5":
   version: 5.14.0
   resolution: "antd@npm:5.14.0"
   dependencies:
@@ -10219,7 +10252,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@my/ui": "npm:0.0.1"
+    "@next-dev/rn-ui": "npm:0.0.1"
     "@tamagui/animations-react-native": "npm:^1.89.20"
     "@tamagui/colors": "npm:^1.89.20"
     "@tamagui/font-inter": "npm:^1.89.20"
@@ -12505,7 +12538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.0.0, commander@npm:^9.4.1":
+"commander@npm:^9.0.0, commander@npm:^9.3.0, commander@npm:^9.4.1":
   version: 9.5.0
   resolution: "commander@npm:9.5.0"
   checksum: 10/41c49b3d0f94a1fbeb0463c85b13f15aa15a9e0b4d5e10a49c0a1d58d4489b549d62262b052ae0aa6cfda53299bee487bfe337825df15e342114dde543f82906
@@ -16066,7 +16099,7 @@ __metadata:
     "@babel/runtime": "npm:^7.18.9"
     "@expo/config-plugins": "npm:~7.2.2"
     "@expo/metro-config": "npm:~0.10.0"
-    "@my/ui": "npm:0.0.1"
+    "@next-dev/rn-ui": "npm:0.0.1"
     "@react-navigation/native": "npm:^6.1.6"
     "@tamagui/babel-plugin": "npm:^1.89.20"
     app: "npm:0.0.0"
@@ -21339,6 +21372,17 @@ __metadata:
   bin:
     loose-envify: cli.js
   checksum: 10/6517e24e0cad87ec9888f500c5b5947032cdfe6ef65e1c1936a0c48a524b81e65542c9c3edc91c97d5bddc806ee2a985dbc79be89215d613b1de5db6d1cfe6f4
+  languageName: node
+  linkType: hard
+
+"lorem-ipsum@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "lorem-ipsum@npm:2.0.8"
+  dependencies:
+    commander: "npm:^9.3.0"
+  bin:
+    lorem-ipsum: dist/bin/lorem-ipsum.bin.js
+  checksum: 10/deef8e072d3605789748ebb3ac70eb7f15980ea9198e6564c59dec9368e74e73be1638d43eb44d934d21ef05f8890bc06028bb01372f476e6e067b64579baf0e
   languageName: node
   linkType: hard
 

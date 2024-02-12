@@ -6,6 +6,7 @@
     "./packages/*"
   ],
   "scripts": {
+    "dev_": "dumi dev",
     "doc": "dumi dev",
     "pre:doc": "dumi preview",
     "build:doc": "dumi build",
