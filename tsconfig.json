@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
-    "jsx": "react",
-    "strict": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "baseUrl": "./",
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
     "paths": {
-      "@@/*": [
-        ".dumi/tmp/*"
-      ]
+      "app/*": ["./packages/app/*"],
+      "@my/ui/*": ["./packages/ui/*"],
+      "@@/*": [".dumi/tmp/*"]
     }
   },
-  "include": [
-    ".dumirc.ts"
-  ]
+  "extends": "./tsconfig.base.json",
+  "exclude": [
+    "**/node_modules",
+    "**/dist",
+    "**/types",
+    "apps/next/out",
+    "apps/next/.next",
+    "apps/next/.tamagui"
+  ],
+  "include": [".dumirc.ts"]
 }

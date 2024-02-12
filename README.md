@@ -2,6 +2,9 @@
 
 development in progress
 
+# Warning
+Monorepo is powerful with many benefit but also it's so terry
+
 # Next Dev
 
 Next Dev(Next Generation Dev) is an open source team to sharing all related fullstack resources with the community

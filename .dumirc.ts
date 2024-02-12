@@ -1,31 +1,31 @@
-import { defineConfig } from 'dumi';
-import type { SiteThemeConfig } from 'dumi-theme-antd-style';
-import { readdirSync } from 'fs';
-import { join } from 'path';
+import { defineConfig } from 'dumi'
+import type { SiteThemeConfig } from 'dumi-theme-antd-style'
+import { readdirSync } from 'fs'
+import { join } from 'path'
 
 // more example about dumi https://github.com/thundersdata-frontend/td-design
 // https://github.com/ant-design/pro-components/blob/master/.dumirc.ts
 
 // @ts-ignore
-import { homepage, name } from './package.json';
+import { homepage, name } from './package.json'
 
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === 'production'
 
-const headPkgList: string[] = [];
+const headPkgList: string[] = []
 // utils must build before core
 // runtime must build before renderer-react
 const pkgList = readdirSync(join(__dirname, 'packages')).filter(
-  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
-);
+  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg)
+)
 
 const tailPkgList = pkgList.map((path) => {
   return {
     src: `packages/${path}/src/`,
     path,
-  };
-});
+  }
+})
 
-console.log('tailPkgList', pkgList);
+console.log('tailPkgList', pkgList)
 
 const themeConfig: SiteThemeConfig = {
   name: 'Next Dev',
@@ -37,14 +37,14 @@ const themeConfig: SiteThemeConfig = {
     docUrl: `{github}/tree/master/example/docs/components/{atomId}.{locale}.md`,
   },
   footer: 'Made with ❤️ by Next Dev',
-};
+}
 
 export default defineConfig({
   themeConfig: {
     ...themeConfig,
     // nav: [{ title: 'Docs', link: '/packages/utils' }],
   },
-  html2sketch: {},
+  // html2sketch: {},
   favicons: [
     'https://gw.alipayobjects.com/zos/hitu-asset/c88e3678-6900-4289-8538-31367c2d30f2/hitu-1609235995955-image.png',
   ],
@@ -64,8 +64,8 @@ export default defineConfig({
   codeSplitting: {
     jsStrategy: 'granularChunks',
   },
-  // @ts-ignore
-  ssr: isProd ? {} : false,
+  ssr: false,
+  exportStatic: {},
   mfsu: false,
   resolve: {
     // Configure the entry file path, API parsing will start from here
@@ -78,7 +78,7 @@ export default defineConfig({
       })),
     ],
   },
-});
+})
 // import { defineConfig } from 'dumi';
 
 // export default defineConfig({
