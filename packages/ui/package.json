@@ -10,6 +10,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "build:deps": "father prebundle",
     "build": "father build",
     "dev": "tsup --watch",
     "check-types": "tsc --noEmit"

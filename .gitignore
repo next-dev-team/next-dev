@@ -50,3 +50,5 @@ thumbs.db
 # Dumi
 .dumi/tmp
 .dumi/tmp-production
+.tamagui
+compiled
