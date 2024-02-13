@@ -12,7 +12,7 @@
     "build:doc": "dumi build",
     "prepare": "dumi setup",
     "setup": "yarn install",
-    "native": "cd apps/expo && yarn start",
+    "native": "cd apps/todo-expo && yarn start",
     "watch": "yarn workspaces foreach -pi run watch",
     "vercel:install": "yarn set version 3.5 && yarn install",
     "web": "yarn build && cd apps/next && yarn next",

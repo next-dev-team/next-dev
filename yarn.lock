@@ -5799,6 +5799,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@next-dev/app@npm:0.0.0, @next-dev/app@workspace:packages/app-todo":
+  version: 0.0.0-use.local
+  resolution: "@next-dev/app@workspace:packages/app-todo"
+  dependencies:
+    "@next-dev/rn-ui": "npm:0.0.1"
+    "@tamagui/animations-react-native": "npm:^1.89.20"
+    "@tamagui/colors": "npm:^1.89.20"
+    "@tamagui/font-inter": "npm:^1.89.20"
+    "@tamagui/lucide-icons": "npm:^1.89.20"
+    "@tamagui/shorthands": "npm:^1.89.20"
+    "@tamagui/themes": "npm:^1.89.20"
+    "@types/react": "npm:^18.2.52"
+    "@types/react-native": "npm:^0.71.3"
+    burnt: "npm:^0.12.1"
+    expo-constants: "npm:~14.4.2"
+    expo-linking: "npm:~5.0.2"
+    react-native-safe-area-context: "npm:4.6.3"
+    solito: "npm:^3.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@next-dev/eslint@npm:0.0.0, @next-dev/eslint@workspace:packages/eslint":
   version: 0.0.0-use.local
   resolution: "@next-dev/eslint@workspace:packages/eslint"
@@ -11081,27 +11102,6 @@ __metadata:
   checksum: 10/3e044fd6d1d26545f235a9fe4d7a534e2029d8e59fa7fd9f2a6eb21230f6b5380ea1eaf55136e60cbf8e613544b3b766e7a6fa2102e2a3a117505466e3025dc2
   languageName: node
   linkType: hard
-
-"app@npm:0.0.0, app@workspace:packages/app-todo":
-  version: 0.0.0-use.local
-  resolution: "app@workspace:packages/app-todo"
-  dependencies:
-    "@next-dev/rn-ui": "npm:0.0.1"
-    "@tamagui/animations-react-native": "npm:^1.89.20"
-    "@tamagui/colors": "npm:^1.89.20"
-    "@tamagui/font-inter": "npm:^1.89.20"
-    "@tamagui/lucide-icons": "npm:^1.89.20"
-    "@tamagui/shorthands": "npm:^1.89.20"
-    "@tamagui/themes": "npm:^1.89.20"
-    "@types/react": "npm:^18.2.52"
-    "@types/react-native": "npm:^0.71.3"
-    burnt: "npm:^0.12.1"
-    expo-constants: "npm:~14.4.2"
-    expo-linking: "npm:~5.0.2"
-    react-native-safe-area-context: "npm:4.6.3"
-    solito: "npm:^3.0.0"
-  languageName: unknown
-  linkType: soft
 
 "appdirsjs@npm:^1.2.4":
   version: 1.2.7
@@ -17971,10 +17971,10 @@ __metadata:
     "@babel/runtime": "npm:^7.18.9"
     "@expo/config-plugins": "npm:~7.2.2"
     "@expo/metro-config": "npm:~0.10.0"
+    "@next-dev/app": "npm:0.0.0"
     "@next-dev/rn-ui": "npm:0.0.1"
     "@react-navigation/native": "npm:^6.1.6"
     "@tamagui/babel-plugin": "npm:^1.89.20"
-    app: "npm:0.0.0"
     babel-plugin-module-resolver: "npm:^4.1.0"
     burnt: "npm:^0.12.1"
     expo: "npm:^49.0.0"
@@ -26006,11 +26006,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "next-app@workspace:apps/todo-next"
   dependencies:
+    "@next-dev/app": "npm:0.0.0"
     "@tamagui/config": "npm:^1.89.20"
     "@tamagui/next-plugin": "npm:^1.89.20"
     "@tamagui/next-theme": "npm:^1.89.20"
     "@types/node": "npm:20"
-    app: "npm:0.0.0"
     eslint-config-next: "npm:^14.1.0"
     next: "npm:^13.5.2"
     raf: "npm:^3.4.1"

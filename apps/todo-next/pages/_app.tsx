@@ -3,11 +3,12 @@ import '@tamagui/font-inter/css/400.css'
 import '@tamagui/font-inter/css/700.css'
 import 'raf/polyfill'
 
+import { Provider } from ''
 import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
-import { Provider } from 'app/provider'
 import Head from 'next/head'
 import React from 'react'
 import type { SolitoAppProps } from 'solito'
+@next-dev/app/provider'
 
 if (process.env.NODE_ENV === 'production') {
   require('../public/tamagui.css')
