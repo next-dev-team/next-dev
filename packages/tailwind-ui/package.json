@@ -1,0 +1,33 @@
+{
+  "name": "@next-dev/tailwind-ui",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build:deps": "father prebundle",
+    "build": "father build",
+    "watch": "father dev",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.0.1",
+    "@ant-design/pro-components": "^2.4.4",
+    "antd": "^5.4.5",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@next-dev/eslint": "0.0.0",
+    "@next-dev/tsconfig": "0.0.0",
+    "@types/react": "^18.2.52",
+    "eslint": "^8.38.0",
+    "father": "^4.4.0",
+    "lorem-ipsum": "^2.0.8",
+    "typescript": "^5.3.3"
+  }
+}

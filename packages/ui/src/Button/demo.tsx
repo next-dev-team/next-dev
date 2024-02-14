@@ -1,5 +1,5 @@
-import { Space } from 'antd';
-import Button from '.';
+import { Space } from 'antd'
+import Button from '.'
 
 export default function Demo() {
   return (
@@ -7,8 +7,8 @@ export default function Demo() {
       <Button>Default </Button>
       <Button type="primary">Primary </Button>
       <Button type="primary" danger>
-        Primary danger
+        Primary danger1
       </Button>
     </Space>
-  );
+  )
 }

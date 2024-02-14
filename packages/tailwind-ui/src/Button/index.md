@@ -1,8 +1,8 @@
 ---
 nav:
-  title: UI (Rn & Web)
+  title: UI Tailwind
 toc: content
-title: Button
+title: Tailwind Button
 ---
 
 # Button
@@ -10,15 +10,15 @@ title: Button
 `Button` is completely use antd button
 
 ```tsx | pure
-import { Button } from '@next-dev/rn-ui'
+import { Button } from '@next-dev/ui'
 
 export default () => {
   return (
     <>
-      <Button>Default </Button>
+      <Button>Button</Button>
     </>
   )
 }
 ```
 
-<code src="./demo.tsx">Button</code>
+<code src="./tw.demo">Button</code>

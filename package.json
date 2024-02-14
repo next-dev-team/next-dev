@@ -39,6 +39,7 @@
   "dependencies": {
     "@babel/runtime": "^7.18.9",
     "@manypkg/cli": "^0.21.2",
+    "@umijs/plugins": "^4.1.1",
     "babel-plugin-antd-style": "^1.0.4",
     "check-dependency-version-consistency": "^3.0.3",
     "cross-env": "^7.0.3",
@@ -48,6 +49,7 @@
     "father": "^4.4.0",
     "node-gyp": "^10.0.1",
     "prettier": "^3.2.4",
+    "tailwindcss": "^3.4.1",
     "tamagui-loader": "^1.89.20",
     "turbo": "^1.12.3",
     "typescript": "^5.3.3",

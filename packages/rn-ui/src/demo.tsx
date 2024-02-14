@@ -3,7 +3,7 @@ import { Button, TamaguiProvider } from 'tamagui'
 export default function Demo() {
   return (
     <TamaguiProvider config={config}>
-      <Button>d</Button>
+      <Button>Button</Button>
     </TamaguiProvider>
   )
 }
