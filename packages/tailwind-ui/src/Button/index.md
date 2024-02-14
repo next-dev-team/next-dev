@@ -2,7 +2,7 @@
 nav:
   title: UI Tailwind
 toc: content
-title: Tailwind Button
+title: Button
 ---
 
 # Button

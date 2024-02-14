@@ -5869,6 +5869,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@next-dev/icons@workspace:packages/icons":
+  version: 0.0.0-use.local
+  resolution: "@next-dev/icons@workspace:packages/icons"
+  dependencies:
+    "@ant-design/icons": "npm:^5.3.0"
+    "@next-dev/eslint": "npm:0.0.0"
+    "@next-dev/tsconfig": "npm:0.0.0"
+    "@tamagui/lucide-icons": "npm:^1.89.20"
+    "@types/react": "npm:^18.2.52"
+    eslint: "npm:^8.38.0"
+    father: "npm:^4.4.0"
+    react: "npm:^18.2.0"
+    typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
+
 "@next-dev/rn-ui@npm:0.0.1, @next-dev/rn-ui@workspace:packages/rn-ui":
   version: 0.0.0-use.local
   resolution: "@next-dev/rn-ui@workspace:packages/rn-ui"
@@ -5884,15 +5900,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@next-dev/tailwind-ui@workspace:packages/tailwind-ui"
   dependencies:
-    "@ant-design/icons": "npm:^5.0.1"
-    "@ant-design/pro-components": "npm:^2.4.4"
     "@next-dev/eslint": "npm:0.0.0"
     "@next-dev/tsconfig": "npm:0.0.0"
     "@types/react": "npm:^18.2.52"
-    antd: "npm:^5.4.5"
     eslint: "npm:^8.38.0"
     father: "npm:^4.4.0"
-    lorem-ipsum: "npm:^2.0.8"
     react: "npm:^18.2.0"
     typescript: "npm:^5.3.3"
   languageName: unknown

@@ -1,9 +1,6 @@
-import { config } from '@my/config'
-import { Button, TamaguiProvider } from 'tamagui'
+import { Button } from 'tamagui'
 export default function Demo() {
   return (
-    <TamaguiProvider config={config}>
       <Button>Button</Button>
-    </TamaguiProvider>
   )
 }
