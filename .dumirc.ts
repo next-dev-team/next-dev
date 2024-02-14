@@ -41,6 +41,8 @@ const themeConfig: SiteThemeConfig = {
 }
 
 export default defineConfig({
+  plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
+  tailwindcss: {},
   themeConfig: {
     ...themeConfig,
     // nav: [{ title: 'Docs', link: '/packages/utils' }],
@@ -67,6 +69,7 @@ export default defineConfig({
   },
   ssr: false,
   exportStatic: {},
+  // mfsu: false,
   mfsu: {
     exclude: ['dumi-theme-antd-style', /dumi/],
     shared: {
@@ -101,14 +104,14 @@ export default defineConfig({
     // Add the new TamaguiPlugin to the plugins array
     config.plugin('provide').use(
       new TamaguiPlugin({
-        config: './tamagui.config.ts',
+        // config: './tamagui.config.ts',
         components: [],
         importsWhitelist: ['constants.js', 'colors.js'],
         logTimings: true,
         disableExtraction: process.env.NODE_ENV === 'development',
       })
     )
-    config.resolve.extensions.batch(() => [''])
+    config.resolve.extensions.batch(() => ['demo.tsx'])
     config.plugin('$global').use(
       // https://webpack.js.org/plugins/provide-plugin/
       new webpack.DefinePlugin({

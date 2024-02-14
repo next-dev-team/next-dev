@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "father build",
-    "dev": "tsup --watch",
+    "watch": "father dev",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "test": "jest --watch"
