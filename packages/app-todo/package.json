@@ -1,6 +1,6 @@
 {
   "version": "0.0.0",
-  "name": "app",
+  "name": "@next-dev/app",
   "main": "index.ts",
   "private": true,
   "sideEffects": [
