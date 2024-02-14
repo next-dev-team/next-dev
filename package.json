@@ -27,7 +27,7 @@
     "upgrade:tamagui:canary": "yarn up '*tamagui*'@canary '@tamagui/*'@canary react-native-web-lite@canary",
     "check-deps": "npx check-dependency-version-consistency .",
     "check-deps:fix": "npx check-dependency-version-consistency . --fix",
-    "upgrade-latest": "yarn upgrade-interactive --latest"
+    "upd": "yarn upgrade-interactive"
   },
   "resolutions": {
     "react": "^18.2.0",
