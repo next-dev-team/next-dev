@@ -1,10 +1,10 @@
 [build.environment]
-NODE_VERSION = "16"
+NODE_VERSION = "18"
 NPM_FLAGS = "--version"
 
 [build]
 # for demo or preview
-command = "npx pnpm i --no-frozen-lockfile --store=node_modules/.pnpm-store && npx pnpm run build:pre"
+command = "yarn install && yarn build:doc"
 publish = "dist"
 
 [[redirects]]
