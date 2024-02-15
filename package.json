@@ -20,7 +20,7 @@
     "native": "cd apps/todo-expo && yarn start",
     "watch": "yarn workspaces foreach -pi run watch",
     "vercel:install": "yarn set version 3.5 && yarn install",
-    "web": "yarn build && cd apps/next && yarn next",
+    "web": "yarn build && cd apps/todo-next && yarn next",
     "web:extract": "DISABLE_EXTRACTION=false yarn workspace next-app dev",
     "web:prod": "yarn workspace next-app build",
     "web:prod:serve": "yarn workspace next-app serve",
@@ -37,27 +37,27 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-refresh": "^0.14.0",
-    "react-native-svg": "13.9.0",
-    "react-native-web": "~0.19.6"
+    "react-native-svg": "^14.1.0",
+    "react-native-web": "~0.19.10"
   },
   "dependencies": {
-    "@babel/runtime": "^7.18.9",
+    "@babel/runtime": "^7.23.9",
     "@manypkg/cli": "^0.21.2",
     "@umijs/plugins": "^4.1.1",
     "babel-plugin-antd-style": "^1.0.4",
-    "check-dependency-version-consistency": "^3.0.3",
+    "check-dependency-version-consistency": "^4.1.0",
     "cross-env": "^7.0.3",
     "dumi": "^2.2.17",
     "dumi-theme-antd-style": "^0.29.7",
-    "eslint": "^8.38.0",
+    "eslint": "^8.56.0",
     "father": "^4.4.0",
     "node-gyp": "^10.0.1",
-    "prettier": "^3.2.4",
+    "prettier": "^3.2.5",
     "tailwindcss": "^3.4.1",
-    "tamagui-loader": "^1.89.20",
-    "turbo": "^1.12.3",
+    "tamagui-loader": "^1.89.26",
+    "turbo": "^1.12.4",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.1"
+    "webpack": "^5.90.2"
   },
   "packageManager": "yarn@4.1.0"
 }
