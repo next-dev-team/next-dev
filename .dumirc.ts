@@ -68,17 +68,18 @@ export default defineConfig({
   codeSplitting: {
     jsStrategy: 'granularChunks',
   },
+  fastRefresh: true,
   ssr: false,
   exportStatic: {},
-  mfsu: false,
-  // mfsu: {
-  //   exclude: ['dumi-theme-antd-style', /dumi/],
-  //   shared: {
-  //     react: {
-  //       singleton: true,
-  //     },
-  //   },
-  // },
+  // mfsu: false,
+  mfsu: {
+    exclude: ['dumi-theme-antd-style', /dumi/],
+    shared: {
+      react: {
+        singleton: true,
+      },
+    },
+  },
 
   resolve: {
     // Configure the entry file path, API parsing will start from here

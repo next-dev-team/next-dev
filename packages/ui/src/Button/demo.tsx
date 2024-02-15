@@ -7,7 +7,7 @@ export default function Demo() {
       <Button>Default </Button>
       <Button type="primary">Primary </Button>
       <Button type="primary" danger>
-        Primary danger1
+        Danger
       </Button>
     </Space>
   )
