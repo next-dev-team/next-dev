@@ -2,9 +2,6 @@
 
 development in progress
 
-# Warning
-Monorepo is powerful with many benefit but also it's so terry
-
 # Next Dev
 
 Next Dev(Next Generation Dev) is an open source team to sharing all related fullstack resources with the community
@@ -58,6 +55,10 @@ Inside the Boilerplate folder is boilerplate both frontend and backend
 - `pnpm lint` - Lint all packages
 - `pnpm changeset` - Generate a changeset
 - `pnpm clean` - Clean up all `node_modules` and `dist` folders (runs each package's clean script)
+
+## Caution
+
+While a monorepo offers numerous advantages, it can be challenging to handle versions. Currently, the system only supports a single version (meaning all applications, such as app1, app2, and packages, must use the same version, for instance, React v18).
 
 ### Clone a single example or boilerplate
 
