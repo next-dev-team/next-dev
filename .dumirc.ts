@@ -44,6 +44,7 @@ export default defineConfig({
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
   tailwindcss: {},
   themeConfig: {
+    // hd: { rules: [] },
     ...themeConfig,
     // nav: [{ title: 'Docs', link: '/packages/utils' }],
   },
@@ -69,15 +70,15 @@ export default defineConfig({
   },
   ssr: false,
   exportStatic: {},
-  // mfsu: false,
-  mfsu: {
-    exclude: ['dumi-theme-antd-style', /dumi/],
-    shared: {
-      react: {
-        singleton: true,
-      },
-    },
-  },
+  mfsu: false,
+  // mfsu: {
+  //   exclude: ['dumi-theme-antd-style', /dumi/],
+  //   shared: {
+  //     react: {
+  //       singleton: true,
+  //     },
+  //   },
+  // },
 
   resolve: {
     // Configure the entry file path, API parsing will start from here
@@ -115,12 +116,8 @@ export default defineConfig({
     config.plugin('$global').use(
       // https://webpack.js.org/plugins/provide-plugin/
       new webpack.DefinePlugin({
-        process: {
-          env: {
-            DEV: process.env.NODE_ENV === 'development' ? 'true' : 'false',
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          },
-        },
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        __DEV__: process.env.NODE_ENV !== 'production' || true,
       })
     )
 

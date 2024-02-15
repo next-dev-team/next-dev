@@ -1,5 +1,9 @@
 {
-  "name": "starter-free",
+  "name": "next-dev",
+  "author": {
+    "name": "Sila",
+    "email": "rimsila.itc@gmail.com"
+  },
   "private": true,
   "workspaces": [
     "./apps/*",
