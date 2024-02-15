@@ -12,6 +12,7 @@
   "scripts": {
     "build:deps": "father prebundle",
     "dev_": "dumi dev",
+    "build:pkg": "yarn workspaces foreach --all run build",
     "doc": "dumi dev",
     "pre:doc": "dumi preview",
     "build:doc": "dumi build",
