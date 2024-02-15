@@ -1,6 +1,4 @@
-import { Button } from 'tamagui'
+import { Button } from '@next-dev/rn-ui'
 export default function Demo() {
-  return (
-      <Button>Button</Button>
-  )
+  return <Button>Button</Button>
 }

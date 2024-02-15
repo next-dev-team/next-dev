@@ -1,6 +1,6 @@
 ---
 nav:
-  title: Icons
+  title: Icons(RN/Web)
 toc: content
 title: Install and Usage
 ---

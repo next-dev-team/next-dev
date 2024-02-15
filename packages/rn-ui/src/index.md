@@ -1,6 +1,6 @@
 ---
 nav:
-  title: UI (Rn & Web)
+  title: UI (RN/RN-Web)
 toc: content
 title: Button
 ---
@@ -15,7 +15,7 @@ import { Button } from '@next-dev/rn-ui'
 export default () => {
   return (
     <>
-      <Button>Default </Button>
+      <Button>Button</Button>
     </>
   )
 }

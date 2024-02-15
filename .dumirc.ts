@@ -44,6 +44,7 @@ export default defineConfig({
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
   tailwindcss: {},
   themeConfig: {
+    // hd: { rules: [] },
     ...themeConfig,
     // nav: [{ title: 'Docs', link: '/packages/utils' }],
   },
@@ -67,6 +68,7 @@ export default defineConfig({
   codeSplitting: {
     jsStrategy: 'granularChunks',
   },
+  fastRefresh: true,
   ssr: false,
   exportStatic: {},
   // mfsu: false,
@@ -115,12 +117,8 @@ export default defineConfig({
     config.plugin('$global').use(
       // https://webpack.js.org/plugins/provide-plugin/
       new webpack.DefinePlugin({
-        process: {
-          env: {
-            DEV: process.env.NODE_ENV === 'development' ? 'true' : 'false',
-            NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-          },
-        },
+        'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+        __DEV__: process.env.NODE_ENV !== 'production' || true,
       })
     )
 
