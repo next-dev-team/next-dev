@@ -1,7 +1,7 @@
 // https://github.com/Tailus-UI/blocks/blob/main/tailwind.config.js
 /** @type {import('tailwindcss/types').Config} */
 module.exports = {
-  content: ['./docs/**/*.tsx', './packages/tailwind-ui/**/*.tsx'],
+  content: ['./docs/**/*.(tsx|md)', './packages/**/*.(tsx|md)'],
   plugins: [],
   darkMode: 'class',
   corePlugins: {

@@ -13,9 +13,9 @@
     "**/node_modules",
     "**/dist",
     "**/types",
-    "apps/next/out",
-    "apps/next/.next",
-    "apps/next/.tamagui"
+    "apps/todo-next/out",
+    "apps/todo-next/.next",
+    "apps/todo-next/.tamagui"
   ],
   "include": [".dumirc.ts"]
 }
