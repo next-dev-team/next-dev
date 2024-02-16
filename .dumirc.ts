@@ -44,7 +44,7 @@ export default defineConfig({
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
   tailwindcss: {},
   themeConfig: {
-    // hd: { rules: [] },
+    hd: { rules: [] },
     ...themeConfig,
     // nav: [{ title: 'Docs', link: '/packages/utils' }],
   },

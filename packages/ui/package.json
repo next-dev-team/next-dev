@@ -19,10 +19,12 @@
     "@ant-design/icons": "^5.3.0",
     "@ant-design/pro-components": "^2.6.49",
     "antd": "^5.14.1",
+    "axios": "^1.6.7",
     "react": "^18.2.0"
   },
   "devDependencies": {
     "@next-dev/eslint": "0.0.0",
+    "@next-dev/hooks": "0.0.0",
     "@next-dev/tsconfig": "0.0.0",
     "@types/react": "^18.2.55",
     "eslint": "^8.56.0",
