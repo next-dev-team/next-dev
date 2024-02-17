@@ -6,7 +6,7 @@ import {
   PlusOutlined,
 } from '@ant-design/icons'
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components'
-// import { isArray } from '@next-dev/utils'
+import { isArray } from '@next-dev/utils'
 import { Button, Dropdown, GlobalToken, Popconfirm, Space, theme } from 'antd'
 import { AxiosInstance } from 'axios'
 import { MutableRefObject, useCallback, useEffect } from 'react'
@@ -162,7 +162,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         const totalPage = getSelectField<number>(responseList, totalField)
 
         const touchedOpt = {
-          data: Array.isArray(dataSource) ? dataSource : ([] as any),
+          data: isArray(dataSource) ? dataSource : ([] as any),
           success: true,
           total: isNaN(totalPage) ? 0 : totalPage,
         }
