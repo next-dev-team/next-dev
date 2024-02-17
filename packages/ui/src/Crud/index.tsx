@@ -51,7 +51,7 @@ const getColumns = ({
     width: 120,
     valueType: 'option',
     className: 'print:hidden block',
-    render: (_, row) => {
+    render: (_, row: any) => {
       return [
         <Button shape="circle" key="view" size="small">
           <EyeFilled style={{ color: token.colorInfo, fontSize: 20 }} />
@@ -92,7 +92,7 @@ const getColumns = ({
         </Dropdown>,
       ].filter(Boolean)
     },
-  }
+  } as ProColumns<any[]>
   const originCol = columns?.map((item) => {
     return {
       ...item,
@@ -135,7 +135,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     return searchParamsObj
   }
   const paramsObj = getParamsObj()
-  const nextColumn = getColumns({ columns, token })
+  const nextColumn = getColumns({ columns: columns as any, token })
 
   // init form value
   useEffect(() => {
@@ -145,7 +145,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   return (
     <ProTable
       formRef={formRef}
-      columns={nextColumn}
+      columns={nextColumn as any}
       onReset={() => {
         updateFilter({}, true)
       }}
@@ -153,8 +153,8 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         const { _timestamp, ...filter } = params || {}
         updateFilter(filter)
       }}
-      request={async (resParams, ...args) => {
-        console.log('args', args)
+      request={async (resParams) => {
+        // console.log('args', args)
         const params = getPrams(resParams)
         const responseList = await axios.request({ url: listUrl, params })
         console.log('data', responseList)
@@ -162,9 +162,9 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         const totalPage = getSelectField<number>(responseList, totalField)
 
         const touchedOpt = {
-          data: isArray(dataSource) ? dataSource : [],
+          data: isArray(dataSource) ? dataSource : ([] as any),
           success: true,
-          total: isNaN(totalPage) ? undefined : totalPage,
+          total: isNaN(totalPage) ? 0 : totalPage,
         }
         // console.log('touchedOpt', touchedOpt)
         return touchedOpt
