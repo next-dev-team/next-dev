@@ -1,4 +1,4 @@
-import { ActionType, ProColumns } from '@ant-design/pro-components'
+import { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components'
 import axios from 'axios'
 import { useRef } from 'react'
 import Crud from '.'
@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
 
 export default function Demo() {
   const actionRef = useRef<ActionType>(null)
-
+  const ref = useRef<ProFormInstance>()
   const columns: ProColumns<any[]>[] = [
     {
       title: 'ID',
@@ -57,6 +57,7 @@ export default function Demo() {
       },
     },
     {
+      hideInSearch: true,
       title: 'Email',
       dataIndex: 'email',
       formItemProps: {
@@ -81,9 +82,11 @@ export default function Demo() {
       },
     },
   ]
+
   return (
     <>
       <Crud
+        formRef={ref}
         listProps={{
           url: '/users',
           dataField: ['data', 'data'],

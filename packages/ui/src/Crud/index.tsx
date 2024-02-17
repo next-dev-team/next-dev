@@ -1,9 +1,15 @@
-import { PlusOutlined } from '@ant-design/icons'
-import { ActionType, ProTable } from '@ant-design/pro-components'
+import {
+  DeleteOutlined,
+  EditFilled,
+  EyeFilled,
+  MoreOutlined,
+  PlusOutlined,
+} from '@ant-design/icons'
+import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components'
 import { isArray } from '@next-dev/utils'
-import { Button } from 'antd'
+import { Button, Dropdown, GlobalToken, Popconfirm, Space, theme } from 'antd'
 import { AxiosInstance } from 'axios'
-import { MutableRefObject, useCallback } from 'react'
+import { MutableRefObject, useCallback, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 type ListProps = {
@@ -26,14 +32,80 @@ const getSelectField = <T extends unknown>(
   return result as T
 }
 
-// const getActionRef = (actionRef = null): MutableRefObject<ActionType>['current'] => {
-//   return actionRef.current || {}
-// }
+const defaultParams = {
+  current: 1,
+  pageSize: 10,
+}
+
+const getColumns = ({
+  columns = [],
+  token,
+}: {
+  token: GlobalToken
+  columns: ProColumns<any[]>[]
+}) => {
+  const actionsCol = {
+    fixed: 'right',
+    title: 'Actions',
+    align: 'center',
+    width: 120,
+    valueType: 'option',
+    className: 'print:hidden block',
+    render: (_, row) => {
+      return [
+        <Button shape="circle" key="view" size="small">
+          <EyeFilled style={{ color: token.colorInfo, fontSize: 20 }} />
+        </Button>,
+        <Button type="primary" shape="circle" key="edit" size="small">
+          <EditFilled style={{ color: 'white', fontSize: 15 }} />
+        </Button>,
+        <Dropdown
+          key={'actions'}
+          trigger={['click', 'contextMenu']}
+          menu={{
+            items: [
+              {
+                label: (
+                  <Popconfirm
+                    title={`Are you sure to delete "${row?.name || row?.title || ''}" ?`}
+                    trigger={['click']}
+                  >
+                    <Space size="small">
+                      <DeleteOutlined
+                        style={{
+                          color: token.colorError,
+                          fontSize: token.fontSizeLG,
+                        }}
+                      />
+                      {'Delete'}
+                    </Space>
+                  </Popconfirm>
+                ),
+                key: '0',
+              },
+            ],
+          }}
+        >
+          <a className="text-text-secondary text-lg" onClick={(e) => e.preventDefault()}>
+            <MoreOutlined />
+          </a>
+        </Dropdown>,
+      ].filter(Boolean)
+    },
+  }
+  const originCol = columns?.map((item) => {
+    return {
+      ...item,
+    }
+  })
+  return [...originCol, actionsCol]
+}
 
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
-  const { axios, listProps, options, ...rest } = props
+  const { axios, listProps, options, columns, formRef, ...rest } = props
   const { dataField = ['data'], totalField = [], url: listUrl, ...restList } = listProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
+  const { token } = theme.useToken()
   const actionRef = props.actionRef as MutableRefObject<ActionType>
   const reload = (resetPageIndex = false) => actionRef.current?.reload(resetPageIndex)
 
@@ -44,28 +116,42 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     pageSize?: number | undefined
     current?: number | undefined
   } = {}) => {
+    const params = {
+      current: current || Number(searchParams.get('current')) || defaultParams.current,
+      pageSize: pageSize || Number(searchParams?.get('pageSize')) || defaultParams.pageSize,
+      ...paramsObj,
+    }
+    return params
+  }
+  const updateFilter = useCallback(async (params = {}, isReset = false) => {
+    setSearchParams(isReset ? {} : { ...params })
+  }, [])
+
+  const getParamsObj = () => {
     const searchParamsObj: Record<string, string> = {}
     for (let [key, value] of searchParams.entries()) {
       if (value) searchParamsObj[key] = value
     }
-    const params = {
-      current: current || Number(searchParams.get('current')) || 1,
-      pageSize: pageSize || Number(searchParams?.get('pageSize')) || 10,
-      ...searchParamsObj,
-    }
-    return params
+    return searchParamsObj
   }
-  const updateFilter = useCallback((params = {}) => {
-    setSearchParams({ ...getPrams(), ...params })
-    // reload()
-  }, [])
+  const paramsObj = getParamsObj()
+  const nextColumn = getColumns({ columns, token })
+
+  // init form value
+  useEffect(() => {
+    if (formRef?.current) formRef.current.setFieldsValue(getPrams())
+  }, [formRef, getPrams])
 
   return (
     <ProTable
+      formRef={formRef}
+      columns={nextColumn}
+      onReset={() => {
+        updateFilter({}, true)
+      }}
       beforeSearchSubmit={(params) => {
-        const { pageSize, _timestamp, ...filter } = params || {}
+        const { _timestamp, ...filter } = params || {}
         updateFilter(filter)
-        reload(true)
       }}
       request={async (resParams, ...args) => {
         console.log('args', args)
@@ -84,7 +170,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         return touchedOpt
       }}
       pagination={{
-        defaultPageSize: 10,
+        defaultPageSize: defaultParams.pageSize,
         showQuickJumper: true,
         ...getPrams(),
       }}

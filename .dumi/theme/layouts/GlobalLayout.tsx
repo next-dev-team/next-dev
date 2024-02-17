@@ -1,6 +1,7 @@
 import { config } from '@my/config'
 import { CustomToast, TamaguiProvider, TamaguiProviderProps, ToastProvider } from '@next-dev/rn-ui'
 import { ConfigProvider } from '@next-dev/ui'
+import enUS from 'antd/locale/en_US'
 import { useOutlet } from 'dumi'
 import { type FC } from 'react'
 
@@ -20,10 +21,11 @@ const GlobalLayout: FC = () => {
 
   return (
     <ConfigProvider
+      locale={enUS}
       theme={{
         token: {
           // Seed Token
-          colorPrimary: '#00b96b',
+          // colorPrimary: '#00b96b',
         },
       }}
     >
