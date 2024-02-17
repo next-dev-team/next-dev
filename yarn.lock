@@ -5725,6 +5725,7 @@ __metadata:
     "@next-dev/eslint": "npm:0.0.0"
     "@next-dev/hooks": "npm:0.0.0"
     "@next-dev/tsconfig": "npm:0.0.0"
+    "@next-dev/utils": "npm:0.0.0"
     "@types/react": "npm:^18.2.55"
     antd: "npm:^5.14.1"
     axios: "npm:^1.6.7"
