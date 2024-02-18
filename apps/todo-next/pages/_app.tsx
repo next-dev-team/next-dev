@@ -3,7 +3,7 @@ import '@tamagui/font-inter/css/400.css'
 import '@tamagui/font-inter/css/700.css'
 import 'raf/polyfill'
 
-import { Provider } from '@next-dev/app/provider'
+import { Provider } from '@next-dev/app-todo/provider'
 import { NextThemeProvider, useRootTheme } from '@tamagui/next-theme'
 import Head from 'next/head'
 import React from 'react'

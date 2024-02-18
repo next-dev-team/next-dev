@@ -1,4 +1,4 @@
-import { HomeScreen } from '@next-dev/app/features/home/screen'
+import { HomeScreen } from '@next-dev/app-todo/features/home/screen'
 import { Stack } from 'expo-router'
 
 export default function Screen() {
