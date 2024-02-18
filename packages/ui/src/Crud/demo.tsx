@@ -88,9 +88,10 @@ export default function Demo() {
       <Crud
         formRef={ref}
         listProps={{
-          listReqOpt: ({ current, pageSize }) => ({
+          listReqOpt: ({ current, pageSize, ...rest }) => ({
             url: '/users',
             params: {
+              ...rest,
               per_page: pageSize,
               page: current,
             },
