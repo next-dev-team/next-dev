@@ -5,23 +5,56 @@ import {
   MoreOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
-import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components'
+import {
+  ActionType,
+  ParamsType,
+  ProColumns,
+  ProDescriptions,
+  ProTable,
+} from '@ant-design/pro-components'
 // import { isArray } from '@next-dev/utils'
-import { Button, Dropdown, GlobalToken, Popconfirm, Space, theme } from 'antd'
-import { AxiosInstance } from 'axios'
-import { MutableRefObject, useCallback, useEffect } from 'react'
+import {
+  Button,
+  Dropdown,
+  GlobalToken,
+  ModalFuncProps,
+  Popconfirm,
+  Space,
+  message,
+  theme,
+} from 'antd'
+import useModal from 'antd/es/modal/useModal'
+import { SortOrder } from 'antd/es/table/interface'
+import { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { MutableRefObject, useCallback, useEffect, useRef } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 type ListProps = {
-  url: string
+  deleteReqOpt?: (row: any) => AxiosRequestConfig<any>
+  listReqOpt?: (
+    params: ParamsType & {
+      pageSize?: number | undefined
+      current?: number | undefined
+      keyword?: string | undefined
+    },
+    sort: Record<string, SortOrder>,
+    filter: Record<any, any>
+  ) => AxiosRequestConfig<any>
   dataField?: string[]
   totalField?: string[]
   reqOptions?: Record<string, any>
+}
+type DetailProps = {
+  requestOpt?: (row: any) => AxiosRequestConfig<any>
+  modalOpt?: (row: any) => ModalFuncProps
+  dataField?: string[]
 }
 
 export type Crud<TData extends Record<string, any>> = {
   axios: AxiosInstance
   listProps: ListProps
+  detailProps?: DetailProps
+  hideNoCol?: boolean
 } & React.ComponentProps<typeof ProTable<TData>>
 
 const getSelectField = <T extends unknown>(
@@ -38,12 +71,37 @@ const defaultParams = {
 }
 
 const getColumns = ({
+  deleteReqOpt,
   columns = [],
   token,
+  axios,
+  reload,
+  onDetailClick,
+  hideNoCol,
 }: {
   token: GlobalToken
   columns: ProColumns<any[]>[]
-}) => {
+  axios: AxiosInstance
+  reload: () => void
+  onDetailClick: (row: any) => void
+} & Pick<ListProps, 'deleteReqOpt', 'hideNoCol'>) => {
+  const handleConfirmDelete = async (row: any) => {
+    if (!deleteReqOpt) return message.error('Something went wrong')
+    const deleteConfig = {
+      method: 'DELETE',
+      ...deleteReqOpt?.(row),
+    } as AxiosRequestConfig
+    await axios
+      .request(deleteConfig)
+      .then(() => {
+        message.success('Delete success')
+        reload()
+      })
+      .catch(() => {
+        message.error('Delete failed')
+      })
+  }
+
   const actionsCol = {
     fixed: 'right',
     title: 'Actions',
@@ -53,10 +111,16 @@ const getColumns = ({
     className: 'print:hidden block',
     render: (_, row: any) => {
       return [
-        <Button shape="circle" key="view" size="small">
+        <Button
+          onClick={() => onDetailClick(row)}
+          title="View Detail"
+          shape="circle"
+          key="view"
+          size="small"
+        >
           <EyeFilled style={{ color: token.colorInfo, fontSize: 20 }} />
         </Button>,
-        <Button type="primary" shape="circle" key="edit" size="small">
+        <Button title="Edit" type="primary" shape="circle" key="edit" size="small">
           <EditFilled style={{ color: 'white', fontSize: 15 }} />
         </Button>,
         <Dropdown
@@ -69,6 +133,7 @@ const getColumns = ({
                   <Popconfirm
                     title={`Are you sure to delete "${row?.name || row?.title || ''}" ?`}
                     trigger={['click']}
+                    onConfirm={() => handleConfirmDelete(row)}
                   >
                     <Space size="small">
                       <DeleteOutlined
@@ -98,15 +163,26 @@ const getColumns = ({
       ...item,
     }
   })
-  return [...originCol, actionsCol]
+  const preCol = [
+    !hideNoCol && {
+      title: 'No.',
+      valueType: 'index',
+      align: 'center',
+      width: 64,
+    },
+  ]
+  return [...preCol, ...originCol, actionsCol].filter(Boolean)
 }
 
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
-  const { axios, listProps, options, columns, formRef, ...rest } = props
-  const { dataField = ['data'], totalField = [], url: listUrl, ...restList } = listProps || {}
+  const { axios, listProps, detailProps, options, columns, formRef, hideNoCol, ...rest } = props
+  const { dataField = ['data'], totalField = [], deleteReqOpt, listReqOpt } = listProps || {}
+  const { requestOpt, modalOpt: detailModalOpt, dataField: detailDataField } = detailProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
+  const [modal, contextHolder] = useModal()
   const { token } = theme.useToken()
   const actionRef = props.actionRef as MutableRefObject<ActionType>
+  const detailRef = useRef<ActionType>()
   const reload = (resetPageIndex = false) => actionRef.current?.reload(resetPageIndex)
 
   const getPrams = ({
@@ -135,7 +211,53 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     return searchParamsObj
   }
   const paramsObj = getParamsObj()
-  const nextColumn = getColumns({ columns: columns as any, token })
+
+  const onDetailClick = (row: any) => {
+    if (!requestOpt) return message.error('Something went wrong')
+    modal.info({
+      // centered: true,
+      width: token.screenMD,
+      title: 'Detail',
+      maskClosable: true,
+      footer: null,
+      icon: null,
+      closable: true,
+      styles: {
+        body: {
+          minHeight: 300,
+        },
+      },
+      content: (
+        <ProDescriptions
+          style={{
+            padding: token.paddingContentVertical,
+          }}
+          layout="vertical"
+          actionRef={detailRef}
+          columns={columns as any}
+          request={async () => {
+            const resDetail = await axios.request(requestOpt(row))
+            const dataSource = getSelectField(resDetail, detailDataField)
+            return {
+              data: dataSource,
+              success: true,
+            }
+          }}
+        />
+      ),
+      ...detailModalOpt?.(row),
+    })
+  }
+
+  const nextColumn = getColumns({
+    hideNoCol,
+    onDetailClick,
+    reload,
+    columns: columns as any,
+    token,
+    axios,
+    deleteReqOpt,
+  })
 
   // init form value
   useEffect(() => {
@@ -143,62 +265,64 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   }, [formRef, getPrams])
 
   return (
-    <ProTable
-      formRef={formRef}
-      columns={nextColumn as any}
-      onReset={() => {
-        updateFilter({}, true)
-      }}
-      beforeSearchSubmit={(params) => {
-        const { _timestamp, ...filter } = params || {}
-        updateFilter(filter)
-      }}
-      request={async (resParams) => {
-        // console.log('args', args)
-        const params = getPrams(resParams)
-        const responseList = await axios.request({ url: listUrl, params })
-        console.log('data', responseList)
-        const dataSource = getSelectField(responseList, dataField)
-        const totalPage = getSelectField<number>(responseList, totalField)
+    <>
+      {contextHolder}
+      <ProTable
+        formRef={formRef}
+        columns={nextColumn as any}
+        onReset={() => {
+          updateFilter({}, true)
+        }}
+        beforeSearchSubmit={(params) => {
+          const { _timestamp, ...filter } = params || {}
+          updateFilter(filter)
+        }}
+        request={async (resParams, ...arg) => {
+          if (!listReqOpt) throw new Error('listReqOpt is required')
+          const params = getPrams(resParams)
+          const responseList = await axios.request(listReqOpt(params, ...arg))
+          const dataSource = getSelectField(responseList, dataField)
+          const totalPage = getSelectField<number>(responseList, totalField)
 
-        const touchedOpt = {
-          data: Array.isArray(dataSource) ? dataSource : ([] as any),
-          success: true,
-          total: isNaN(totalPage) ? 0 : totalPage,
+          const touchedResponse = {
+            data: Array.isArray(dataSource) ? dataSource : ([] as any),
+            success: true,
+            total: isNaN(totalPage) ? 0 : totalPage,
+          }
+          // console.log('touchedOpt', touchedOpt)
+          return touchedResponse
+        }}
+        pagination={{
+          defaultPageSize: defaultParams.pageSize,
+          showQuickJumper: true,
+          ...getPrams(),
+        }}
+        onChange={({ pageSize, current }) => {
+          updateFilter({ pageSize, current })
+        }}
+        {...rest}
+        id="crud"
+        search={{
+          labelWidth: 'auto',
+        }}
+        options={{
+          fullScreen: true,
+          setting: { draggable: true },
+          // reload: ,
+          ...options,
+        }}
+        scroll={{ x: true }}
+        rowKey="id"
+        dateFormatter="string"
+        headerTitle="Data Table"
+        toolBarRender={() =>
+          [
+            <Button key={'crud'} type="primary" icon={<PlusOutlined />}>
+              Add
+            </Button>,
+          ].filter(Boolean)
         }
-        // console.log('touchedOpt', touchedOpt)
-        return touchedOpt
-      }}
-      pagination={{
-        defaultPageSize: defaultParams.pageSize,
-        showQuickJumper: true,
-        ...getPrams(),
-      }}
-      onChange={({ pageSize, current }) => {
-        updateFilter({ pageSize, current })
-      }}
-      {...rest}
-      id="crud"
-      search={{
-        labelWidth: 'auto',
-      }}
-      options={{
-        fullScreen: true,
-        setting: { draggable: true },
-        // reload: ,
-        ...options,
-      }}
-      scroll={{ x: true }}
-      rowKey="id"
-      dateFormatter="string"
-      headerTitle="Data Table"
-      toolBarRender={() =>
-        [
-          <Button key={'crud'} type="primary" icon={<PlusOutlined />}>
-            Add
-          </Button>,
-        ].filter(Boolean)
-      }
-    />
+      />
+    </>
   )
 }

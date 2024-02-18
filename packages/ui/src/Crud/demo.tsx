@@ -88,9 +88,23 @@ export default function Demo() {
       <Crud
         formRef={ref}
         listProps={{
-          url: '/users',
+          listReqOpt: ({ current, pageSize }) => ({
+            url: '/users',
+            params: {
+              per_page: pageSize,
+              page: current,
+            },
+          }),
+          deleteReqOpt: (row) => ({ url: `/users/${row.id}` }),
           dataField: ['data', 'data'],
           totalField: ['data', 'meta', 'pagination', 'total'],
+        }}
+        detailProps={{
+          requestOpt: (row) => ({ url: `/users/${row.id}` }),
+          modalOpt: (row) => ({
+            title: `User Info: ${row?.name}`,
+          }),
+          dataField: ['data', 'data'],
         }}
         axios={axiosInstance}
         columns={columns}
