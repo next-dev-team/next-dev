@@ -10,6 +10,8 @@
     "./packages/*"
   ],
   "scripts": {
+    "zip": "zip -r dist.zip dist",
+    "unzip": "unzip dist.zip -d dist",
     "build:deps": "father prebundle",
     "dev_": "dumi dev",
     "build:pkg": "yarn workspaces foreach --all run build",
