@@ -61,6 +61,7 @@ const getSelectField = <T extends unknown>(
   response: Record<string, any>,
   selectField: string[]
 ) => {
+  if (!Array.isArray(selectField)) return response
   const result = selectField.reduce((acc, field) => acc[field] || null, response)
   return result as T
 }
@@ -80,11 +81,11 @@ const getColumns = ({
   hideNoCol,
 }: {
   token: GlobalToken
-  columns: ProColumns<any[]>[]
   axios: AxiosInstance
   reload: () => void
   onDetailClick: (row: any) => void
-} & Pick<ListProps, 'deleteReqOpt', 'hideNoCol'>) => {
+} & Pick<ListProps, 'deleteReqOpt'> &
+  Pick<Crud<any>, 'hideNoCol' | 'columns'>) => {
   const handleConfirmDelete = async (row: any) => {
     if (!deleteReqOpt) return message.error('Something went wrong')
     const deleteConfig = {
@@ -237,7 +238,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           columns={columns as any}
           request={async () => {
             const resDetail = await axios.request(requestOpt(row))
-            const dataSource = getSelectField(resDetail, detailDataField)
+            const dataSource = getSelectField(resDetail, detailDataField!)
             return {
               data: dataSource,
               success: true,
@@ -287,7 +288,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           const touchedResponse = {
             data: Array.isArray(dataSource) ? dataSource : ([] as any),
             success: true,
-            total: isNaN(totalPage) ? 0 : totalPage,
+            total: isNaN(totalPage as number) ? 0 : (totalPage as number),
           }
           // console.log('touchedOpt', touchedOpt)
           return touchedResponse
