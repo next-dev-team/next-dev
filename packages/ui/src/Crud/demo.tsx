@@ -98,7 +98,8 @@ export default function Demo() {
           }),
           deleteReqOpt: (row) => ({ url: `/users/${row.id}` }),
           dataField: ['data', 'data'],
-          totalField: ['data', 'meta', 'pagination', 'total'],
+          totalItemField: ['data', 'meta', 'pagination', 'total'],
+          totalPageField: ['data', 'meta', 'pagination', 'pages'],
         }}
         detailProps={{
           requestOpt: (row) => ({ url: `/users/${row.id}` }),

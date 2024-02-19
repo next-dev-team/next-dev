@@ -7,9 +7,11 @@ import {
 } from '@ant-design/icons'
 import {
   ActionType,
+  BetaSchemaForm,
   ParamsType,
   ProColumns,
   ProDescriptions,
+  ProForm,
   ProTable,
 } from '@ant-design/pro-components'
 // import { isArray } from '@next-dev/utils'
@@ -25,8 +27,9 @@ import {
 } from 'antd'
 import useModal from 'antd/es/modal/useModal'
 import { SortOrder } from 'antd/es/table/interface'
+import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { MutableRefObject, useCallback, useEffect, useRef } from 'react'
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 type ListProps = {
@@ -41,7 +44,8 @@ type ListProps = {
     filter: Record<any, any>
   ) => AxiosRequestConfig<any>
   dataField?: string[]
-  totalField?: string[]
+  totalItemField?: string[]
+  totalPageField?: string[]
   reqOptions?: Record<string, any>
 }
 type DetailProps = {
@@ -72,6 +76,8 @@ const defaultParams = {
 }
 
 const getColumns = ({
+  editForm,
+  formLoading,
   deleteReqOpt,
   columns = [],
   token,
@@ -79,10 +85,14 @@ const getColumns = ({
   reload,
   onDetailClick,
   hideNoCol,
+  onEditClick,
 }: {
+  editForm: FormInstance
+  formLoading: boolean
+  onEditClick: (row: any) => void
   token: GlobalToken
   axios: AxiosInstance
-  reload: () => void
+  reload: (reset?: boolean) => void
   onDetailClick: (row: any) => void
 } & Pick<ListProps, 'deleteReqOpt'> &
   Pick<Crud<any>, 'hideNoCol' | 'columns'>) => {
@@ -102,6 +112,7 @@ const getColumns = ({
         message.error('Delete failed')
       })
   }
+  const editId = editForm.getFieldValue('id')
 
   const actionsCol = {
     fixed: 'right',
@@ -111,6 +122,7 @@ const getColumns = ({
     valueType: 'option',
     className: 'print:hidden block',
     render: (_, row: any) => {
+      const selectId = editId === row.id
       return [
         <Button
           onClick={() => onDetailClick(row)}
@@ -121,9 +133,16 @@ const getColumns = ({
         >
           <EyeFilled style={{ color: token.colorInfo, fontSize: 20 }} />
         </Button>,
-        <Button title="Edit" type="primary" shape="circle" key="edit" size="small">
-          <EditFilled style={{ color: 'white', fontSize: 15 }} />
-        </Button>,
+        <Button
+          loading={formLoading && selectId}
+          onClick={onEditClick.bind(null, row)}
+          title="Edit"
+          type="primary"
+          shape="circle"
+          key="edit"
+          size="small"
+          icon={<EditFilled style={{ color: 'white', fontSize: 15 }} />}
+        />,
         <Dropdown
           key={'actions'}
           trigger={['click', 'contextMenu']}
@@ -177,14 +196,36 @@ const getColumns = ({
 
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
   const { axios, listProps, detailProps, options, columns, formRef, hideNoCol, ...rest } = props
-  const { dataField = ['data'], totalField = [], deleteReqOpt, listReqOpt } = listProps || {}
-  const { requestOpt, modalOpt: detailModalOpt, dataField: detailDataField } = detailProps || {}
+  const [editForm] = ProForm.useForm()
+
+  const {
+    dataField = ['data'],
+    totalItemField = [],
+    totalPageField = [],
+    deleteReqOpt,
+    listReqOpt,
+  } = listProps || {}
+  const {
+    requestOpt: detailReqOpt,
+    modalOpt: detailModalOpt,
+    dataField: detailDataField,
+  } = detailProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
   const [modal, contextHolder] = useModal()
+  const [formLoading, setFormLoading] = useState(false)
   const { token } = theme.useToken()
   const actionRef = props.actionRef as MutableRefObject<ActionType>
   const detailRef = useRef<ActionType>()
   const reload = (resetPageIndex = false) => actionRef.current?.reload(resetPageIndex)
+
+  const getParamsObj = () => {
+    const searchParamsObj: Record<string, string> = {}
+    for (let [key, value] of searchParams.entries()) {
+      if (value) searchParamsObj[key] = value
+    }
+    return searchParamsObj
+  }
+  const paramsObj = getParamsObj()
 
   const getPrams = ({
     current,
@@ -200,21 +241,24 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     }
     return params
   }
+  const isAddForm = paramsObj.formMode === 'add'
+  const isEditForm = paramsObj.formMode === 'edit'
+  const setFormMode = (mode: 'add' | 'edit' | 'close', row?: any) => {
+    const modeAdd = mode === 'add'
+    const modeEdit = mode === 'edit'
+    const modeClose = mode === 'close'
+    const nextP = modeAdd || modeClose ? {} : getPrams()
+    setSearchParams({ ...nextP, formMode: mode })
+    if (modeEdit) return editForm.setFieldsValue(row)
+    if (modeClose || modeAdd) return formRef?.current?.resetFields()
+  }
   const updateFilter = useCallback(async (params = {}, isReset = false) => {
-    setSearchParams(isReset ? {} : { ...params })
+    const { formMode, ...restParams } = params || ({} as any)
+    setSearchParams(isReset ? {} : { ...restParams })
   }, [])
 
-  const getParamsObj = () => {
-    const searchParamsObj: Record<string, string> = {}
-    for (let [key, value] of searchParams.entries()) {
-      if (value) searchParamsObj[key] = value
-    }
-    return searchParamsObj
-  }
-  const paramsObj = getParamsObj()
-
   const onDetailClick = (row: any) => {
-    if (!requestOpt) return message.error('Something went wrong')
+    if (!detailReqOpt) return message.error('Something went wrong')
     modal.info({
       // centered: true,
       width: token.screenMD,
@@ -237,7 +281,12 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           actionRef={detailRef}
           columns={columns as any}
           request={async () => {
-            const resDetail = await axios.request(requestOpt(row))
+            if (!detailReqOpt)
+              return {
+                data: [],
+                success: true,
+              }
+            const resDetail = await axios.request(detailReqOpt(row))
             const dataSource = getSelectField(resDetail, detailDataField!)
             return {
               data: dataSource,
@@ -250,8 +299,27 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     })
   }
 
+  const onEditClick = async (row: any) => {
+    if (!detailReqOpt) {
+      return message.error('Something went wrong')
+    }
+    setFormLoading(true)
+    try {
+      const resDetail = await axios.request(detailReqOpt(row))
+      const rowData = getSelectField(resDetail, detailDataField!)
+      setFormMode('edit', rowData)
+    } catch (error) {
+      // Handle error
+    } finally {
+      setFormLoading(false)
+    }
+  }
+
   const nextColumn = getColumns({
+    editForm,
+    formLoading,
     hideNoCol,
+    onEditClick,
     onDetailClick,
     reload,
     columns: columns as any,
@@ -262,11 +330,36 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
 
   // init form value
   useEffect(() => {
-    if (formRef?.current) formRef.current.setFieldsValue(getPrams())
-  }, [formRef, getPrams])
+    const params = getPrams()
+    if (formRef?.current && !isAddForm && !isEditForm) {
+      formRef.current.setFieldsValue(params)
+      reload()
+    }
+  }, [formRef, getPrams, isAddForm, isEditForm])
 
   return (
     <>
+      <BetaSchemaForm
+        loading={formLoading}
+        submitter={{ submitButtonProps: {} }}
+        // onFinish={onFinishAddOrEdit}
+        form={editForm}
+        columns={columns as any}
+        open={isAddForm || isEditForm}
+        layoutType="ModalForm"
+        modalProps={{
+          onCancel: () => setFormMode('close'),
+          okText: 'Submit',
+        }}
+        {...{
+          rowProps: {
+            gutter: [10, 2],
+          },
+          colProps: {
+            span: 12,
+          },
+        }}
+      />
       {contextHolder}
       <ProTable
         formRef={formRef}
@@ -275,20 +368,27 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           updateFilter({}, true)
         }}
         beforeSearchSubmit={(params) => {
-          const { _timestamp, ...filter } = params || {}
+          const { _timestamp, current, ...filter } = params || {}
           updateFilter(filter)
         }}
         request={async (resParams, ...arg) => {
           if (!listReqOpt) throw new Error('listReqOpt is required')
           const params = getPrams(resParams)
-          const responseList = await axios.request(listReqOpt(params, ...arg))
+          const { formMode, ...restP } = (params || {}) as any
+          const responseList = await axios.request(listReqOpt(restP, ...arg))
           const dataSource = getSelectField(responseList, dataField)
-          const totalPage = getSelectField<number>(responseList, totalField)
-
+          const totalItem = getSelectField<number>(responseList, totalItemField)
+          const totalPage = getSelectField<number>(responseList, totalPageField)
+          const total = isNaN(totalItem as number) ? 0 : (totalItem as number)
+          const validCurrentPage = +(params.current || 0)
+          const invalidTotal = validCurrentPage > +totalPage
+          if (invalidTotal || isNaN(validCurrentPage)) {
+            updateFilter({ ...params, current: defaultParams.current })
+          }
           const touchedResponse = {
             data: Array.isArray(dataSource) ? dataSource : ([] as any),
             success: true,
-            total: isNaN(totalPage as number) ? 0 : (totalPage as number),
+            total,
           }
           // console.log('touchedOpt', touchedOpt)
           return touchedResponse
@@ -318,7 +418,12 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         headerTitle="Data Table"
         toolBarRender={() =>
           [
-            <Button key={'crud'} type="primary" icon={<PlusOutlined />}>
+            <Button
+              onClick={() => setFormMode('add')}
+              key={'crud'}
+              type="primary"
+              icon={<PlusOutlined />}
+            >
               Add
             </Button>,
           ].filter(Boolean)
