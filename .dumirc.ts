@@ -1,9 +1,9 @@
+import chalk from 'chalk'
 import { defineConfig } from 'dumi'
 import type { SiteThemeConfig } from 'dumi-theme-antd-style'
 import { readdirSync } from 'fs'
 import { join } from 'path'
 const { TamaguiPlugin } = require('tamagui-loader')
-
 // more example about dumi https://github.com/thundersdata-frontend/td-design
 // https://github.com/ant-design/pro-components/blob/master/.dumirc.ts
 
@@ -26,7 +26,19 @@ const tailPkgList = pkgList.map((path) => {
   }
 })
 
-console.log('tailPkgList', pkgList)
+const alias = pkgList.reduce(
+  (pre, pkg) => {
+    pre[`@next-dev/${pkg}`] = join(__dirname, 'packages', pkg, 'src')
+    return {
+      ...pre,
+    }
+  },
+  {} as Record<string, string>
+)
+
+console.log(`🌼 alias list \n${chalk.blue(Object.keys(alias).join('\n'))}`)
+
+// console.log('tailPkgList', pkgList)
 
 const themeConfig: SiteThemeConfig = {
   name: 'Next Dev',
@@ -56,7 +68,7 @@ export default defineConfig({
     { id: 'en-US', name: 'English' },
     // { id: 'zh-CN', name: '中文' },
   ],
-  alias: {},
+  alias,
   styles: [
     `html, body { background: transparent;  }
 
@@ -71,16 +83,15 @@ export default defineConfig({
   fastRefresh: true,
   ssr: false,
   exportStatic: {},
-  // mfsu: false,
-  mfsu: {
-    exclude: ['dumi-theme-antd-style', /dumi/],
-    shared: {
-      react: {
-        singleton: true,
-      },
-    },
-  },
-
+  // mfsu: {
+  //   exclude: ['dumi-theme-antd-style', /dumi/],
+  //   shared: {
+  //     react: {
+  //       singleton: true,
+  //     },
+  //   },
+  // },
+  mfsu: false,
   resolve: {
     // Configure the entry file path, API parsing will start from here
     // entryFile: './packages/utils/src/index.ts',

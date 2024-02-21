@@ -4,7 +4,7 @@ NPM_FLAGS = "--version"
 
 [build]
 # for demo or preview
-command = "yarn install && yarn build:pkg && yarn build:doc"
+command = "yarn install && yarn prepare && yarn build:pkg && yarn build:doc"
 publish = "dist"
 
 [[redirects]]

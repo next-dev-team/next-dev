@@ -15,8 +15,8 @@ import {
   ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
-// import { isArray } from '@next-dev/utils'
 import { useMediaQuery } from '@next-dev/hooks'
+import { isArray } from '@next-dev/utils'
 import {
   Button,
   Dropdown,
@@ -71,7 +71,7 @@ const getSelectField = <T extends unknown>(
   response: Record<string, any>,
   selectField: string[]
 ) => {
-  if (!Array.isArray(selectField)) return response
+  if (!isArray(selectField)) return response
   const result = selectField.reduce((acc, field) => acc[field] || null, response)
   return result as T
 }

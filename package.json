@@ -10,11 +10,12 @@
     "./packages/*"
   ],
   "scripts": {
+    "clean:build": "rimraf ./packages/*/dist ./packages/*/dist",
     "zip": "zip -r dist.zip dist",
     "unzip": "unzip dist.zip -d dist",
     "build:deps": "father prebundle",
     "dev_": "dumi dev",
-    "build:pkg": "yarn workspaces foreach --all run build",
+    "build:pkg": "turbo run build",
     "doc": "dumi dev",
     "pre:doc": "dumi preview",
     "build:doc": "dumi build",
@@ -56,6 +57,7 @@
     "father": "^4.4.0",
     "node-gyp": "^10.0.1",
     "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^3.4.1",
     "tamagui-loader": "^1.89.28",
     "turbo": "^1.12.4",
