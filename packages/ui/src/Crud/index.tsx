@@ -12,9 +12,11 @@ import {
   ProColumns,
   ProDescriptions,
   ProForm,
+  ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
 // import { isArray } from '@next-dev/utils'
+import { useMediaQuery } from '@next-dev/hooks'
 import {
   Button,
   Dropdown,
@@ -59,6 +61,10 @@ export type Crud<TData extends Record<string, any>> = {
   listProps: ListProps
   detailProps?: DetailProps
   hideNoCol?: boolean
+  addOrEditProps?: {
+    addReqOpt?: (row: any) => AxiosRequestConfig<any>
+    editReqOpt?: (row: any) => AxiosRequestConfig<any>
+  }
 } & React.ComponentProps<typeof ProTable<TData>>
 
 const getSelectField = <T extends unknown>(
@@ -76,8 +82,7 @@ const defaultParams = {
 }
 
 const getColumns = ({
-  editForm,
-  formLoading,
+  loading,
   deleteReqOpt,
   columns = [],
   token,
@@ -87,8 +92,9 @@ const getColumns = ({
   hideNoCol,
   onEditClick,
 }: {
+  editId?: any
   editForm: FormInstance
-  formLoading: boolean
+  loading: boolean
   onEditClick: (row: any) => void
   token: GlobalToken
   axios: AxiosInstance
@@ -112,7 +118,6 @@ const getColumns = ({
         message.error('Delete failed')
       })
   }
-  const editId = editForm.getFieldValue('id')
 
   const actionsCol = {
     fixed: 'right',
@@ -122,7 +127,6 @@ const getColumns = ({
     valueType: 'option',
     className: 'print:hidden block',
     render: (_, row: any) => {
-      const selectId = editId === row.id
       return [
         <Button
           onClick={() => onDetailClick(row)}
@@ -134,7 +138,7 @@ const getColumns = ({
           <EyeFilled style={{ color: token.colorInfo, fontSize: 20 }} />
         </Button>,
         <Button
-          loading={formLoading && selectId}
+          disabled={loading}
           onClick={onEditClick.bind(null, row)}
           title="Edit"
           type="primary"
@@ -194,8 +198,63 @@ const getColumns = ({
   return [...preCol, ...originCol, actionsCol].filter(Boolean)
 }
 
+const AddOrEdit = ({
+  loading,
+  onFinish,
+  editForm,
+  isAddForm,
+  isEditForm,
+  setFormMode,
+  columns,
+  isSmUp,
+}: Pick<Crud<any>, 'columns'> &
+  Pick<ProFormProps, 'onFinish' | 'loading'> & {
+    editForm: FormInstance
+    isSmUp: boolean
+    isAddForm: boolean
+    isEditForm: boolean
+    setFormMode: (mode: 'add' | 'edit' | 'close', row?: any) => void
+  }) => {
+  if (!isAddForm && !isEditForm) return null
+  return (
+    <BetaSchemaForm
+      scrollToFirstError
+      submitter={{ submitButtonProps: { loading } }}
+      onFinish={onFinish}
+      form={editForm}
+      columns={columns as any}
+      open={isAddForm || isEditForm}
+      layoutType="ModalForm"
+      modalProps={{
+        onCancel: () => setFormMode('close'),
+        okText: 'Submit',
+        destroyOnClose: true,
+      }}
+      {...{
+        rowProps: {
+          gutter: [10, 2],
+        },
+        colProps: {
+          span: 12,
+        },
+        grid: isSmUp,
+      }}
+    />
+  )
+}
+
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
-  const { axios, listProps, detailProps, options, columns, formRef, hideNoCol, ...rest } = props
+  const {
+    axios,
+    listProps,
+    detailProps,
+    options,
+    columns,
+    formRef,
+    hideNoCol,
+    addOrEditProps,
+    ...rest
+  } = props
   const [editForm] = ProForm.useForm()
 
   const {
@@ -205,20 +264,23 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     deleteReqOpt,
     listReqOpt,
   } = listProps || {}
+  const { addReqOpt, editReqOpt } = addOrEditProps || {}
   const {
     requestOpt: detailReqOpt,
     modalOpt: detailModalOpt,
     dataField: detailDataField,
   } = detailProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
+  const { isSmUp } = useMediaQuery()
   const [modal, contextHolder] = useModal()
-  const [formLoading, setFormLoading] = useState(false)
+  const [rowRecords, setRowRecords] = useState<Record<string, any>>({})
+  const [addOrEditLoading, setAddOrEditLoading] = useState(false)
   const { token } = theme.useToken()
   const actionRef = props.actionRef as MutableRefObject<ActionType>
   const detailRef = useRef<ActionType>()
   const reload = (resetPageIndex = false) => actionRef.current?.reload(resetPageIndex)
 
-  const getParamsObj = () => {
+  const getParamsObj = (): { formMode?: any } => {
     const searchParamsObj: Record<string, string> = {}
     for (let [key, value] of searchParams.entries()) {
       if (value) searchParamsObj[key] = value
@@ -241,16 +303,33 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     }
     return params
   }
+  const params = getPrams() || {}
+
   const isAddForm = paramsObj.formMode === 'add'
   const isEditForm = paramsObj.formMode === 'edit'
+
+  const resetAll = (fullReset = false) => {
+    editForm.resetFields()
+    formRef?.current?.resetFields()
+    setRowRecords({})
+    if (fullReset) {
+      setSearchParams({ ...params, formMode: 'close' } as any)
+    }
+    reload()
+  }
+
   const setFormMode = (mode: 'add' | 'edit' | 'close', row?: any) => {
     const modeAdd = mode === 'add'
     const modeEdit = mode === 'edit'
     const modeClose = mode === 'close'
     const nextP = modeAdd || modeClose ? {} : getPrams()
+
     setSearchParams({ ...nextP, formMode: mode })
-    if (modeEdit) return editForm.setFieldsValue(row)
-    if (modeClose || modeAdd) return formRef?.current?.resetFields()
+    if (modeEdit) {
+      setRowRecords(() => row)
+      return editForm.setFieldsValue(row)
+    }
+    if (modeClose || modeAdd) resetAll()
   }
   const updateFilter = useCallback(async (params = {}, isReset = false) => {
     const { formMode, ...restParams } = params || ({} as any)
@@ -272,6 +351,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           minHeight: 300,
         },
       },
+      onCancel: () => resetAll(true),
       content: (
         <ProDescriptions
           style={{
@@ -303,21 +383,20 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     if (!detailReqOpt) {
       return message.error('Something went wrong')
     }
-    setFormLoading(true)
+    setAddOrEditLoading(true)
     try {
-      const resDetail = await axios.request(detailReqOpt(row))
-      const rowData = getSelectField(resDetail, detailDataField!)
-      setFormMode('edit', rowData)
+      await axios.request(detailReqOpt(row))
+      setFormMode('edit', row)
     } catch (error) {
       // Handle error
     } finally {
-      setFormLoading(false)
+      setAddOrEditLoading(false)
     }
   }
 
   const nextColumn = getColumns({
     editForm,
-    formLoading,
+    loading: addOrEditLoading,
     hideNoCol,
     onEditClick,
     onDetailClick,
@@ -333,31 +412,60 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     const params = getPrams()
     if (formRef?.current && !isAddForm && !isEditForm) {
       formRef.current.setFieldsValue(params)
-      reload()
     }
   }, [formRef, getPrams, isAddForm, isEditForm])
 
   return (
     <>
-      <BetaSchemaForm
-        loading={formLoading}
-        submitter={{ submitButtonProps: {} }}
-        // onFinish={onFinishAddOrEdit}
-        form={editForm}
-        columns={columns as any}
-        open={isAddForm || isEditForm}
-        layoutType="ModalForm"
-        modalProps={{
-          onCancel: () => setFormMode('close'),
-          okText: 'Submit',
-        }}
+      <AddOrEdit
         {...{
-          rowProps: {
-            gutter: [10, 2],
+          loading: addOrEditLoading,
+          onFinish: async (formValues) => {
+            const addOpt = addReqOpt?.(rowRecords)
+            const editOpt = editReqOpt?.(rowRecords)
+            // loading
+            setAddOrEditLoading(true)
+            if (isAddForm) {
+              return axios
+                .request({
+                  method: 'post',
+                  params: formValues,
+                  ...addOpt,
+                })
+                .then(() => {
+                  message.success('Add successfully')
+                  resetAll(true)
+                })
+                .catch(() => {
+                  message.error('Add failed')
+                })
+                .finally(() => {
+                  setAddOrEditLoading(false)
+                })
+            }
+            return axios
+              .request({
+                method: 'put',
+                data: formValues,
+                ...editOpt,
+              })
+              .then(() => {
+                message.success('Edit successfully')
+                resetAll(true)
+              })
+              .catch(() => {
+                message.error('Edit failed')
+              })
+              .finally(() => {
+                setAddOrEditLoading(false)
+              })
           },
-          colProps: {
-            span: 12,
-          },
+          editForm,
+          isAddForm,
+          isEditForm,
+          isSmUp,
+          setFormMode,
+          columns,
         }}
       />
       {contextHolder}

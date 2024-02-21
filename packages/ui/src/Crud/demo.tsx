@@ -61,7 +61,7 @@ export default function Demo() {
       title: 'Email',
       dataIndex: 'email',
       formItemProps: {
-        rules: [{ required: true }],
+        rules: [{ required: true, type: 'email' }],
       },
     },
     {
@@ -87,6 +87,14 @@ export default function Demo() {
     <>
       <Crud
         formRef={ref}
+        addOrEditProps={{
+          addReqOpt: (row) => ({
+            url: '/users',
+          }),
+          editReqOpt: (row) => ({
+            url: `/users/${row.id}`,
+          }),
+        }}
         listProps={{
           listReqOpt: ({ current, pageSize, ...rest }) => ({
             url: '/users',
