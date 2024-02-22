@@ -86,6 +86,13 @@ export default function Demo() {
   return (
     <>
       <Crud
+        headerTitle="Auto CRUD"
+        // custom dataSource
+        postData={(data) => {
+          console.log('postData', data)
+
+          return data
+        }}
         formRef={ref}
         addOrEditProps={{
           addReqOpt: (row) => ({

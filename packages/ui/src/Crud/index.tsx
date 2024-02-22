@@ -31,7 +31,7 @@ import useModal from 'antd/es/modal/useModal'
 import { SortOrder } from 'antd/es/table/interface'
 import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { MutableRefObject, useCallback, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 type ListProps = {
@@ -219,14 +219,14 @@ const AddOrEdit = ({
   return (
     <BetaSchemaForm
       scrollToFirstError
-      submitter={{ submitButtonProps: { loading } }}
       onFinish={onFinish}
+      loading={loading}
       form={editForm}
       columns={columns as any}
       open={isAddForm || isEditForm}
       layoutType="ModalForm"
       modalProps={{
-        onCancel: () => setFormMode('close'),
+        onCancel: () => setFormMode('close', false),
         okText: 'Submit',
         destroyOnClose: true,
       }}
@@ -253,6 +253,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     formRef,
     hideNoCol,
     addOrEditProps,
+    search,
     ...rest
   } = props
   const [editForm] = ProForm.useForm()
@@ -308,32 +309,42 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   const isAddForm = paramsObj.formMode === 'add'
   const isEditForm = paramsObj.formMode === 'edit'
 
-  const resetAll = (fullReset = false) => {
+  const resetAll = (isReload = false, fullReset = false) => {
     editForm.resetFields()
     formRef?.current?.resetFields()
     setRowRecords({})
-    if (fullReset) {
-      setSearchParams({ ...params, formMode: 'close' } as any)
-    }
-    reload()
+
+    if (fullReset) setSearchParams({})
+    if (isReload) reload()
   }
 
-  const setFormMode = (mode: 'add' | 'edit' | 'close', row?: any) => {
+  const setFormMode = (mode: 'add' | 'edit' | 'close-reset' | 'close-reload' | '', row?: any) => {
     const modeAdd = mode === 'add'
     const modeEdit = mode === 'edit'
-    const modeClose = mode === 'close'
-    const nextP = modeAdd || modeClose ? {} : getPrams()
+    const modeCloseReload = mode === 'close-reload'
+    const modeCloseReset = mode === 'close-reset'
 
-    setSearchParams({ ...nextP, formMode: mode })
+    setSearchParams({ ...getPrams(), formMode: mode } as any)
     if (modeEdit) {
       setRowRecords(() => row)
-      return editForm.setFieldsValue(row)
+      editForm.setFieldsValue(row)
     }
-    if (modeClose || modeAdd) resetAll()
+    if (modeAdd) {
+      editForm.resetFields()
+      setRowRecords({})
+    }
+    if (modeCloseReset) {
+      resetAll(true, true)
+    }
+    if (modeCloseReload) {
+      reload()
+    }
   }
+
   const updateFilter = useCallback(async (params = {}, isReset = false) => {
     const { formMode, ...restParams } = params || ({} as any)
     setSearchParams(isReset ? {} : { ...restParams })
+    reload()
   }, [])
 
   const onDetailClick = (row: any) => {
@@ -351,7 +362,9 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           minHeight: 300,
         },
       },
-      onCancel: () => resetAll(true),
+      onCancel: () => {
+        setFormMode('')
+      },
       content: (
         <ProDescriptions
           style={{
@@ -407,15 +420,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     deleteReqOpt,
   })
 
-  // init form value
-  useEffect(() => {
-    const params = getPrams()
-    if (formRef?.current && (params.formMode !== 'add' || params.formMode !== 'edit')) {
-      formRef.current.setFieldsValue(params)
-      reload()
-    }
-  }, [formRef, getPrams])
-
   return (
     <>
       <AddOrEdit
@@ -435,7 +439,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
                 })
                 .then(() => {
                   message.success('Add successfully')
-                  resetAll(true)
+                  setFormMode('close-reset')
                 })
                 .catch(() => {
                   message.error('Add failed')
@@ -452,7 +456,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
               })
               .then(() => {
                 message.success('Edit successfully')
-                resetAll(true)
+                setFormMode('close-reset')
               })
               .catch(() => {
                 message.error('Edit failed')
@@ -471,14 +475,18 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
       />
       {contextHolder}
       <ProTable
+        beforeSearchSubmit={async (params) => {
+          // sync search url params with search form
+          if (formRef?.current) formRef.current.setFieldsValue(getPrams(params))
+          return params
+        }}
         formRef={formRef}
         columns={nextColumn as any}
         onReset={() => {
-          updateFilter({}, true)
+          resetAll(true, true)
         }}
-        beforeSearchSubmit={(params) => {
-          const { _timestamp, current, ...filter } = params || {}
-          updateFilter(filter)
+        onSubmit={(params) => {
+          updateFilter(params)
         }}
         request={async (resParams, ...arg) => {
           if (!listReqOpt) throw new Error('listReqOpt is required')
@@ -514,6 +522,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         id="crud"
         search={{
           labelWidth: 'auto',
+          ...search,
         }}
         options={{
           fullScreen: true,
@@ -524,7 +533,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         scroll={{ x: true }}
         rowKey="id"
         dateFormatter="string"
-        headerTitle="Data Table"
         toolBarRender={() =>
           [
             <Button
