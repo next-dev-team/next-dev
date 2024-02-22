@@ -7,7 +7,7 @@ export default function DumiGrid({
   item: { col?: ColProps & { children?: React.ReactNode } }[]
 }) {
   return (
-    <Row gutter={16} {...row}>
+    <Row gutter={[20, 30]} {...row}>
       {item.map((item, index) => {
         return <Col key={index} span={12} {...item.col} />
       })}

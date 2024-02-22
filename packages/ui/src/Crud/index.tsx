@@ -410,10 +410,11 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   // init form value
   useEffect(() => {
     const params = getPrams()
-    if (formRef?.current && !isAddForm && !isEditForm) {
+    if (formRef?.current && (params.formMode !== 'add' || params.formMode !== 'edit')) {
       formRef.current.setFieldsValue(params)
+      reload()
     }
-  }, [formRef, getPrams, isAddForm, isEditForm])
+  }, [formRef, getPrams])
 
   return (
     <>
