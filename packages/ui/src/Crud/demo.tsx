@@ -80,6 +80,17 @@ export default function Demo() {
           status: 'inactive',
         },
       },
+      //@ts-ignore
+      renderTag: (_, records) => {
+        const { status } = records
+        const colorMap = {
+          active: 'green',
+          inactive: 'red',
+        } as any
+        return {
+          color: colorMap[status],
+        }
+      },
     },
   ]
 

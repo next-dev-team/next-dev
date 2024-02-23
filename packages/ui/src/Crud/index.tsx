@@ -24,6 +24,7 @@ import {
   ModalFuncProps,
   Popconfirm,
   Space,
+  Tag,
   message,
   theme,
 } from 'antd'
@@ -182,11 +183,31 @@ const getColumns = ({
       ].filter(Boolean)
     },
   } as ProColumns<any[]>
-  const originCol = columns?.map((item) => {
+
+  const getCustomRender = ({
+    renderTag,
+    ...col
+  }: ProColumns<any[]> & { renderTag: any }): ProColumns<any[]> => {
+    if (renderTag)
+      return {
+        ...col,
+        render: (_, ...args) => {
+          const tagProps = renderTag?.(_, ...args)
+          const { label, ...restTag } = tagProps || {}
+          return <Tag {...restTag}>{label || _}</Tag>
+        },
+      }
+    return col
+  }
+
+  const nextCol = columns?.map((colItem) => {
+    const customRender = getCustomRender(colItem)
     return {
-      ...item,
+      ...colItem,
+      ...customRender,
     }
   })
+
   const preCol = [
     !hideNoCol && {
       title: 'No.',
@@ -195,7 +216,7 @@ const getColumns = ({
       width: 64,
     },
   ]
-  return [...preCol, ...originCol, actionsCol].filter(Boolean)
+  return [...preCol, ...nextCol, actionsCol].filter(Boolean)
 }
 
 const AddOrEdit = ({
