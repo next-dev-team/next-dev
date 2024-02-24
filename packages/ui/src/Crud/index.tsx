@@ -17,7 +17,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components'
 import { useMediaQuery } from '@next-dev/hooks'
-import { isArray, isObject } from '@next-dev/utils'
+import { isArray, isObject, isString } from '@next-dev/utils'
 import {
   Button,
   Dropdown,
@@ -36,7 +36,6 @@ import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { MutableRefObject, isValidElement, useCallback, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { isString } from '../Button'
 
 type ListProps = {
   deleteReqOpt?: (row: any) => AxiosRequestConfig<any>
