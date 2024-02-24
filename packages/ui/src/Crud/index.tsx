@@ -57,6 +57,7 @@ type DetailProps = {
   requestOpt?: (row: any) => AxiosRequestConfig<any>
   modalOpt?: (row: any) => ModalFuncProps
   dataField?: string[]
+  postData?: (data: any) => any
 }
 type IMode = 'add' | 'edit' | 'close-reset' | 'close-reload' | 'close'
 export type ICrudCol<TData extends unknown> = ProColumns<TData[]> & {
@@ -171,10 +172,23 @@ const getColumns = ({
   token,
   axios,
   reload,
-  onDetailClick,
   hideNoCol,
   onEditClick,
+  detailReqOpt,
+  modal,
+  setFormMode,
+  detailRef,
+  detailDataField,
+  detailPostData,
+  detailModalOpt,
 }: {
+  detailModalOpt?: (row: any) => ModalFuncProps
+  detailPostData?: (data: any) => any
+  detailDataField?: string[]
+  detailRef: any
+  setFormMode: (mode: IMode, row?: any) => void
+  modal: any
+  detailReqOpt?: (row: any) => AxiosRequestConfig<any>
   editId?: any
   editForm: FormInstance
   loading: boolean
@@ -182,7 +196,6 @@ const getColumns = ({
   token: GlobalToken
   axios: AxiosInstance
   reload: (reset?: boolean) => void
-  onDetailClick: (row: any) => void
 } & Pick<ListProps, 'deleteReqOpt'> &
   Pick<Crud<any>, 'hideNoCol' | 'columns'>) => {
   const handleConfirmDelete = async (row: any) => {
@@ -279,6 +292,51 @@ const getColumns = ({
     }
   })
 
+  const onDetailClick = (row: any) => {
+    if (!detailReqOpt) return message.error('Something went wrong')
+    modal.info({
+      // centered: true,
+      width: token.screenMD,
+      title: 'Detail',
+      maskClosable: true,
+      footer: null,
+      icon: null,
+      closable: true,
+      styles: {
+        body: {
+          minHeight: 300,
+        },
+      },
+      onCancel: () => {
+        setFormMode('close')
+      },
+      content: (
+        <ProDescriptions
+          style={{
+            padding: token.paddingContentVertical,
+          }}
+          layout="vertical"
+          actionRef={detailRef}
+          columns={nextCol as any}
+          request={async () => {
+            if (!detailReqOpt)
+              return {
+                data: [],
+                success: true,
+              }
+            const resDetail = await axios.request(detailReqOpt(row))
+            const dataSource = getSelectField(resDetail, detailDataField!)
+            const nextData = detailPostData ? detailPostData(dataSource) : dataSource
+            return {
+              data: nextData,
+              success: true,
+            }
+          }}
+        />
+      ),
+      ...detailModalOpt?.(row),
+    })
+  }
   const preCol = [
     !hideNoCol && {
       title: 'No.',
@@ -362,6 +420,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     requestOpt: detailReqOpt,
     modalOpt: detailModalOpt,
     dataField: detailDataField,
+    postData: detailPostData,
   } = detailProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
   const { isSmUp } = useMediaQuery()
@@ -439,51 +498,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     reload()
   }, [])
 
-  const onDetailClick = (row: any) => {
-    if (!detailReqOpt) return message.error('Something went wrong')
-    modal.info({
-      // centered: true,
-      width: token.screenMD,
-      title: 'Detail',
-      maskClosable: true,
-      footer: null,
-      icon: null,
-      closable: true,
-      styles: {
-        body: {
-          minHeight: 300,
-        },
-      },
-      onCancel: () => {
-        setFormMode('close')
-      },
-      content: (
-        <ProDescriptions
-          style={{
-            padding: token.paddingContentVertical,
-          }}
-          layout="vertical"
-          actionRef={detailRef}
-          columns={columns as any}
-          request={async () => {
-            if (!detailReqOpt)
-              return {
-                data: [],
-                success: true,
-              }
-            const resDetail = await axios.request(detailReqOpt(row))
-            const dataSource = getSelectField(resDetail, detailDataField!)
-            return {
-              data: dataSource,
-              success: true,
-            }
-          }}
-        />
-      ),
-      ...detailModalOpt?.(row),
-    })
-  }
-
   const onEditClick = async (row: any) => {
     if (!detailReqOpt) {
       return message.error('Something went wrong')
@@ -500,11 +514,17 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   }
 
   const nextColumn = getColumns({
+    detailRef,
+    modal,
+    setFormMode,
+    detailDataField,
+    detailModalOpt,
+    detailPostData,
+    detailReqOpt,
     editForm,
     loading: addOrEditLoading,
     hideNoCol,
     onEditClick,
-    onDetailClick,
     reload,
     columns: columns as any,
     token,

@@ -12,6 +12,16 @@ const axiosInstance = axios.create({
   },
 })
 
+const mockImg =
+  'https://images.pexels.com/photos/166055/pexels-photo-166055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+
+const mockData = {
+  tags: Array.from({ length: 8 }).map((_, i) => {
+    return { id: i, name: `tags ${i}` }
+  }),
+  img: mockImg,
+}
+
 export default function Demo() {
   const actionRef = useRef<ActionType>(null)
   const ref = useRef<ProFormInstance>()
@@ -96,7 +106,6 @@ export default function Demo() {
       hideInForm: true,
       renderTag: (_, records) => {
         const { tags = [] } = records || {}
-        console.log('tags', tags)
         return {
           data: tags.map((item: any, i: any) => {
             return {
@@ -110,6 +119,17 @@ export default function Demo() {
         }
       },
     },
+    {
+      hideInForm: true,
+      title: 'Profile',
+      dataIndex: 'img',
+      valueType: () => {
+        return {
+          type: 'image',
+          width: 80,
+        }
+      },
+    },
   ]
 
   return (
@@ -118,12 +138,10 @@ export default function Demo() {
         headerTitle="Auto CRUD"
         // custom dataSource
         postData={(data: any[]) => {
-          const touchedData = data.map((item) => {
+          const touchedData = data.map((item, idx) => {
             return {
               ...item,
-              tags: Array.from({ length: 8 }).map((_, i) => {
-                return { id: i, name: `tags ${i}` }
-              }),
+              ...mockData,
             }
           })
           return touchedData
@@ -157,6 +175,12 @@ export default function Demo() {
             title: `User Info: ${row?.name}`,
           }),
           dataField: ['data', 'data'],
+          postData: (data) => {
+            return {
+              ...data,
+              ...mockData,
+            }
+          },
         }}
         axios={axiosInstance}
         columns={columns}
