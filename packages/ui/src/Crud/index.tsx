@@ -2,6 +2,7 @@ import {
   DeleteOutlined,
   EditFilled,
   EyeFilled,
+  EyeOutlined,
   MoreOutlined,
   PlusOutlined,
 } from '@ant-design/icons'
@@ -16,7 +17,7 @@ import {
   ProTable,
 } from '@ant-design/pro-components'
 import { useMediaQuery } from '@next-dev/hooks'
-import { isArray } from '@next-dev/utils'
+import { isArray, isObject } from '@next-dev/utils'
 import {
   Button,
   Dropdown,
@@ -25,6 +26,7 @@ import {
   Popconfirm,
   Space,
   Tag,
+  TagProps,
   message,
   theme,
 } from 'antd'
@@ -32,8 +34,9 @@ import useModal from 'antd/es/modal/useModal'
 import { SortOrder } from 'antd/es/table/interface'
 import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { MutableRefObject, useCallback, useRef, useState } from 'react'
+import { MutableRefObject, isValidElement, useCallback, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { isString } from '../Button'
 
 type ListProps = {
   deleteReqOpt?: (row: any) => AxiosRequestConfig<any>
@@ -56,6 +59,19 @@ type DetailProps = {
   modalOpt?: (row: any) => ModalFuncProps
   dataField?: string[]
 }
+type IMode = 'add' | 'edit' | 'close-reset' | 'close-reload' | 'close'
+export type ICrudCol<TData extends unknown> = ProColumns<TData[]> & {
+  renderTag?: (
+    dom: React.ReactNode,
+    entity: TData,
+    index: number
+  ) => TagProps & {
+    label?: React.ReactNode
+    data?: any[]
+    labelField?: string[]
+    showLimit?: number
+  }
+}
 
 export type Crud<TData extends Record<string, any>> = {
   axios: AxiosInstance
@@ -73,13 +89,80 @@ const getSelectField = <T extends unknown>(
   selectField: string[]
 ) => {
   if (!isArray(selectField)) return response
-  const result = selectField.reduce((acc, field) => acc[field] || null, response)
+  const result = selectField.reduce((acc, field) => acc?.[field] || null, response)
   return result as T
 }
 
 const defaultParams = {
   current: 1,
   pageSize: 10,
+}
+
+const renderTagComp = (col: any, renderTag: any): ICrudCol<any> => {
+  return {
+    ...col,
+    render: (_, ...args) => {
+      const text = typeof _ === 'string' ? _ : isValidElement(_) && _
+      const tagProps = renderTag?.(_, ...args)
+      const { label, labelField, showLimit = 4, data, ...restTag } = tagProps || {}
+      const nextText = label || text
+
+      if (isArray(data)) {
+        const limitTagData = data.slice(0, showLimit)
+        const hasMoreTags = data.length > showLimit
+        const showMoreLabel = `+${data.length - showLimit}`
+
+        return (
+          <Space size={[0, 4]}>
+            {limitTagData.map((item, idx) => {
+              const { color } = isObject(item) ? item : ({} as any)
+              const text =
+                typeof item === 'string'
+                  ? item
+                  : (getSelectField(item as any, labelField) as string)
+              if (!isString(text)) return null
+              return (
+                <Tag key={text || idx} color={color} {...restTag}>
+                  {text}
+                </Tag>
+              )
+            })}
+            {hasMoreTags && (
+              <Dropdown
+                trigger={['click']}
+                menu={{
+                  items: data.slice(showLimit).map((item: any, idx) => {
+                    const text =
+                      typeof item === 'string'
+                        ? item
+                        : (getSelectField(item as any, labelField) as string)
+                    if (!text) return null
+                    return {
+                      key: idx,
+                      label: (
+                        <Tag color={item?.color || 'default'} key={text || idx} {...restTag}>
+                          {text}
+                        </Tag>
+                      ),
+                    }
+                  }),
+                }}
+                placement="bottomRight"
+                arrow
+              >
+                <Tag {...restTag} style={{ cursor: 'pointer', ...restTag?.style }} color="default">
+                  <EyeOutlined style={{ fontSize: 12, marginRight: 3 }} />
+                  {showMoreLabel}
+                </Tag>
+              </Dropdown>
+            )}
+          </Space>
+        )
+      }
+      if (!nextText) return null
+      return <Tag {...restTag}>{nextText}</Tag>
+    },
+  }
 }
 
 const getColumns = ({
@@ -182,26 +265,15 @@ const getColumns = ({
         </Dropdown>,
       ].filter(Boolean)
     },
-  } as ProColumns<any[]>
+  } as ICrudCol<any[]>
 
-  const getCustomRender = ({
-    renderTag,
-    ...col
-  }: ProColumns<any[]> & { renderTag: any }): ProColumns<any[]> => {
-    if (renderTag)
-      return {
-        ...col,
-        render: (_, ...args) => {
-          const tagProps = renderTag?.(_, ...args)
-          const { label, ...restTag } = tagProps || {}
-          return <Tag {...restTag}>{label || _}</Tag>
-        },
-      }
+  const getCustomRender = ({ renderTag, ...col }: ICrudCol<any[]> & { renderTag: any }) => {
+    if (renderTag) return renderTagComp(col, renderTag)
     return col
   }
 
   const nextCol = columns?.map((colItem) => {
-    const customRender = getCustomRender(colItem)
+    const customRender = getCustomRender(colItem as any)
     return {
       ...colItem,
       ...customRender,
@@ -234,7 +306,7 @@ const AddOrEdit = ({
     isSmUp: boolean
     isAddForm: boolean
     isEditForm: boolean
-    setFormMode: (mode: 'add' | 'edit' | 'close', row?: any) => void
+    setFormMode: (mode: IMode, row?: any) => void
   }) => {
   if (!isAddForm && !isEditForm) return null
   return (
@@ -339,7 +411,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     if (isReload) reload()
   }
 
-  const setFormMode = (mode: 'add' | 'edit' | 'close-reset' | 'close-reload' | '', row?: any) => {
+  const setFormMode = (mode: IMode, row?: any) => {
     const modeAdd = mode === 'add'
     const modeEdit = mode === 'edit'
     const modeCloseReload = mode === 'close-reload'
@@ -384,7 +456,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         },
       },
       onCancel: () => {
-        setFormMode('')
+        setFormMode('close')
       },
       content: (
         <ProDescriptions

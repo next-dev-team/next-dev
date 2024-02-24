@@ -1,7 +1,7 @@
-import { ActionType, ProColumns, ProFormInstance } from '@ant-design/pro-components'
+import { ActionType, ProFormInstance } from '@ant-design/pro-components'
 import axios from 'axios'
 import { useRef } from 'react'
-import Crud from '.'
+import Crud, { ICrudCol } from '.'
 
 const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325'
 
@@ -15,7 +15,7 @@ const axiosInstance = axios.create({
 export default function Demo() {
   const actionRef = useRef<ActionType>(null)
   const ref = useRef<ProFormInstance>()
-  const columns: ProColumns<any[]>[] = [
+  const columns: ICrudCol<any>[] = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -80,15 +80,33 @@ export default function Demo() {
           status: 'inactive',
         },
       },
-      //@ts-ignore
       renderTag: (_, records) => {
         const { status } = records
-        const colorMap = {
+        const colorMap: Record<string, string> = {
           active: 'green',
           inactive: 'red',
-        } as any
+        }
         return {
           color: colorMap[status],
+        }
+      },
+    },
+    {
+      title: 'Cannel',
+      hideInForm: true,
+      renderTag: (_, records) => {
+        const { tags = [] } = records || {}
+        console.log('tags', tags)
+        return {
+          data: tags.map((item: any, i: any) => {
+            return {
+              id: item.id,
+              name: item.name,
+              color: i % 2 === 0 ? 'cyan' : 'blue',
+            }
+          }),
+          labelField: ['name'],
+          showLimit: 2,
         }
       },
     },
@@ -99,10 +117,16 @@ export default function Demo() {
       <Crud
         headerTitle="Auto CRUD"
         // custom dataSource
-        postData={(data) => {
-          console.log('postData', data)
-
-          return data
+        postData={(data: any[]) => {
+          const touchedData = data.map((item) => {
+            return {
+              ...item,
+              tags: Array.from({ length: 8 }).map((_, i) => {
+                return { id: i, name: `tags ${i}` }
+              }),
+            }
+          })
+          return touchedData
         }}
         formRef={ref}
         addOrEditProps={{
