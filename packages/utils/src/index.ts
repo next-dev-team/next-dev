@@ -25,3 +25,5 @@ export { default as strLowerFirst } from './strLowerFirst'
 export { default as strToSlug } from './strToSlug'
 export { default as strTruncate } from './strTruncate'
 export { default as strUpperCase } from './strUpperCase'
+// ----------------------------#DOM------------------------------
+export { default as htmlPrint } from './htmlPrint'

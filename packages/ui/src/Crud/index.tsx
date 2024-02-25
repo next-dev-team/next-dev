@@ -36,6 +36,7 @@ import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { MutableRefObject, isValidElement, useCallback, useRef, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import TblExport from './export'
 
 type ListProps = {
   deleteReqOpt?: (row: any) => AxiosRequestConfig<any>
@@ -647,6 +648,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         dateFormatter="string"
         toolBarRender={() =>
           [
+            <TblExport key="export" />,
             <Button
               onClick={() => setFormMode('add')}
               key={'crud'}

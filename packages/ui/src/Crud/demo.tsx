@@ -40,16 +40,6 @@ export default function Demo() {
       },
     },
     {
-      title: 'Profile',
-      dataIndex: 'profile',
-      valueType: {
-        type: 'image',
-        width: 80,
-      },
-      hideInForm: true,
-      hideInSearch: true,
-    },
-    {
       title: 'Gender',
       dataIndex: 'gender',
       formItemProps: {
