@@ -1,4 +1,9 @@
-import { ActionType, ProFormInstance } from '@ant-design/pro-components'
+import {
+  ActionType,
+  ProFormInstance,
+  ProFormUploadButton,
+  ProFormUploadDragger,
+} from '@ant-design/pro-components'
 import axios from 'axios'
 import { Random } from 'mockjs'
 import { useRef } from 'react'
@@ -120,14 +125,81 @@ export default function Demo() {
           width: 80,
         }
       },
-      renderFormItem(schema, config, form, action) {
-        return <img className="max-w-[200px]" src={mockImg} alt="" />
+      renderFormItem: () => {
+        return (
+          <>
+            <ProFormUploadButton
+              fieldProps={{
+                multiple: false,
+              }}
+              title="Upload"
+            />
+            {/* <ProFormUploadDragger
+              colProps={{ span: 24 }}
+              fieldProps={{
+                fileList: [],
+              }}
+            /> */}
+          </>
+        )
+      },
+    },
+    {
+      title: 'Profile1',
+      dataIndex: 'img',
+      valueType: () => {
+        return {
+          type: 'image',
+          width: 80,
+        }
+      },
+      renderFormItem: () => {
+        return (
+          <>
+            <ProFormUploadDragger
+              colProps={{ span: 24 }}
+              fieldProps={{
+                fileList: [],
+              }}
+            />
+          </>
+        )
       },
     },
     {
       title: 'Publish Date',
       dataIndex: 'publishDate',
       valueType: 'date',
+    },
+    {
+      title: 'Form List',
+      valueType: 'formList',
+      dataIndex: 'list',
+      initialValue: [{}],
+      colProps: { span: 24 },
+      columns: [
+        {
+          valueType: 'group',
+          colProps: { span: 24 },
+          columns: [
+            {
+              title: 'name',
+            },
+            {
+              title: 'age',
+              dataIndex: 'age',
+            },
+          ],
+        },
+        {
+          title: 'Text Area',
+          valueType: 'textarea',
+          dataIndex: 'textarea',
+          formItemProps: {
+            rules: [{ required: true }],
+          },
+        },
+      ],
     },
   ]
 
@@ -182,7 +254,7 @@ export default function Demo() {
           },
         }}
         axios={axiosInstance}
-        columns={columns}
+        columns={columns as any}
         actionRef={actionRef}
       />
     </>

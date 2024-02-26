@@ -10,9 +10,9 @@ import {
   ActionType,
   BetaSchemaForm,
   ParamsType,
-  ProColumns,
   ProDescriptions,
   ProForm,
+  ProFormColumnsType,
   ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
@@ -61,7 +61,7 @@ type DetailProps = {
   postData?: (data: any) => any
 }
 type IMode = 'add' | 'edit' | 'close-reset' | 'close-reload' | 'close'
-export type ICrudCol<TData extends unknown> = ProColumns<TData[]> & {
+export type ICrudCol<TData extends unknown> = ProFormColumnsType<TData[]> & {
   renderTag?: (
     dom: React.ReactNode,
     entity: TData,
@@ -657,6 +657,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
         dateFormatter="string"
         toolBarRender={() =>
           [
+            //@ts-ignore
             <TblExport key="export" />,
             <Button
               onClick={() => setFormMode('add')}
