@@ -10,7 +10,6 @@ import { Button, Form, Space, notification } from 'antd'
 import DataTbl from '.'
 
 type DataTable = React.ComponentProps<typeof DataTbl>
-type DataTableExport = DataTable
 
 function convertToCSV(tableData: object[]): string {
   const headers = Object.keys(tableData[0]).join(',') + '\n'

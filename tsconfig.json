@@ -4,6 +4,7 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "app/*": ["./packages/app/*"],
+      "@next-dev/*": ["./packages/app/*"],
       "@next-dev/rn-ui/*": ["./packages/rn-ui/*"],
       "@@/*": [".dumi/tmp/*"]
     }

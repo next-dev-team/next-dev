@@ -1,5 +1,6 @@
 import { ActionType, ProFormInstance } from '@ant-design/pro-components'
 import axios from 'axios'
+import { Random } from 'mockjs'
 import { useRef } from 'react'
 import Crud, { ICrudCol } from '.'
 
@@ -20,6 +21,7 @@ const mockData = {
     return { id: i, name: `tags ${i}` }
   }),
   img: mockImg,
+  publishDate: Random.datetime(),
 }
 
 export default function Demo() {
@@ -110,7 +112,6 @@ export default function Demo() {
       },
     },
     {
-      hideInForm: true,
       title: 'Profile',
       dataIndex: 'img',
       valueType: () => {
@@ -119,6 +120,14 @@ export default function Demo() {
           width: 80,
         }
       },
+      renderFormItem(schema, config, form, action) {
+        return <img className="max-w-[200px]" src={mockImg} alt="" />
+      },
+    },
+    {
+      title: 'Publish Date',
+      dataIndex: 'publishDate',
+      valueType: 'date',
     },
   ]
 

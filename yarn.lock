@@ -8384,6 +8384,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/mockjs@npm:^1.0.7":
+  version: 1.0.10
+  resolution: "@types/mockjs@npm:1.0.10"
+  checksum: 10/9e047378beeba3a82e847eb9018ed4721cdb2a0920b2616964c76f1b60d7b7231b09389491426ae8a646dfc405e0dc98566ef3069e98e2083f75516cdcde3f21
+  languageName: node
+  linkType: hard
+
 "@types/ms@npm:*":
   version: 0.7.34
   resolution: "@types/ms@npm:0.7.34"
@@ -12807,6 +12814,13 @@ __metadata:
     table-layout: "npm:^1.0.2"
     typical: "npm:^5.2.0"
   checksum: 10/902901582a543b26f55f90fc0f266c08a603a92bfadd8d07c66679f3d9eea2c074a039404126b0c4b65ff8452153c5f2010ea2f4ec14b70be0c77241f6d5bd53
+  languageName: node
+  linkType: hard
+
+"commander@npm:*":
+  version: 12.0.0
+  resolution: "commander@npm:12.0.0"
+  checksum: 10/62062e2ffe6abd5aa42a551e62fd5eb9b2620f6ac4299382b2aa9fb02f95cda0242d7e84acb890479bd6491edb805f7f91aecb5b4f5c70dc57df49ed7f02ef14
   languageName: node
   linkType: hard
 
@@ -23958,6 +23972,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mockjs@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "mockjs@npm:1.1.0"
+  dependencies:
+    commander: "npm:*"
+  bin:
+    random: bin/random
+  checksum: 10/44e7114e49c0244b16199e6bcef97cf177990ab4b7cd905bf74919fb311a6174fec9dbde97c8d9b781fee3c9474f771582ad5c1ccbcf7b2fc35771bfd735499b
+  languageName: node
+  linkType: hard
+
 "moment-timezone@npm:^0.5.31":
   version: 0.5.45
   resolution: "moment-timezone@npm:0.5.45"
@@ -24235,6 +24260,7 @@ __metadata:
   dependencies:
     "@babel/runtime": "npm:^7.23.9"
     "@manypkg/cli": "npm:^0.21.2"
+    "@types/mockjs": "npm:^1.0.7"
     "@umijs/plugins": "npm:^4.1.1"
     babel-plugin-antd-style: "npm:^1.0.4"
     check-dependency-version-consistency: "npm:^4.1.0"
@@ -24243,6 +24269,7 @@ __metadata:
     dumi-theme-antd-style: "npm:^0.29.7"
     eslint: "npm:^8.56.0"
     father: "npm:^4.4.0"
+    mockjs: "npm:^1.1.0"
     node-gyp: "npm:^10.0.1"
     prettier: "npm:^3.2.5"
     rimraf: "npm:^5.0.5"

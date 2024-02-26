@@ -109,7 +109,7 @@ const renderTagComp = (col: any, renderTag: any): ICrudCol<any> => {
       const nextText = label || text
 
       if (isArray(data)) {
-        const limitTagData = data.slice(0, showLimit)
+        const limitTagData: any[] = data.slice(0, showLimit)
         const hasMoreTags = data.length > showLimit
         const showMoreLabel = `+${data.length - showLimit}`
 
@@ -132,7 +132,7 @@ const renderTagComp = (col: any, renderTag: any): ICrudCol<any> => {
               <Dropdown
                 trigger={['click']}
                 menu={{
-                  items: data.slice(showLimit).map((item: any, idx) => {
+                  items: (data as any[]).slice(showLimit).map((item, idx) => {
                     const text =
                       typeof item === 'string'
                         ? item
@@ -282,6 +282,15 @@ const getColumns = ({
 
   const getCustomRender = ({ renderTag, ...col }: ICrudCol<any[]> & { renderTag: any }) => {
     if (renderTag) return renderTagComp(col, renderTag)
+    // custom width for date
+    if (col.valueType)
+      return {
+        ...col,
+        fieldProps: {
+          className: 'w-full',
+          ...col.fieldProps,
+        },
+      }
     return col
   }
 
@@ -383,7 +392,7 @@ const AddOrEdit = ({
       }}
       {...{
         rowProps: {
-          gutter: [10, 2],
+          gutter: [20, 20],
         },
         colProps: {
           span: 12,
@@ -583,7 +592,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           isEditForm,
           isSmUp,
           setFormMode,
-          columns,
+          columns: nextColumn as any,
         }}
       />
       {contextHolder}
