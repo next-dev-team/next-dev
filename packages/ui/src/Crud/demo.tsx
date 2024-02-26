@@ -1,9 +1,4 @@
-import {
-  ActionType,
-  ProFormInstance,
-  ProFormUploadButton,
-  ProFormUploadDragger,
-} from '@ant-design/pro-components'
+import { ActionType, ProFormInstance, ProFormUploadButton } from '@ant-design/pro-components'
 import axios from 'axios'
 import { Random } from 'mockjs'
 import { useRef } from 'react'
@@ -26,7 +21,13 @@ const mockData = {
     return { id: i, name: `tags ${i}` }
   }),
   img: mockImg,
+  img1: mockImg,
   publishDate: Random.datetime(),
+  formList: [
+    { id: 1, name: 'form 1' },
+    { id: 2, name: 'form 2' },
+    { id: 3, name: 'form 3' },
+  ],
 }
 
 export default function Demo() {
@@ -134,38 +135,32 @@ export default function Demo() {
               }}
               title="Upload"
             />
-            {/* <ProFormUploadDragger
-              colProps={{ span: 24 }}
-              fieldProps={{
-                fileList: [],
-              }}
-            /> */}
           </>
         )
       },
     },
-    {
-      title: 'Profile1',
-      dataIndex: 'img',
-      valueType: () => {
-        return {
-          type: 'image',
-          width: 80,
-        }
-      },
-      renderFormItem: () => {
-        return (
-          <>
-            <ProFormUploadDragger
-              colProps={{ span: 24 }}
-              fieldProps={{
-                fileList: [],
-              }}
-            />
-          </>
-        )
-      },
-    },
+    // {
+    //   title: 'Profile1',
+    //   dataIndex: 'img1',
+    //   valueType: () => {
+    //     return {
+    //       type: 'image',
+    //       width: 80,
+    //     }
+    //   },
+    //   renderFormItem: () => {
+    //     return (
+    //       <ProFormUploadDragger
+    //         colProps={{ span: 24 }}
+    //         fieldProps={{
+    //           fileList: [],
+    //         }}
+    //         title="Upload"
+    //         description={'Drag and drop a file in this area'}
+    //       />
+    //     )
+    //   },
+    // },
     {
       title: 'Publish Date',
       dataIndex: 'publishDate',

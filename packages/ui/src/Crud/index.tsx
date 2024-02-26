@@ -13,6 +13,7 @@ import {
   ProDescriptions,
   ProForm,
   ProFormColumnsType,
+  ProFormList,
   ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
@@ -327,7 +328,20 @@ const getColumns = ({
           }}
           layout="vertical"
           actionRef={detailRef}
-          columns={nextCol as any}
+          // columns={nextCol}
+          columns={
+            nextCol.map((item) => {
+              if (item.valueType === 'formList') {
+                console.log('ddd', item?.columns)
+
+                return {
+                  ...item,
+                  render: () => <ProFormList />,
+                }
+              }
+              return item
+            }) as any
+          }
           request={async () => {
             if (!detailReqOpt)
               return {
@@ -378,6 +392,7 @@ const AddOrEdit = ({
   if (!isAddForm && !isEditForm) return null
   return (
     <BetaSchemaForm
+      readonly
       scrollToFirstError
       onFinish={onFinish}
       loading={loading}
