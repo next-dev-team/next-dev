@@ -170,28 +170,21 @@ export default function Demo() {
       title: 'Form List',
       valueType: 'formList',
       dataIndex: 'list',
-      initialValue: [{}],
-      colProps: { span: 24 },
+      className: 'w-full',
+      initialValue: [{}, {}],
+      // colProps: { span: 24 },
       columns: [
-        {
-          valueType: 'group',
-          colProps: { span: 24 },
-          columns: [
-            {
-              title: 'name',
-            },
-            {
-              title: 'age',
-              dataIndex: 'age',
-            },
-          ],
-        },
         {
           title: 'Text Area',
           valueType: 'textarea',
           dataIndex: 'textarea',
+          colProps: { span: 24 },
           formItemProps: {
             rules: [{ required: true }],
+            style: {
+              display: 'inline-block',
+              width: '100%',
+            },
           },
         },
       ],

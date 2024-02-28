@@ -336,7 +336,8 @@ const getColumns = ({
 
                 return {
                   ...item,
-                  render: () => <ProFormList />,
+                  //@ts-ignore
+                  render: () => (<ProFormList />) as any,
                 }
               }
               return item
