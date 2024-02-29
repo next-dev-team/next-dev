@@ -10,10 +10,8 @@ import {
   ActionType,
   BetaSchemaForm,
   ParamsType,
-  ProDescriptions,
   ProForm,
   ProFormColumnsType,
-  ProFormList,
   ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
@@ -61,7 +59,7 @@ type DetailProps = {
   dataField?: string[]
   postData?: (data: any) => any
 }
-type IMode = 'add' | 'edit' | 'close-reset' | 'close-reload' | 'close'
+type IMode = 'add' | 'edit' | 'close-reset' | 'close-reload' | 'close' | 'view'
 export type ICrudCol<TData extends unknown> = ProFormColumnsType<TData[]> & {
   renderTag?: (
     dom: React.ReactNode,
@@ -167,6 +165,68 @@ const renderTagComp = (col: any, renderTag: any): ICrudCol<any> => {
   }
 }
 
+const AddOrEdit = ({
+  isViewForm,
+  loading,
+  onFinish,
+  editForm,
+  isAddForm,
+  isEditForm,
+  setFormMode,
+  columns,
+  isSmUp,
+}: Pick<ProFormProps, 'onFinish' | 'loading'> & {
+  editForm: FormInstance
+  isSmUp: boolean
+  isAddForm: boolean
+  isViewForm: boolean
+  isEditForm: boolean
+  setFormMode: (mode: IMode, row?: any) => void
+  columns: ICrudCol<Record<string, any>>[]
+}) => {
+  if (!isAddForm && !isEditForm && !isViewForm) return null
+  const okText = isViewForm ? 'Done' : isEditForm ? 'Save' : 'Submit'
+  return (
+    <BetaSchemaForm
+      syncToUrlAsImportant
+      readonly={isViewForm}
+      scrollToFirstError
+      onFinish={onFinish}
+      loading={loading}
+      form={editForm}
+      columns={columns}
+      open={isAddForm || isEditForm || isViewForm}
+      layoutType="ModalForm"
+      title={isAddForm ? 'Add' : isEditForm ? 'Edit' : 'View'}
+      submitter={{
+        render(props, dom) {
+          if (isViewForm)
+            return (
+              <Button type="primary" onClick={() => setFormMode('close')}>
+                Done
+              </Button>
+            )
+          return dom
+        },
+      }}
+      modalProps={{
+        onCancel: () => setFormMode('close', false),
+        okText,
+        destroyOnClose: true,
+      }}
+      {...{
+        rowProps: {
+          gutter: [20, 20],
+        },
+        colProps: {
+          span: 12,
+        },
+        grid: isSmUp,
+      }}
+    />
+  )
+}
+
 const getColumns = ({
   loading,
   deleteReqOpt,
@@ -227,7 +287,7 @@ const getColumns = ({
     render: (_, row: any) => {
       return [
         <Button
-          onClick={() => onDetailClick(row)}
+          onClick={() => setFormMode('view')}
           title="View Detail"
           shape="circle"
           key="view"
@@ -284,7 +344,7 @@ const getColumns = ({
   const getCustomRender = ({ renderTag, ...col }: ICrudCol<any[]> & { renderTag: any }) => {
     if (renderTag) return renderTagComp(col, renderTag)
     // custom width for date
-    if (col.valueType)
+    if (col.valueType === 'date')
       return {
         ...col,
         fieldProps: {
@@ -292,6 +352,11 @@ const getColumns = ({
           ...col.fieldProps,
         },
       }
+    if (col.valueType === 'formList') {
+      return {
+        ...col,
+      }
+    }
     return col
   }
 
@@ -303,65 +368,6 @@ const getColumns = ({
     }
   })
 
-  const onDetailClick = (row: any) => {
-    if (!detailReqOpt) return message.error('Something went wrong')
-    modal.info({
-      // centered: true,
-      width: token.screenMD,
-      title: 'Detail',
-      maskClosable: true,
-      footer: null,
-      icon: null,
-      closable: true,
-      styles: {
-        body: {
-          minHeight: 300,
-        },
-      },
-      onCancel: () => {
-        setFormMode('close')
-      },
-      content: (
-        <ProDescriptions
-          style={{
-            padding: token.paddingContentVertical,
-          }}
-          layout="vertical"
-          actionRef={detailRef}
-          // columns={nextCol}
-          columns={
-            nextCol.map((item) => {
-              if (item.valueType === 'formList') {
-                console.log('ddd', item?.columns)
-
-                return {
-                  ...item,
-                  //@ts-ignore
-                  render: () => (<ProFormList />) as any,
-                }
-              }
-              return item
-            }) as any
-          }
-          request={async () => {
-            if (!detailReqOpt)
-              return {
-                data: [],
-                success: true,
-              }
-            const resDetail = await axios.request(detailReqOpt(row))
-            const dataSource = getSelectField(resDetail, detailDataField!)
-            const nextData = detailPostData ? detailPostData(dataSource) : dataSource
-            return {
-              data: nextData,
-              success: true,
-            }
-          }}
-        />
-      ),
-      ...detailModalOpt?.(row),
-    })
-  }
   const preCol = [
     !hideNoCol && {
       title: 'No.',
@@ -371,52 +377,6 @@ const getColumns = ({
     },
   ]
   return [...preCol, ...nextCol, actionsCol].filter(Boolean)
-}
-
-const AddOrEdit = ({
-  loading,
-  onFinish,
-  editForm,
-  isAddForm,
-  isEditForm,
-  setFormMode,
-  columns,
-  isSmUp,
-}: Pick<Crud<any>, 'columns'> &
-  Pick<ProFormProps, 'onFinish' | 'loading'> & {
-    editForm: FormInstance
-    isSmUp: boolean
-    isAddForm: boolean
-    isEditForm: boolean
-    setFormMode: (mode: IMode, row?: any) => void
-  }) => {
-  if (!isAddForm && !isEditForm) return null
-  return (
-    <BetaSchemaForm
-      readonly
-      scrollToFirstError
-      onFinish={onFinish}
-      loading={loading}
-      form={editForm}
-      columns={columns as any}
-      open={isAddForm || isEditForm}
-      layoutType="ModalForm"
-      modalProps={{
-        onCancel: () => setFormMode('close', false),
-        okText: 'Submit',
-        destroyOnClose: true,
-      }}
-      {...{
-        rowProps: {
-          gutter: [20, 20],
-        },
-        colProps: {
-          span: 12,
-        },
-        grid: isSmUp,
-      }}
-    />
-  )
 }
 
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
@@ -485,6 +445,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
 
   const isAddForm = paramsObj.formMode === 'add'
   const isEditForm = paramsObj.formMode === 'edit'
+  const isViewForm = paramsObj.formMode === 'view'
 
   const resetAll = (isReload = false, fullReset = false) => {
     editForm.resetFields()
@@ -606,6 +567,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           editForm,
           isAddForm,
           isEditForm,
+          isViewForm,
           isSmUp,
           setFormMode,
           columns: nextColumn as any,

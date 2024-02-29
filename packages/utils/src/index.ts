@@ -18,6 +18,7 @@ export { default as isUndefined } from './isUndefined'
 export { default as objOmit } from './objOmit'
 export { default as objPick } from './objPick'
 // ----------------------------#string------------------------------
+export { default as noop } from './noop'
 export { default as strCamelCase } from './strCamelCase'
 export { default as strCapitalize } from './strCapitalize'
 export { default as strKebabCase } from './strKebabCase'

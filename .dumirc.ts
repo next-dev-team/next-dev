@@ -83,15 +83,15 @@ export default defineConfig({
   fastRefresh: true,
   ssr: false,
   exportStatic: {},
-  // mfsu: {
-  //   exclude: ['dumi-theme-antd-style', /dumi/],
-  //   shared: {
-  //     react: {
-  //       singleton: true,
-  //     },
-  //   },
-  // },
-  mfsu: false,
+  mfsu: {
+    exclude: ['dumi-theme-antd-style', /dumi/],
+    shared: {
+      react: {
+        singleton: true,
+      },
+    },
+  },
+  // mfsu: false,
   resolve: {
     // Configure the entry file path, API parsing will start from here
     // entryFile: './packages/utils/src/index.ts',

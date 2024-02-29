@@ -1,6 +1,6 @@
 import { ActionType, ProFormInstance, ProFormUploadButton } from '@ant-design/pro-components'
 import axios from 'axios'
-import { Random } from 'mockjs'
+import Mock, { Random } from 'mockjs'
 import { useRef } from 'react'
 import Crud, { ICrudCol } from '.'
 
@@ -17,17 +17,26 @@ const mockImg =
   'https://images.pexels.com/photos/166055/pexels-photo-166055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
 
 const mockData = {
-  tags: Array.from({ length: 8 }).map((_, i) => {
-    return { id: i, name: `tags ${i}` }
-  }),
+  tags: Mock.mock({
+    'tags|8': [
+      {
+        'id|+1': 1,
+        name: '@word',
+      },
+    ],
+  }).tags,
   img: mockImg,
   img1: mockImg,
   publishDate: Random.datetime(),
-  formList: [
-    { id: 1, name: 'form 1' },
-    { id: 2, name: 'form 2' },
-    { id: 3, name: 'form 3' },
-  ],
+  formList: Mock.mock({
+    'formList|3': [
+      {
+        'id|+1': 1,
+        name: '@title',
+        textarea: '@paragraph',
+      },
+    ],
+  }).formList,
 }
 
 export default function Demo() {
@@ -170,10 +179,27 @@ export default function Demo() {
       title: 'Form List',
       valueType: 'formList',
       dataIndex: 'list',
-      className: 'w-full',
-      initialValue: [{}, {}],
-      // colProps: { span: 24 },
+      initialValue: mockData.formList,
+      colProps: { span: 24 },
+
       columns: [
+        {
+          valueType: 'group',
+          colProps: { span: 24 },
+
+          columns: [
+            {
+              title: 'ID',
+              dataIndex: 'id',
+              valueType: 'text',
+            },
+            {
+              title: 'Name',
+              dataIndex: 'name',
+              valueType: 'text',
+            },
+          ],
+        },
         {
           title: 'Text Area',
           valueType: 'textarea',

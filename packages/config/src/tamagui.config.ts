@@ -1,3 +1,4 @@
+//@ts-ignore
 import { animations } from '@next-dev/rn-ui/animations'
 import { createInterFont } from '@tamagui/font-inter'
 import { createMedia } from '@tamagui/react-native-media-driver'
