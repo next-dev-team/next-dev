@@ -10,7 +10,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "clean:build": "rimraf ./packages/*/dist ./packages/*/dist",
+    "clean:build": "rimraf ./packages/*/dist ./packages/*/compiled ./packages/*/node_modules ./node_modules/.cache ./.tamagui",
     "zip": "zip -r dist.zip dist",
     "unzip": "unzip dist.zip -d dist",
     "build:deps": "father prebundle",
@@ -48,12 +48,13 @@
     "@babel/runtime": "^7.23.9",
     "@manypkg/cli": "^0.21.2",
     "@types/mockjs": "^1.0.7",
-    "@umijs/plugins": "^4.1.1",
+    "@umijs/plugins": "^4.1.2",
+    "antd": "^5.14.2",
     "babel-plugin-antd-style": "^1.0.4",
     "check-dependency-version-consistency": "^4.1.0",
     "cross-env": "^7.0.3",
     "dumi": "^2.2.17",
-    "dumi-theme-antd-style": "^0.29.7",
+    "dumi-theme-antd-style": "^0.30.0",
     "eslint": "^8.56.0",
     "father": "^4.4.0",
     "mockjs": "^1.1.0",
@@ -64,7 +65,7 @@
     "tamagui-loader": "^1.90.15",
     "turbo": "^1.12.4",
     "typescript": "^5.3.3",
-    "webpack": "^5.90.2"
+    "webpack": "^5.90.3"
   },
   "packageManager": "yarn@4.1.0"
 }

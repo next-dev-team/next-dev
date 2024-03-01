@@ -10,8 +10,11 @@ import {
   ActionType,
   BetaSchemaForm,
   ParamsType,
+  ProCard,
+  ProCardProps,
   ProForm,
   ProFormColumnsType,
+  ProFormListProps,
   ProFormProps,
   ProTable,
 } from '@ant-design/pro-components'
@@ -19,6 +22,7 @@ import { useMediaQuery } from '@next-dev/hooks'
 import { isArray, isObject, isString } from '@next-dev/utils'
 import {
   Button,
+  Divider,
   Dropdown,
   GlobalToken,
   ModalFuncProps,
@@ -71,6 +75,13 @@ export type ICrudCol<TData extends unknown> = ProFormColumnsType<TData[]> & {
     labelField?: string[]
     showLimit?: number
   }
+  /**
+   * works only valueType = 'formList'
+   */
+  _listCardProps?: ProCardProps & {
+    titleFields?: string[]
+    noCard?: boolean
+  }
 }
 
 export type Crud<TData extends Record<string, any>> = {
@@ -86,8 +97,9 @@ export type Crud<TData extends Record<string, any>> = {
 
 const getSelectField = <T extends unknown>(
   response: Record<string, any>,
-  selectField: string[]
+  selectField: string[] | undefined
 ) => {
+  if (!selectField) return response
   if (!isArray(selectField)) return response
   const result = selectField.reduce((acc, field) => acc?.[field] || null, response)
   return result as T
@@ -132,10 +144,7 @@ const renderTagComp = (col: any, renderTag: any): ICrudCol<any> => {
                 trigger={['click']}
                 menu={{
                   items: (data as any[]).slice(showLimit).map((item, idx) => {
-                    const text =
-                      typeof item === 'string'
-                        ? item
-                        : (getSelectField(item as any, labelField) as string)
+                    const text = typeof item === 'string' ? item : getSelectField(item, labelField)
                     if (!text) return null
                     return {
                       key: idx,
@@ -341,7 +350,7 @@ const getColumns = ({
     },
   } as ICrudCol<any[]>
 
-  const getCustomRender = ({ renderTag, ...col }: ICrudCol<any[]> & { renderTag: any }) => {
+  const getCustomRender = ({ renderTag, ...col }: ICrudCol<any[]>) => {
     if (renderTag) return renderTagComp(col, renderTag)
     // custom width for date
     if (col.valueType === 'date')
@@ -353,9 +362,34 @@ const getColumns = ({
         },
       }
     if (col.valueType === 'formList') {
+      const listCards = col?._listCardProps || {}
+      if (listCards?.noCard) return col
       return {
         ...col,
-      }
+        title(schema, type, dom) {
+          return <Divider orientation="center">Text</Divider>
+        },
+        formItemProps: {
+          itemRender: (dom, listMeta) => (
+            <ProCard
+              style={{ marginBottom: token.sizeMS, ...listCards.style }}
+              type="inner"
+              size="small"
+              bordered
+              headerBordered
+              extra={dom.action}
+              title={
+                getSelectField(listMeta, listCards?.titleFields)
+                  ? `${listMeta.name} ${listMeta.index + 1}`
+                  : ''
+              }
+            >
+              {dom.listDom}
+            </ProCard>
+          ),
+          ...col?.formItemProps,
+        } as ProFormListProps<any>,
+      } as ICrudCol<any[]>
     }
     return col
   }

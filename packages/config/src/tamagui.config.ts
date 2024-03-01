@@ -1,5 +1,5 @@
 //@ts-ignore
-import { animations } from '@next-dev/rn-ui/animations'
+// import { animations } from '@next-dev/rn-ui/animations'
 import { createInterFont } from '@tamagui/font-inter'
 import { createMedia } from '@tamagui/react-native-media-driver'
 import { shorthands } from '@tamagui/shorthands'
@@ -53,7 +53,7 @@ const bodyFont = createInterFont(
 
 export const config = createTamagui({
   defaultFont: 'body',
-  animations,
+  // animations,
   shouldAddPrefersColorThemes: true,
   themeClassNameOnRoot: true,
 

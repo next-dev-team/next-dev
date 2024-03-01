@@ -181,12 +181,10 @@ export default function Demo() {
       dataIndex: 'list',
       initialValue: mockData.formList,
       colProps: { span: 24 },
-
       columns: [
         {
           valueType: 'group',
           colProps: { span: 24 },
-
           columns: [
             {
               title: 'ID',

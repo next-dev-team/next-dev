@@ -136,6 +136,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ant-design/icons@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "@ant-design/icons@npm:5.3.1"
+  dependencies:
+    "@ant-design/colors": "npm:^7.0.0"
+    "@ant-design/icons-svg": "npm:^4.4.0"
+    "@babel/runtime": "npm:^7.11.2"
+    classnames: "npm:^2.2.6"
+    rc-util: "npm:^5.31.1"
+  peerDependencies:
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 10/2bcef5a587478c518384ecfcd174159af78037d22aa7cf8d2476ca6a070c9f0d504cee1277a6e5f08f9405692700a1912e5707633eec8058ac445d52a06e648b
+  languageName: node
+  linkType: hard
+
 "@ant-design/moment-webpack-plugin@npm:^0.0.3":
   version: 0.0.3
   resolution: "@ant-design/moment-webpack-plugin@npm:0.0.3"
@@ -3049,6 +3065,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@esbuild-kit/cjs-loader@npm:^2.4.1":
+  version: 2.4.4
+  resolution: "@esbuild-kit/cjs-loader@npm:2.4.4"
+  dependencies:
+    "@esbuild-kit/core-utils": "npm:^3.2.3"
+    get-tsconfig: "npm:^4.7.0"
+  checksum: 10/6495275a52a7f800d427ce1f7ce6487b8e9637a10edcfd74de255cc9d0d1d3a72a838ba9fa81e9f1a8b4079d7d76aa7eb16040169a14c150414aca960c9f7195
+  languageName: node
+  linkType: hard
+
+"@esbuild-kit/core-utils@npm:^3.0.0, @esbuild-kit/core-utils@npm:^3.2.3, @esbuild-kit/core-utils@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "@esbuild-kit/core-utils@npm:3.3.2"
+  dependencies:
+    esbuild: "npm:~0.18.20"
+    source-map-support: "npm:^0.5.21"
+  checksum: 10/012387ed407c57b9735bf2cc5bc3b9b35888f69376bb7d749e9e16415248deeb66b7d93444458239ba15872738a4b5d4e8466b7260e721c6de477dd5e87ef945
+  languageName: node
+  linkType: hard
+
+"@esbuild-kit/esm-loader@npm:^2.5.4":
+  version: 2.6.5
+  resolution: "@esbuild-kit/esm-loader@npm:2.6.5"
+  dependencies:
+    "@esbuild-kit/core-utils": "npm:^3.3.2"
+    get-tsconfig: "npm:^4.7.0"
+  checksum: 10/e7dac48017fbb7e13f0519ff25f700c38c78ccc8ae2d7d117216c6658d8d21499d01b4381287acdf2f7dde36d812b9a3e57a3c4b38cec4717173cd65c13037e0
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.19.12":
   version: 0.19.12
   resolution: "@esbuild/aix-ppc64@npm:0.19.12"
@@ -4817,7 +4863,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@next-dev/icons@workspace:packages/icons"
   dependencies:
-    "@ant-design/icons": "npm:^5.3.0"
+    "@ant-design/icons": "npm:^5.3.1"
     "@next-dev/eslint": "npm:0.0.0"
     "@next-dev/tsconfig": "npm:0.0.0"
     "@tamagui/lucide-icons": "npm:^1.90.15"
@@ -4864,14 +4910,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@next-dev/ui@workspace:packages/ui"
   dependencies:
-    "@ant-design/icons": "npm:^5.3.0"
+    "@ant-design/icons": "npm:^5.3.1"
     "@ant-design/pro-components": "npm:^2.6.49"
     "@next-dev/eslint": "npm:0.0.0"
     "@next-dev/hooks": "npm:0.0.0"
     "@next-dev/tsconfig": "npm:0.0.0"
     "@next-dev/utils": "npm:0.0.0"
     "@types/react": "npm:^18.2.55"
-    antd: "npm:^5.14.1"
+    antd: "npm:^5.14.2"
     axios: "npm:^1.6.7"
     eslint: "npm:^8.56.0"
     father: "npm:^4.4.0"
@@ -5143,6 +5189,21 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 10/b8997f4844e6dcd6b5e66a2ed2d17d0906642a155a0e8d6e276d1b9c0bb052d7336a3ca1dd990e9ed7e10345cb266eeb7e56c7030b6be0e0aca211b04e5876a1
+  languageName: node
+  linkType: hard
+
+"@rc-component/color-picker@npm:~1.5.2":
+  version: 1.5.2
+  resolution: "@rc-component/color-picker@npm:1.5.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.6"
+    "@ctrl/tinycolor": "npm:^3.6.1"
+    classnames: "npm:^2.2.6"
+    rc-util: "npm:^5.38.1"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10/c3f24896f512bb883ee33b264133a749a4193cfe06273b1d6a0bbf2faa404913a995606ec6f5ca625689740cf6d11cf27e532c888ac8bd709703b85ebdb98b9c
   languageName: node
   linkType: hard
 
@@ -8935,6 +8996,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/ast@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/ast@npm:4.1.2"
+  dependencies:
+    "@umijs/bundler-utils": "npm:4.1.2"
+  checksum: 10/a81a85302fef4d6a59372b12b075c0c8d3c4ffe5d0e9a06b6f2a51bd02229bf50a63d115de2c7166ea0724e33825fa7906e2cf9d91f8cb55530841afdb2fa6af
+  languageName: node
+  linkType: hard
+
 "@umijs/babel-preset-umi@npm:4.1.1, @umijs/babel-preset-umi@npm:^4.1.1":
   version: 4.1.1
   resolution: "@umijs/babel-preset-umi@npm:4.1.1"
@@ -8945,6 +9015,19 @@ __metadata:
     "@umijs/utils": "npm:4.1.1"
     core-js: "npm:3.34.0"
   checksum: 10/0c351476f04d1d8b080b14b944483bb3b0a4a53f19772d0112e1621a0df854d16350150e8ff28e9697c5188a079a6b17abeecea6e548d401efcd4e9a92c2e0ef
+  languageName: node
+  linkType: hard
+
+"@umijs/babel-preset-umi@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/babel-preset-umi@npm:4.1.2"
+  dependencies:
+    "@babel/runtime": "npm:7.23.6"
+    "@bloomberg/record-tuple-polyfill": "npm:0.0.4"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    core-js: "npm:3.34.0"
+  checksum: 10/0b4d229ba4c5abefb5bac2b39520f386d4f30f13e2f485b1283a9f3d05aa6a862b7a129ec842a31c17bdc90abeb2aa65b2aebd5c69c7123ac75634c1628006bf
   languageName: node
   linkType: hard
 
@@ -8964,6 +9047,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/bundler-esbuild@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/bundler-esbuild@npm:4.1.2"
+  dependencies:
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    enhanced-resolve: "npm:5.9.3"
+    postcss: "npm:^8.4.21"
+    postcss-flexbugs-fixes: "npm:5.0.2"
+    postcss-preset-env: "npm:7.5.0"
+  bin:
+    bundler-esbuild: bin/bundler-esbuild.js
+  checksum: 10/905a51dcb59e6eeccb786b942a71b805fec4f775e308b037c0ffccb13f587c63fe9f512798cb1fb1810e0ffe3acf8de98cea12f967221bab49cdb4fdcbfab22a
+  languageName: node
+  linkType: hard
+
 "@umijs/bundler-utils@npm:4.1.1, @umijs/bundler-utils@npm:^4.0.84, @umijs/bundler-utils@npm:^4.1.1":
   version: 4.1.1
   resolution: "@umijs/bundler-utils@npm:4.1.1"
@@ -8974,6 +9073,19 @@ __metadata:
     regenerate-unicode-properties: "npm:10.1.1"
     spdy: "npm:^4.0.2"
   checksum: 10/d2558702104b4b073768cc20bc1af6b8ed5cfce053a37e08d9776264633b9d0bc9717d3739d27865ad635627fcd44fa4c16b1814abf0d8f1023d56cfb4a6920b
+  languageName: node
+  linkType: hard
+
+"@umijs/bundler-utils@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/bundler-utils@npm:4.1.2"
+  dependencies:
+    "@umijs/utils": "npm:4.1.2"
+    esbuild: "npm:0.17.19"
+    regenerate: "npm:^1.4.2"
+    regenerate-unicode-properties: "npm:10.1.1"
+    spdy: "npm:^4.0.2"
+  checksum: 10/fa15790c6e3fee57a327e9e259230b9301cbf59f5816bab4498f60c2687b25b84aad49156be56a2d1d2920fa9873d8056cf4482425777634ba791bac912ca426
   languageName: node
   linkType: hard
 
@@ -8994,6 +9106,26 @@ __metadata:
   bin:
     bundler-vite: bin/bundler-vite.js
   checksum: 10/a81b739456ee59d6cc83dfd61e65b01424995af1cee11bbd3320f5a48864960d310842a0ce05e3d1b5574dc7d36b7f98aa1ca194926338d792518eaf8ac68e2a
+  languageName: node
+  linkType: hard
+
+"@umijs/bundler-vite@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/bundler-vite@npm:4.1.2"
+  dependencies:
+    "@svgr/core": "npm:6.5.1"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    "@vitejs/plugin-react": "npm:4.0.0"
+    core-js: "npm:3.34.0"
+    less: "npm:4.1.3"
+    postcss-preset-env: "npm:7.5.0"
+    rollup-plugin-visualizer: "npm:5.9.0"
+    systemjs: "npm:^6.14.1"
+    vite: "npm:4.3.1"
+  bin:
+    bundler-vite: bin/bundler-vite.js
+  checksum: 10/0151bbac4440e4e60a1c4427dd8ba722087a4d1294cf20a13d018ba1c55e72812953916ec8058282ba373d9b31b947271ca3feda24989a88daa496f1b5de9054
   languageName: node
   linkType: hard
 
@@ -9028,6 +9160,37 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/bundler-webpack@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/bundler-webpack@npm:4.1.2"
+  dependencies:
+    "@svgr/core": "npm:6.5.1"
+    "@svgr/plugin-jsx": "npm:^6.5.1"
+    "@svgr/plugin-svgo": "npm:^6.5.1"
+    "@types/hapi__joi": "npm:17.1.9"
+    "@umijs/babel-preset-umi": "npm:4.1.2"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/case-sensitive-paths-webpack-plugin": "npm:^1.0.1"
+    "@umijs/mfsu": "npm:4.1.2"
+    "@umijs/react-refresh-webpack-plugin": "npm:0.5.11"
+    "@umijs/utils": "npm:4.1.2"
+    cors: "npm:^2.8.5"
+    css-loader: "npm:6.7.1"
+    es5-imcompatible-versions: "npm:^0.1.78"
+    fork-ts-checker-webpack-plugin: "npm:8.0.0"
+    jest-worker: "npm:29.4.3"
+    lightningcss: "npm:1.22.1"
+    node-libs-browser: "npm:2.2.1"
+    postcss: "npm:^8.4.21"
+    postcss-preset-env: "npm:7.5.0"
+    react-error-overlay: "npm:6.0.9"
+    react-refresh: "npm:0.14.0"
+  bin:
+    bundler-webpack: bin/bundler-webpack.js
+  checksum: 10/68b1efa5b3cf2cb6656f6584f99ee5f5ebc7b8578e09944977f1318a3733a2389abb1ced3964de380f5195a0bda148f6bc17671431695e12ea8808c2adc58b51
+  languageName: node
+  linkType: hard
+
 "@umijs/case-sensitive-paths-webpack-plugin@npm:^1.0.1":
   version: 1.0.1
   resolution: "@umijs/case-sensitive-paths-webpack-plugin@npm:1.0.1"
@@ -9042,6 +9205,16 @@ __metadata:
     "@umijs/bundler-utils": "npm:4.1.1"
     "@umijs/utils": "npm:4.1.1"
   checksum: 10/979723cc2a4d5ff0ee7f70c0c327b0b7a5234e7008ddb7897ce2d4debeffe58cb83b9cdec88d2d728eca1d97225564db4c32957dc32eeedb289b84545c9a3d65
+  languageName: node
+  linkType: hard
+
+"@umijs/core@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/core@npm:4.1.2"
+  dependencies:
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+  checksum: 10/ad1ca365a1eef29eb0b0e312a5460efc4d05aaf0c3a3f56b1320dbfd66720148d83aa94f3bc0372ee96acab94d7b6d2f844b41f4417c80a90ddce0d1ed7257ff
   languageName: node
   linkType: hard
 
@@ -9181,19 +9354,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@umijs/max@npm:4.1.1":
-  version: 4.1.1
-  resolution: "@umijs/max@npm:4.1.1"
+"@umijs/lint@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/lint@npm:4.1.2"
   dependencies:
-    "@umijs/lint": "npm:4.1.1"
-    "@umijs/plugins": "npm:4.1.1"
+    "@babel/core": "npm:7.23.6"
+    "@babel/eslint-parser": "npm:7.23.3"
+    "@stylelint/postcss-css-in-js": "npm:^0.38.0"
+    "@typescript-eslint/eslint-plugin": "npm:^5.62.0"
+    "@typescript-eslint/parser": "npm:^5.62.0"
+    "@umijs/babel-preset-umi": "npm:4.1.2"
+    eslint-plugin-jest: "npm:27.2.3"
+    eslint-plugin-react: "npm:7.33.2"
+    eslint-plugin-react-hooks: "npm:4.6.0"
+    postcss: "npm:^8.4.21"
+    postcss-syntax: "npm:0.36.2"
+    stylelint-config-standard: "npm:25.0.0"
+  checksum: 10/4783376e574084a884700894558eb40c6d12afc05af957e928d452be68d512379fbd29af0972cdcd0cb2975999f21624e1302764f4f0d08f7b3c505dff8e59bd
+  languageName: node
+  linkType: hard
+
+"@umijs/max@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/max@npm:4.1.2"
+  dependencies:
+    "@umijs/lint": "npm:4.1.2"
+    "@umijs/plugins": "npm:4.1.2"
     antd: "npm:^4.20.6"
     eslint: "npm:8.35.0"
     stylelint: "npm:14.8.2"
-    umi: "npm:4.1.1"
+    umi: "npm:4.1.2"
   bin:
     max: bin/max.js
-  checksum: 10/fba46361b1e633d5b2165b383ae382164135074970f926c03f224d93fb50b68612f3e735d6697761207acc214e194c86ba345b9e65f45fa14033d720a0a09aca
+  checksum: 10/d860c4e4713914ca125756701600b4f0cee21ac56b793a12acd543681ce872bdd2873cff181f27bea1d173fba1ee3e6578bbbedd222bcaffd5ae21df59879c98
   languageName: node
   linkType: hard
 
@@ -9210,6 +9403,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/mfsu@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/mfsu@npm:4.1.2"
+  dependencies:
+    "@umijs/bundler-esbuild": "npm:4.1.2"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    enhanced-resolve: "npm:5.9.3"
+    is-equal: "npm:^1.6.4"
+  checksum: 10/764e75fc6782ff4d993d80d996ab2f00e634f96e7c9c2a656527e2e985399e090f304d038808cad30c8d78ba7e1c44ff9fbd729cd2671a0b858a35f358c74bac
+  languageName: node
+  linkType: hard
+
 "@umijs/plugin-run@npm:4.1.1":
   version: 4.1.1
   resolution: "@umijs/plugin-run@npm:4.1.1"
@@ -9219,9 +9425,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@umijs/plugins@npm:4.1.1, @umijs/plugins@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "@umijs/plugins@npm:4.1.1"
+"@umijs/plugin-run@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/plugin-run@npm:4.1.2"
+  dependencies:
+    tsx: "npm:3.12.2"
+  checksum: 10/3f5d810c821a63d7535932cd09b55441630c81f2bd6a6bb51173164f823c8b4baf93e84f0dbf1276eed8292a2f22f0bbdd6b791c94f76fc9691e2f4d1bba6874
+  languageName: node
+  linkType: hard
+
+"@umijs/plugins@npm:4.1.2, @umijs/plugins@npm:^4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/plugins@npm:4.1.2"
   dependencies:
     "@ahooksjs/use-request": "npm:^2.0.0"
     "@ant-design/antd-theme-variable": "npm:^1.0.0"
@@ -9231,7 +9446,7 @@ __metadata:
     "@ant-design/pro-components": "npm:^2.0.1"
     "@tanstack/react-query": "npm:^4.24.10"
     "@tanstack/react-query-devtools": "npm:^4.24.10"
-    "@umijs/bundler-utils": "npm:4.1.1"
+    "@umijs/bundler-utils": "npm:4.1.2"
     "@umijs/valtio": "npm:1.0.4"
     antd-dayjs-webpack-plugin: "npm:^1.0.6"
     axios: "npm:^0.27.2"
@@ -9253,7 +9468,7 @@ __metadata:
     styled-components: "npm:6.1.1"
     tslib: "npm:^2"
     warning: "npm:^4.0.3"
-  checksum: 10/bb0d27b877aa8782c3bb321e4c7b99077e2a98eab4e44b91242f873a3f6463b707fff05262087a2330d89f3e21318cf18c775e131dc24ecfd1cba5decb1ccda7
+  checksum: 10/4f1c9b41b6f9ac1d4bd59b5ab8f9bfbe2b7ce569ff55d02ab0a6693131fe6a6d1b13c9af3d13fb9ca7480aa8a06bac18e75cb20a86abb58e5a82376b39a77b15
   languageName: node
   linkType: hard
 
@@ -9297,6 +9512,49 @@ __metadata:
     react-router-dom: "npm:6.3.0"
     regenerator-runtime: "npm:0.13.11"
   checksum: 10/b1da29b05271f1bf4a19534529fdc5e6cfffd670a3fe8ce4cd4bc7a2a8e27d0f19833fc4283b767a19b7097d3d8593a650118e77fc4bab4d5ac4697a17fee36e
+  languageName: node
+  linkType: hard
+
+"@umijs/preset-umi@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/preset-umi@npm:4.1.2"
+  dependencies:
+    "@iconify/utils": "npm:2.1.1"
+    "@svgr/core": "npm:6.5.1"
+    "@umijs/ast": "npm:4.1.2"
+    "@umijs/babel-preset-umi": "npm:4.1.2"
+    "@umijs/bundler-esbuild": "npm:4.1.2"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/bundler-vite": "npm:4.1.2"
+    "@umijs/bundler-webpack": "npm:4.1.2"
+    "@umijs/core": "npm:4.1.2"
+    "@umijs/did-you-know": "npm:1.0.3"
+    "@umijs/es-module-parser": "npm:0.0.7"
+    "@umijs/history": "npm:5.3.1"
+    "@umijs/mfsu": "npm:4.1.2"
+    "@umijs/plugin-run": "npm:4.1.2"
+    "@umijs/renderer-react": "npm:4.1.2"
+    "@umijs/server": "npm:4.1.2"
+    "@umijs/ui": "npm:3.0.1"
+    "@umijs/utils": "npm:4.1.2"
+    "@umijs/zod2ts": "npm:4.1.2"
+    babel-plugin-dynamic-import-node: "npm:2.3.3"
+    click-to-react-component: "npm:^1.0.8"
+    core-js: "npm:3.34.0"
+    current-script-polyfill: "npm:1.0.0"
+    enhanced-resolve: "npm:5.9.3"
+    fast-glob: "npm:3.2.12"
+    html-webpack-plugin: "npm:5.5.0"
+    less-plugin-resolve: "npm:1.0.2"
+    path-to-regexp: "npm:1.7.0"
+    postcss: "npm:^8.4.21"
+    postcss-prefix-selector: "npm:1.16.0"
+    react: "npm:18.1.0"
+    react-dom: "npm:18.1.0"
+    react-router: "npm:6.3.0"
+    react-router-dom: "npm:6.3.0"
+    regenerator-runtime: "npm:0.13.11"
+  checksum: 10/9220492898d825de8f91fed6315e9c57d0e64972fab4007b3978c786d97a01d916d61cf52388a4c1dfac74fe6229eefaefa6124619aa734cec53172d0d33cd66
   languageName: node
   linkType: hard
 
@@ -9355,6 +9613,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/renderer-react@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/renderer-react@npm:4.1.2"
+  dependencies:
+    "@babel/runtime": "npm:7.23.6"
+    "@loadable/component": "npm:5.15.2"
+    history: "npm:5.3.0"
+    react-helmet-async: "npm:1.3.0"
+    react-router-dom: "npm:6.3.0"
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 10/d250296ece3776f0da00d45bb0928f68840436d3f19e07424934e560ccf7ac7e67359cf5140afc91e952dd40753f1dde7404ac47d99b3500101b33e70fb00a91
+  languageName: node
+  linkType: hard
+
 "@umijs/route-utils@npm:^4.0.0":
   version: 4.0.1
   resolution: "@umijs/route-utils@npm:4.0.1"
@@ -9375,6 +9649,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/server@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/server@npm:4.1.2"
+  dependencies:
+    "@umijs/bundler-utils": "npm:4.1.2"
+    history: "npm:5.3.0"
+    react: "npm:18.1.0"
+    react-dom: "npm:18.1.0"
+    react-router-dom: "npm:6.3.0"
+  checksum: 10/91a85beedb4c3e6bc475f10382eb23ef2159a162856c9c30d717cb07a23ce9d1597f17d86340f38cc68d46a1883fb0c9d37b11133b285fb81e44324945244854
+  languageName: node
+  linkType: hard
+
 "@umijs/test@npm:4.1.1":
   version: 4.1.1
   resolution: "@umijs/test@npm:4.1.1"
@@ -9388,6 +9675,22 @@ __metadata:
     identity-obj-proxy: "npm:3.0.0"
     isomorphic-unfetch: "npm:4.0.2"
   checksum: 10/a2d8aef6e620b71b3d93d27fea39e9c53e415d378e0fd2773ab290ad4d6d306942d24a3fa62315ad68eebcd5cf6df0ba1b942b86ae3d44ad7d785f793e00a02e
+  languageName: node
+  linkType: hard
+
+"@umijs/test@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/test@npm:4.1.2"
+  dependencies:
+    "@babel/plugin-transform-modules-commonjs": "npm:7.23.3"
+    "@jest/types": "npm:27.5.1"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    babel-jest: "npm:^29.7.0"
+    esbuild: "npm:0.17.19"
+    identity-obj-proxy: "npm:3.0.0"
+    isomorphic-unfetch: "npm:4.0.2"
+  checksum: 10/04644110fa786f4d6a4733525924f2ed79f5f8365ca4902e6019bf54be7fb668f060d8f05c2d9ad8f381a3f1787bf7c34c0d904db66d27fa958f26d16ae740ef
   languageName: node
   linkType: hard
 
@@ -9417,6 +9720,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@umijs/utils@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/utils@npm:4.1.2"
+  dependencies:
+    chokidar: "npm:3.5.3"
+    pino: "npm:7.11.0"
+  checksum: 10/6ca4d85251d24acd67fe98a1dff1f3ae48478b0d03e6dc3529a4ba9fa52d6a82ac8e79fcf4849b34c1801bb06a1158ca8036267ef303d91ef9da3e00ba30c828
+  languageName: node
+  linkType: hard
+
 "@umijs/valtio@npm:1.0.4":
   version: 1.0.4
   resolution: "@umijs/valtio@npm:1.0.4"
@@ -9430,6 +9743,13 @@ __metadata:
   version: 4.1.1
   resolution: "@umijs/zod2ts@npm:4.1.1"
   checksum: 10/4d7d6771b75763ee2f696f95c28143d235793560bd3d8e9aeb15d447fa8c6755d0e7748926765a564e1b0c297303c4bbc4f8c33480d0dd3fa06083d8aaa73466
+  languageName: node
+  linkType: hard
+
+"@umijs/zod2ts@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@umijs/zod2ts@npm:4.1.2"
+  checksum: 10/ba12bdc2ec1ae36da088c7259c0f275d5d2c7a6176e92246b7414769d67156aebf4db779c7094186fd475ad1a98aa7e45aa758c5962ed3296534064e646685d8
   languageName: node
   linkType: hard
 
@@ -10365,7 +10685,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd@npm:^5, antd@npm:^5.14.1":
+"antd@npm:^5":
   version: 5.14.1
   resolution: "antd@npm:5.14.1"
   dependencies:
@@ -10420,6 +10740,64 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 10/a80132b4c0a719b7cada9e7c70c6720c73d9b9e907d6ddd64580933c44ab735f77c68327cdacb5354b692c330b42cb7a15d30bd26dc18932c2a6cf51f9456ff5
+  languageName: node
+  linkType: hard
+
+"antd@npm:^5.14.2":
+  version: 5.14.2
+  resolution: "antd@npm:5.14.2"
+  dependencies:
+    "@ant-design/colors": "npm:^7.0.2"
+    "@ant-design/cssinjs": "npm:^1.18.4"
+    "@ant-design/icons": "npm:^5.3.0"
+    "@ant-design/react-slick": "npm:~1.0.2"
+    "@ctrl/tinycolor": "npm:^3.6.1"
+    "@rc-component/color-picker": "npm:~1.5.2"
+    "@rc-component/mutate-observer": "npm:^1.1.0"
+    "@rc-component/tour": "npm:~1.12.3"
+    "@rc-component/trigger": "npm:^1.18.3"
+    classnames: "npm:^2.5.1"
+    copy-to-clipboard: "npm:^3.3.3"
+    dayjs: "npm:^1.11.10"
+    qrcode.react: "npm:^3.1.0"
+    rc-cascader: "npm:~3.21.2"
+    rc-checkbox: "npm:~3.1.0"
+    rc-collapse: "npm:~3.7.2"
+    rc-dialog: "npm:~9.3.4"
+    rc-drawer: "npm:~7.0.0"
+    rc-dropdown: "npm:~4.1.0"
+    rc-field-form: "npm:~1.41.0"
+    rc-image: "npm:~7.5.1"
+    rc-input: "npm:~1.4.3"
+    rc-input-number: "npm:~9.0.0"
+    rc-mentions: "npm:~2.10.1"
+    rc-menu: "npm:~9.12.4"
+    rc-motion: "npm:^2.9.0"
+    rc-notification: "npm:~5.3.0"
+    rc-pagination: "npm:~4.0.4"
+    rc-picker: "npm:~4.1.4"
+    rc-progress: "npm:~3.5.1"
+    rc-rate: "npm:~2.12.0"
+    rc-resize-observer: "npm:^1.4.0"
+    rc-segmented: "npm:~2.3.0"
+    rc-select: "npm:~14.11.0"
+    rc-slider: "npm:~10.5.0"
+    rc-steps: "npm:~6.0.1"
+    rc-switch: "npm:~4.1.0"
+    rc-table: "npm:~7.39.0"
+    rc-tabs: "npm:~14.0.0"
+    rc-textarea: "npm:~1.6.3"
+    rc-tooltip: "npm:~6.1.3"
+    rc-tree: "npm:~5.8.5"
+    rc-tree-select: "npm:~5.17.0"
+    rc-upload: "npm:~4.5.2"
+    rc-util: "npm:^5.38.2"
+    scroll-into-view-if-needed: "npm:^3.1.0"
+    throttle-debounce: "npm:^5.0.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10/8639d0d878da2b0ff78baaf29a483b976eab1f18718513b1805476e2ab5b19a325ad6ace32cdf8a0e2dc9cd5a16e8c0bd32869460841a75163989caecbe6a94c
   languageName: node
   linkType: hard
 
@@ -14426,9 +14804,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dumi-theme-antd-style@npm:^0.29.7":
-  version: 0.29.7
-  resolution: "dumi-theme-antd-style@npm:0.29.7"
+"dumi-theme-antd-style@npm:^0.30.0":
+  version: 0.30.0
+  resolution: "dumi-theme-antd-style@npm:0.30.0"
   dependencies:
     "@ant-design/icons": "npm:^5"
     "@babel/runtime": "npm:^7"
@@ -14453,7 +14831,7 @@ __metadata:
     dumi: ^2.0.0
     react: ">=16.8"
     react-dom: ">=16.8"
-  checksum: 10/6d148e7bb71c16946833f8e0f9fa3f3d63542e66a3577ae955deb6634fe2362cbfef19a68fcd75e9470f3764cb1bb30deaf9c84c9ee47a88f067e602ca75c0db
+  checksum: 10/ed67f611f828749c159212b7746c68c0f70756fc4f5422cfa3c4a91cb285230a49a5620ac56e72b161e5bb1e1a8f771a370a1f6c3a9e3a313e9355dd27033d1f
   languageName: node
   linkType: hard
 
@@ -18385,7 +18763,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-tsconfig@npm:^4.5.0, get-tsconfig@npm:^4.6.2, get-tsconfig@npm:^4.7.2":
+"get-tsconfig@npm:^4.5.0, get-tsconfig@npm:^4.6.2, get-tsconfig@npm:^4.7.0, get-tsconfig@npm:^4.7.2":
   version: 4.7.2
   resolution: "get-tsconfig@npm:4.7.2"
   dependencies:
@@ -24261,12 +24639,13 @@ __metadata:
     "@babel/runtime": "npm:^7.23.9"
     "@manypkg/cli": "npm:^0.21.2"
     "@types/mockjs": "npm:^1.0.7"
-    "@umijs/plugins": "npm:^4.1.1"
+    "@umijs/plugins": "npm:^4.1.2"
+    antd: "npm:^5.14.2"
     babel-plugin-antd-style: "npm:^1.0.4"
     check-dependency-version-consistency: "npm:^4.1.0"
     cross-env: "npm:^7.0.3"
     dumi: "npm:^2.2.17"
-    dumi-theme-antd-style: "npm:^0.29.7"
+    dumi-theme-antd-style: "npm:^0.30.0"
     eslint: "npm:^8.56.0"
     father: "npm:^4.4.0"
     mockjs: "npm:^1.1.0"
@@ -24277,7 +24656,7 @@ __metadata:
     tamagui-loader: "npm:^1.90.15"
     turbo: "npm:^1.12.4"
     typescript: "npm:^5.3.3"
-    webpack: "npm:^5.90.2"
+    webpack: "npm:^5.90.3"
   languageName: unknown
   linkType: soft
 
@@ -26528,18 +26907,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-packagejson@npm:^2.4.10":
-  version: 2.4.11
-  resolution: "prettier-plugin-packagejson@npm:2.4.11"
+"prettier-plugin-packagejson@npm:^2.4.12":
+  version: 2.4.12
+  resolution: "prettier-plugin-packagejson@npm:2.4.12"
   dependencies:
-    sort-package-json: "npm:2.7.0"
+    sort-package-json: "npm:2.8.0"
     synckit: "npm:0.9.0"
   peerDependencies:
     prettier: ">= 1.16.0"
   peerDependenciesMeta:
     prettier:
       optional: true
-  checksum: 10/3a7b44d2e8f781c604dbc26be510ed42665a24da792a72009c5030024fb7d61a199ec055e9b05ce5c92e4e3af706ce89b7486bafbc16a45a85ac3fb2f76b22ef
+  checksum: 10/64d799e6be0afae3b04cdf906ea741985a0cd6cd90fe25ffeb4f3a6e3eda3056c16b799cf8ec22f61c5e63dd379585bed4d24bae22e4d1a0cdf24f01e1f28f07
   languageName: node
   linkType: hard
 
@@ -27643,6 +28022,36 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rc-picker@npm:~4.1.4":
+  version: 4.1.5
+  resolution: "rc-picker@npm:4.1.5"
+  dependencies:
+    "@babel/runtime": "npm:^7.10.1"
+    "@rc-component/trigger": "npm:^1.5.0"
+    classnames: "npm:^2.2.1"
+    rc-overflow: "npm:^1.3.2"
+    rc-resize-observer: "npm:^1.4.0"
+    rc-util: "npm:^5.38.1"
+  peerDependencies:
+    date-fns: ">= 2.x"
+    dayjs: ">= 1.x"
+    luxon: ">= 3.x"
+    moment: ">= 2.x"
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  peerDependenciesMeta:
+    date-fns:
+      optional: true
+    dayjs:
+      optional: true
+    luxon:
+      optional: true
+    moment:
+      optional: true
+  checksum: 10/ea5ef89973fea1bc4d03d26a6e028d3f94728e7d775db2bcc503aa399a4768191347714463fb934deaf4f96c52874c590bde916dd73a00048e08c744343d5714
+  languageName: node
+  linkType: hard
+
 "rc-progress@npm:~3.4.2":
   version: 3.4.2
   resolution: "rc-progress@npm:3.4.2"
@@ -28158,6 +28567,19 @@ __metadata:
     react: ">=16.9.0"
     react-dom: ">=16.9.0"
   checksum: 10/77a69fe2bfb497061aa13a221d9af1da7993895f19ddd6561f69415bcca648c206dee9a2d52fa0382329fcc9dcfd88784c54e96014830b364dd16ecf1c396c57
+  languageName: node
+  linkType: hard
+
+"rc-util@npm:^5.38.2":
+  version: 5.38.2
+  resolution: "rc-util@npm:5.38.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.18.3"
+    react-is: "npm:^18.2.0"
+  peerDependencies:
+    react: ">=16.9.0"
+    react-dom: ">=16.9.0"
+  checksum: 10/f8d8b21d0ed09de6fcf6c24dc19bf82f8f1fd089a625d35fd399626280ed33e73b9a703aa78f1a09ccd40b83f50e73bbc993adf892355a01857d3a1bb83e0958
   languageName: node
   linkType: hard
 
@@ -30428,9 +30850,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sort-package-json@npm:2.7.0":
-  version: 2.7.0
-  resolution: "sort-package-json@npm:2.7.0"
+"sort-package-json@npm:2.8.0":
+  version: 2.8.0
+  resolution: "sort-package-json@npm:2.8.0"
   dependencies:
     detect-indent: "npm:^7.0.1"
     detect-newline: "npm:^4.0.0"
@@ -30441,7 +30863,7 @@ __metadata:
     sort-object-keys: "npm:^1.1.3"
   bin:
     sort-package-json: cli.js
-  checksum: 10/a9b825830f3ba0c59f3a5828271d9ad461703abbc18653bc77d2c0d4409b85d84b5a2a1307b9e9cfa0cfcfde640dcc58f003217f0570dcab6ce079ea2dff26ec
+  checksum: 10/d9097e2cc01b04ef15181747eea4669a26eb72815b54762169d112885fe511426ff2a4dc855c3a68cbec970ec75ab1826e7d0ce85c7c418b399a8adbe0046db0
   languageName: node
   linkType: hard
 
@@ -32359,6 +32781,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tsx@npm:3.12.2":
+  version: 3.12.2
+  resolution: "tsx@npm:3.12.2"
+  dependencies:
+    "@esbuild-kit/cjs-loader": "npm:^2.4.1"
+    "@esbuild-kit/core-utils": "npm:^3.0.0"
+    "@esbuild-kit/esm-loader": "npm:^2.5.4"
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    tsx: dist/cli.js
+  checksum: 10/cc7cb8e0a38b1d29e30bd601de4734d7816491b38e060febe02564446af32df3732208f5ac721699cb1ad4598406771ae97b53c0db3cf24d5306e98828b99add
+  languageName: node
+  linkType: hard
+
 "tsx@npm:^3.12.2":
   version: 3.14.0
   resolution: "tsx@npm:3.14.0"
@@ -32725,16 +33164,38 @@ __metadata:
     "@next-dev/utils": "npm:0.0.0"
     "@types/react": "npm:^18.2.55"
     "@types/react-dom": "npm:^18.2.19"
-    "@umijs/max": "npm:4.1.1"
+    "@umijs/max": "npm:4.1.2"
     lint-staged: "npm:^15.2.2"
     prettier: "npm:^3.2.5"
     prettier-plugin-organize-imports: "npm:^3.2.4"
-    prettier-plugin-packagejson: "npm:^2.4.10"
+    prettier-plugin-packagejson: "npm:^2.4.12"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
 
-"umi@npm:4.1.1, umi@npm:^4.0.84":
+"umi@npm:4.1.2":
+  version: 4.1.2
+  resolution: "umi@npm:4.1.2"
+  dependencies:
+    "@babel/runtime": "npm:7.23.6"
+    "@umijs/bundler-utils": "npm:4.1.2"
+    "@umijs/bundler-webpack": "npm:4.1.2"
+    "@umijs/core": "npm:4.1.2"
+    "@umijs/lint": "npm:4.1.2"
+    "@umijs/preset-umi": "npm:4.1.2"
+    "@umijs/renderer-react": "npm:4.1.2"
+    "@umijs/server": "npm:4.1.2"
+    "@umijs/test": "npm:4.1.2"
+    "@umijs/utils": "npm:4.1.2"
+    prettier-plugin-organize-imports: "npm:^3.2.2"
+    prettier-plugin-packagejson: "npm:2.4.3"
+  bin:
+    umi: bin/umi.js
+  checksum: 10/6d80b15d14dcd88ab3df598690d177e6df8ffefc811e021a4776d1b4293716df2b4835dc0da4087d0b62c0170f1e5dbc4ae9bce4b60ff007b02644e4707b94a3
+  languageName: node
+  linkType: hard
+
+"umi@npm:^4.0.84":
   version: 4.1.1
   resolution: "umi@npm:4.1.1"
   dependencies:
@@ -33731,9 +34192,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.90.2":
-  version: 5.90.2
-  resolution: "webpack@npm:5.90.2"
+"webpack@npm:^5.90.3":
+  version: 5.90.3
+  resolution: "webpack@npm:5.90.3"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.3"
     "@types/estree": "npm:^1.0.5"
@@ -33764,7 +34225,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10/4eaeed1255c9c7738921c4ce4facdb3b78dbfcb3441496942f6d160a41fbcebd24fb2c6dbb64739b357c5ff78e5a298f6c82eca482438b95130a3ba4e16d084a
+  checksum: 10/48c9696eca950bfa7c943a24b8235fdf0575acd73a8eb1661f8189d3d1f431362f3a0e158e2941a7e4f0852ea6e32d7d4e89283149247e4389a8aad0fe6c247e
   languageName: node
   linkType: hard
 

@@ -4,9 +4,9 @@ module.exports = {
   content: ['./docs/**/*.(tsx|md)', './packages/**/*.(tsx|md)'],
   plugins: [],
   darkMode: 'class',
-  corePlugins: {
-    preflight: false, // conflicts with antd button need to custom preflight css in tailwind.css
-  },
+  // corePlugins: {
+  //   preflight: false, // conflicts with antd button need to custom preflight css in tailwind.css
+  // },
   theme: {
     extend: {
       colors: ({ colors }) => ({

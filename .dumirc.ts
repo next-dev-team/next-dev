@@ -84,7 +84,7 @@ export default defineConfig({
   ssr: false,
   exportStatic: {},
   mfsu: {
-    exclude: ['dumi-theme-antd-style', /dumi/],
+    exclude: ['dumi-theme-antd-style', /dumi/, '@ant-design/cssinjs'],
     shared: {
       react: {
         singleton: true,
