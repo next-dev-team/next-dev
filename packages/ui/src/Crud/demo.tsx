@@ -1,6 +1,4 @@
-import { EyeOutlined } from '@ant-design/icons'
 import { ActionType, ProFormInstance, ProFormUploadButton } from '@ant-design/pro-components'
-import { Space, Typography } from 'antd'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
 import { useRef } from 'react'
@@ -150,28 +148,7 @@ export default function Demo() {
         )
       },
     },
-    // {
-    //   title: 'Profile1',
-    //   dataIndex: 'img1',
-    //   valueType: () => {
-    //     return {
-    //       type: 'image',
-    //       width: 80,
-    //     }
-    //   },
-    //   renderFormItem: () => {
-    //     return (
-    //       <ProFormUploadDragger
-    //         colProps={{ span: 24 }}
-    //         fieldProps={{
-    //           fileList: [],
-    //         }}
-    //         title="Upload"
-    //         description={'Drag and drop a file in this area'}
-    //       />
-    //     )
-    //   },
-    // },
+
     {
       title: 'Publish Date',
       dataIndex: 'publishDate',
@@ -183,16 +160,8 @@ export default function Demo() {
       dataIndex: 'list',
       initialValue: mockData.formList,
       colProps: { span: 24 },
-      render(dom, entity, index, action, schema) {
-        console.log(dom, entity, index, action, schema)
-
-        return (
-          <Space size={'small'}>
-            <EyeOutlined />
-            <Typography>See</Typography>
-          </Space>
-        )
-      },
+      hideInTable: true,
+      hideInSearch: true,
       columns: [
         {
           valueType: 'group',

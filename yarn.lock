@@ -33159,6 +33159,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "umi-web@workspace:apps/todo-umi"
   dependencies:
+    "@ant-design/pro-components": "npm:^2.6.49"
     "@next-dev/hooks": "npm:0.0.0"
     "@next-dev/ui": "npm:0.0.0"
     "@next-dev/utils": "npm:0.0.0"

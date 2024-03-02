@@ -15,6 +15,7 @@
     "@umijs/max": "4.1.2"
   },
   "devDependencies": {
+    "@ant-design/pro-components": "^2.6.49",
     "@next-dev/hooks": "0.0.0",
     "@next-dev/ui": "0.0.0",
     "@next-dev/utils": "0.0.0",
