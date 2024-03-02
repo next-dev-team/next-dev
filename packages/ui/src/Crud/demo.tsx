@@ -1,4 +1,6 @@
+import { EyeOutlined } from '@ant-design/icons'
 import { ActionType, ProFormInstance, ProFormUploadButton } from '@ant-design/pro-components'
+import { Space, Typography } from 'antd'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
 import { useRef } from 'react'
@@ -181,6 +183,16 @@ export default function Demo() {
       dataIndex: 'list',
       initialValue: mockData.formList,
       colProps: { span: 24 },
+      render(dom, entity, index, action, schema) {
+        console.log(dom, entity, index, action, schema)
+
+        return (
+          <Space size={'small'}>
+            <EyeOutlined />
+            <Typography>See</Typography>
+          </Space>
+        )
+      },
       columns: [
         {
           valueType: 'group',

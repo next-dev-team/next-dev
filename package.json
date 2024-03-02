@@ -10,7 +10,7 @@
     "./packages/*"
   ],
   "scripts": {
-    "clean:build": "rimraf ./packages/*/dist ./packages/*/compiled ./packages/*/node_modules ./node_modules/.cache ./.tamagui",
+    "clean:build": "rimraf ./packages/*/dist ./packages/*/node_modules ./node_modules/.cache ./.tamagui ./packages/*/compiled",
     "zip": "zip -r dist.zip dist",
     "unzip": "unzip dist.zip -d dist",
     "build:deps": "father prebundle",

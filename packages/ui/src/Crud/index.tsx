@@ -22,7 +22,6 @@ import { useMediaQuery } from '@next-dev/hooks'
 import { isArray, isObject, isString } from '@next-dev/utils'
 import {
   Button,
-  Divider,
   Dropdown,
   GlobalToken,
   ModalFuncProps,
@@ -364,11 +363,10 @@ const getColumns = ({
     if (col.valueType === 'formList') {
       const listCards = col?._listCardProps || {}
       if (listCards?.noCard) return col
+      console.log('col', col)
+
       return {
         ...col,
-        title(schema, type, dom) {
-          return <Divider orientation="center">Text</Divider>
-        },
         formItemProps: {
           itemRender: (dom, listMeta) => (
             <ProCard
