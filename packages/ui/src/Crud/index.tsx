@@ -400,6 +400,8 @@ const getColumns = ({
     }
   })
 
+  const hasNextCol = nextCol.length > 0
+
   const preCol = [
     !hideNoCol && {
       title: 'No.',
@@ -408,7 +410,7 @@ const getColumns = ({
       width: 64,
     },
   ]
-  return [...preCol, ...nextCol, actionsCol].filter(Boolean)
+  return [...preCol, ...nextCol, hasNextCol ? actionsCol : false].filter(Boolean)
 }
 
 export default function Crud<TData extends Record<string, any>>(props: Crud<TData>) {
