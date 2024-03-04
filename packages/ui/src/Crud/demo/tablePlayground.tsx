@@ -1,7 +1,9 @@
-import type { ProColumnType, ProFormInstance } from '@ant-design/pro-components'
+import type { ProFormInstance } from '@ant-design/pro-components'
 import {
+  ActionType,
   ProCard,
   ProForm,
+  ProFormCascader,
   ProFormDependency,
   ProFormDigit,
   ProFormGroup,
@@ -13,8 +15,11 @@ import {
   ProFormTextArea,
   useDebounceFn,
 } from '@ant-design/pro-components'
-import { useRef, useState } from 'react'
-import SelectDataSource from './SelectDataSource'
+import { caseConversion } from '@next-dev/utils'
+import axios from 'axios'
+import Mock, { Random } from 'mockjs'
+import { useEffect, useRef, useState } from 'react'
+import Crud, { ICrudCol } from '..'
 
 const valueTypeArray = [
   'password',
@@ -51,29 +56,21 @@ const valueTypeArray = [
   'jsonCode',
 ]
 
-type DataType = {
-  age: number
-  address: string
-  name: string
-  time: number
-  key: number
-  description: string
-}
-
-const columns: ProColumnType<DataType>[] = [
+const columns: ICrudCol<any>[] = [
   {
     title: 'Name',
     dataIndex: 'name',
   },
   {
-    title: 'time',
-    dataIndex: 'time',
-    valueType: 'date',
+    title: 'Status',
+    dataIndex: 'status',
+    valueType: 'select',
   },
 ]
 
 const initData = {
-  bordered: true,
+  dataIndex: [],
+  bordered: false,
   loading: false,
   columns,
   pagination: {
@@ -82,13 +79,13 @@ const initData = {
     current: 1,
     total: 100,
   },
-  size: 'small',
+  size: 'middle',
   expandable: false,
   headerTitle: 'Advanced form',
-  tooltip: 'Advanced table tooltip',
+  tooltip: 'CRUD builder ',
   showHeader: true,
   footer: true,
-  rowSelection: {},
+  rowSelection: false,
   scroll: false,
   hasData: true,
   tableLayout: undefined,
@@ -109,21 +106,109 @@ const initData = {
   },
 }
 
-const DynamicSettings = ({
-  tableComp,
-  playgroundColSpan = '490px',
-}: {
-  tableComp: any
-  playgroundColSpan?: any
-}) => {
-  const ref = useRef<ProFormInstance>()
+const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325'
 
-  const [config, setConfig] = useState<any>(initData)
+const axiosInstance = axios.create({
+  baseURL: 'https://gorest.co.in/public/v1',
+  headers: {
+    Authorization: `Bearer ${API_TOKEN}`,
+  },
+})
+
+const mockImg =
+  'https://images.pexels.com/photos/166055/pexels-photo-166055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
+
+const mockData = {
+  tags: Mock.mock({
+    'tags|8': [
+      {
+        'id|+1': 1,
+        name: '@word',
+      },
+    ],
+  }).tags,
+  img: mockImg,
+  img1: mockImg,
+  publishDate: Random.datetime(),
+  formList: Mock.mock({
+    'formList|3': [
+      {
+        'id|+1': 1,
+        name: '@title',
+        textarea: '@paragraph',
+      },
+    ],
+  }).formList,
+}
+
+function isImgUrl(url: string): boolean {
+  const pattern = /\bhttps?:\/\/\S+\.(?:jpg|jpeg|png|gif)\b/
+  return pattern.test(url)
+}
+const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: any }) => {
+  const ref = useRef<ProFormInstance>()
+  const actionRef = useRef<ActionType>(null)
+  const refCrud = useRef<ProFormInstance>()
+  const [config, setConfig] = useState(initData)
+  const [data, setData] = useState<ICrudCol<any>[]>([])
 
   /** Debounce config*/
   const updateConfig = useDebounceFn(async (state) => {
-    setConfig(state)
+    setConfig((prev) => ({
+      ...prev,
+      ...state,
+    }))
   }, 20)
+
+  // console.log('config', config)
+  useEffect(() => {
+    if (data === undefined) return
+    const touchedCol = Object.keys(data?.[0] || {}).map((key, idx) => {
+      let other: ICrudCol<any> = {}
+      const colValue = (data?.[idx] as any)[key]
+
+      if (isImgUrl(colValue)) other.valueType = 'image'
+
+      return {
+        title: caseConversion(key, 'camelToCapitalWord'),
+        dataIndex: key,
+        ...other,
+      }
+    })
+
+    interface Option {
+      value: string | number
+      label: string
+      children?: Option[]
+    }
+    function transformApiToCascaderOptions(apiResponse: any): Option[] {
+      return Object.keys(apiResponse).map((key, idx) => {
+        const colValue = apiResponse[key]
+        if (Array.isArray(colValue)) {
+          return {
+            value: key,
+            label: caseConversion(key, 'camelToCapitalWord'),
+            children: transformApiToCascaderOptions(colValue[0]),
+          }
+        }
+
+        return {
+          value: key,
+          label: caseConversion(key, 'camelToCapitalWord'),
+        }
+      })
+    }
+
+    const touchedDataIndex = transformApiToCascaderOptions(data?.[0] || {})
+    updateConfig.run({
+      columns: touchedCol,
+      dataIndex: touchedDataIndex,
+    })
+
+    if (ref?.current) ref.current.setFieldValue('columns', touchedCol)
+  }, [ref, data])
+
+  console.log('data', config)
 
   return (
     <ProCard
@@ -136,6 +221,7 @@ const DynamicSettings = ({
       }}
     >
       <ProForm
+        formRef={ref}
         layout="inline"
         initialValues={initData}
         submitter={false}
@@ -175,9 +261,7 @@ const DynamicSettings = ({
                           name={['pagination', 'show']}
                         />
                       }
-                    >
-                      <SelectDataSource />
-                    </ProForm.Group>
+                    ></ProForm.Group>
                     <ProForm.Group
                       title="Paginator"
                       size={0}
@@ -291,7 +375,7 @@ const DynamicSettings = ({
                         marginBlockStart: 8,
                       }}
                     >
-                      <ProFormSwitch label="Too long to omit" name="ellipsis" />
+                      <ProFormSwitch label="Ellipsis" name="ellipsis" />
                       <ProFormSwitch label="copy button" name="copyable" />
                     </ProFormGroup>
                     <ProFormGroup
@@ -300,27 +384,23 @@ const DynamicSettings = ({
                       }}
                       size={8}
                     >
-                      <ProFormSelect
-                        label="dataIndex"
-                        width="xs"
-                        name="dataIndex"
-                        valueEnum={{
-                          age: 'age',
-                          address: 'address',
-                          name: 'name',
-                          time: 'time',
-                          description: 'string',
-                        }}
+                      <ProFormCascader
+                        name={'dataIndex'}
+                        request={async () => config.dataIndex}
+                        placeholder="Please select"
                       />
+
                       <ProFormSelect
                         width="xs"
                         label="value type"
                         name="valueType"
-                        fieldProps={{
-                          onChange: () => {
-                            ref.current?.resetFields()
-                          },
-                        }}
+                        fieldProps={
+                          {
+                            // onChange: () => {
+                            //   ref.current?.resetFields()
+                            // },
+                          }
+                        }
                         options={valueTypeArray.map((value) => ({
                           label: value,
                           value,
@@ -333,7 +413,7 @@ const DynamicSettings = ({
                       }}
                       size={8}
                     >
-                      <ProFormText width="xs" label="列提示" name="tooltip" />
+                      <ProFormText width="sm" label="title tooltip" name="tooltip" />
                     </ProFormGroup>
                     <ProFormDependency name={['valueType', 'valueEnum']}>
                       {({ valueType, valueEnum }) => {
@@ -362,288 +442,6 @@ const DynamicSettings = ({
                   </ProFormList>
                 ),
               },
-              {
-                label: 'Basic config',
-                key: 'tab1',
-                children: (
-                  <>
-                    <ProForm.Group
-                      title="Table config"
-                      size={0}
-                      collapsible
-                      direction="horizontal"
-                      labelLayout="twoLine"
-                    >
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="border"
-                        tooltip="bordered"
-                        name="bordered"
-                      />
-                      <ProFormRadio.Group
-                        tooltip={`size="middle"`}
-                        radioType="button"
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="size"
-                        options={[
-                          {
-                            label: 'big',
-                            value: 'default',
-                          },
-                          {
-                            label: '中',
-                            value: 'middle',
-                          },
-                          {
-                            label: 'small',
-                            value: 'small',
-                          },
-                        ]}
-                        name="size"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Loading"
-                        tooltip="loading"
-                        name="loading"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="show title"
-                        tooltip="showHeader"
-                        name="showHeader"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="footer"
-                        tooltip="footer"
-                        name="footer"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Support expansion"
-                        tooltip="expandable"
-                        name="expandable"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="row selection"
-                        tooltip="rowSelection"
-                        name="rowSelection"
-                      />
-                    </ProForm.Group>
-                    <ProForm.Group
-                      size={0}
-                      collapsible
-                      direction="horizontal"
-                      labelLayout="twoLine"
-                      tooltip="toolBarRender={false}"
-                      title="Toolbar"
-                      extra={
-                        <ProFormSwitch
-                          fieldProps={{
-                            size: 'small',
-                          }}
-                          noStyle
-                          name="toolBarRender"
-                        />
-                      }
-                    >
-                      <ProFormText
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="table title"
-                        name="headerTitle"
-                        tooltip="headerTitle={false}"
-                      />
-                      <ProFormText
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="tooltip of the table"
-                        name="tooltip"
-                        tooltip="tooltip={false}"
-                      />
-
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Icon display"
-                        name={['options', 'show']}
-                        tooltip="options={false}"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="DensityIcon"
-                        name={['options', 'density']}
-                        tooltip="options={{ density:false }}"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="keyWords"
-                        name={['options', 'search']}
-                        tooltip="options={{ search:'keyWords' }}"
-                      />
-                      <ProFormSwitch
-                        label="Full screen Icon"
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        name={['options', 'fullScreen']}
-                        tooltip="options={{ fullScreen:false }}"
-                      />
-                      <ProFormSwitch
-                        label="Column Settings Icon"
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        tooltip="options={{ setting:false }}"
-                        name={['options', 'setting']}
-                      />
-                    </ProForm.Group>
-                  </>
-                ),
-              },
-              {
-                label: 'Form config',
-                key: 'tab3',
-                children: (
-                  <ProForm.Group
-                    title="Query form"
-                    size={0}
-                    collapsible
-                    tooltip="search={false}"
-                    direction="horizontal"
-                    labelLayout="twoLine"
-                    extra={
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        noStyle
-                        name={['search', 'show']}
-                      />
-                    }
-                  >
-                    <ProFormText
-                      label="Query button copy"
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      tooltip={`search={{searchText:"query"}}`}
-                      name={['search', 'searchText']}
-                    />
-                    <ProFormText
-                      label="Reset button copy"
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      tooltip={`search={{resetText:"Reset"}}`}
-                      name={['search', 'resetText']}
-                    />
-                    <ProFormSwitch
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      label="Collapse button"
-                      tooltip={`search={{collapseRender:false}}`}
-                      name={['search', 'collapseRender']}
-                    />
-                    <ProFormSwitch
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      label="form close"
-                      name={['search', 'collapsed']}
-                      tooltip={`search={{collapsed:false}}`}
-                    />
-                    <ProFormSelect
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      tooltip={`search={{span:8}}`}
-                      options={[
-                        {
-                          label: '24',
-                          value: 24,
-                        },
-                        {
-                          label: '12',
-                          value: 12,
-                        },
-                        {
-                          label: '8',
-                          value: 8,
-                        },
-                        {
-                          label: '6',
-                          value: 6,
-                        },
-                      ]}
-                      label="form grid"
-                      name={['search', 'span']}
-                    />
-                    <ProFormRadio.Group
-                      radioType="button"
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      name={['search', 'layout']}
-                      tooltip={`search={{layout:"${config.search?.layout}"}}`}
-                      options={[
-                        {
-                          label: 'vertical',
-                          value: 'vertical',
-                        },
-                        {
-                          label: 'horizontal',
-                          value: 'horizontal',
-                        },
-                      ]}
-                      label="form layout"
-                    />
-                    <ProFormRadio.Group
-                      radioType="button"
-                      fieldProps={{
-                        size: 'small',
-                      }}
-                      name={['search', 'filterType']}
-                      tooltip={`search={{filterType:"light"}}`}
-                      options={[
-                        {
-                          label: 'default',
-                          value: 'query',
-                        },
-                        {
-                          label: 'lightweight',
-                          value: 'light',
-                        },
-                      ]}
-                      label="form type"
-                    />
-                  </ProForm.Group>
-                ),
-              },
             ],
           }}
         />
@@ -654,7 +452,62 @@ const DynamicSettings = ({
           overflow: 'auto',
         }}
       >
-        {tableComp({ config })}
+        <Crud
+          columns={config.columns as any}
+          headerTitle="Auto CRUD"
+          // custom dataSource
+          postData={(resData: any[]) => {
+            const touchedData = resData.map((item, idx) => {
+              return {
+                ...item,
+                ...mockData,
+              }
+            })
+
+            if (data.length === 0) {
+              setData(touchedData)
+            }
+            return touchedData
+          }}
+          formRef={refCrud}
+          addOrEditProps={{
+            addReqOpt: (row) => ({
+              url: '/users',
+            }),
+            editReqOpt: (row) => ({
+              url: `/users/${row.id}`,
+            }),
+          }}
+          listProps={{
+            listReqOpt: ({ current, pageSize, ...rest }) => ({
+              url: '/users',
+              params: {
+                ...rest,
+                per_page: pageSize,
+                page: current,
+              },
+            }),
+            deleteReqOpt: (row) => ({ url: `/users/${row.id}` }),
+            dataField: ['data', 'data'],
+            totalItemField: ['data', 'meta', 'pagination', 'total'],
+            totalPageField: ['data', 'meta', 'pagination', 'pages'],
+          }}
+          detailProps={{
+            requestOpt: (row) => ({ url: `/users/${row.id}` }),
+            modalOpt: (row) => ({
+              title: `User Info: ${row?.name}`,
+            }),
+            dataField: ['data', 'data'],
+            postData: (data) => {
+              return {
+                ...data,
+                ...mockData,
+              }
+            },
+          }}
+          axios={axiosInstance}
+          actionRef={actionRef}
+        />
       </ProCard>
     </ProCard>
   )

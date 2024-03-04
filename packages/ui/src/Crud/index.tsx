@@ -32,7 +32,6 @@ import {
   message,
   theme,
 } from 'antd'
-import useModal from 'antd/es/modal/useModal'
 import { SortOrder } from 'antd/es/table/interface'
 import { FormInstance } from 'antd/lib'
 import { AxiosInstance, AxiosRequestConfig } from 'axios'
@@ -245,7 +244,6 @@ const getColumns = ({
   hideNoCol,
   onEditClick,
   detailReqOpt,
-  modal,
   setFormMode,
   detailRef,
   detailDataField,
@@ -257,9 +255,7 @@ const getColumns = ({
   detailDataField?: string[]
   detailRef: any
   setFormMode: (mode: IMode, row?: any) => void
-  modal: any
   detailReqOpt?: (row: any) => AxiosRequestConfig<any>
-  editId?: any
   editForm: FormInstance
   loading: boolean
   onEditClick: (row: any) => void
@@ -444,7 +440,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
   } = detailProps || {}
   const [searchParams, setSearchParams] = useSearchParams()
   const { isSmUp } = useMediaQuery()
-  const [modal, contextHolder] = useModal()
   const [rowRecords, setRowRecords] = useState<Record<string, any>>({})
   const [addOrEditLoading, setAddOrEditLoading] = useState(false)
   const { token } = theme.useToken()
@@ -536,7 +531,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
 
   const nextColumn = getColumns({
     detailRef,
-    modal,
     setFormMode,
     detailDataField,
     detailModalOpt,
@@ -607,7 +601,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           columns: nextColumn as any,
         }}
       />
-      {contextHolder}
       <ProTable
         beforeSearchSubmit={async (params) => {
           // sync search url params with search form
