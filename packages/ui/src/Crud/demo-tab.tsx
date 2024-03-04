@@ -47,7 +47,7 @@ export default function Demo() {
   const columns: ICrudCol<any>[] = []
 
   return (
-    <div className="p-8">
+    <div className="p-4">
       <DynamicSettings
         tableComp={() => {
           return (
