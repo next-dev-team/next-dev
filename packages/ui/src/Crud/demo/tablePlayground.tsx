@@ -5,10 +5,8 @@ import {
   ProForm,
   ProFormCascader,
   ProFormDependency,
-  ProFormDigit,
   ProFormGroup,
   ProFormList,
-  ProFormRadio,
   ProFormSelect,
   ProFormSwitch,
   ProFormText,
@@ -18,7 +16,7 @@ import {
 import { caseConversion } from '@next-dev/utils'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Crud, { ICrudCol } from '..'
 
 const valueTypeArray = [
@@ -54,6 +52,7 @@ const valueTypeArray = [
   'fromNow',
   'image',
   'jsonCode',
+  'formList',
 ]
 
 const columns: ICrudCol<any>[] = [
@@ -104,16 +103,15 @@ const initData = {
     fullScreen: true,
     setting: true,
   },
+  apiUrl: 'https://gorest.co.in/public/v1',
+  responseList: undefined,
+  dataOptions: [],
+  dataField: ['data', 'data'],
+  totalItemField: ['data', 'meta', 'pagination', 'total'],
+  totalPageField: ['data', 'meta', 'pagination', 'pages'],
 }
 
 const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325'
-
-const axiosInstance = axios.create({
-  baseURL: 'https://gorest.co.in/public/v1',
-  headers: {
-    Authorization: `Bearer ${API_TOKEN}`,
-  },
-})
 
 const mockImg =
   'https://images.pexels.com/photos/166055/pexels-photo-166055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
@@ -149,8 +147,11 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
   const ref = useRef<ProFormInstance>()
   const actionRef = useRef<ActionType>(null)
   const refCrud = useRef<ProFormInstance>()
-  const [config, setConfig] = useState(initData)
+  const [config1, setConfig] = useState(initData)
+  const config = useMemo(() => config1, [config1])
+
   const [data, setData] = useState<ICrudCol<any>[]>([])
+  const [dataFieldOpt, setDataFieldOpt] = useState(undefined)
 
   /** Debounce config*/
   const updateConfig = useDebounceFn(async (state) => {
@@ -159,8 +160,12 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
       ...state,
     }))
   }, 20)
+  const reloadAndRest = useDebounceFn(async () => {
+    actionRef.current?.reloadAndRest?.()
+  }, 200)
 
-  // console.log('config', config)
+  console.log('data', config)
+
   useEffect(() => {
     if (data === undefined) return
     const touchedCol = Object.keys(data?.[0] || {}).map((key, idx) => {
@@ -168,6 +173,15 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
       const colValue = (data?.[idx] as any)[key]
 
       if (isImgUrl(colValue)) other.valueType = 'image'
+      // if (Array.isArray(colValue)) other.valueType = 'formList'
+      if (typeof colValue === 'boolean') other.valueType = 'switch'
+      if (typeof colValue === 'number') other.valueType = 'digit'
+      if (Array.isArray(colValue)) {
+        other.valueType = 'formList'
+        other.hideInTable = true
+        other.hideInSearch = true
+        other.initialValue = [{}]
+      }
 
       return {
         title: caseConversion(key, 'camelToCapitalWord'),
@@ -182,13 +196,20 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
       children?: Option[]
     }
     function transformApiToCascaderOptions(apiResponse: any): Option[] {
-      return Object.keys(apiResponse).map((key, idx) => {
-        const colValue = apiResponse[key]
+      if (!apiResponse) return []
+
+      return Object.entries(apiResponse).map(([key, colValue]) => {
         if (Array.isArray(colValue)) {
           return {
             value: key,
             label: caseConversion(key, 'camelToCapitalWord'),
             children: transformApiToCascaderOptions(colValue[0]),
+          }
+        } else if (typeof colValue === 'object') {
+          return {
+            value: key,
+            label: caseConversion(key, 'camelToCapitalWord'),
+            children: transformApiToCascaderOptions(colValue),
           }
         }
 
@@ -196,19 +217,19 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
           value: key,
           label: caseConversion(key, 'camelToCapitalWord'),
         }
-      })
+      }) as Option[]
     }
 
     const touchedDataIndex = transformApiToCascaderOptions(data?.[0] || {})
+    const touchedDataField = transformApiToCascaderOptions(dataFieldOpt || {})
     updateConfig.run({
       columns: touchedCol,
       dataIndex: touchedDataIndex,
+      dataOptions: touchedDataField,
     })
 
     if (ref?.current) ref.current.setFieldValue('columns', touchedCol)
   }, [ref, data])
-
-  console.log('data', config)
 
   return (
     <ProCard
@@ -261,8 +282,53 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                           name={['pagination', 'show']}
                         />
                       }
-                    ></ProForm.Group>
-                    <ProForm.Group
+                    >
+                      <ProFormText
+                        width="md"
+                        label="API URL"
+                        fieldProps={{
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
+                        }}
+                        name="apiUrl"
+                        placeholder={'https://gorest.co.in/public/v1'}
+                      />
+                      <ProFormCascader
+                        width="md"
+                        name={'dataField'}
+                        label="Data Field"
+                        fieldProps={{
+                          changeOnSelect: true,
+                          options: config.dataOptions || [],
+                          dropdownMatchSelectWidth: 600,
+                        }}
+                        placeholder="Select field array"
+                      />
+                      <ProFormCascader
+                        width="md"
+                        name={'totalItemField'}
+                        label="Total Field"
+                        fieldProps={{
+                          changeOnSelect: true,
+                          options: config.dataOptions || [],
+                          dropdownMatchSelectWidth: 600,
+                        }}
+                        placeholder="Select field array"
+                      />
+                      <ProFormCascader
+                        width="md"
+                        name={'totalPageField'}
+                        label="Total Page Field"
+                        fieldProps={{
+                          changeOnSelect: true,
+                          options: config.dataOptions || [],
+                          dropdownMatchSelectWidth: 600,
+                        }}
+                        placeholder="Select field array"
+                      />
+                    </ProForm.Group>
+                    {/* <ProForm.Group
                       title="Paginator"
                       size={0}
                       defaultCollapsed
@@ -323,7 +389,7 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                         tooltip={`pagination={{ total:100 }}`}
                         name={['pagination', 'total']}
                       />
-                    </ProForm.Group>
+                    </ProForm.Group> */}
                   </>
                 ),
               },
@@ -479,6 +545,11 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
             }),
           }}
           listProps={{
+            onResponse(res) {
+              if (dataFieldOpt) return res
+              setDataFieldOpt(res)
+              return res
+            },
             listReqOpt: ({ current, pageSize, ...rest }) => ({
               url: '/users',
               params: {
@@ -487,10 +558,11 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                 page: current,
               },
             }),
+
             deleteReqOpt: (row) => ({ url: `/users/${row.id}` }),
-            dataField: ['data', 'data'],
-            totalItemField: ['data', 'meta', 'pagination', 'total'],
-            totalPageField: ['data', 'meta', 'pagination', 'pages'],
+            dataField: config.dataField || [],
+            totalItemField: config.totalItemField,
+            totalPageField: config.totalPageField,
           }}
           detailProps={{
             requestOpt: (row) => ({ url: `/users/${row.id}` }),
@@ -505,7 +577,12 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
               }
             },
           }}
-          axios={axiosInstance}
+          axios={axios.create({
+            baseURL: config.apiUrl,
+            headers: {
+              Authorization: `Bearer ${API_TOKEN}`,
+            },
+          })}
           actionRef={actionRef}
         />
       </ProCard>

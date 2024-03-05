@@ -54,6 +54,7 @@ type ListProps = {
   totalItemField?: string[]
   totalPageField?: string[]
   reqOptions?: Record<string, any>
+  onResponse?: (res: any) => any
 }
 type DetailProps = {
   requestOpt?: (row: any) => AxiosRequestConfig<any>
@@ -430,6 +431,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
     totalPageField = [],
     deleteReqOpt,
     listReqOpt,
+    onResponse: onResponseList,
   } = listProps || {}
   const { addReqOpt, editReqOpt } = addOrEditProps || {}
   const {
@@ -620,9 +622,10 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           const params = getPrams(resParams)
           const { formMode, ...restP } = (params || {}) as any
           const responseList = await axios.request(listReqOpt(restP, ...arg))
-          const dataSource = getSelectField(responseList, dataField)
-          const totalItem = getSelectField<number>(responseList, totalItemField)
-          const totalPage = getSelectField<number>(responseList, totalPageField)
+          const touchedRes = onResponseList ? onResponseList(responseList) : responseList
+          const dataSource = getSelectField(touchedRes, dataField)
+          const totalItem = getSelectField<number>(touchedRes, totalItemField)
+          const totalPage = getSelectField<number>(touchedRes, totalPageField)
           const total = isNaN(totalItem as number) ? 0 : (totalItem as number)
           const validCurrentPage = +(params.current || 0)
           const invalidTotal = validCurrentPage > +totalPage
@@ -634,7 +637,6 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
             success: true,
             total,
           }
-          // console.log('touchedOpt', touchedOpt)
           return touchedResponse
         }}
         pagination={{
