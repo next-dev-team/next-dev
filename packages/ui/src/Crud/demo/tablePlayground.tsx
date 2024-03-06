@@ -13,7 +13,8 @@ import {
   ProFormTextArea,
   useDebounceFn,
 } from '@ant-design/pro-components'
-import { caseConversion } from '@next-dev/utils'
+import { caseConversion, toCascaderOptions } from '@next-dev/utils'
+import { Modal } from 'antd'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
 import { useEffect, useMemo, useRef, useState } from 'react'
@@ -66,6 +67,7 @@ const columns: ICrudCol<any>[] = [
     valueType: 'select',
   },
 ]
+const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325'
 
 const initData = {
   dataIndex: [],
@@ -74,9 +76,8 @@ const initData = {
   columns,
   pagination: {
     show: true,
-    pageSize: 5,
-    current: 1,
-    total: 100,
+    pageQueryField: 'page',
+    pageSizeQueryField: 'per_page',
   },
   size: 'middle',
   expandable: false,
@@ -109,9 +110,9 @@ const initData = {
   dataField: ['data', 'data'],
   totalItemField: ['data', 'meta', 'pagination', 'total'],
   totalPageField: ['data', 'meta', 'pagination', 'pages'],
+  apiToken: API_TOKEN,
+  listEndpoint: '/users',
 }
-
-const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325'
 
 const mockImg =
   'https://images.pexels.com/photos/166055/pexels-photo-166055.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
@@ -143,7 +144,7 @@ function isImgUrl(url: string): boolean {
   const pattern = /\bhttps?:\/\/\S+\.(?:jpg|jpeg|png|gif)\b/
   return pattern.test(url)
 }
-const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: any }) => {
+const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: any }) => {
   const ref = useRef<ProFormInstance>()
   const actionRef = useRef<ActionType>(null)
   const refCrud = useRef<ProFormInstance>()
@@ -190,38 +191,8 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
       }
     })
 
-    interface Option {
-      value: string | number
-      label: string
-      children?: Option[]
-    }
-    function transformApiToCascaderOptions(apiResponse: any): Option[] {
-      if (!apiResponse) return []
-
-      return Object.entries(apiResponse).map(([key, colValue]) => {
-        if (Array.isArray(colValue)) {
-          return {
-            value: key,
-            label: caseConversion(key, 'camelToCapitalWord'),
-            children: transformApiToCascaderOptions(colValue[0]),
-          }
-        } else if (typeof colValue === 'object') {
-          return {
-            value: key,
-            label: caseConversion(key, 'camelToCapitalWord'),
-            children: transformApiToCascaderOptions(colValue),
-          }
-        }
-
-        return {
-          value: key,
-          label: caseConversion(key, 'camelToCapitalWord'),
-        }
-      }) as Option[]
-    }
-
-    const touchedDataIndex = transformApiToCascaderOptions(data?.[0] || {})
-    const touchedDataField = transformApiToCascaderOptions(dataFieldOpt || {})
+    const touchedDataIndex = toCascaderOptions(data?.[0] || {})
+    const touchedDataField = toCascaderOptions(dataFieldOpt || {})
     updateConfig.run({
       columns: touchedCol,
       dataIndex: touchedDataIndex,
@@ -250,6 +221,7 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
         onValuesChange={(_, values) => updateConfig.run(values)}
       >
         <ProCard
+          size="small"
           colSpan={playgroundColSpan}
           style={{
             height: '100vh',
@@ -268,7 +240,7 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                   <>
                     <ProForm.Group
                       title="Data Source"
-                      size={0}
+                      size={'small'}
                       collapsible
                       tooltip="pagination={}"
                       direction="horizontal"
@@ -294,6 +266,38 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                         name="apiUrl"
                         placeholder={'https://gorest.co.in/public/v1'}
                       />
+                      <ProFormText.Password
+                        width="md"
+                        label="API Token"
+                        fieldProps={{
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
+                        }}
+                        name="apiToken"
+                        placeholder={'xxxx'}
+                      />
+                    </ProForm.Group>
+                    <ProForm.Group
+                      title="List Props"
+                      size={0}
+                      defaultCollapsed={false}
+                      collapsible
+                      tooltip="pagination={}"
+                      direction="horizontal"
+                      labelLayout="twoLine"
+                    >
+                      <ProFormText
+                        width="md"
+                        label="Endpoint"
+                        fieldProps={{
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
+                        }}
+                        name="listEndpoint"
+                        placeholder={'/user'}
+                      />
                       <ProFormCascader
                         width="md"
                         name={'dataField'}
@@ -302,6 +306,9 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                           changeOnSelect: true,
                           options: config.dataOptions || [],
                           dropdownMatchSelectWidth: 600,
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
                         }}
                         placeholder="Select field array"
                       />
@@ -313,25 +320,30 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                           changeOnSelect: true,
                           options: config.dataOptions || [],
                           dropdownMatchSelectWidth: 600,
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
                         }}
                         placeholder="Select field array"
                       />
                       <ProFormCascader
                         width="md"
                         name={'totalPageField'}
-                        label="Total Page Field"
+                        label="Total Page"
                         fieldProps={{
                           changeOnSelect: true,
                           options: config.dataOptions || [],
                           dropdownMatchSelectWidth: 600,
+                          onChange: () => {
+                            reloadAndRest.run()
+                          },
                         }}
                         placeholder="Select field array"
                       />
                     </ProForm.Group>
-                    {/* <ProForm.Group
+                    <ProForm.Group
                       title="Paginator"
                       size={0}
-                      defaultCollapsed
                       collapsible
                       tooltip="pagination={}"
                       direction="horizontal"
@@ -340,56 +352,39 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
                         <ProFormSwitch
                           fieldProps={{
                             size: 'small',
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
                           }}
                           noStyle
                           name={['pagination', 'show']}
                         />
                       }
                     >
-                      <ProFormRadio.Group
-                        tooltip={`pagination={size:"middle"}`}
-                        radioType="button"
+                      <ProFormText
                         fieldProps={{
                           size: 'small',
-                        }}
-                        label="size"
-                        options={[
-                          {
-                            label: 'default',
-                            value: 'default',
+                          onChange: () => {
+                            reloadAndRest.run()
                           },
-                          {
-                            label: 'small',
-                            value: 'small',
+                        }}
+                        label="Page  query field"
+                        tooltip={`params: { ...rest, page: current, }`}
+                        name={['pagination', 'pageQueryField']}
+                      />
+                      <ProFormText
+                        fieldProps={{
+                          size: 'small',
+                          onChange: () => {
+                            reloadAndRest.run()
                           },
-                        ]}
-                        name={['pagination', 'size']}
-                      />
-                      <ProFormDigit
-                        fieldProps={{
-                          size: 'small',
                         }}
-                        label="page number"
-                        tooltip={`pagination={{ current:10 }}`}
-                        name={['pagination', 'current']}
+                        label="Page size query field"
+                        tooltip={` params: { ...rest,  per_page: pageSize, },
+                        `}
+                        name={['pagination', 'pageSizeQueryField']}
                       />
-                      <ProFormDigit
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Quantity per page"
-                        tooltip={`pagination={{ pageSize:10 }}`}
-                        name={['pagination', 'pageSize']}
-                      />
-                      <ProFormDigit
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Total number of data"
-                        tooltip={`pagination={{ total:100 }}`}
-                        name={['pagination', 'total']}
-                      />
-                    </ProForm.Group> */}
+                    </ProForm.Group>
                   </>
                 ),
               },
@@ -538,12 +533,21 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
           formRef={refCrud}
           addOrEditProps={{
             addReqOpt: (row) => ({
-              url: '/users',
+              url: config.listEndpoint,
             }),
             editReqOpt: (row) => ({
               url: `/users/${row.id}`,
             }),
           }}
+          onRequestError={() => {
+            Modal.error({
+              title: 'Error',
+              content: 'Request Error',
+            })
+          }}
+          {...(!config?.pagination?.show && {
+            pagination: false,
+          })}
           listProps={{
             onResponse(res) {
               if (dataFieldOpt) return res
@@ -551,21 +555,21 @@ const DynamicSettings = ({ playgroundColSpan = '490px' }: { playgroundColSpan?: 
               return res
             },
             listReqOpt: ({ current, pageSize, ...rest }) => ({
-              url: '/users',
+              url: config.listEndpoint,
               params: {
                 ...rest,
-                per_page: pageSize,
-                page: current,
+                [config.pagination?.pageSizeQueryField]: pageSize,
+                [config.pagination?.pageQueryField]: current,
               },
             }),
 
-            deleteReqOpt: (row) => ({ url: `/users/${row.id}` }),
+            deleteReqOpt: (row) => ({ url: `${config.listEndpoint}/${row.id}` }),
             dataField: config.dataField || [],
             totalItemField: config.totalItemField,
             totalPageField: config.totalPageField,
           }}
           detailProps={{
-            requestOpt: (row) => ({ url: `/users/${row.id}` }),
+            requestOpt: (row) => ({ url: `${config.listEndpoint}/${row.id}` }),
             modalOpt: (row) => ({
               title: `User Info: ${row?.name}`,
             }),

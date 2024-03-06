@@ -2,6 +2,9 @@
 
 export type AnyObject = { [key: string]: any }
 
+// ----------------------------#convert------------------------------
+export { default as toCascaderOptions } from './toCascaderOptions'
+
 // ----------------------------#is------------------------------
 export { default as isArray } from './isArray'
 export { default as isBoolean } from './isBoolean'
