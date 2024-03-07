@@ -1,10 +1,13 @@
+import { EyeOutlined } from '@ant-design/icons'
 import type { ProFormInstance } from '@ant-design/pro-components'
 import {
   ActionType,
+  ModalForm,
   ProCard,
   ProForm,
   ProFormCascader,
   ProFormDependency,
+  ProFormDigit,
   ProFormGroup,
   ProFormList,
   ProFormSelect,
@@ -13,48 +16,14 @@ import {
   ProFormTextArea,
   useDebounceFn,
 } from '@ant-design/pro-components'
+import ReactJson from '@microlink/react-json-view'
 import { caseConversion, toCascaderOptions } from '@next-dev/utils'
-import { Modal } from 'antd'
+import { Button, Modal, Space, Typography } from 'antd'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import Crud, { ICrudCol } from '..'
-
-const valueTypeArray = [
-  'password',
-  'money',
-  'textarea',
-  'option',
-  'date',
-  'dateWeek',
-  'dateMonth',
-  'dateQuarter',
-  'dateYear',
-  'dateRange',
-  'dateTimeRange',
-  'dateTime',
-  'time',
-  'timeRange',
-  'text',
-  'select',
-  'checkbox',
-  'rate',
-  'radio',
-  'radioButton',
-  'index',
-  'indexBorder',
-  'progress',
-  'percent',
-  'digit',
-  'second',
-  'avatar',
-  'code',
-  'switch',
-  'fromNow',
-  'image',
-  'jsonCode',
-  'formList',
-]
+import { valueTypeArray } from './helper'
 
 const columns: ICrudCol<any>[] = [
   {
@@ -165,16 +134,14 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
     actionRef.current?.reloadAndRest?.()
   }, 200)
 
-  console.log('data', config)
+  // console.log('data', config)
 
   useEffect(() => {
     if (data === undefined) return
     const touchedCol = Object.keys(data?.[0] || {}).map((key, idx) => {
       let other: ICrudCol<any> = {}
-      const colValue = (data?.[idx] as any)[key]
-
+      const colValue = (data?.[idx] as any)?.[key]
       if (isImgUrl(colValue)) other.valueType = 'image'
-      // if (Array.isArray(colValue)) other.valueType = 'formList'
       if (typeof colValue === 'boolean') other.valueType = 'switch'
       if (typeof colValue === 'number') other.valueType = 'digit'
       if (Array.isArray(colValue)) {
@@ -200,7 +167,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
     })
 
     if (ref?.current) ref.current.setFieldValue('columns', touchedCol)
-  }, [ref, data])
+  }, [data])
 
   return (
     <ProCard
@@ -231,17 +198,48 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
             right: 0,
             width: playgroundColSpan,
           }}
+          title="CRUD Playground"
+          extra={
+            <Space>
+              <ModalForm
+                size="small"
+                submitter={false}
+                modalProps={{ destroyOnClose: true, width: '70%', title: 'View Configs' }}
+                trigger={
+                  <Button type="link">
+                    <EyeOutlined />
+                    View Configs
+                  </Button>
+                }
+              >
+                <ReactJson displayDataTypes={false} collapsed={1} src={config} />
+              </ModalForm>
+              <ModalForm
+                size="small"
+                submitter={false}
+                modalProps={{ destroyOnClose: true, width: '70%', title: 'Data Source' }}
+                trigger={
+                  <Button type="link">
+                    <EyeOutlined />
+                    Data Source
+                  </Button>
+                }
+              >
+                <ReactJson displayDataTypes={false} collapsed={2} src={data} />
+              </ModalForm>
+            </Space>
+          }
           tabs={{
             items: [
               {
-                label: 'data config',
+                label: 'Data config',
                 key: 'tab2',
                 children: (
                   <>
                     <ProForm.Group
                       title="Data Source"
-                      size={'small'}
-                      collapsible
+                      size={0}
+                      collapsible={false}
                       tooltip="pagination={}"
                       direction="horizontal"
                       labelLayout="twoLine"
@@ -251,7 +249,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                             size: 'small',
                           }}
                           noStyle
-                          name={['pagination', 'show']}
+                          name={['pagination', 'dataSource']}
                         />
                       }
                     >
@@ -260,6 +258,12 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                         label="API URL"
                         fieldProps={{
                           onChange: () => {
+                            if (ref?.current) {
+                              ref.current.setFieldValue('dataField', '')
+                              ref.current.setFieldValue('listEndpoint', '')
+                              ref.current.setFieldValue('totalItemField', '')
+                              ref.current.setFieldValue('totalPageField', '')
+                            }
                             reloadAndRest.run()
                           },
                         }}
@@ -270,6 +274,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                         width="md"
                         label="API Token"
                         fieldProps={{
+                          allowClear: true,
                           onChange: () => {
                             reloadAndRest.run()
                           },
@@ -288,6 +293,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                       labelLayout="twoLine"
                     >
                       <ProFormText
+                        disabled={!config.apiUrl}
                         width="md"
                         label="Endpoint"
                         fieldProps={{
@@ -299,6 +305,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                         placeholder={'/user'}
                       />
                       <ProFormCascader
+                        disabled={!config.apiUrl}
                         width="md"
                         name={'dataField'}
                         label="Data Field"
@@ -313,6 +320,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                         placeholder="Select field array"
                       />
                       <ProFormCascader
+                        disabled={!config.apiUrl}
                         width="md"
                         name={'totalItemField'}
                         label="Total Field"
@@ -328,6 +336,7 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                       />
                       <ProFormCascader
                         width="md"
+                        disabled={!config.apiUrl}
                         name={'totalPageField'}
                         label="Total Page"
                         fieldProps={{
@@ -393,10 +402,18 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                 key: 'tab4',
                 children: (
                   <ProFormList
+                    alwaysShowItemLabel
                     name="columns"
-                    itemRender={({ listDom, action }) => {
+                    itemRender={({ listDom, action }, listMeta) => {
+                      const colTitle = config?.columns?.[listMeta?.index]?.title
                       return (
                         <ProCard
+                          size="small"
+                          title={
+                            <Typography.Title level={5} className="mb-0">
+                              {(colTitle as string) || listMeta?.index.toString()}
+                            </Typography.Title>
+                          }
                           bordered
                           style={{
                             marginBlockEnd: 8,
@@ -404,8 +421,8 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                           }}
                           bodyStyle={{
                             padding: 8,
-                            paddingInlineEnd: 16,
-                            paddingBlockStart: 16,
+                            paddingInlineEnd: 8,
+                            paddingBlockStart: 8,
                           }}
                         >
                           <div
@@ -428,16 +445,50 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                           required: true,
                         },
                       ]}
+                      fieldProps={{ size: 'small' }}
                       name="title"
                       label="title"
                     />
-                    <ProFormGroup
-                      style={{
-                        marginBlockStart: 8,
-                      }}
-                    >
-                      <ProFormSwitch label="Ellipsis" name="ellipsis" />
-                      <ProFormSwitch label="copy button" name="copyable" />
+                    <ProFormGroup size={'small'}>
+                      <ProFormSwitch
+                        fieldProps={{ size: 'small' }}
+                        label="Hide in table"
+                        name="hideInTable"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{ size: 'small' }}
+                        label="Hide in form"
+                        name="hideInForm"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{ size: 'small' }}
+                        label="Hide in search"
+                        name="hideInSearch"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        label="Hide in detail"
+                        name="hideInDescription"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{ size: 'small' }}
+                        label="Hide in setting"
+                        name="hideInSetting"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        label="Ellipsis"
+                        name="ellipsis"
+                      />
+                      <ProFormSwitch
+                        fieldProps={{ size: 'small' }}
+                        label="copy button"
+                        name="copyable"
+                      />
                     </ProFormGroup>
                     <ProFormGroup
                       style={{
@@ -449,19 +500,22 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                         name={'dataIndex'}
                         request={async () => config.dataIndex}
                         placeholder="Please select"
+                        label="dataIndex"
+                        width={'sm'}
+                        fieldProps={{
+                          size: 'small',
+                        }}
                       />
 
                       <ProFormSelect
-                        width="xs"
-                        label="value type"
+                        width="sm"
+                        label="Value type"
                         name="valueType"
-                        fieldProps={
-                          {
-                            // onChange: () => {
-                            //   ref.current?.resetFields()
-                            // },
-                          }
-                        }
+                        fieldProps={{
+                          popupMatchSelectWidth: 200,
+                          size: 'small',
+                        }}
+                        allowClear
                         options={valueTypeArray.map((value) => ({
                           label: value,
                           value,
@@ -474,7 +528,23 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
                       }}
                       size={8}
                     >
-                      <ProFormText width="sm" label="title tooltip" name="tooltip" />
+                      <ProFormText
+                        allowClear
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        width="sm"
+                        label="title tooltip"
+                        name="tooltip"
+                      />
+                      <ProFormDigit
+                        allowClear
+                        width="sm"
+                        min={30}
+                        fieldProps={{ step: 10, size: 'small' }}
+                        label="Width"
+                        name="width"
+                      />
                     </ProFormGroup>
                     <ProFormDependency name={['valueType', 'valueEnum']}>
                       {({ valueType, valueEnum }) => {
@@ -515,7 +585,15 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
       >
         <Crud
           columns={config.columns as any}
-          headerTitle="Auto CRUD"
+          headerTitle={
+            <Space direction="vertical">
+              <Typography>Auto CRUD</Typography>
+              <Typography.Paragraph type="secondary">
+                The default API is free real API for testing world wide, don't submit any sensitive
+                info, some data not editable
+              </Typography.Paragraph>
+            </Space>
+          }
           // custom dataSource
           postData={(resData: any[]) => {
             const touchedData = resData.map((item, idx) => {
@@ -525,9 +603,9 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
               }
             })
 
-            if (data.length === 0) {
-              setData(touchedData)
-            }
+            // if (data.length === 0) {
+            setData(touchedData)
+            // }
             return touchedData
           }}
           formRef={refCrud}
@@ -540,9 +618,12 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
             }),
           }}
           onRequestError={() => {
+            setData([])
+            setDataFieldOpt(undefined)
             Modal.error({
-              title: 'Error',
-              content: 'Request Error',
+              title: 'Request Data',
+              content:
+                'double check the input endpoint configuration, authentication methods, and required parameters',
             })
           }}
           {...(!config?.pagination?.show && {

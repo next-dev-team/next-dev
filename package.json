@@ -47,6 +47,7 @@
   "dependencies": {
     "@babel/runtime": "^7.23.9",
     "@manypkg/cli": "^0.21.2",
+    "@microlink/react-json-view": "^1.23.0",
     "@types/mockjs": "^1.0.7",
     "@umijs/plugins": "^4.1.2",
     "antd": "^5.14.2",

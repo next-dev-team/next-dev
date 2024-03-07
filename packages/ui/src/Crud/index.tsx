@@ -629,7 +629,7 @@ export default function Crud<TData extends Record<string, any>>(props: Crud<TDat
           const total = isNaN(totalItem as number) ? 0 : (totalItem as number)
           const validCurrentPage = +(params.current || 0)
           const invalidTotal = validCurrentPage > +totalPage
-          if (invalidTotal || isNaN(validCurrentPage)) {
+          if (totalPage && (invalidTotal || isNaN(validCurrentPage))) {
             updateFilter({ ...params, current: defaultParams.current })
           }
           const touchedResponse = {
