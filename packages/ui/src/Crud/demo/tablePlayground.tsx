@@ -16,12 +16,14 @@ import {
   ProFormTextArea,
   useDebounceFn,
 } from '@ant-design/pro-components'
+import { DraggablePanel } from '@ant-design/pro-editor'
 import ReactJson from '@microlink/react-json-view'
 import { caseConversion, toCascaderOptions } from '@next-dev/utils'
 import { Button, Modal, Space, Typography } from 'antd'
 import axios from 'axios'
 import Mock, { Random } from 'mockjs'
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Flexbox } from 'react-layout-kit'
 import Crud, { ICrudCol } from '..'
 import { valueTypeArray } from './helper'
 
@@ -170,419 +172,410 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
   }, [data])
 
   return (
-    <ProCard
-      split="vertical"
-      bordered
-      headerBordered
-      style={{
-        height: '100vh',
-        overflow: 'hidden',
-      }}
-    >
-      <ProForm
-        formRef={ref}
-        layout="inline"
-        initialValues={initData}
-        submitter={false}
-        colon={false}
-        onValuesChange={(_, values) => updateConfig.run(values)}
-      >
-        <ProCard
-          size="small"
-          colSpan={playgroundColSpan}
-          style={{
-            height: '100vh',
-            overflow: 'auto',
-            boxShadow: '2px 0 6px rgba(0, 21, 41, 0.35)',
-            top: 0,
-            right: 0,
-            width: playgroundColSpan,
-          }}
-          title="CRUD Playground"
-          extra={
-            <Space>
-              <ModalForm
-                size="small"
-                submitter={false}
-                modalProps={{ destroyOnClose: true, width: '70%', title: 'View Configs' }}
-                trigger={
-                  <Button type="link">
-                    <EyeOutlined />
-                    View Configs
-                  </Button>
-                }
-              >
-                <ReactJson displayDataTypes={false} collapsed={1} src={config} />
-              </ModalForm>
-              <ModalForm
-                size="small"
-                submitter={false}
-                modalProps={{ destroyOnClose: true, width: '70%', title: 'Data Source' }}
-                trigger={
-                  <Button type="link">
-                    <EyeOutlined />
-                    Data Source
-                  </Button>
-                }
-              >
-                <ReactJson displayDataTypes={false} collapsed={2} src={data} />
-              </ModalForm>
-            </Space>
-          }
-          tabs={{
-            items: [
-              {
-                label: 'Data config',
-                key: 'tab2',
-                children: (
-                  <>
-                    <ProForm.Group
-                      title="Data Source"
-                      size={0}
-                      collapsible={false}
-                      tooltip="pagination={}"
-                      direction="horizontal"
-                      labelLayout="twoLine"
-                      extra={
-                        <ProFormSwitch
+    <Flexbox horizontal style={{ minHeight: 300 }}>
+      <DraggablePanel placement="left">
+        <ProForm
+          formRef={ref}
+          layout="inline"
+          initialValues={initData}
+          submitter={false}
+          colon={false}
+          onValuesChange={(_, values) => updateConfig.run(values)}
+        >
+          <ProCard
+            boxShadow={false}
+            size="small"
+            colSpan={playgroundColSpan}
+            style={{
+              position: 'sticky',
+              height: '97vh',
+              overflow: 'auto',
+              boxShadow: '2px 0 6px rgba(0, 21, 41, 0.35)',
+              top: 0,
+              right: 0,
+              width: playgroundColSpan,
+            }}
+            title="Playground"
+            extra={
+              <Space>
+                <ModalForm
+                  size="small"
+                  submitter={false}
+                  modalProps={{ destroyOnClose: true, width: '70%', title: 'View Configs' }}
+                  trigger={
+                    <Button type="link">
+                      <EyeOutlined />
+                      View Configs
+                    </Button>
+                  }
+                >
+                  <ReactJson displayDataTypes={false} collapsed={1} src={config} />
+                </ModalForm>
+                <ModalForm
+                  size="small"
+                  submitter={false}
+                  modalProps={{ destroyOnClose: true, width: '70%', title: 'Data Source' }}
+                  trigger={
+                    <Button type="link">
+                      <EyeOutlined />
+                      Data Source
+                    </Button>
+                  }
+                >
+                  <ReactJson displayDataTypes={false} collapsed={2} src={data} />
+                </ModalForm>
+              </Space>
+            }
+            tabs={{
+              items: [
+                {
+                  label: 'Data config',
+                  key: 'tab2',
+                  children: (
+                    <>
+                      <ProForm.Group
+                        title="Data Source"
+                        size={0}
+                        collapsible={false}
+                        tooltip="pagination={}"
+                        direction="horizontal"
+                        labelLayout="twoLine"
+                        extra={
+                          <ProFormSwitch
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            noStyle
+                            name={['pagination', 'dataSource']}
+                          />
+                        }
+                      >
+                        <ProFormText
+                          width="md"
+                          label="API URL"
                           fieldProps={{
-                            size: 'small',
+                            onChange: () => {
+                              if (ref?.current) {
+                                ref.current.setFieldValue('dataField', '')
+                                ref.current.setFieldValue('listEndpoint', '')
+                                ref.current.setFieldValue('totalItemField', '')
+                                ref.current.setFieldValue('totalPageField', '')
+                              }
+                              reloadAndRest.run()
+                            },
                           }}
-                          noStyle
-                          name={['pagination', 'dataSource']}
+                          name="apiUrl"
+                          placeholder={'https://gorest.co.in/public/v1'}
                         />
-                      }
-                    >
-                      <ProFormText
-                        width="md"
-                        label="API URL"
-                        fieldProps={{
-                          onChange: () => {
-                            if (ref?.current) {
-                              ref.current.setFieldValue('dataField', '')
-                              ref.current.setFieldValue('listEndpoint', '')
-                              ref.current.setFieldValue('totalItemField', '')
-                              ref.current.setFieldValue('totalPageField', '')
-                            }
-                            reloadAndRest.run()
-                          },
-                        }}
-                        name="apiUrl"
-                        placeholder={'https://gorest.co.in/public/v1'}
-                      />
-                      <ProFormText.Password
-                        width="md"
-                        label="API Token"
-                        fieldProps={{
-                          allowClear: true,
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        name="apiToken"
-                        placeholder={'xxxx'}
-                      />
-                    </ProForm.Group>
-                    <ProForm.Group
-                      title="List Props"
-                      size={0}
-                      defaultCollapsed={false}
-                      collapsible
-                      tooltip="pagination={}"
-                      direction="horizontal"
-                      labelLayout="twoLine"
-                    >
-                      <ProFormText
-                        disabled={!config.apiUrl}
-                        width="md"
-                        label="Endpoint"
-                        fieldProps={{
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        name="listEndpoint"
-                        placeholder={'/user'}
-                      />
-                      <ProFormCascader
-                        disabled={!config.apiUrl}
-                        width="md"
-                        name={'dataField'}
-                        label="Data Field"
-                        fieldProps={{
-                          changeOnSelect: true,
-                          options: config.dataOptions || [],
-                          dropdownMatchSelectWidth: 600,
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        placeholder="Select field array"
-                      />
-                      <ProFormCascader
-                        disabled={!config.apiUrl}
-                        width="md"
-                        name={'totalItemField'}
-                        label="Total Field"
-                        fieldProps={{
-                          changeOnSelect: true,
-                          options: config.dataOptions || [],
-                          dropdownMatchSelectWidth: 600,
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        placeholder="Select field array"
-                      />
-                      <ProFormCascader
-                        width="md"
-                        disabled={!config.apiUrl}
-                        name={'totalPageField'}
-                        label="Total Page"
-                        fieldProps={{
-                          changeOnSelect: true,
-                          options: config.dataOptions || [],
-                          dropdownMatchSelectWidth: 600,
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        placeholder="Select field array"
-                      />
-                    </ProForm.Group>
-                    <ProForm.Group
-                      title="Paginator"
-                      size={0}
-                      collapsible
-                      tooltip="pagination={}"
-                      direction="horizontal"
-                      labelLayout="twoLine"
-                      extra={
-                        <ProFormSwitch
+                        <ProFormText.Password
+                          width="md"
+                          label="API Token"
+                          fieldProps={{
+                            allowClear: true,
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          name="apiToken"
+                          placeholder={'xxxx'}
+                        />
+                      </ProForm.Group>
+                      <ProForm.Group
+                        title="List Props"
+                        size={0}
+                        defaultCollapsed={false}
+                        collapsible
+                        tooltip="pagination={}"
+                        direction="horizontal"
+                        labelLayout="twoLine"
+                      >
+                        <ProFormText
+                          disabled={!config.apiUrl}
+                          width="md"
+                          label="Endpoint"
+                          fieldProps={{
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          name="listEndpoint"
+                          placeholder={'/user'}
+                        />
+                        <ProFormCascader
+                          disabled={!config.apiUrl}
+                          width="md"
+                          name={'dataField'}
+                          label="Data Field"
+                          fieldProps={{
+                            changeOnSelect: true,
+                            options: config.dataOptions || [],
+                            dropdownMatchSelectWidth: 600,
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          placeholder="Select field array"
+                        />
+                        <ProFormCascader
+                          disabled={!config.apiUrl}
+                          width="md"
+                          name={'totalItemField'}
+                          label="Total Field"
+                          fieldProps={{
+                            changeOnSelect: true,
+                            options: config.dataOptions || [],
+                            dropdownMatchSelectWidth: 600,
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          placeholder="Select field array"
+                        />
+                        <ProFormCascader
+                          width="md"
+                          disabled={!config.apiUrl}
+                          name={'totalPageField'}
+                          label="Total Page"
+                          fieldProps={{
+                            changeOnSelect: true,
+                            options: config.dataOptions || [],
+                            dropdownMatchSelectWidth: 600,
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          placeholder="Select field array"
+                        />
+                      </ProForm.Group>
+                      <ProForm.Group
+                        title="Paginator"
+                        size={0}
+                        collapsible
+                        tooltip="pagination={}"
+                        direction="horizontal"
+                        labelLayout="twoLine"
+                        extra={
+                          <ProFormSwitch
+                            fieldProps={{
+                              size: 'small',
+                              onChange: () => {
+                                reloadAndRest.run()
+                              },
+                            }}
+                            noStyle
+                            name={['pagination', 'show']}
+                          />
+                        }
+                      >
+                        <ProFormText
                           fieldProps={{
                             size: 'small',
                             onChange: () => {
                               reloadAndRest.run()
                             },
                           }}
-                          noStyle
-                          name={['pagination', 'show']}
+                          label="Page  query field"
+                          tooltip={`params: { ...rest, page: current, }`}
+                          name={['pagination', 'pageQueryField']}
                         />
-                      }
-                    >
-                      <ProFormText
-                        fieldProps={{
-                          size: 'small',
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        label="Page  query field"
-                        tooltip={`params: { ...rest, page: current, }`}
-                        name={['pagination', 'pageQueryField']}
-                      />
-                      <ProFormText
-                        fieldProps={{
-                          size: 'small',
-                          onChange: () => {
-                            reloadAndRest.run()
-                          },
-                        }}
-                        label="Page size query field"
-                        tooltip={` params: { ...rest,  per_page: pageSize, },
+                        <ProFormText
+                          fieldProps={{
+                            size: 'small',
+                            onChange: () => {
+                              reloadAndRest.run()
+                            },
+                          }}
+                          label="Page size query field"
+                          tooltip={` params: { ...rest,  per_page: pageSize, },
                         `}
-                        name={['pagination', 'pageSizeQueryField']}
-                      />
-                    </ProForm.Group>
-                  </>
-                ),
-              },
-              {
-                label: 'Column config',
-                key: 'tab4',
-                children: (
-                  <ProFormList
-                    alwaysShowItemLabel
-                    name="columns"
-                    itemRender={({ listDom, action }, listMeta) => {
-                      const colTitle = config?.columns?.[listMeta?.index]?.title
-                      return (
-                        <ProCard
-                          size="small"
-                          title={
-                            <Typography.Title level={5} className="mb-0">
-                              {(colTitle as string) || listMeta?.index.toString()}
-                            </Typography.Title>
-                          }
-                          bordered
-                          style={{
-                            marginBlockEnd: 8,
-                            position: 'relative',
-                          }}
-                          bodyStyle={{
-                            padding: 8,
-                            paddingInlineEnd: 8,
-                            paddingBlockStart: 8,
-                          }}
-                        >
-                          <div
+                          name={['pagination', 'pageSizeQueryField']}
+                        />
+                      </ProForm.Group>
+                    </>
+                  ),
+                },
+                {
+                  label: 'Column config',
+                  key: 'tab4',
+                  children: (
+                    <ProFormList
+                      alwaysShowItemLabel
+                      name="columns"
+                      itemRender={({ listDom, action }, listMeta) => {
+                        const colTitle = config?.columns?.[listMeta?.index]?.title
+                        return (
+                          <ProCard
+                            size="small"
+                            title={
+                              <Typography.Title level={5} className="mb-0">
+                                {(colTitle as string) || listMeta?.index.toString()}
+                              </Typography.Title>
+                            }
+                            bordered
                             style={{
-                              position: 'absolute',
-                              top: -4,
-                              right: 2,
+                              marginBlockEnd: 8,
+                              position: 'relative',
+                            }}
+                            bodyStyle={{
+                              padding: 8,
+                              paddingInlineEnd: 8,
+                              paddingBlockStart: 8,
                             }}
                           >
-                            {action}
-                          </div>
-                          {listDom}
-                        </ProCard>
-                      )
-                    }}
-                  >
-                    <ProFormText
-                      rules={[
-                        {
-                          required: true,
-                        },
-                      ]}
-                      fieldProps={{ size: 'small' }}
-                      name="title"
-                      label="title"
-                    />
-                    <ProFormGroup size={'small'}>
-                      <ProFormSwitch
-                        fieldProps={{ size: 'small' }}
-                        label="Hide in table"
-                        name="hideInTable"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{ size: 'small' }}
-                        label="Hide in form"
-                        name="hideInForm"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{ size: 'small' }}
-                        label="Hide in search"
-                        name="hideInSearch"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Hide in detail"
-                        name="hideInDescription"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{ size: 'small' }}
-                        label="Hide in setting"
-                        name="hideInSetting"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        label="Ellipsis"
-                        name="ellipsis"
-                      />
-                      <ProFormSwitch
-                        fieldProps={{ size: 'small' }}
-                        label="copy button"
-                        name="copyable"
-                      />
-                    </ProFormGroup>
-                    <ProFormGroup
-                      style={{
-                        marginBlockStart: 8,
-                      }}
-                      size={8}
-                    >
-                      <ProFormCascader
-                        name={'dataIndex'}
-                        request={async () => config.dataIndex}
-                        placeholder="Please select"
-                        label="dataIndex"
-                        width={'sm'}
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                      />
-
-                      <ProFormSelect
-                        width="sm"
-                        label="Value type"
-                        name="valueType"
-                        fieldProps={{
-                          popupMatchSelectWidth: 200,
-                          size: 'small',
-                        }}
-                        allowClear
-                        options={valueTypeArray.map((value) => ({
-                          label: value,
-                          value,
-                        }))}
-                      />
-                    </ProFormGroup>
-                    <ProFormGroup
-                      style={{
-                        marginBlockStart: 8,
-                      }}
-                      size={8}
-                    >
-                      <ProFormText
-                        allowClear
-                        fieldProps={{
-                          size: 'small',
-                        }}
-                        width="sm"
-                        label="title tooltip"
-                        name="tooltip"
-                      />
-                      <ProFormDigit
-                        allowClear
-                        width="sm"
-                        min={30}
-                        fieldProps={{ step: 10, size: 'small' }}
-                        label="Width"
-                        name="width"
-                      />
-                    </ProFormGroup>
-                    <ProFormDependency name={['valueType', 'valueEnum']}>
-                      {({ valueType, valueEnum }) => {
-                        if (valueType !== 'select') {
-                          return null
-                        }
-                        return (
-                          <ProFormTextArea
-                            formItemProps={{
-                              style: {
-                                marginBlockStart: 8,
-                              },
-                            }}
-                            fieldProps={{
-                              value: JSON.stringify(valueEnum),
-                            }}
-                            normalize={(value) => {
-                              return JSON.parse(value)
-                            }}
-                            label="data enumeration"
-                            name="valueEnum"
-                          />
+                            <div
+                              style={{
+                                position: 'absolute',
+                                top: -4,
+                                right: 2,
+                              }}
+                            >
+                              {action}
+                            </div>
+                            {listDom}
+                          </ProCard>
                         )
                       }}
-                    </ProFormDependency>
-                  </ProFormList>
-                ),
-              },
-            ],
-          }}
-        />
-      </ProForm>
-      <ProCard
-        style={{
-          height: '100vh',
-          overflow: 'auto',
-        }}
-      >
+                    >
+                      <ProFormText
+                        rules={[
+                          {
+                            required: true,
+                          },
+                        ]}
+                        fieldProps={{ size: 'small' }}
+                        name="title"
+                        label="title"
+                      />
+                      <ProFormGroup size={'small'}>
+                        <ProFormSwitch
+                          fieldProps={{ size: 'small' }}
+                          label="Hide in table"
+                          name="hideInTable"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{ size: 'small' }}
+                          label="Hide in form"
+                          name="hideInForm"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{ size: 'small' }}
+                          label="Hide in search"
+                          name="hideInSearch"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Hide in detail"
+                          name="hideInDescription"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{ size: 'small' }}
+                          label="Hide in setting"
+                          name="hideInSetting"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Ellipsis"
+                          name="ellipsis"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{ size: 'small' }}
+                          label="copy button"
+                          name="copyable"
+                        />
+                      </ProFormGroup>
+                      <ProFormGroup
+                        style={{
+                          marginBlockStart: 8,
+                        }}
+                        size={8}
+                      >
+                        <ProFormCascader
+                          name={'dataIndex'}
+                          request={async () => config.dataIndex}
+                          placeholder="Please select"
+                          label="dataIndex"
+                          width={'sm'}
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                        />
+
+                        <ProFormSelect
+                          width="sm"
+                          label="Value type"
+                          name="valueType"
+                          fieldProps={{
+                            popupMatchSelectWidth: 200,
+                            size: 'small',
+                          }}
+                          allowClear
+                          options={valueTypeArray.map((value) => ({
+                            label: value,
+                            value,
+                          }))}
+                        />
+                      </ProFormGroup>
+                      <ProFormGroup
+                        style={{
+                          marginBlockStart: 8,
+                        }}
+                        size={8}
+                      >
+                        <ProFormText
+                          allowClear
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          width="sm"
+                          label="title tooltip"
+                          name="tooltip"
+                        />
+                        <ProFormDigit
+                          allowClear
+                          width="sm"
+                          min={30}
+                          fieldProps={{ step: 10, size: 'small' }}
+                          label="Width"
+                          name="width"
+                        />
+                      </ProFormGroup>
+                      <ProFormDependency name={['valueType', 'valueEnum']}>
+                        {({ valueType, valueEnum }) => {
+                          if (valueType !== 'select') {
+                            return null
+                          }
+                          return (
+                            <ProFormTextArea
+                              formItemProps={{
+                                style: {
+                                  marginBlockStart: 8,
+                                },
+                              }}
+                              fieldProps={{
+                                value: JSON.stringify(valueEnum),
+                              }}
+                              normalize={(value) => {
+                                return JSON.parse(value)
+                              }}
+                              label="data enumeration"
+                              name="valueEnum"
+                            />
+                          )
+                        }}
+                      </ProFormDependency>
+                    </ProFormList>
+                  ),
+                },
+              ],
+            }}
+          />
+        </ProForm>
+      </DraggablePanel>
+      <div className="flex-1 overflow-auto h-screen">
         <Crud
           columns={config.columns as any}
           headerTitle={
@@ -670,8 +663,8 @@ const DynamicSettings = ({ playgroundColSpan = '440px' }: { playgroundColSpan?: 
           })}
           actionRef={actionRef}
         />
-      </ProCard>
-    </ProCard>
+      </div>
+    </Flexbox>
   )
 }
 

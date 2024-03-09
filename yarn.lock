@@ -11166,7 +11166,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"antd-style@npm:^3":
+"antd-style@npm:^3, antd-style@npm:^3.6.1":
   version: 3.6.1
   resolution: "antd-style@npm:3.6.1"
   dependencies:
@@ -25707,6 +25707,7 @@ __metadata:
     "@types/mockjs": "npm:^1.0.7"
     "@umijs/plugins": "npm:^4.1.2"
     antd: "npm:^5.14.2"
+    antd-style: "npm:^3.6.1"
     babel-plugin-antd-style: "npm:^1.0.4"
     check-dependency-version-consistency: "npm:^4.1.0"
     cross-env: "npm:^7.0.3"
