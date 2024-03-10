@@ -1,11 +1,12 @@
 import { ActionType, ProFormInstance } from '@ant-design/pro-components';
 import { useProBuilderStore } from '@ant-design/pro-editor';
-import { Crud, Modal, Space, Typography } from '@next-dev/ui';
 import { caseConversion, toCascaderOptions } from '@next-dev/utils';
 import axios from 'axios';
 import isEqual from 'fast-deep-equal';
 import { memo, useEffect, useRef, useState } from 'react';
 import { ICrudCol } from '../..';
+import { Modal, Space, Typography } from '../../../';
+import Crud from '../../index';
 import { ButtonConfig } from './models';
 
 const API_TOKEN = '0b4c0fa225e4e432de7e51fe13691e86e27ac12a360ca251bf714eeb00942325';
