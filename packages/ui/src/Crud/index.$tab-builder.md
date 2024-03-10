@@ -1,5 +1,7 @@
 ---
-title: CRUD Builder
+title: Builder & Playground
 ---
 
-<code src="./demo-tab.tsx">Crud</code>
+<code src="./demo/builder.tsx">Builder</code>
+
+<code src="./demo/demo-tab.tsx">Playground</code>

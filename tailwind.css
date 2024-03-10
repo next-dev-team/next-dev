@@ -707,3 +707,7 @@ iframe {
 .anticon svg {
   vertical-align: inherit;
 }
+
+.dumi-default-previewer-demo {
+  padding: 20px 14px;
+}

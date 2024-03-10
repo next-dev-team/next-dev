@@ -49,6 +49,7 @@ export enum ProFieldValueType {
 }
 
 export const valueTypeArray = [
+  'text',
   'password',
   'money',
   'textarea',

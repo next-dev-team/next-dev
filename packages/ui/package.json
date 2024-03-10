@@ -27,6 +27,7 @@
   "devDependencies": {
     "@next-dev/eslint": "0.0.0",
     "@next-dev/tsconfig": "0.0.0",
+    "@types/lodash.template": "^4.5.3",
     "@types/react": "^18.2.55",
     "eslint": "^8.56.0",
     "father": "^4.4.0",
