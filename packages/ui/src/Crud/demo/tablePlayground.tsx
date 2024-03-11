@@ -166,40 +166,9 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
     if (ref?.current) ref.current.setFieldValue('columns', touchedCol);
   }, [data]);
 
-  useEffect(() => {
-    Modal.info({
-      width: '80%',
-      icon: null,
-      content: (
-        <ProCard
-          tabs={{
-            size: 'small',
-            items: [
-              {
-                key: 'tab1',
-                label: 'Config - 01',
-                children: (
-                  <ProFormCheckbox.Group
-                    name="checkbox-group"
-                    label="Checkbox.Group"
-                    options={['A', 'B', 'C', 'D', 'E', 'F']}
-                  />
-                ),
-              },
-            ],
-          }}
-          size="small"
-          headerBordered
-          bordered
-          title="Custom Render"
-        ></ProCard>
-      ),
-    });
-  }, []);
-
   return (
     <Flexbox style={{ minHeight: 300 }}>
-      <DraggablePanel placement="top" minHeight={450}>
+      <DraggablePanel placement="top" minHeight={320}>
         <ProForm
           formRef={ref}
           layout="inline"
@@ -216,41 +185,10 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
             size="small"
             // colSpan={playgroundColSpan}
             style={{
-              height: '46vh',
+              height: '42vh',
               overflow: 'auto',
               boxShadow: '2px 0 6px rgba(0, 21, 41, 0.35)',
             }}
-            // title="Playground"
-            // extra={
-            //   <Space>
-            //     <ModalForm
-            //       size="small"
-            //       submitter={false}
-            //       modalProps={{ destroyOnClose: true, width: '70%', title: 'View Configs' }}
-            //       trigger={
-            //         <Button type="link">
-            //           <EyeOutlined />
-            //           View Configs
-            //         </Button>
-            //       }
-            //     >
-            //       <ReactJson displayDataTypes={false} collapsed={1} src={config} />
-            //     </ModalForm>
-            //     <ModalForm
-            //       size="small"
-            //       submitter={false}
-            //       modalProps={{ destroyOnClose: true, width: '70%', title: 'Data Source' }}
-            //       trigger={
-            //         <Button type="link">
-            //           <EyeOutlined />
-            //           Data Source
-            //         </Button>
-            //       }
-            //     >
-            //       <ReactJson displayDataTypes={false} collapsed={2} src={data} />
-            //     </ModalForm>
-            //   </Space>
-            // }
             tabs={{
               size: 'small',
               items: [
@@ -262,9 +200,9 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                       gutter={[20, 20]}
                       align="middle"
                       justify="center"
-                      className="max-w-[80%] mx-auto"
+                      className="max-w-[90%] mx-auto"
                     >
-                      <Col span={8}>
+                      <Col span={8} className="space-y-2">
                         <ProForm.Group
                           title="Data Source"
                           size={0}
@@ -437,6 +375,11 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                   children: (
                     <>
                       <ColumnList
+                        creatorButtonProps={
+                          {
+                            creatorButtonText: 'Add Column',
+                          } as any
+                        }
                         initialValues={config.columns}
                         onChange={(nextColumns) => {
                           console.log(['nextColumns11', nextColumns]);
@@ -466,16 +409,81 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                           {
                             title: 'Custom',
                             type: 'custom',
-                            render: ({ index }, d) => (
+                            render: ({ item }, d) => (
                               <ModalForm
                                 width={'90%'}
                                 trigger={
                                   <Button type="link" icon={<EditOutlined />}>
-                                    Custom Render
+                                    Advance Configs
                                   </Button>
                                 }
                               >
-                                <ProCard title="Custom Render"></ProCard>
+                                <ProCard
+                                  tabs={{
+                                    size: 'small',
+                                    items: [
+                                      {
+                                        key: 'tab1',
+                                        label: 'Configs',
+                                        children: (
+                                          <>
+                                            <ProFormCheckbox.Group
+                                              name="showHide"
+                                              label="Show/Hide"
+                                              options={[
+                                                { label: 'Hide In Table', value: 'hideInTable' },
+                                                { label: 'Hide In Form', value: 'hideInForm' },
+                                                { label: 'Hide In Search', value: 'hideInSearch' },
+                                                {
+                                                  label: 'Hide In Description',
+                                                  value: 'hideInDescription',
+                                                },
+                                                {
+                                                  label: 'Hide In setting',
+                                                  value: 'hideInSetting',
+                                                },
+                                              ]}
+                                            />
+                                            <ProFormText
+                                              allowClear
+                                              fieldProps={{
+                                                size: 'small',
+                                              }}
+                                              width="sm"
+                                              label="Title tooltip"
+                                              name="tooltip"
+                                            />
+                                            <ProFormSwitch
+                                              fieldProps={{
+                                                size: 'small',
+                                              }}
+                                              label="Ellipsis"
+                                              name="ellipsis"
+                                            />
+                                            <ProFormSwitch
+                                              fieldProps={{ size: 'small' }}
+                                              label="Copyable"
+                                              name="copyable"
+                                            />
+                                          </>
+                                        ),
+                                      },
+                                      {
+                                        key: 'tab2',
+                                        label: 'Add & Edit Configs',
+                                        children: <></>,
+                                      },
+                                      {
+                                        key: 'tab3',
+                                        label: 'Detail & Configs',
+                                        children: <></>,
+                                      },
+                                    ],
+                                  }}
+                                  size="small"
+                                  headerBordered
+                                  title={`Column - ${item.title}`}
+                                ></ProCard>
                               </ModalForm>
                             ),
                           },
@@ -484,273 +492,16 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                     </>
                   ),
                 },
-                // {
-                //   label: 'Columns config V1',
-                //   key: 'tab21',
-                //   children: (
-                //     <>
-                //       <ColumnList
-                //         initialValues={config.columns}
-                //         onChange={(nextColumns) => {
-                //           console.log(['nextColumns11', nextColumns])
-                //           updateConfig.run({ columns: nextColumns })
-                //         }}
-                //         columns={[
-                //           {
-                //             title: 'DataIndex',
-                //             dataIndex: 'dataIndex',
-                //             type: 'select',
-                //             options: config.dataIndex,
-                //           },
-                //           {
-                //             title: 'Title',
-                //             dataIndex: 'title',
-                //             type: 'input',
-                //           },
-                //           {
-                //             title: 'ValueType',
-                //             dataIndex: 'valueType',
-                //             type: 'select',
-                //             options: valueTypeArray.map((item) => ({
-                //               label: caseConversion(item, 'camelToCapitalWord'),
-                //               value: item,
-                //             })),
-                //           },
-
-                //           {
-                //             title: 'Hide/Show',
-                //             type: 'custom',
-                //             render: () => {
-                //               return (
-                //                 <ProFormGroup size={'small'} collapsible>
-                //                   <ProFormSwitch
-                //                     fieldProps={{ size: 'small' }}
-                //                     label="Hide in table"
-                //                     name="hideInTable"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{ size: 'small' }}
-                //                     label="Hide in form"
-                //                     name="hideInForm"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{ size: 'small' }}
-                //                     label="Hide in search"
-                //                     name="hideInSearch"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{
-                //                       size: 'small',
-                //                     }}
-                //                     label="Hide in detail"
-                //                     name="hideInDescription"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{ size: 'small' }}
-                //                     label="Hide in setting"
-                //                     name="hideInSetting"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{
-                //                       size: 'small',
-                //                     }}
-                //                     label="Ellipsis"
-                //                     name="ellipsis"
-                //                   />
-                //                   <ProFormSwitch
-                //                     fieldProps={{ size: 'small' }}
-                //                     label="copy button"
-                //                     name="copyable"
-                //                   />
-                //                 </ProFormGroup>
-                //               )
-                //             },
-                //           },
-                //           {
-                //             title: 'tooltip',
-                //             dataIndex: 'tooltip',
-                //           },
-                //         ]}
-                //       />
-                //     </>
-                //   ),
-                // },
-                // {
-                //   label: 'Column config',
-                //   key: 'tab4',
-                //   children: (
-                //     <ProFormList
-                //       alwaysShowItemLabel
-                //       name="columns"
-                //       itemRender={({ listDom, action }, listMeta) => {
-                //         const colTitle = config?.columns?.[listMeta?.index]?.title
-                //         return (
-                //           <ProCard
-                //             size="small"
-                //             title={
-                //               <Typography.Title level={5} className="mb-0">
-                //                 {(colTitle as string) || listMeta?.index.toString()}
-                //               </Typography.Title>
-                //             }
-                //             bordered
-                //             style={{
-                //               marginBlockEnd: 8,
-                //               position: 'relative',
-                //             }}
-                //             bodyStyle={{
-                //               padding: 8,
-                //               paddingInlineEnd: 8,
-                //               paddingBlockStart: 8,
-                //             }}
-                //           >
-                //             <div
-                //               style={{
-                //                 position: 'absolute',
-                //                 top: -4,
-                //                 right: 2,
-                //               }}
-                //             >
-                //               {action}
-                //             </div>
-                //             {listDom}
-                //           </ProCard>
-                //         )
-                //       }}
-                //     >
-                //       <ProFormText
-                //         rules={[
-                //           {
-                //             required: true,
-                //           },
-                //         ]}
-                //         fieldProps={{ size: 'small' }}
-                //         name="title"
-                //         label="title"
-                //       />
-                //       <ProFormGroup size={'small'}>
-                //         <ProFormSwitch
-                //           fieldProps={{ size: 'small' }}
-                //           label="Hide in table"
-                //           name="hideInTable"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{ size: 'small' }}
-                //           label="Hide in form"
-                //           name="hideInForm"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{ size: 'small' }}
-                //           label="Hide in search"
-                //           name="hideInSearch"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{
-                //             size: 'small',
-                //           }}
-                //           label="Hide in detail"
-                //           name="hideInDescription"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{ size: 'small' }}
-                //           label="Hide in setting"
-                //           name="hideInSetting"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{
-                //             size: 'small',
-                //           }}
-                //           label="Ellipsis"
-                //           name="ellipsis"
-                //         />
-                //         <ProFormSwitch
-                //           fieldProps={{ size: 'small' }}
-                //           label="copy button"
-                //           name="copyable"
-                //         />
-                //       </ProFormGroup>
-                //       <ProFormGroup
-                //         style={{
-                //           marginBlockStart: 8,
-                //         }}
-                //         size={8}
-                //       >
-                //         <ProFormCascader
-                //           name={'dataIndex'}
-                //           request={async () => config.dataIndex}
-                //           placeholder="Please select"
-                //           label="dataIndex"
-                //           width={'sm'}
-                //           fieldProps={{
-                //             size: 'small',
-                //           }}
-                //         />
-
-                //         <ProFormSelect
-                //           width="sm"
-                //           label="Value type"
-                //           name="valueType"
-                //           fieldProps={{
-                //             popupMatchSelectWidth: 200,
-                //             size: 'small',
-                //           }}
-                //           allowClear
-                //           options={valueTypeArray.map((value) => ({
-                //             label: value,
-                //             value,
-                //           }))}
-                //         />
-                //       </ProFormGroup>
-                //       <ProFormGroup
-                //         style={{
-                //           marginBlockStart: 8,
-                //         }}
-                //         size={8}
-                //       >
-                //         <ProFormText
-                //           allowClear
-                //           fieldProps={{
-                //             size: 'small',
-                //           }}
-                //           width="sm"
-                //           label="title tooltip"
-                //           name="tooltip"
-                //         />
-                //         <ProFormDigit
-                //           allowClear
-                //           width="sm"
-                //           min={30}
-                //           fieldProps={{ step: 10, size: 'small' }}
-                //           label="Width"
-                //           name="width"
-                //         />
-                //       </ProFormGroup>
-                //       <ProFormDependency name={['valueType', 'valueEnum']}>
-                //         {({ valueType, valueEnum }) => {
-                //           if (valueType !== 'select') {
-                //             return null
-                //           }
-                //           return (
-                //             <ProFormTextArea
-                //               formItemProps={{
-                //                 style: {
-                //                   marginBlockStart: 8,
-                //                 },
-                //               }}
-                //               fieldProps={{
-                //                 value: JSON.stringify(valueEnum),
-                //               }}
-                //               normalize={(value) => {
-                //                 return JSON.parse(value)
-                //               }}
-                //               label="data enumeration"
-                //               name="valueEnum"
-                //             />
-                //           )
-                //         }}
-                //       </ProFormDependency>
-                //     </ProFormList>
-                //   ),
-                // },
+                {
+                  label: 'Table Config',
+                  key: 'tab3',
+                  children: null,
+                },
+                {
+                  label: 'Filter Config',
+                  key: 'tab4',
+                  children: null,
+                },
               ],
             }}
           />
