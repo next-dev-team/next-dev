@@ -6,6 +6,7 @@ import {
   ProCard,
   ProForm,
   ProFormCascader,
+  ProFormCheckbox,
   ProFormSwitch,
   ProFormText,
   useDebounceFn,
@@ -164,6 +165,37 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
 
     if (ref?.current) ref.current.setFieldValue('columns', touchedCol);
   }, [data]);
+
+  useEffect(() => {
+    Modal.info({
+      width: '80%',
+      icon: null,
+      content: (
+        <ProCard
+          tabs={{
+            size: 'small',
+            items: [
+              {
+                key: 'tab1',
+                label: 'Config - 01',
+                children: (
+                  <ProFormCheckbox.Group
+                    name="checkbox-group"
+                    label="Checkbox.Group"
+                    options={['A', 'B', 'C', 'D', 'E', 'F']}
+                  />
+                ),
+              },
+            ],
+          }}
+          size="small"
+          headerBordered
+          bordered
+          title="Custom Render"
+        ></ProCard>
+      ),
+    });
+  }, []);
 
   return (
     <Flexbox style={{ minHeight: 300 }}>
@@ -442,7 +474,9 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                                     Custom Render
                                   </Button>
                                 }
-                              ></ModalForm>
+                              >
+                                <ProCard title="Custom Render"></ProCard>
+                              </ModalForm>
                             ),
                           },
                         ]}
