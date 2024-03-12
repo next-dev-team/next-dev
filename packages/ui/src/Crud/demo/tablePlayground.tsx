@@ -7,13 +7,18 @@ import {
   ProForm,
   ProFormCascader,
   ProFormCheckbox,
+  ProFormDigit,
+  ProFormRadio,
+  ProFormSelect,
   ProFormSwitch,
   ProFormText,
   useDebounceFn,
 } from '@ant-design/pro-components';
 import { ColumnList, DraggablePanel } from '@ant-design/pro-editor';
-import { caseConversion, toCascaderOptions } from '@next-dev/utils';
-import { Button, Col, Modal, Row, Space, Typography } from 'antd';
+import JsonView from '@microlink/react-json-view';
+import { useLocalStorageState } from '@next-dev/hooks';
+import { caseConversion, objPick, toCascaderOptions } from '@next-dev/utils';
+import { Button, Col, Modal, Popconfirm, Row, Space } from 'antd';
 import axios from 'axios';
 import Mock, { Random } from 'mockjs';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -46,8 +51,9 @@ const initData = {
   },
   size: 'middle',
   expandable: false,
-  headerTitle: 'Advanced form',
-  tooltip: 'CRUD builder ',
+  headerTitle: "CRUD builder (Don't submit any sensitive data)",
+  tooltip:
+    'The default API is free real API for testing world wide, do not submit any sensitive info, some data not editable ',
   showHeader: true,
   footer: true,
   rowSelection: false,
@@ -113,8 +119,8 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
   const ref = useRef<ProFormInstance>();
   const actionRef = useRef<ActionType>(null);
   const refCrud = useRef<ProFormInstance>();
-  const [config1, setConfig] = useState(initData);
-  const config = useMemo(() => config1, [config1]);
+  const [config1, setConfig] = useLocalStorageState('config', { defaultValue: initData });
+  const config = useMemo(() => config1, [config1])!;
 
   const [data, setData] = useState<ICrudCol<any>[]>([]);
   const [dataFieldOpt, setDataFieldOpt] = useState(undefined);
@@ -125,7 +131,7 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
       ...prev,
       ...state,
     }));
-  }, 20);
+  }, 100);
   const reloadAndRest = useDebounceFn(async () => {
     actionRef.current?.reloadAndRest?.();
   }, 200);
@@ -167,12 +173,12 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
   }, [data]);
 
   return (
-    <Flexbox style={{ minHeight: 300 }}>
-      <DraggablePanel placement="top" minHeight={320}>
+    <Flexbox style={{ minHeight: 320 }}>
+      <DraggablePanel placement="top" minHeight={420}>
         <ProForm
           formRef={ref}
           layout="inline"
-          initialValues={initData}
+          initialValues={config}
           submitter={false}
           colon={false}
           onValuesChange={(_, values) => {
@@ -181,6 +187,39 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
           }}
         >
           <ProCard
+            extra={
+              <Space>
+                <ModalForm trigger={<Button icon={<EditOutlined />}>Edit or Copy</Button>}>
+                  <JsonView
+                    displayDataTypes={false}
+                    src={config}
+                    onEdit={({ existing_value, new_value }) => {}}
+                    collapsed={3}
+                  />
+                </ModalForm>
+                <Popconfirm
+                  title="Are you sure to reset to default?"
+                  onConfirm={() => {
+                    // Run reset function twice to ensure all states are correctly reset
+                    const resetFunction = () => {
+                      setData([]);
+                      setConfig(initData);
+                      ref.current?.resetFields();
+                      ref.current?.validateFields().then(() => {});
+                      reloadAndRest.run();
+                    };
+                    resetFunction();
+                    setTimeout(() => {
+                      resetFunction();
+                    });
+                  }}
+                >
+                  <Button danger type="text">
+                    Reset To default
+                  </Button>
+                </Popconfirm>
+              </Space>
+            }
             boxShadow={false}
             size="small"
             // colSpan={playgroundColSpan}
@@ -196,12 +235,7 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                   label: 'Data config',
                   key: 'tab1',
                   children: (
-                    <Row
-                      gutter={[20, 20]}
-                      align="middle"
-                      justify="center"
-                      className="max-w-[90%] mx-auto"
-                    >
+                    <Row gutter={[10, 10]} justify="space-between">
                       <Col span={8} className="space-y-2">
                         <ProForm.Group
                           title="Data Source"
@@ -364,6 +398,50 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                         `}
                             name={['pagination', 'pageSizeQueryField']}
                           />
+                          <ProFormRadio.Group
+                            tooltip={`pagination={size:"middle"}`}
+                            radioType="button"
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            label="Size"
+                            options={[
+                              {
+                                label: 'Default',
+                                value: 'default',
+                              },
+                              {
+                                label: 'Small',
+                                value: 'small',
+                              },
+                            ]}
+                            name={['pagination', 'size']}
+                          />
+                          <ProFormDigit
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            label="Page number"
+                            tooltip={`pagination={{ current:10 }}`}
+                            name={['pagination', 'current']}
+                          />
+                          <ProFormDigit
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            label="Number of items per page"
+                            tooltip={`pagination={{ pageSize:10 }}`}
+                            name={['pagination', 'pageSize']}
+                          />
+                          {/* <ProFormDigit
+                          disabled
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            label="Total data count"
+                            tooltip={`pagination={{ total:100 }}`}
+                            name={['pagination', 'total']}
+                          /> */}
                         </ProForm.Group>
                       </Col>
                     </Row>
@@ -495,12 +573,261 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                 {
                   label: 'Table Config',
                   key: 'tab3',
-                  children: null,
+                  children: (
+                    <>
+                      <ProForm.Group
+                        title="Table Config"
+                        size={0}
+                        collapsible
+                        direction="horizontal"
+                        labelLayout="twoLine"
+                      >
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Bordered"
+                          tooltip="bordered"
+                          name="bordered"
+                        />
+                        <ProFormRadio.Group
+                          tooltip={`size="middle"`}
+                          radioType="button"
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Size"
+                          options={[
+                            {
+                              label: 'Large',
+                              value: 'default',
+                            },
+                            {
+                              label: 'Middle',
+                              value: 'middle',
+                            },
+                            {
+                              label: 'Small',
+                              value: 'small',
+                            },
+                          ]}
+                          name="size"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Loading"
+                          tooltip="loading"
+                          name="loading"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Show Title"
+                          tooltip="showHeader"
+                          name="showHeader"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Row Selection"
+                          tooltip="rowSelection"
+                          name="rowSelection"
+                        />
+                      </ProForm.Group>
+                      <ProForm.Group
+                        size={0}
+                        collapsible
+                        direction="horizontal"
+                        labelLayout="twoLine"
+                        tooltip="toolBarRender={false}"
+                        title="Tool Bar"
+                        extra={
+                          <ProFormSwitch
+                            fieldProps={{
+                              size: 'small',
+                            }}
+                            noStyle
+                            name="toolBarRender"
+                          />
+                        }
+                      >
+                        <ProFormText
+                          width="xl"
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Table Title"
+                          name="headerTitle"
+                          tooltip="headerTitle={false}"
+                        />
+                        <ProFormText
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Table Tooltip"
+                          name="tooltip"
+                          tooltip="tooltip={false}"
+                        />
+
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Icon Display"
+                          name={['options', 'show']}
+                          tooltip="options={false}"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="Density Icon"
+                          name={['options', 'density']}
+                          tooltip="options={{ density:false }}"
+                        />
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          label="keyWords"
+                          name={['options', 'search']}
+                          tooltip="options={{ search:'keyWords' }}"
+                        />
+                        <ProFormSwitch
+                          label="Full Screen Icon"
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          name={['options', 'fullScreen']}
+                          tooltip="options={{ fullScreen:false }}"
+                        />
+                      </ProForm.Group>
+                    </>
+                  ),
                 },
                 {
                   label: 'Filter Config',
                   key: 'tab4',
-                  children: null,
+                  children: (
+                    <ProForm.Group
+                      title="Search Form"
+                      size={0}
+                      collapsible
+                      tooltip="search={false}"
+                      direction="horizontal"
+                      labelLayout="twoLine"
+                      extra={
+                        <ProFormSwitch
+                          fieldProps={{
+                            size: 'small',
+                          }}
+                          noStyle
+                          name={['search', 'show']}
+                        />
+                      }
+                    >
+                      <ProFormText
+                        label="Search Button Text"
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        tooltip={`search={{searchText:"Search"}}`}
+                        name={['search', 'searchText']}
+                      />
+                      <ProFormText
+                        label="Reset Button Text"
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        tooltip={`search={{resetText:"Reset"}}`}
+                        name={['search', 'resetText']}
+                      />
+                      <ProFormSwitch
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        label="Collapse Button"
+                        tooltip={`search={{collapseRender:false}}`}
+                        name={['search', 'collapseRender']}
+                      />
+                      <ProFormSwitch
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        label="Form Collapse"
+                        name={['search', 'collapsed']}
+                        tooltip={`search={{collapsed:false}}`}
+                      />
+                      <ProFormSelect
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        tooltip={`search={{span:8}}`}
+                        options={[
+                          {
+                            label: '24',
+                            value: 24,
+                          },
+                          {
+                            label: '12',
+                            value: 12,
+                          },
+                          {
+                            label: '8',
+                            value: 8,
+                          },
+                          {
+                            label: '6',
+                            value: 6,
+                          },
+                        ]}
+                        label="Form Grid"
+                        name={['search', 'span']}
+                      />
+                      <ProFormRadio.Group
+                        radioType="button"
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        name={['search', 'layout']}
+                        tooltip={`search={{layout:"${config.search?.layout}"}}`}
+                        options={[
+                          {
+                            label: 'Vertical',
+                            value: 'vertical',
+                          },
+                          {
+                            label: 'Horizontal',
+                            value: 'horizontal',
+                          },
+                        ]}
+                        label="Form Layout"
+                      />
+                      <ProFormRadio.Group
+                        radioType="button"
+                        fieldProps={{
+                          size: 'small',
+                        }}
+                        name={['search', 'filterType']}
+                        tooltip={`search={{filterType:"light"}}`}
+                        options={[
+                          {
+                            label: 'Default',
+                            value: 'query',
+                          },
+                          {
+                            label: 'Light',
+                            value: 'light',
+                          },
+                        ]}
+                        label="Form Type"
+                      />
+                    </ProForm.Group>
+                  ),
                 },
               ],
             }}
@@ -509,16 +836,21 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
       </DraggablePanel>
       <div className="flex-1 overflow-auto h-screen">
         <Crud
-          columns={config.columns as any}
-          headerTitle={
-            <Space direction="vertical">
-              <Typography>Auto CRUD</Typography>
-              <Typography.Paragraph type="secondary">
-                The default API is free real API for testing world wide, don't submit any sensitive
-                info, some data not editable
-              </Typography.Paragraph>
-            </Space>
-          }
+          {...(objPick(
+            config,
+            'bordered',
+            'size',
+            'showHeader',
+            'tooltip',
+            'headerTitle',
+            'columns',
+            'options',
+            'toolBarRender',
+            'rowSelection',
+            'loading',
+            'pagination',
+            'search',
+          ) as any)}
           // custom dataSource
           postData={(resData: any[]) => {
             const touchedData = resData.map((item, idx) => {
@@ -551,9 +883,6 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                 'double check the input endpoint configuration, authentication methods, and required parameters',
             });
           }}
-          {...(!config?.pagination?.show && {
-            pagination: false,
-          })}
           listProps={{
             onResponse(res) {
               if (dataFieldOpt) return res;
