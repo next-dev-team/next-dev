@@ -63,6 +63,8 @@
     "father": "^4.4.0",
     "lodash.template": "^4.5.0",
     "mockjs": "^1.1.0",
+    "monaco-editor": "0.47.0",
+    "monaco-editor-webpack-plugin": "^7.1.0",
     "node-gyp": "^10.0.1",
     "prettier": "^3.2.5",
     "prettier-plugin-packagejson": "^2.4.12",

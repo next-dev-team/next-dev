@@ -1,42 +1,43 @@
-import chalk from 'chalk'
-import { defineConfig } from 'dumi'
-import type { SiteThemeConfig } from 'dumi-theme-antd-style'
-import { readdirSync } from 'fs'
-import { join } from 'path'
-const { TamaguiPlugin } = require('tamagui-loader')
+import chalk from 'chalk';
+import { defineConfig } from 'dumi';
+import type { SiteThemeConfig } from 'dumi-theme-antd-style';
+import { readdirSync } from 'fs';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
+import { join } from 'path';
+const { TamaguiPlugin } = require('tamagui-loader');
 // more example about dumi https://github.com/thundersdata-frontend/td-design
 // https://github.com/ant-design/pro-components/blob/master/.dumirc.ts
 
 // @ts-ignore
-import { homepage, name } from './package.json'
+import { homepage, name } from './package.json';
 
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production';
 
-const headPkgList: string[] = []
+const headPkgList: string[] = [];
 // utils must build before core
 // runtime must build before renderer-react
 const pkgList = readdirSync(join(__dirname, 'packages')).filter(
-  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg)
-)
+  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
+);
 
 const tailPkgList = pkgList.map((path) => {
   return {
     src: `packages/${path}/src/`,
     path,
-  }
-})
+  };
+});
 
 const alias = pkgList.reduce(
   (pre, pkg) => {
-    pre[`@next-dev/${pkg}`] = join(__dirname, 'packages', pkg, 'src')
+    pre[`@next-dev/${pkg}`] = join(__dirname, 'packages', pkg, 'src');
     return {
       ...pre,
-    }
+    };
   },
-  {} as Record<string, string>
-)
+  {} as Record<string, string>,
+);
 
-console.log(`🌼 alias list \n${chalk.blue(Object.keys(alias).join('\n'))}`)
+console.log(`🌼 alias list \n${chalk.blue(Object.keys(alias).join('\n'))}`);
 
 // console.log('tailPkgList', pkgList)
 
@@ -50,7 +51,7 @@ const themeConfig: SiteThemeConfig = {
     docUrl: `{github}/tree/master/example/docs/components/{atomId}.{locale}.md`,
   },
   footer: 'Made with ❤️ by Next Dev',
-}
+};
 
 export default defineConfig({
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
@@ -106,13 +107,14 @@ export default defineConfig({
 
   npmClient: 'yarn',
   chainWebpack(config, { webpack }) {
+    config.plugin('monaco-editor').use(MonacoWebpackPlugin);
     config.resolve.alias.batch(() => {
       return {
         'react-native': 'react-native-web-lite',
         'react-native-svg': '@tamagui/react-native-svg',
         '@expo/vector-icons': '@tamagui/proxy-worm',
-      }
-    })
+      };
+    });
 
     // Add the new TamaguiPlugin to the plugins array
     config.plugin('provide').use(
@@ -122,17 +124,17 @@ export default defineConfig({
         importsWhitelist: ['constants.js', 'colors.js'],
         logTimings: true,
         disableExtraction: process.env.NODE_ENV === 'development',
-      })
-    )
-    config.resolve.extensions.batch(() => ['demo.tsx'])
+      }),
+    );
+    config.resolve.extensions.batch(() => ['demo.tsx']);
     config.plugin('$global').use(
       // https://webpack.js.org/plugins/provide-plugin/
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
         __DEV__: process.env.NODE_ENV !== 'production' || true,
-      })
-    )
+      }),
+    );
 
-    return config
+    return config;
   },
-})
+});

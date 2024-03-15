@@ -24,6 +24,7 @@ import Mock, { Random } from 'mockjs';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Flexbox } from 'react-layout-kit';
 import Crud, { ICrudCol } from '..';
+import CodeEditor, { ICodeEditor } from './codeEditor';
 import { valueTypeArray } from './helper';
 
 const columns: ICrudCol<any>[] = [
@@ -121,6 +122,7 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
   const refCrud = useRef<ProFormInstance>();
   const [config1, setConfig] = useLocalStorageState('config', { defaultValue: initData });
   const config = useMemo(() => config1, [config1])!;
+  const editorInstanceRef = useRef<ICodeEditor>(null);
 
   const [data, setData] = useState<ICrudCol<any>[]>([]);
   const [dataFieldOpt, setDataFieldOpt] = useState(undefined);
@@ -171,6 +173,14 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
 
     if (ref?.current) ref.current.setFieldValue('columns', touchedCol);
   }, [data]);
+
+  // useEffect(() => {
+  //   const getEditorValue = async () => {
+  //     const value = editorInstanceRef.current?.getValue?.();
+  //     console.log('editor value', value);
+  //   };
+  //   getEditorValue();
+  // }, [editorInstanceRef]);
 
   return (
     <Flexbox style={{ minHeight: 320 }}>
@@ -827,6 +837,19 @@ const DynamicSettings = ({ playgroundColSpan = '470px' }: { playgroundColSpan?: 
                         label="Form Type"
                       />
                     </ProForm.Group>
+                  ),
+                },
+                {
+                  key: 'tab5',
+                  label: 'Realtime Code',
+                  children: (
+                    <CodeEditor
+                      ref={editorInstanceRef as any}
+                      editorConfig={{
+                        language: 'json',
+                        value: JSON.stringify(config, null, 2),
+                      }}
+                    />
                   ),
                 },
               ],

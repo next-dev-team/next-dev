@@ -24194,7 +24194,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^2.0.0, loader-utils@npm:^2.0.4":
+"loader-utils@npm:^2.0.0, loader-utils@npm:^2.0.2, loader-utils@npm:^2.0.4":
   version: 2.0.4
   resolution: "loader-utils@npm:2.0.4"
   dependencies:
@@ -26256,6 +26256,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor-webpack-plugin@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "monaco-editor-webpack-plugin@npm:7.1.0"
+  dependencies:
+    loader-utils: "npm:^2.0.2"
+  peerDependencies:
+    monaco-editor: ">= 0.31.0"
+    webpack: ^4.5.0 || 5.x
+  checksum: 10/d73ebac884d130bcff1bf9503f061c085aeee1121277994ec20f63166f228dd44224a220be6bf1c39a98d49277a38dbc9cc6a45623578b18f80ec21a22a79847
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:0.47.0":
+  version: 0.47.0
+  resolution: "monaco-editor@npm:0.47.0"
+  checksum: 10/d4c21c9011dbe419f9474ccec525f29089f3d785314cf5643259d339e374d6bfde9db651cb084d4ea8942028f242cfe05d726c29a26894a827c368e9ec41e80e
+  languageName: node
+  linkType: hard
+
 "moti@npm:^0.27.4":
   version: 0.27.5
   resolution: "moti@npm:0.27.5"
@@ -26542,6 +26561,8 @@ __metadata:
     father: "npm:^4.4.0"
     lodash.template: "npm:^4.5.0"
     mockjs: "npm:^1.1.0"
+    monaco-editor: "npm:0.47.0"
+    monaco-editor-webpack-plugin: "npm:^7.1.0"
     node-gyp: "npm:^10.0.1"
     prettier: "npm:^3.2.5"
     prettier-plugin-packagejson: "npm:^2.4.12"
