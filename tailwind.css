@@ -711,3 +711,7 @@ iframe {
 .dumi-default-previewer-demo {
   padding: 20px 14px;
 }
+
+.layoutkit-center.css-duiibk h1 {
+  font-size: 5rem;
+}
