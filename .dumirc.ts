@@ -19,10 +19,19 @@ const headPkgList: string[] = [];
 const pkgList = readdirSync(join(__dirname, 'packages')).filter(
   (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
 );
+const exampleList = readdirSync(join(__dirname, 'example')).filter(
+  (pkg) => pkg.charAt(0) !== '.' && !headPkgList.includes(pkg),
+);
 
 const tailPkgList = pkgList.map((path) => {
   return {
     src: `packages/${path}/src/`,
+    path,
+  };
+});
+const examplePkgList = exampleList.map((path) => {
+  return {
+    src: `example/${path}/src/`,
     path,
   };
 });
@@ -54,6 +63,13 @@ const themeConfig: SiteThemeConfig = {
 };
 
 export default defineConfig({
+  proxy: {
+    '/backend-api/v2': {
+      target: '',
+      changeOrigin: true,
+      pathRewrite: { '^/backend-api/v2': '/backend-api/v2' },
+    },
+  },
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
   tailwindcss: {},
   themeConfig: {
@@ -99,6 +115,10 @@ export default defineConfig({
     // auto generate docs
     atomDirs: [
       ...tailPkgList.map(({ src, path }) => ({
+        type: path,
+        dir: src,
+      })),
+      ...examplePkgList.map(({ src, path }) => ({
         type: path,
         dir: src,
       })),

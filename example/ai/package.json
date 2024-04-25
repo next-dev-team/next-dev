@@ -1,0 +1,37 @@
+{
+  "name": "example",
+  "version": "0.0.0",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "dist/**"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build:deps": "father prebundle",
+    "build:app": "father build",
+    "dev": "tsup --watch",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.3.1",
+    "@ant-design/pro-components": "^2.6.49",
+    "@next-dev/hooks": "0.0.0",
+    "@next-dev/ui": "0.0.0",
+    "@next-dev/utils": "0.0.0",
+    "antd": "^5.14.2",
+    "axios": "^1.6.7",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@next-dev/eslint": "0.0.0",
+    "@next-dev/tsconfig": "0.0.0",
+    "@types/lodash.template": "^4.5.3",
+    "@types/react": "^18.2.55",
+    "eslint": "^8.56.0",
+    "father": "^4.4.0",
+    "typescript": "^5.3.3"
+  }
+}
