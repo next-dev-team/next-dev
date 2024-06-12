@@ -16,16 +16,16 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.1",
-    "@tamagui/lucide-icons": "^1.90.15",
-    "react": "^18.2.0"
+    "@ant-design/icons": "^5.3.7",
+    "@tamagui/lucide-icons": "^1.100.3",
+    "react": "^18.3.1"
   },
   "devDependencies": {
     "@next-dev/eslint": "0.0.0",
     "@next-dev/tsconfig": "0.0.0",
-    "@types/react": "^18.2.55",
-    "eslint": "^8.56.0",
-    "father": "^4.4.0",
-    "typescript": "^5.3.3"
+    "@types/react": "^18.3.3",
+    "eslint": "^9.4.0",
+    "father": "^4.4.4",
+    "typescript": "^5.4.5"
   }
 }
