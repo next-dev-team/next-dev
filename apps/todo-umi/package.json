@@ -12,7 +12,7 @@
     "upd": "pnpm --interactive update --latest"
   },
   "dependencies": {
-    "@umijs/max": "4.2.11"
+    "@umijs/max": "4.2.13"
   },
   "devDependencies": {
     "@ant-design/pro-components": "^2.7.10",
