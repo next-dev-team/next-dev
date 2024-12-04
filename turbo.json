@@ -5,7 +5,7 @@
     "NODE_ENV",
     "EAS_BUILD_PLATFORM"
   ],
-  "pipeline": {
+  "tasks": {
     "build": {
       "cache": false,
       "env": [
