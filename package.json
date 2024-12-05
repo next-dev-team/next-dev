@@ -39,6 +39,8 @@
     "zip": "zip -r dist.zip dist"
   },
   "resolutions": {
+    "@react-native/assets-registry@npm:0.74.84": "patch:@react-native/assets-registry@npm%3A0.76.3#~/.yarn/patches/@react-native-assets-registry-npm-0.76.3-3b79aec290.patch",
+    "@react-native/assets-registry@npm:0.76.3": "patch:@react-native/assets-registry@npm%3A0.76.3#~/.yarn/patches/@react-native-assets-registry-npm-0.76.3-3b79aec290.patch",
     "elliptic": "6.6.1",
     "fast-xml-parser": "4.5.0",
     "react": "^18.3.1",
@@ -46,9 +48,7 @@
     "react-native-svg": "^15.10.0",
     "react-native-web": "~0.19.13",
     "react-refresh": "^0.14.0",
-    "rollup": "3.29.5",
-    "@react-native/assets-registry@npm:0.76.3": "patch:@react-native/assets-registry@npm%3A0.76.3#~/.yarn/patches/@react-native-assets-registry-npm-0.76.3-3b79aec290.patch",
-    "@react-native/assets-registry@npm:0.74.84": "patch:@react-native/assets-registry@npm%3A0.76.3#~/.yarn/patches/@react-native-assets-registry-npm-0.76.3-3b79aec290.patch"
+    "rollup": "3.29.5"
   },
   "devDependencies": {
     "@ant-design/leva-panel": "^1.0.0",
@@ -81,6 +81,7 @@
     "tamagui-loader": "^1.119.0",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2",
+    "umi": "^4.3.35",
     "webpack": "^5.97.0",
     "yjs": "^13.6.20",
     "zod": "^3.23.8",

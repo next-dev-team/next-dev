@@ -30155,6 +30155,7 @@ __metadata:
     tamagui-loader: "npm:^1.119.0"
     turbo: "npm:^2.3.3"
     typescript: "npm:^5.7.2"
+    umi: "npm:^4.3.35"
     webpack: "npm:^5.97.0"
     yjs: "npm:^13.6.20"
     zod: "npm:^3.23.8"
@@ -39946,7 +39947,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"umi@npm:4.3.35":
+"umi@npm:4.3.35, umi@npm:^4.3.35":
   version: 4.3.35
   resolution: "umi@npm:4.3.35"
   dependencies:
