@@ -199,7 +199,7 @@ const AddOrEdit = ({
       syncToUrlAsImportant
       readonly={isViewForm}
       scrollToFirstError
-      onFinish={onFinish}
+      onFinish={onFinish as any}
       loading={loading}
       form={editForm}
       columns={columns}
