@@ -4,9 +4,6 @@ NPM_FLAGS = "--version"
 YARN_VERSION = "1.22.19"
 
 [build]
- # Skip deploy based on specific conditions
-ignore = "git diff --quiet HEAD^ HEAD"
-
 # for demo or preview
 command = "yarn install && yarn prepare && yarn build:pkg && yarn build:doc"
 publish = "dist"
