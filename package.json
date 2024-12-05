@@ -18,7 +18,7 @@
     "check-deps": "npx check-dependency-version-consistency .",
     "check-deps:fix": "npx check-dependency-version-consistency . --fix",
     "clean:build": "rimraf ./packages/*/dist ./packages/*/node_modules ./node_modules/.cache ./.tamagui ./packages/*/compiled",
-    "dev_": "rm -rf .dumi/tmp && ./dumi dev",
+    "dev_": "rm -rf .dumi/tmp && dumi dev",
     "doc": "dumi dev",
     "fix": "manypkg fix",
     "postinstall": "yarn check-deps",
@@ -39,11 +39,14 @@
     "zip": "zip -r dist.zip dist"
   },
   "resolutions": {
+    "elliptic": "6.6.1",
+    "fast-xml-parser": "4.5.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-native-svg": "^15.10.0",
     "react-native-web": "~0.19.13",
-    "react-refresh": "^0.14.0"
+    "react-refresh": "^0.14.0",
+    "rollup": "3.29.5"
   },
   "devDependencies": {
     "@ant-design/leva-panel": "^1.0.0",
