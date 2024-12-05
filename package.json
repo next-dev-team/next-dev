@@ -18,7 +18,7 @@
     "check-deps": "npx check-dependency-version-consistency .",
     "check-deps:fix": "npx check-dependency-version-consistency . --fix",
     "clean:build": "rimraf ./packages/*/dist ./packages/*/node_modules ./node_modules/.cache ./.tamagui ./packages/*/compiled",
-    "dev_": "rm -rf .dumi/tmp && dumi dev",
+    "dev_": "dumi dev",
     "doc": "dumi dev",
     "fix": "manypkg fix",
     "postinstall": "yarn check-deps",
