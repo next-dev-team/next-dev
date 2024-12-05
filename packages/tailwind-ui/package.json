@@ -21,9 +21,9 @@
   "devDependencies": {
     "@next-dev/eslint": "0.0.0",
     "@next-dev/tsconfig": "0.0.0",
-    "@types/react": "^18.3.3",
-    "eslint": "^9.6.0",
-    "father": "^4.4.4",
-    "typescript": "^5.5.3"
+    "@types/react": "^18.3.13",
+    "eslint": "^9.16.0",
+    "father": "^4.5.1",
+    "typescript": "^5.7.2"
   }
 }

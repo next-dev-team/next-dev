@@ -16,21 +16,21 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.3.7",
-    "@ant-design/pro-components": "2.7.10",
+    "@ant-design/icons": "^5.5.2",
+    "@ant-design/pro-components": "2.8.2",
     "@next-dev/hooks": "0.0.0",
     "@next-dev/utils": "0.0.0",
-    "antd": "^5.19.0",
-    "axios": "^1.7.2",
+    "antd": "^5.22.3",
+    "axios": "^1.7.9",
     "react": "^18.3.1"
   },
   "devDependencies": {
     "@next-dev/eslint": "0.0.0",
     "@next-dev/tsconfig": "0.0.0",
     "@types/lodash.template": "^4.5.3",
-    "@types/react": "^18.3.3",
-    "eslint": "^9.6.0",
-    "father": "^4.4.4",
-    "typescript": "^5.5.3"
+    "@types/react": "^18.3.13",
+    "eslint": "^9.16.0",
+    "father": "^4.5.1",
+    "typescript": "^5.7.2"
   }
 }
