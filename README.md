@@ -1,6 +1,9 @@
 # WIP
 
+[Edit Tips](https://github.com/next-dev-team/next-dev/edit/main/docs/tips.md)
+
 development in progress
+
 
 # Next Dev
 
