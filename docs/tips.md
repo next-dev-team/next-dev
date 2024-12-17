@@ -5,6 +5,30 @@ toc: content
 title: Tips
 ---
 
+# Linux
+ ## WSL 
+ 
+  ### View the list of distros and their current state
+    
+      wsl.exe -l -v
+     
+  ### Shutdown Current distro
+     ```bash
+      wsl.exe -l -v
+     ```
+  ### Shutdown specific distro
+     ```bash
+      wsl.exe -t <DistroName>
+     ```
+  ### Boot up the default distro
+     ```bash
+      wsl.exe
+     ```
+  ### Boot up specific distro
+     ```bash
+      wsl.exe -d <DistroName>
+     ```
+     
 # Electron Js
  ## Make all links open with the browser, not with the application
    - createWindow fn 
