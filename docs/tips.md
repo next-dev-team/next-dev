@@ -57,6 +57,43 @@ else
 fi
 ```
 
+## Get Branch or Commit to template
+```bash 
+function get_deployment_details() {
+  # Get all branches containing 'web'
+  BRANCHES=$(git branch -a | grep "web" | sed 's/^..//' | head -n 3) 
+
+  # Prepare deployment details
+  DEPLOYMENT_DETAILS=""
+  for branch in $BRANCHES; do
+  
+  branch_to_title=$(echo "$branch" | sed -e 's/^remote\/origin\///' -e 's/^[0-9]*-web-//' -e 's/-/ /g' -e 's/\b\(.\)/\u\1/g')
+
+    DEPLOYMENT_DETAILS+="
+    - ${branch_to_title}
+    https://ticket.atlassian.net/browse/ "
+
+  done
+
+  # Handle case where no branches are found
+  if [ -z "$DEPLOYMENT_DETAILS" ]; then
+    DEPLOYMENT_DETAILS="- No branches related to 'web' found.\n"
+  fi
+
+  echo "$DEPLOYMENT_DETAILS"
+}
+
+# Notification Message Template
+NOTIFICATION_MESSAGE=$(cat <<EOF
+*New Deployment*
+Hello, [Vathana @Hour_Laa Duong Dara ] 
+
+The following tickets are ready for testing in *TEST*: 
+$(echo "$(get_deployment_details)")
+EOF
+)
+```
+
 # Linux
  ## WSL 
  
