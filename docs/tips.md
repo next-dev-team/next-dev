@@ -5,6 +5,58 @@ toc: content
 title: Tips
 ---
 
+# Telegram Bot
+ ## Send chat to group or channel 
+    
+
+```bash
+#!/usr/bin/bash
+
+# Telegram Bot Configuration
+TELEGRAM_BOT_TOKEN=""
+TELEGRAM_CHAT_ID=""
+
+# mention user by  Hello [@john_doe]
+
+# Function to send Telegram notifications
+function send_telegram_notification() {
+  local message="$1"
+  if [[ -z "${TELEGRAM_BOT_TOKEN}" ]] || [[ -z "${TELEGRAM_CHAT_ID}" ]]; then
+    echo "Please set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID environment variables."
+    exit 1
+  fi
+  curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+    -d chat_id="${TELEGRAM_CHAT_ID}" \
+    -d text="${message}" \
+    -d parse_mode="Markdown" > /dev/null
+}
+
+# Notification Message Template
+NOTIFICATION_MESSAGE=$(cat <<EOF
+ *New Deployment*
+
+Hello, [Jonh @jonh] 
+
+The following tickets are ready for testing in TEST:
+
+- Bugfix
+  https://project.atlassian.net/browse/TEST-1
+
+EOF
+)
+
+
+# Send the notification
+send_telegram_notification "${NOTIFICATION_MESSAGE}"
+
+# Check if the notification was sent successfully
+if [ $? -eq 0 ]; then
+  echo "Notification sent successfully!"
+else
+  echo "Failed to send notification."
+fi
+```
+
 # Linux
  ## WSL 
  
