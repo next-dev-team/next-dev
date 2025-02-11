@@ -86,7 +86,7 @@ function get_deployment_details() {
 # Notification Message Template
 NOTIFICATION_MESSAGE=$(cat <<EOF
 *New Deployment*
-Hello, [Vathana @Hour_Laa Duong Dara ] 
+Hello, [@jnoh] 
 
 The following tickets are ready for testing in *TEST*: 
 $(echo "$(get_deployment_details)")
