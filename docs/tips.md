@@ -6,7 +6,7 @@ title: Tips
 ---
 
 # Export PDF 
-```tsx
+```tsx | pure
 import html2pdf from 'html2pdf.js';
 const ExportDemo =()=> {
  const refPdf = useRef(null);
