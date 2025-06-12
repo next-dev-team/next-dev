@@ -5,6 +5,41 @@ toc: content
 title: Tips
 ---
 
+# Export PDF 
+```tsx
+import html2pdf from 'html2pdf.js';
+const ExportDemo =()=> {
+ const refPdf = useRef(null);
+
+    const exportPdf = () => {
+      const filename = `${'fullName'.replace(/\s+/g, '_')}_Resume.pdf`;
+      // Configure html2pdf options
+      const options = {
+        margin: 10,
+        filename: filename,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+
+      // Generate PDF
+      html2pdf().set(options).from(refPdf.current).save();
+    };
+
+    return (
+      <div>
+        <div ref={refPdf} className='p-4'>
+          <h1 className='text-red-700'>ជនជាតិខ្មែរ</h1>
+          <h1 className='text-blue-700'>ជនជាតិខ្មែរ</h1>
+          <h1>ជនជាតិខ្មែរ</h1>
+        </div>
+        <button onClick={exportPdf} className='mt-4'>PDF</button>
+      </div>
+    );
+  },
+);
+```
+
 # Telegram Bot
  ## Send chat to group or channel 
     
