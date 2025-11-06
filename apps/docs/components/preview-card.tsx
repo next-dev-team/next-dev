@@ -28,7 +28,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
           {platform === 'native' && width >= 640 ? (
             <div className="flex max-w-sm flex-col items-center gap-6 p-4">
               <QRCodeSVG
-                value={`https://rnr-registry-template-docs.vercel.app/showcase/links/${component}`}
+                value={`https://next-dev-docs.vercel.app/showcase/links/${component}`}
                 bgColor={isDark ? 'black' : 'white'}
                 fgColor={isDark ? 'white' : 'black'}
                 size={230}
@@ -42,7 +42,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
         </div>
       </div>
       <a
-        href={`https://rnr-registry-template-docs.vercel.app/showcase/links/${component}`}
+        href={`https://next-dev-docs.vercel.app/showcase/links/${component}`}
         target="_blank"
         className="not-prose bg-primary text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/50 mt-4 inline-flex w-full shrink-0 items-center gap-2.5 rounded-lg p-2.5 text-sm font-medium shadow-sm outline-none transition-all focus-visible:ring-[3px] sm:hidden dark:p-2 [&_svg]:shrink-0">
         <div className="bg-primary flex items-center justify-center rounded-lg p-1 shadow-md dark:bg-black dark:p-2">

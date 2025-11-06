@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "React Native Reusables registry example",
-  "homepage": "https://rnr-registry-template-docs.vercel.app/",
+  "homepage": "https://next-dev-docs.vercel.app/",
   "items": [
     {
       "name": "example-component",
@@ -54,20 +54,6 @@
         "https://reactnativereusables.com/r/new-york/text.json",
         "https://reactnativereusables.com/r/new-york/label.json"
       ]
-    },
-    {
-      "name": "utils-hello-demo",
-      "type": "registry:component",
-      "title": "Utils Hello Demo",
-      "description": "Demo component showcasing the hello utility function from @rnr/utils package.",
-      "author": "@rnr",
-      "files": [
-        {
-          "path": "./node_modules/@rnr/utils/src/demo/HelloDemo.tsx",
-          "type": "registry:component"
-        }
-      ],
-      "registryDependencies": []
     }
   ]
 }
