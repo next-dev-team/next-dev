@@ -1,0 +1,109 @@
+---
+title: Button
+description: An example component to help you get started.
+---
+
+import { RedButtonPreview, RedButtonSecondaryPreview } from '@docs/components/examples';
+
+<ExternalLinks
+  links={[
+    { title: 'Button Docs', url: 'https://reactnativereusables.com/docs/components/button/' },
+  ]}
+/>
+
+<div className="h-5" />
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <div id="preview" className='*:hidden scroll-m-20' aria-hidden>
+      ## Preview
+    </div>
+    <PreviewCard preview={<RedButtonPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/example-library/src/examples/red-button/red-button-primary.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+     <CommandTabs args={["add", "https://rnr-registry-template-docs.vercel.app/r/example-component.json"]}/>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+
+        **Install the following dependencies:**
+
+        <BashCommand command={`npx expo install @rn-primitives/slot`} />
+
+      </Step>
+      <Step>
+
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/example-library/reusables/components/ui/text.tsx",
+          "codeblock": {
+            "lang": "tsx",
+            "meta": "title=\"@/components/ui/text.tsx\""
+          }
+        }
+        ```
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/example-library/reusables/components/ui/button.tsx",
+          "codeblock": {
+            "lang": "tsx",
+            "meta": "title=\"@/components/ui/button.tsx\""
+          }
+        }
+        ```
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/example-library/src/components/ui/red-button.tsx",
+          "codeblock": {
+            "lang": "tsx",
+            "meta": "title=\"@/components/ui/red-button.tsx\""
+          }
+        }
+        ```
+
+      </Step>
+      <Step>
+
+        **Update the import paths to match your project setup.**
+
+      </Step>
+    </Steps>
+
+  </TabsContent>
+</Tabs>
+
+### Usage
+
+```tsx
+import { RedButton } from '@/components/ui/red-button';
+
+<RedButton label="Red Button" />;
+```

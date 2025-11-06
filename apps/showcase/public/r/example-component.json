@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "example-component",
+  "type": "registry:component",
+  "title": "Example Component",
+  "author": "@gabimoncha",
+  "description": "Displays a button which is always red.",
+  "registryDependencies": [
+    "https://reactnativereusables.com/r/new-york/text.json",
+    "https://reactnativereusables.com/r/new-york/button.json"
+  ],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/example-library/src/components/ui/red-button.tsx",
+      "content": "import { cva } from 'class-variance-authority';\nimport { Platform } from 'react-native';\nimport { Button, type ButtonProps } from '~/components/ui/button';\nimport { Text } from '~/components/ui/text';\nimport { cn } from '~/lib/utils';\n\nconst redButtonVariants = cva('', {\n  variants: {\n    variant: {\n      default: cn(\n        'bg-red-500 active:bg-red-500/90',\n        Platform.select({\n          web: 'hover:bg-red-500/90',\n        })\n      ),\n      destructive: cn(\n        'bg-red-700 active:bg-red-700/90',\n        Platform.select({\n          web: 'hover:bg-red-700/90',\n        })\n      ),\n      outline: 'border-red-400 dark:border-red-400',\n      secondary: cn(\n        'bg-red-200 active:bg-red-200/80',\n        Platform.select({\n          web: 'hover:bg-red-200/80',\n        })\n      ),\n      ghost: 'active:bg-red-500/10 dark:active:bg-red-500/10',\n      link: '',\n    },\n  },\n  defaultVariants: {\n    variant: 'default',\n  },\n});\n\nconst redButtonTextVariants = cva('', {\n  variants: {\n    variant: {\n      default: '',\n      destructive: '',\n      outline: cn(\n        'group-active:text-red-400',\n        Platform.select({ web: 'group-hover:text-red-400' })\n      ),\n      secondary: 'text-black',\n      ghost: '',\n      link: 'text-red-400',\n    },\n  },\n  defaultVariants: {\n    variant: 'default',\n  },\n});\n\ntype RedButtonProps = ButtonProps & {\n  label: string;\n};\n\nfunction RedButton({ label, className, ...props }: RedButtonProps) {\n  return (\n    <Button className={cn(redButtonVariants({ variant: props.variant }), className)} {...props}>\n      <Text className={redButtonTextVariants({ variant: props.variant })}>{label}</Text>\n    </Button>\n  );\n}\n\nexport { RedButton, redButtonVariants, redButtonTextVariants };\nexport type { RedButtonProps };\n",
+      "type": "registry:component"
+    }
+  ]
+}
