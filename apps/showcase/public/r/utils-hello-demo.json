@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils-hello-demo",
+  "type": "registry:component",
+  "title": "Utils Hello Demo",
+  "author": "@rnr",
+  "description": "Demo component showcasing the hello utility function from @rnr/utils package.",
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "./node_modules/@rnr/utils/src/demo/HelloDemo.tsx",
+      "content": "import React, { useState } from 'react';\nimport { View, Text, Button, StyleSheet } from 'react-native';\nimport { hello, helloAsync } from '../hello';\n\nexport function HelloDemo() {\n  const [greeting, setGreeting] = useState<string>('');\n  const [loading, setLoading] = useState(false);\n\n  const handleHello = () => {\n    const message = hello('React Native');\n    setGreeting(message);\n  };\n\n  const handleHelloAsync = async () => {\n    setLoading(true);\n    try {\n      const message = await helloAsync('Async User');\n      setGreeting(message);\n    } finally {\n      setLoading(false);\n    }\n  };\n\n  return (\n    <View style={styles.container}>\n      <Text style={styles.title}>Utils Hello Demo</Text>\n      {greeting ? <Text style={styles.greeting}>{greeting}</Text> : null}\n      <View style={styles.buttonContainer}>\n        <Button title=\"Say Hello\" onPress={handleHello} />\n        <View style={styles.spacer} />\n        <Button \n          title=\"Say Hello Async\" \n          onPress={handleHelloAsync} \n          disabled={loading}\n        />\n      </View>\n    </View>\n  );\n}\n\nconst styles = StyleSheet.create({\n  container: {\n    padding: 20,\n    backgroundColor: '#f5f5f5',\n    borderRadius: 8,\n    margin: 10,\n  },\n  title: {\n    fontSize: 18,\n    fontWeight: 'bold',\n    marginBottom: 10,\n    textAlign: 'center',\n  },\n  greeting: {\n    fontSize: 16,\n    textAlign: 'center',\n    marginVertical: 10,\n    color: '#333',\n  },\n  buttonContainer: {\n    flexDirection: 'row',\n    justifyContent: 'center',\n    marginTop: 10,\n  },\n  spacer: {\n    width: 10,\n  },\n});",
+      "type": "registry:component"
+    }
+  ]
+}

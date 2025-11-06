@@ -1,0 +1,64 @@
+---
+title: Utils
+description: Utility functions for React Native Reusables with input/output examples.
+---
+
+import { HelloDemo } from '@docs/components/utils';
+
+## Overview
+
+Utils are utility functions that provide common functionality without UI components. These functions demonstrate input/output examples rather than visual previews.
+
+## Available Utils
+
+### Hello Utility
+
+A simple utility for generating greeting messages.
+
+<HelloDemo />
+
+## Usage
+
+All utils can be imported from the `@rnr/utils` package:
+
+```typescript
+import { hello, helloAsync } from '@rnr/utils';
+
+// Synchronous usage
+const greeting = hello("World");
+console.log(greeting); // "Hello, World! 👋"
+
+// Asynchronous usage
+const asyncGreeting = await helloAsync("React Native");
+console.log(asyncGreeting); // "Hello, React Native! 👋"
+```
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger value="cli">CLI</TabsTrigger>
+    <TabsTrigger value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "https://rnr-registry-template-docs.vercel.app/r/utils-hello-demo.json"]}/>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Install the @rnr/utils package:**
+        
+        <BashCommand command={`npm install @rnr/utils`} />
+      </Step>
+      <Step>
+        **Import and use the utilities:**
+        
+        ```typescript
+        import { hello } from '@rnr/utils';
+        
+        const message = hello("Developer");
+        ```
+      </Step>
+    </Steps>
+  </TabsContent>
+</Tabs>
