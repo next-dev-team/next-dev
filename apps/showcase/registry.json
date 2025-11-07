@@ -11,7 +11,7 @@
       "author": "@gabimoncha",
       "files": [
         {
-          "path": "./node_modules/@rnr/example-library/src/components/ui/red-button.tsx",
+  "path": "./node_modules/@rnr/rnr-ui/src/components/ui/red-button.tsx",
           "type": "registry:component"
         }
       ],
@@ -28,7 +28,7 @@
       "author": "@gabimoncha",
       "files": [
         {
-          "path": "./node_modules/@rnr/example-library/src/blocks/multiple-buttons.tsx",
+  "path": "./node_modules/@rnr/rnr-ui/src/blocks/multiple-buttons.tsx",
           "type": "registry:block"
         }
       ],
@@ -46,7 +46,7 @@
       "author": "@gabimoncha",
       "files": [
         {
-          "path": "./node_modules/@rnr/example-library/src/components/ui/forms.tsx",
+  "path": "./node_modules/@rnr/rnr-ui/src/components/ui/forms.tsx",
           "type": "registry:component"
         }
       ],

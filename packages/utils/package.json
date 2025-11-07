@@ -3,7 +3,8 @@
   "description": "Utility functions for React Native Reusables",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf node_modules",
+    "test": "vitest run --coverage"
   },
   "version": "0.0.0",
   "type": "module",
@@ -22,10 +23,14 @@
     ]
   },
   "devDependencies": {
+    "@rnr/config": "workspace:*",
     "@tsconfig/recommended": "^1.0.1",
+    "@types/node": "^22.10.1",
     "@types/react": "~19.0.14",
+    "@vitest/coverage-v8": "^2.1.4",
     "react": "19.0.0",
-    "react-native": "0.79.5"
+    "react-native": "0.79.5",
+    "vitest": "^2.1.4"
   },
   "peerDependencies": {
     "react": "*",

@@ -6,7 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["reusables/*"],
-      "@/example-library/*": ["src/*"]
+      "@/rnr-ui/*": ["src/*"]
     }
   },
   "exclude": ["node_modules"]

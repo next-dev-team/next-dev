@@ -20,7 +20,7 @@ Fixes issue #<!-- Add the issue number that this PR fixes, if applicable. -->
 
 - [ ] apps/docs
 - [ ] apps/showcase
-- [ ] packages/example-library
+- [ ] packages/rnr-ui
 
 ### Screenshots:
 

@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { RedButton } from '@/example-library/components/ui/red-button';
+import { RedButton } from '@/rnr-ui/components/ui/red-button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 
 export function MultipleButtons() {

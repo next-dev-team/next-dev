@@ -1,6 +1,6 @@
 import { PreviewCarousel } from '@showcase/components/preview-carousel';
 import * as React from 'react';
-import { RedButtonPreview, RedButtonSecondaryPreview } from '@/example-library/examples/red-button';
+import { RedButtonPreview, RedButtonSecondaryPreview } from '@/rnr-ui/examples/red-button';
 
 const exampleComponentPreviews = [
   { name: 'Default', component: RedButtonPreview },

@@ -1,4 +1,4 @@
-import { Form } from '@/example-library/components/ui/forms';
+import { Form } from '@/rnr-ui/components/ui/forms';
 import { TextInput } from 'react-native';
 import { View } from 'react-native';
 import { Button } from '~/components/ui/button';

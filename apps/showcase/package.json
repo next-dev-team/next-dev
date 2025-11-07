@@ -16,7 +16,7 @@
     "@expo-google-fonts/geist": "^0.4.0",
     "@react-navigation/native": "^7.0.0",
     "@rn-primitives/slot": "~1.2.0",
-    "@rnr/example-library": "workspace:*",
+    "@rnr/rnr-ui": "workspace:*",
     "@rnr/utils": "workspace:*",
     "@shopify/flash-list": "1.7.6",
     "class-variance-authority": "^0.7.0",
