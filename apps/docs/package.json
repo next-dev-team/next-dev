@@ -38,6 +38,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@rnr/config": "workspace:*",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.5",
     "@types/react": "19.0.14",

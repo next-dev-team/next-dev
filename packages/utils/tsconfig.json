@@ -4,6 +4,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "types": ["vitest/globals"],
     "paths": {
       "@/utils/*": ["src/*"]
     }

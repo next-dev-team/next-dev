@@ -1,0 +1,20 @@
+{
+  "name": "@rnr/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    "./eslint/next": "./eslint/next.cjs",
+    "./prettier": "./prettier/index.cjs",
+    "./vitest/base": "./vitest/base.ts"
+  },
+  "peerDependencies": {
+    "eslint": "^8 || ^9",
+    "eslint-config-next": "*",
+    "prettier": "^3",
+    "prettier-plugin-tailwindcss": "*",
+    "vitest": "^2"
+  }
+}
+
