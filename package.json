@@ -27,7 +27,13 @@
         "expo-modules-*",
         "typescript"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "msw",
+      "sharp",
+      "unrs-resolver"
+    ]
   },
   "engines": {
     "node": ">=20.11.0"

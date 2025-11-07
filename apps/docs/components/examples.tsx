@@ -1,4 +1,4 @@
 'use client';
 
-export * from '@/example-library/examples';
+export * from '@/rnr-ui/examples';
 export * from './utils';

@@ -57,7 +57,7 @@ export function fileGenerator(): DocGenerator {
 
 function fixImports(value: string) {
   return value
-    .replaceAll('@/example-library/', '@/')
-    .replaceAll('@/example-library/blocks/', '@/components/')
+  .replaceAll('@/rnr-ui/', '@/')
+  .replaceAll('@/rnr-ui/blocks/', '@/components/')
     .replaceAll('~/', '@/');
 }

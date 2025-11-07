@@ -1,6 +1,6 @@
 import { PreviewCarousel } from '@showcase/components/preview-carousel';
 import * as React from 'react';
-import { FormBasicPreview, FormWithValidationPreview } from '@/example-library/examples';
+import { FormBasicPreview, FormWithValidationPreview } from '@/rnr-ui/examples';
 
 const formPreviews = [
   { name: 'Basic', component: FormBasicPreview },

@@ -18,8 +18,8 @@
     "incremental": true,
     "paths": {
       "@docs/*": ["./*"],
-      "~/*": ["../../packages/example-library/reusables/*"],
-      "@/example-library/*": ["../../packages/example-library/src/*"]
+      "~/*": ["../../packages/rnr-ui/reusables/*"],
+      "@/rnr-ui/*": ["../../packages/rnr-ui/src/*"]
     },
     "plugins": [
       {

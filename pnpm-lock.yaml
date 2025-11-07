@@ -35,9 +35,9 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.12
         version: 1.1.13(@types/react-dom@19.1.5(@types/react@19.0.14))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@rnr/example-library':
+      '@rnr/rnr-ui':
         specifier: workspace:*
-        version: link:../../packages/example-library
+        version: link:../../packages/rnr-ui
       '@rnr/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -147,9 +147,9 @@ importers:
       '@rn-primitives/slot':
         specifier: ~1.2.0
         version: 1.2.0(react-native-web@0.21.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.28.5)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
-      '@rnr/example-library':
+      '@rnr/rnr-ui':
         specifier: workspace:*
-        version: link:../../packages/example-library
+        version: link:../../packages/rnr-ui
       '@rnr/utils':
         specifier: workspace:*
         version: link:../../packages/utils
@@ -242,7 +242,7 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
-  packages/example-library:
+  packages/rnr-ui:
     dependencies:
       '@react-navigation/native':
         specifier: ^7.0.0

@@ -5,23 +5,23 @@ description: How to use the React Native Reusables Registry Template
 
 ## Using the template
 
-- The example components are found in the `packages/example-library` folder.
+- The example components are found in the `packages/rnr-ui` folder.
 - The template includes the necessary config to use [react-native-reusables](https://reactnativereusables.com) components as dependencies.
 
 <Callout>
-  **Note:** The Reusables UI is installed in `packages/example-library/reusables`.
+  **Note:** The Reusables UI is installed in `packages/rnr-ui/reusables`.
   
   If you want to use more `react-native-reusables` components as dependencies, you have to install them
-  through the [CLI](https://reactnativereusables.com/docs/cli) inside `packages/example-library`.
+  through the [CLI](https://reactnativereusables.com/docs/cli) inside `packages/rnr-ui`.
 </Callout>
 
 ## Building your own library
 
-You can start by changing the `packages/example-library` folder name and replace all the references to it through the codebase.
+You can start by changing the `packages/rnr-ui` folder name and replace all the references to it through the codebase.
 
 <Callout>
   - All `package.json` files start with `@rnr/...` and you will need to update them with your own library name too.
-  - All the imports throughout the codebase use aliases defined in `tsconfig.json` files. You can search by `@/example-library` and replace it with the new name of the folder.
+  - All the imports throughout the codebase use aliases defined in `tsconfig.json` files. You can search by `@/rnr-ui` and replace it with the new name of the folder.
 </Callout>
 
 ## References
@@ -49,8 +49,8 @@ You can start by changing the `packages/example-library` folder name and replace
 
 ### Component Library
 
-- `packages/example-library/package.json` to update the package name
-- `packages/example-library/src/components/ui/*` to create your components
-- `packages/example-library/src/examples/*` to update the example components
-- `packages/example-library/src/blocks/*` to update the examples blocks
+- `packages/rnr-ui/package.json` to update the package name
+- `packages/rnr-ui/src/components/ui/*` to create your components
+- `packages/rnr-ui/src/examples/*` to update the example components
+- `packages/rnr-ui/src/blocks/*` to update the examples blocks
 

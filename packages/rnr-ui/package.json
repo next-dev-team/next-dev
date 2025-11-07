@@ -1,5 +1,5 @@
 {
-  "name": "@rnr/example-library",
+  "name": "@rnr/rnr-ui",
   "description": "Example library for React Native Reusables Registry Template",
   "license": "MIT",
   "scripts": {
