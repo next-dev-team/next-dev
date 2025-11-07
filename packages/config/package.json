@@ -10,7 +10,7 @@
     "./vitest/base": "./vitest/base.ts"
   },
   "peerDependencies": {
-    "eslint": "^8 || ^9",
+    "eslint": "^9",
     "eslint-config-next": "*",
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "*",
