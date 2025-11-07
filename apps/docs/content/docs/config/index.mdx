@@ -1,0 +1,115 @@
+---
+title: Configuration
+description: Share linting, formatting, and testing defaults across your workspaces.
+---
+
+import { ConfigUsageDemo } from '@docs/components/utils';
+
+## Overview
+
+The `@rnr/config` package centralizes sharable tooling presets so every app and package in the monorepo can rely on the same linting, formatting, and testing rules. Keeping these settings in one place avoids drift, reduces boilerplate, and makes it easier to roll out future changes.
+
+<Callout>
+  The presets live in `packages/config`. They are published locally through the workspace so you can import them anywhere inside the repo or from downstream projects.
+</Callout>
+
+## Included presets
+
+<ConfigUsageDemo />
+
+Each preset is intentionally small and focused:
+
+- `@rnr/config/prettier` keeps formatting consistent, including Tailwind class sorting.
+- `@rnr/config/eslint/next` extends the Next.js + TypeScript rules you expect out of the box.
+- `@rnr/config/vitest/base` starts Vitest with coverage enabled so you can layer on project-specific options.
+
+## Installation
+
+Add the shared config package plus the peer dependencies required by each preset:
+
+<BashCommand command={`pnpm add -D @rnr/config eslint eslint-config-next prettier prettier-plugin-tailwindcss vitest`} />
+
+<Callout type="warn">
+  The presets re-export configs only—they do not install tooling for you. Make sure the relevant CLIs (`eslint`, `prettier`, `vitest`) are available wherever you run them.
+</Callout>
+
+## Usage examples
+
+### Prettier
+
+Create a `prettier.config.cjs` (or update an existing one) and point it at the shared preset:
+
+```javascript
+module.exports = require('@rnr/config/prettier');
+```
+
+Add additional rules or plugin options by exporting a plain object and spreading the preset:
+
+```javascript
+const baseConfig = require('@rnr/config/prettier');
+
+module.exports = {
+  ...baseConfig,
+  overrides: [
+    {
+      files: ['*.mdx'],
+      options: {
+        printWidth: 80,
+      },
+    },
+  ],
+};
+```
+
+### ESLint
+
+The ESLint preset extends Next.js defaults while enabling the TypeScript plugin. Reference it from `eslint.config.cjs` (or `eslint.config.js`):
+
+```javascript
+module.exports = require('@rnr/config/eslint/next');
+```
+
+To customize, export a config array and append overrides. For example, to disable React prop-types warnings in a specific package:
+
+```javascript
+const base = require('@rnr/config/eslint/next');
+
+module.exports = [
+  ...base,
+  {
+    files: ['packages/my-app/**/*.{ts,tsx}'],
+    rules: {
+      'react/prop-types': 'off',
+    },
+  },
+];
+```
+
+### Vitest
+
+Import the Vitest base config and merge it with local options. The preset already enables coverage reporters, so you can focus on project specifics:
+
+```typescript
+import baseConfig from '@rnr/config/vitest/base';
+import { defineConfig, mergeConfig } from 'vitest/config';
+
+export default mergeConfig(
+  baseConfig,
+  defineConfig({
+    test: {
+      environment: 'jsdom',
+    },
+  }),
+);
+```
+
+<Callout>
+  Use `mergeConfig` when you need deep merges (for example, combining nested `test` options). For small tweaks, spreading the exported object is also fine.
+</Callout>
+
+## Where to go next
+
+- Inspect the source files inside `packages/config` if you want to extend or fork the presets.
+- Add project-specific overrides directly in each app or package while keeping the shared defaults intact.
+- Consider publishing `@rnr/config` to a private registry if you need to reuse the presets across multiple repositories.
+
