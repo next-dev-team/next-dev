@@ -1,0 +1,49 @@
+---
+title: Object
+description: Pick and omit helper functions for working with plain objects.
+---
+
+## Overview
+
+The object utilities provide lightweight helpers for selecting or removing properties from plain objects without mutating the original reference.
+
+## Available Helpers
+
+### pick
+
+Creates a new object with only the keys you specify. Useful when exposing a subset of properties or preparing API payloads.
+
+```typescript
+import { pick } from '@rnr/utils';
+
+const source = { id: 1, name: 'Ada', role: 'admin' };
+const publicUser = pick(source, ['id', 'name']);
+// publicUser -> { id: 1, name: 'Ada' }
+```
+
+### omit
+
+Creates a shallow copy of the original object without the listed keys. It preserves symbol keys and maintains reference equality for unchanged values.
+
+```typescript
+import { omit } from '@rnr/utils';
+
+const source = { id: 1, password: 'secret', token: Symbol('token') };
+const safeUser = omit(source, ['password']);
+// safeUser -> { id: 1, token: Symbol('token') }
+```
+
+## Installation
+
+Install the utilities with your preferred package manager:
+
+```bash
+npm install @rnr/utils
+```
+
+Then import the helpers where needed:
+
+```typescript
+import { pick, omit } from '@rnr/utils';
+```
+
