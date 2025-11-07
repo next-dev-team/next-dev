@@ -3,6 +3,8 @@ title: Object
 description: Pick and omit helper functions for working with plain objects.
 ---
 
+import { ObjectUtilityPlayground } from '@docs/components/utils';
+
 ## Overview
 
 The object utilities provide lightweight helpers for selecting or removing properties from plain objects without mutating the original reference.
@@ -32,6 +34,12 @@ const source = { id: 1, password: 'secret', token: Symbol('token') };
 const safeUser = omit(source, ['password']);
 // safeUser -> { id: 1, token: Symbol('token') }
 ```
+
+## Playground
+
+Click the beaker button to open the interactive playground. It uses `Form.List` from `rc-field-form` to manage the dynamic array of keys.
+
+<ObjectUtilityPlayground />
 
 ## Installation
 

@@ -62,3 +62,4 @@ xcuserdata
 
 # VSCode
 .history/
+/coverage

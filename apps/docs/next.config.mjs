@@ -14,6 +14,7 @@ const config = {
     'nativewind',
     'react-native-css-interop',
     'react-navigation',
+    'lucide-react',
   ],
   eslint: {
     ignoreDuringBuilds: true,
