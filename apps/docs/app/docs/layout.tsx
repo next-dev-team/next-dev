@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="flex items-center justify-center">
                 <RnrIcon />
               </div>
-              <p className="text-base">Registry Template</p>
+              <p className="text-base">Next Dev</p>
             </div>
           ),
         }}
