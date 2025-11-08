@@ -123,7 +123,7 @@ function Footer({ url }: { url: string }) {
           </a>{' '}
           to React Native. Source on{' '}
           <a
-            href="https://github.com/gabimoncha/rnr-registry-template"
+            href="https://github.com/next-dev-team/next-dev"
             target="_blank"
             rel="noreferrer"
             className="underline underline-offset-4">

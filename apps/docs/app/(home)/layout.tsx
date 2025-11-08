@@ -16,7 +16,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <>
       <SkipNavigationButton />
       <HomeLayout
-        githubUrl="https://github.com/gabimoncha/rnr-registry-template"
+        githubUrl="https://github.com/next-dev-team/next-dev"
         nav={{
           title: (
             <div className="hover:bg-fd-accent -ml-0.5 flex size-8 items-center justify-center rounded-md transition-colors duration-200">

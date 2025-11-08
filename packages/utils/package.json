@@ -26,10 +26,10 @@
     "@rnr/config": "workspace:*",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^22.10.1",
-    "@types/react": "~19.0.14",
+    "@types/react": "^19.1.0",
     "@vitest/coverage-v8": "^2.1.4",
-    "react": "19.0.0",
-    "react-native": "0.79.5",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
     "vitest": "^2.1.4"
   },
   "peerDependencies": {

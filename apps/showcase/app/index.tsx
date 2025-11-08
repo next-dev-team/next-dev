@@ -1,90 +1,77 @@
-import { useScrollToTop } from '@react-navigation/native';
-import { FlashList } from '@shopify/flash-list';
-import { Button } from '@showcase/components/ui/button';
-import { Icon } from '@showcase/components/ui/icon';
-import { Input } from '@showcase/components/ui/input';
-import { Text } from '@showcase/components/ui/text';
-import { COMPONENTS } from '@showcase/lib/constants';
-import { cn } from '@showcase/lib/utils';
-import { Link } from 'expo-router';
-import { ChevronRight } from 'lucide-react-native';
-import { cssInterop } from 'nativewind';
+import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
+import { Text } from '@/components/ui/text';
+import { Link, Stack } from 'expo-router';
+import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
+import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Platform, View } from 'react-native';
+import { Image, type ImageStyle, View } from 'react-native';
 
-cssInterop(FlashList, {
-  className: 'style',
-  contentContainerClassName: 'contentContainerStyle',
-});
+const LOGO = {
+  light: require('@/assets/images/react-native-reusables-light.png'),
+  dark: require('@/assets/images/react-native-reusables-dark.png'),
+};
 
-export default function ComponentsScreen() {
-  const [search, setSearch] = React.useState('');
-  const [isAtTop, setIsAtTop] = React.useState(true);
-  const isAtTopRef = React.useRef(true);
-  const flashListRef = React.useRef(null);
-  useScrollToTop(flashListRef);
+const SCREEN_OPTIONS = {
+  title: 'React Native Reusables',
+  headerTransparent: true,
+  headerRight: () => <ThemeToggle />,
+};
 
-  const data = !search
-    ? COMPONENTS
-    : COMPONENTS.filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+const IMAGE_STYLE: ImageStyle = {
+  height: 76,
+  width: 76,
+};
+
+export default function Screen() {
+  const { colorScheme } = useColorScheme();
 
   return (
-    <View
-      className={cn(
-        'web:p-4 mx-auto w-full max-w-lg flex-1',
-        Platform.select({
-          android: cn('border-border/0 border-t', !isAtTop && 'border-border'),
-        })
-      )}>
-      <FlashList
-        ref={flashListRef}
-        data={data}
-        onScroll={Platform.select({
-          android: ({ nativeEvent }) => {
-            const isScrollAtTop = nativeEvent.contentOffset.y <= 0;
-            if (isScrollAtTop !== isAtTopRef.current) {
-              isAtTopRef.current = isScrollAtTop;
-              setIsAtTop(isScrollAtTop);
-            }
-          },
-        })}
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerClassName="px-4 pb-2"
-        estimatedItemSize={49}
-        keyboardShouldPersistTaps="handled"
-        keyboardDismissMode="on-drag"
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={Platform.select({
-          native: (
-            <View className="pb-4">
-              <Input
-                placeholder="Components"
-                clearButtonMode="always"
-                onChangeText={setSearch}
-                autoCorrect={false}
-              />
-            </View>
-          ),
-        })}
-        renderItem={({ item, index }) => (
-          <Link href={`/components/${item.slug}`} asChild>
-            <Button
-              variant="outline"
-              size="lg"
-              unstable_pressDelay={100}
-              className={cn(
-                'dark:bg-background border-border flex-row justify-between rounded-none border-b-0 pl-4 pr-3.5',
-                index === 0 && 'rounded-t-lg',
-                index === data.length - 1 && 'rounded-b-lg border-b'
-              )}>
-              <Text className="text-base font-normal">{item.name}</Text>
-
-              <Icon as={ChevronRight} className="text-muted-foreground size-4 stroke-[1.5px]" />
+    <>
+      <Stack.Screen options={SCREEN_OPTIONS} />
+      <View className="flex-1 items-center justify-center gap-8 p-4">
+        <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
+        <View className="gap-2 p-4">
+          <Text className="ios:text-foreground font-mono text-sm text-muted-foreground">
+            1. Edit <Text variant="code">app/index.tsx</Text> to get started.
+          </Text>
+          <Text className="ios:text-foreground font-mono text-sm text-muted-foreground">
+            2. Save to see your changes instantly.
+          </Text>
+        </View>
+        <View className="flex-row gap-2">
+          <Link href="https://reactnativereusables.com" asChild>
+            <Button>
+              <Text>Browse the Docs</Text>
             </Button>
           </Link>
-        )}
-        ListFooterComponent={<View className="android:pb-safe" />}
-      />
-    </View>
+          <Link href="https://github.com/founded-labs/react-native-reusables" asChild>
+            <Button variant="ghost">
+              <Text>Star the Repo</Text>
+              <Icon as={StarIcon} />
+            </Button>
+          </Link>
+        </View>
+      </View>
+    </>
+  );
+}
+
+const THEME_ICONS = {
+  light: SunIcon,
+  dark: MoonStarIcon,
+};
+
+function ThemeToggle() {
+  const { colorScheme, toggleColorScheme } = useColorScheme();
+
+  return (
+    <Button
+      onPressIn={toggleColorScheme}
+      size="icon"
+      variant="ghost"
+      className="ios:size-9 rounded-full web:mx-4">
+      <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
+    </Button>
   );
 }
