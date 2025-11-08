@@ -19,16 +19,18 @@
     "@rn-primitives/slot": "~1.2.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
-    "nativewind": "^4.1.23",
+    "nativewind": "^4.2.1",
     "rc-field-form": "^2.7.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
-    "@types/react": "~19.0.14",
-    "react": "19.0.0",
-    "react-native": "0.79.5",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
     "tailwindcss": "^3.4.14"
   },
   "peerDependencies": {
