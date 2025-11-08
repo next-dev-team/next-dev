@@ -11,7 +11,7 @@
       "author": "@gabimoncha",
       "files": [
         {
-  "path": "./node_modules/@rnr/rnr-ui/src/components/ui/red-button.tsx",
+          "path": "./node_modules/@rnr/rnr-ui/src/components/ui/red-button.tsx",
           "type": "registry:component"
         }
       ],
@@ -28,7 +28,7 @@
       "author": "@gabimoncha",
       "files": [
         {
-  "path": "./node_modules/@rnr/rnr-ui/src/blocks/multiple-buttons.tsx",
+          "path": "./node_modules/@rnr/rnr-ui/src/blocks/multiple-buttons.tsx",
           "type": "registry:block"
         }
       ],
@@ -46,13 +46,98 @@
       "author": "@gabimoncha",
       "files": [
         {
-  "path": "./node_modules/@rnr/rnr-ui/src/components/ui/forms.tsx",
+          "path": "./node_modules/@rnr/rnr-ui/src/components/ui/forms.tsx",
           "type": "registry:component"
         }
       ],
       "registryDependencies": [
         "https://reactnativereusables.com/r/new-york/text.json",
         "https://reactnativereusables.com/r/new-york/label.json"
+      ]
+    },
+    {
+      "name": "form-field-types",
+      "type": "registry:example",
+      "title": "Form Field Types",
+      "description": "Example showing various form field types including text, email, phone, password, and textarea.",
+      "author": "@gabimoncha",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/rnr-ui/src/examples/form/form-field-types.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/form.json",
+        "https://reactnativereusables.com/r/new-york/button.json"
+      ]
+    },
+    {
+      "name": "form-custom-validation",
+      "type": "registry:example",
+      "title": "Form Custom Validation",
+      "description": "Example showing custom validation rules with complex business logic.",
+      "author": "@gabimoncha",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/rnr-ui/src/examples/form/form-custom-validation.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/form.json",
+        "https://reactnativereusables.com/r/new-york/button.json"
+      ]
+    },
+    {
+      "name": "form-dynamic-fields",
+      "type": "registry:example",
+      "title": "Form Dynamic Fields",
+      "description": "Example showing forms with dynamically added and removed fields.",
+      "author": "@gabimoncha",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/rnr-ui/src/examples/form/form-dynamic-fields.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/form.json",
+        "https://reactnativereusables.com/r/new-york/button.json"
+      ]
+    },
+    {
+      "name": "form-field-dependencies",
+      "type": "registry:example",
+      "title": "Form Field Dependencies",
+      "description": "Example showing conditional fields and validation based on other field values.",
+      "author": "@gabimoncha",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/rnr-ui/src/examples/form/form-field-dependencies.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/form.json",
+        "https://reactnativereusables.com/r/new-york/button.json"
+      ]
+    },
+    {
+      "name": "form-async-validation",
+      "type": "registry:example",
+      "title": "Form Async Validation",
+      "description": "Example showing asynchronous validation with simulated API calls.",
+      "author": "@gabimoncha",
+      "files": [
+        {
+          "path": "./node_modules/@rnr/rnr-ui/src/examples/form/form-async-validation.tsx",
+          "type": "registry:example"
+        }
+      ],
+      "registryDependencies": [
+        "https://reactnativereusables.com/r/new-york/form.json",
+        "https://reactnativereusables.com/r/new-york/button.json"
       ]
     }
   ]
