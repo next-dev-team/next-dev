@@ -1,4 +1,4 @@
-import baseConfig from '@rnr/config/vitest/base';
+import baseConfig from '@rnr/configs/vitest/base';
 import { defineConfig, mergeConfig } from 'vitest/config';
 
 export default mergeConfig(

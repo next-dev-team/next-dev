@@ -1,19 +1,24 @@
 # Contributing to React Native Reusables
 
-Thank you for your interest in contributing to `rnr-registry-template`! We welcome contributions from the community to improve and enhance this project. Before getting started, please take a moment to review the following guidelines.
+Thank you for your interest in contributing to `react-native-reusables`! We welcome contributions from the community to improve and enhance this project. Before getting started, please take a moment to review the following guidelines.
 
 ## How to Contribute
+
+> ⚠️ **Important**
+>
+> If you want to propose a new feature:
+>
+> 1.  Make sure to read the [project scope](https://github.com/founded-labs/react-native-reusables/discussions/229) to confirm your proposal fits within the vision and purpose of `react-native-reusables`.
+> 2.  Before taking any action, please open a [new discussion](https://github.com/founded-labs/react-native-reusables/discussions). This allows us to collaborate, gather feedback, and ensure alignment with the project's goals.
 
 <br />
 
 1. Fork the repository to your GitHub account.
 2. Clone the forked repository to your local machine:
-
    ```bash
-   git clone https://github.com/your-username/rnr-registry-template.git
-   cd rnr-registry-template
+   git clone https://github.com/your-username/react-native-reusables.git
+   cd react-native-reusables
    ```
-
 3. Create a new branch:
 
    ```bash
@@ -43,18 +48,18 @@ Please follow the coding style and guidelines used in the project. If there are 
 
 ## Issue Tracker
 
-Check the [issue tracker](https://github.com/next-dev-team/next-dev/issues) for existing issues or open a new issue to discuss and coordinate your contribution with the maintainers.
+Check the [issue tracker](https://github.com/founded-labs/react-native-reusables/issues) for existing issues or open a new issue to discuss and coordinate your contribution with the maintainers.
 
 ## Code of Conduct
 
-Please review and adhere to our [Code of Conduct](https://github.com/next-dev-team/next-dev/blob/main/CODE_OF_CONDUCT.md). Be respectful and considerate towards others.
+Please review and adhere to our [Code of Conduct](https://github.com/founded-labs/react-native-reusables/blob/main/CODE_OF_CONDUCT.md). Be respectful and considerate towards others.
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the [LICENSE](https://github.com/next-dev-team/next-dev/blob/main/LICENSE) file of this repository.
+By contributing to this project, you agree that your contributions will be licensed under the [LICENSE](https://github.com/founded-labs/react-native-reusables/blob/main/LICENSE) file of this repository.
 
 ## Contact
 
-If you have any questions or need further assistance, feel free to contact us at <hello@foundedlabs.com>.
+If you have any questions or need further assistance, feel free to contact us at hello@foundedlabs.com.
 
 **We appreciate your contributions and look forward to working with you!**

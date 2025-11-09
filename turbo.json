@@ -1,7 +1,6 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "ui": "tui",
-  "tasks": {
+  "pipeline": {
     "lint": {
       "outputs": []
     },
@@ -11,17 +10,22 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**", "node_modules/.cache/metro/**", ".next/**"]
+      "outputs": ["dist/**", "build/**", "node_modules/.cache/metro/**"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
+    "dev:android": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:web": {
+      "cache": false,
+      "persistent": true
+    },
     "clean": {
       "cache": false
-    },
-    "registry": {
-      "outputs": ["public/r/**"]
     }
   }
 }

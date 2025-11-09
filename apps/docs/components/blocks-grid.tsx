@@ -1,7 +1,15 @@
 import { Button } from '@docs/components/ui/button';
 import Link from 'next/link';
 
-const BLOCKS = [{ title: 'Example', href: '/docs/blocks/example-block/example' }];
+const BLOCKS = [
+  { title: 'Sign in form', href: '/docs/blocks/authentication/sign-in-form' },
+  { title: 'Sign up form', href: '/docs/blocks/authentication/sign-up-form' },
+  { title: 'Verify email form', href: '/docs/blocks/authentication/verify-email-form' },
+  { title: 'Reset password form', href: '/docs/blocks/authentication/reset-password-form' },
+  { title: 'Forgot password form', href: '/docs/blocks/authentication/forgot-password-form' },
+  { title: 'Social connections', href: '/docs/blocks/authentication/social-connections' },
+  { title: 'User menu', href: '/docs/blocks/authentication/user-menu' },
+];
 
 export function BlocksGrid() {
   return (

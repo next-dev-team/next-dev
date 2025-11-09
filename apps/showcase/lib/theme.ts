@@ -1,5 +1,5 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
- 
+
 export const THEME = {
   light: {
     background: 'hsl(0 0% 100%)',
@@ -54,7 +54,7 @@ export const THEME = {
     chart5: 'hsl(340 75% 55%)',
   },
 };
- 
+
 export const NAV_THEME: Record<'light' | 'dark', Theme> = {
   light: {
     ...DefaultTheme,
@@ -66,6 +66,12 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
       primary: THEME.light.primary,
       text: THEME.light.foreground,
     },
+    fonts: {
+      bold: { fontFamily: 'Geist-Medium', fontWeight: '500' },
+      medium: { fontFamily: 'Geist-Medium', fontWeight: '500' },
+      regular: { fontFamily: 'Geist', fontWeight: '400' },
+      heavy: { fontFamily: 'Geist-SemiBold', fontWeight: '600' },
+    },
   },
   dark: {
     ...DarkTheme,
@@ -76,6 +82,12 @@ export const NAV_THEME: Record<'light' | 'dark', Theme> = {
       notification: THEME.dark.destructive,
       primary: THEME.dark.primary,
       text: THEME.dark.foreground,
+    },
+    fonts: {
+      bold: { fontFamily: 'Geist-Medium', fontWeight: '500' },
+      medium: { fontFamily: 'Geist-Medium', fontWeight: '500' },
+      regular: { fontFamily: 'Geist', fontWeight: '400' },
+      heavy: { fontFamily: 'Geist-SemiBold', fontWeight: '600' },
     },
   },
 };

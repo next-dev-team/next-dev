@@ -1,8 +1,8 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
-import type { DocGenerator } from 'fumadocs-docgen';
 import type { Code, Paragraph } from 'mdast';
 import { z } from 'zod';
+import { DocGenerator } from 'fumadocs-docgen';
 
 // This project uses code from fumadocs.
 // The code is licensed under the MIT License.
@@ -57,7 +57,6 @@ export function fileGenerator(): DocGenerator {
 
 function fixImports(value: string) {
   return value
-  .replaceAll('@/rnr-ui/', '@/')
-  .replaceAll('@/rnr-ui/blocks/', '@/components/')
-    .replaceAll('~/', '@/');
+    .replaceAll('@/registry/new-york/', '@/')
+    .replaceAll('@/registry/blocks/', '@/components/');
 }

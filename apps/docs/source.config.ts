@@ -2,7 +2,7 @@ import { fileGenerator } from '@docs/lib/file-generator';
 import { remarkDocGen } from 'fumadocs-docgen';
 import { defineConfig, defineDocs } from 'fumadocs-mdx/config';
 
-export const docs = defineDocs({
+export const { docs, meta } = defineDocs({
   dir: 'content/docs',
 });
 

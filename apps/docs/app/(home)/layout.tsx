@@ -7,8 +7,9 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'React Native Reusables Registry Template',
-  description: 'A template you can use to create your own Universal Components registry.',
+  title: 'Next Dev',
+  description:
+    'Bringing shadcn/ui to React Native. Beautifully crafted components with Nativewind, open source, and almost as easy to use.',
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
@@ -16,7 +17,8 @@ export default function Layout({ children }: { children: ReactNode }) {
     <>
       <SkipNavigationButton />
       <HomeLayout
-        githubUrl="https://github.com/next-dev-team/next-dev"
+        githubUrl="https://github.com/founded-labs/react-native-reusables"
+        className="dark:from-fd-background dark:to-fd-background from-fd-accent bg-gradient-to-b to-white"
         nav={{
           title: (
             <div className="hover:bg-fd-accent -ml-0.5 flex size-8 items-center justify-center rounded-md transition-colors duration-200">
@@ -45,7 +47,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 size="sm"
                 asChild
                 className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center">
-                <Link href="/docs/blocks/example-block/example">Blocks</Link>
+                <Link href="/docs/blocks/authentication">Blocks</Link>
               </Button>
             ),
           },
@@ -57,7 +59,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 size="sm"
                 asChild
                 className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center">
-                <Link href="/docs/components/example-component">Components</Link>
+                <Link href="/docs/components/accordion">Components</Link>
               </Button>
             ),
           },

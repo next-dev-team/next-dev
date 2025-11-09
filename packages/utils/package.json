@@ -23,7 +23,7 @@
     ]
   },
   "devDependencies": {
-    "@rnr/config": "workspace:*",
+    "@rnr/configs": "workspace:*",
     "@tsconfig/recommended": "^1.0.1",
     "@types/node": "^22.10.1",
     "@types/react": "^19.1.0",

@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: ReactNode }) {
           ),
         }}
         sidebar={SIDEBAR_PROPS}
-        githubUrl="https://github.com/next-dev-team/next-dev">
+        githubUrl="https://github.com/founded-labs/react-native-reusables">
         {children}
       </DocsLayout>
     </>

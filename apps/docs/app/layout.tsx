@@ -1,9 +1,9 @@
 import './global.css';
-import 'raf/polyfill';
 
 import { CookiesProvider } from '@docs/components/cookies-provider';
 import { SafeAreaProvider } from '@docs/components/safe-area-provider';
 import { cn } from '@docs/lib/utils';
+import { Analytics } from '@vercel/analytics/next';
 import type { SearchLink } from 'fumadocs-ui/components/dialog/search';
 import { RootProvider } from 'fumadocs-ui/provider';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -21,7 +21,9 @@ const fontMono = Geist_Mono({
 
 const SEARCH_OPTIONS = {
   links: [
-    ['Installation', '/docs/installation'],
+    ['Docs', '/docs/installation'],
+    ['Blocks', '/docs/blocks/authentication'],
+    ['Components', '/docs/components/accordion'],
     ['Changelog', '/docs/changelog'],
   ] satisfies SearchLink[],
 };
@@ -35,7 +37,10 @@ export default function Layout({ children }: React.PropsWithChildren) {
       <body className="flex min-h-svh flex-col">
         <CookiesProvider>
           <SafeAreaProvider>
-            <RootProvider search={SEARCH_OPTIONS}>{children}</RootProvider>
+            <RootProvider search={SEARCH_OPTIONS}>
+              {children}
+              <Analytics />
+            </RootProvider>
           </SafeAreaProvider>
         </CookiesProvider>
       </body>
