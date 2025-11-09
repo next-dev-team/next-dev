@@ -1,0 +1,20 @@
+{
+  "name": "@rnr/tron-mini",
+  "version": "0.0.0",
+  "description": "Tron Mini - Core plugin system for Electron applications",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "main": "./main/index.ts",
+  "types": "./types/plugins.ts",
+  "exports": {
+    ".": {
+      "types": "./types/plugins.ts",
+      "import": "./main/index.ts"
+    },
+    "./preload": {
+      "types": "./preload/types.ts",
+      "import": "./preload/index.ts"
+    }
+  }
+}

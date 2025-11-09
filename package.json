@@ -8,6 +8,7 @@
     "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:android": "turbo dev:android --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:web": "turbo dev:web --filter=@rnr/showcase --concurrency 32",
+    "dev:tron": "pnpm --filter @rnr/tron-core run dev",
     "lint": "turbo lint",
     "test": "turbo test",
     "build": "turbo build",
