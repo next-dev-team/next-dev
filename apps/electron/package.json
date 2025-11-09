@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "NODE_ENV=development electron .",
     "start": "electron .",
-    "prebuild": "pnpm -C ../docs build",
+    "prebuild": "ELECTRON_BUILD=1 pnpm -C ../docs build",
     "build": "electron-builder -mwl",
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win",
