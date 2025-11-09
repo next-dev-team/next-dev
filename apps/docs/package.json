@@ -6,6 +6,7 @@
     "build": "next build",
     "clean": "rm -rf .next .source node_modules",
     "dev": "next dev",
+    "lint": "eslint .",
     "start": "next start",
     "registry:build:all": "pnpm registry:generate:local && pnpm registry:build:new-york && pnpm registry:build:new-york:local",
     "registry:build:new-york": "shadcn build ./registry/new-york.json --output ./public/r/new-york",
@@ -43,6 +44,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@rnr/configs": "workspace:*",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.10.5",
     "@types/react": "~19.1.17",

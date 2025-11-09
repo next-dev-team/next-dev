@@ -5,12 +5,20 @@
   "type": "module",
   "main": "./index.js",
   "exports": {
+    "./eslint/base": "./eslint/base.cjs",
+    "./eslint/node": "./eslint/node.cjs",
+    "./eslint/react": "./eslint/react.cjs",
+    "./eslint/typescript": "./eslint/typescript.cjs",
     "./eslint/next": "./eslint/next.cjs",
     "./prettier": "./prettier/index.cjs",
     "./vitest/base": "./vitest/base.ts"
   },
   "peerDependencies": {
     "eslint": "^9",
+    "@typescript-eslint/eslint-plugin": "^8",
+    "@typescript-eslint/parser": "^8",
+    "eslint-plugin-react": "^7",
+    "eslint-plugin-react-hooks": "^4",
     "eslint-config-next": "*",
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "*",
