@@ -8,6 +8,7 @@ const withMDX = createMDX({
 const config = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  output: 'standalone',
   transpilePackages: [
     '@rnr/registry',
     'react-native',
@@ -38,7 +39,9 @@ const config = {
     ],
   },
   experimental: {
-    forceSwcTransforms: true,
+    // Use Babel for Reanimated worklets plugin support on web
+    // SWC-only can break worklets transformation
+    // forceSwcTransforms: true,
   },
   // TODO(zach)
   eslint: {

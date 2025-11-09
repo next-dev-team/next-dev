@@ -13,7 +13,8 @@ web-build
 expo-env.d.ts
 
 packages/experimental
-
+dist/
+build/
 # macOS
 .DS_Store
 
@@ -62,3 +63,4 @@ xcuserdata
 
 # VSCode
 .history/
+apps/electron/dist/RNR Docs-0.0.1-arm64.dmg

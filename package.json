@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "turbo dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",
+    "dev:electron": "pnpm --filter @rnr/electron dev",
     "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:android": "turbo dev:android --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:web": "turbo dev:web --filter=@rnr/showcase --concurrency 32",

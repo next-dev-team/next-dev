@@ -1,0 +1,45 @@
+{
+  "name": "@rnr/electron",
+  "version": "0.0.1",
+  "private": true,
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "dev": "NODE_ENV=development electron .",
+    "start": "electron .",
+    "prebuild": "pnpm -C ../docs build",
+    "build": "electron-builder -mwl",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux"
+  },
+  "devDependencies": {
+    "electron": "33.2.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.rnr.docs",
+    "productName": "RNR Docs",
+    "files": [
+      "main.js",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../docs/.next/standalone",
+        "to": "next"
+      },
+      {
+        "from": "../docs/.next/static",
+        "to": "next/apps/docs/.next/static"
+      },
+      {
+        "from": "../docs/public",
+        "to": "next/apps/docs/public"
+      }
+    ],
+    "mac": { "target": "dmg" },
+    "win": { "target": "nsis" },
+    "linux": { "target": "AppImage" }
+  }
+}
