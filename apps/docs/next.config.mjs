@@ -13,7 +13,7 @@ const withMDX = createMDX({
 const config = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  output: isElectronBuild ? 'standalone' : 'export',
+  // output: isElectronBuild ? 'standalone' : 'export',
   transpilePackages: [
     '@rnr/registry',
     'react-native',
