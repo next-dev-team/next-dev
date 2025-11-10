@@ -8,12 +8,12 @@ module.exports = {
   overrides: [
     // Next.js apps
     {
-      files: ['apps/docs/**/*.{js,jsx,ts,tsx}'],
+      files: ['apps/docs/**/*.{js,jsx,ts,tsx,cjs,mjs}'],
       extends: [require.resolve('./packages/configs/eslint/next.cjs')],
     },
     // React app: tron-core
     {
-      files: ['apps/tron-core/**/*.{js,jsx,ts,tsx,d.ts}'],
+      files: ['apps/tron-core/**/*.{js,jsx,ts,tsx,cjs,mjs,d.ts}'],
       extends: [
         require.resolve('./packages/configs/eslint/react.cjs'),
         require.resolve('./packages/configs/eslint/typescript.cjs'),
@@ -34,7 +34,7 @@ module.exports = {
     },
     // React apps (Expo/React Native web or SPA)
     {
-      files: ['apps/showcase/**/*.{js,jsx,ts,tsx}'],
+      files: ['apps/showcase/**/*.{js,jsx,ts,tsx,cjs,mjs}'],
       extends: [
         require.resolve('./packages/configs/eslint/react.cjs'),
         require.resolve('./packages/configs/eslint/typescript.cjs'),
@@ -42,7 +42,7 @@ module.exports = {
     },
     // CLI and Node scripts
     {
-      files: ['apps/cli/**/*.{js,ts}', 'packages/**/src/**/*.{js,ts}'],
+      files: ['apps/cli/**/*.{js,ts,cjs,mjs}', 'packages/**/src/**/*.{js,ts,cjs,mjs}'],
       extends: [
         require.resolve('./packages/configs/eslint/node.cjs'),
         require.resolve('./packages/configs/eslint/typescript.cjs'),

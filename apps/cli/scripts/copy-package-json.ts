@@ -1,12 +1,10 @@
-import { FileSystem, Path } from "@effect/platform"
-import { NodeContext } from "@effect/platform-node"
-import { Effect } from "effect"
+import { promises as fs } from "fs"
+import * as path from "path"
 
-const program = Effect.gen(function* () {
-  const fs = yield* FileSystem.FileSystem
-  const path = yield* Path.Path
-  yield* Effect.log("[Build] Copying package.json ...")
-  const json: any = yield* fs.readFileString("package.json").pipe(Effect.map(JSON.parse))
+async function main() {
+  console.log("[Build] Copying package.json ...")
+  const jsonStr = await fs.readFile("package.json", "utf8")
+  const json: any = JSON.parse(jsonStr)
   const pkg = {
     name: json.name,
     version: json.version,
@@ -25,8 +23,12 @@ const program = Effect.gen(function* () {
     tags: json.tags,
     keywords: json.keywords
   }
-  yield* fs.writeFileString(path.join("dist", "package.json"), JSON.stringify(pkg, null, 2))
-  yield* Effect.log("[Build] Build completed.")
-}).pipe(Effect.provide(NodeContext.layer))
+  await fs.mkdir("dist", { recursive: true })
+  await fs.writeFile(path.join("dist", "package.json"), JSON.stringify(pkg, null, 2), "utf8")
+  console.log("[Build] Build completed.")
+}
 
-Effect.runPromise(program).catch(console.error)
+main().catch((err) => {
+  console.error(err)
+  process.exit(1)
+})

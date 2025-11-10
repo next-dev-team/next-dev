@@ -44,9 +44,9 @@
     "shx": "^0.3.4"
   },
   "scripts": {
-    "cp-resources": "shx cp package.json dist/ && shx cp src/plugin.js dist/plugin.js",
-    "dev": "vite --port 3002",
-    "build": "vite build && npm run cp-resources",
-    "preview": "vite preview --port 3001"
+    "cp-resources": "pnpm exec shx cp package.json dist/ && pnpm exec shx cp src/plugin.js dist/plugin.js",
+    "dev": "pnpm exec vite --port 3002",
+    "build": "pnpm exec vite build && pnpm run cp-resources",
+    "preview": "pnpm exec vite preview --port 3001"
   }
 }

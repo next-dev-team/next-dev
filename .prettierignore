@@ -4,3 +4,12 @@
 .source
 public/r/
 turbo/generators/templates/
+node_modules/
+dist/
+build/
+coverage/
+apps/*/dist/
+apps/*/build/
+packages/*/dist/
+packages/*/build/
+**/*.d.ts
