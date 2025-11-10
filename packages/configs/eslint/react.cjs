@@ -3,10 +3,7 @@ module.exports = {
     browser: true,
     es2024: true,
   },
-  extends: [
-    require.resolve('./base.cjs'),
-    'plugin:react/recommended',
-  ],
+  extends: [require.resolve('./base.cjs'), 'plugin:react/recommended'],
   settings: {
     react: {
       version: 'detect',

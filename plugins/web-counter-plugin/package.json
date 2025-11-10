@@ -1,0 +1,52 @@
+{
+  "name": "web-counter-plugin",
+  "version": "0.1.0",
+  "description": "A simple React counter plugin designed for the Tron web host",
+  "author": "Plugin Developer",
+  "license": "MIT",
+  "main": "plugin.js",
+  "tron-plugin": {
+    "name": "Web Counter Plugin",
+    "version": "0.1.0",
+    "description": "A simple counter demonstration plugin",
+    "author": "Plugin Developer",
+    "license": "MIT",
+    "type": "ui",
+    "permissions": [
+      "storage"
+    ],
+    "ui": "index.html",
+    "icon": "counter-icon.svg",
+    "development": {
+      "hotReload": true,
+      "devTools": true,
+      "fileWatcher": true
+    },
+    "window": {
+      "width": 420,
+      "height": 540,
+      "minWidth": 360,
+      "minHeight": 480,
+      "maxWidth": 720,
+      "maxHeight": 800,
+      "resizable": true
+    }
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^5.4.20",
+    "shx": "^0.3.4"
+  },
+  "scripts": {
+    "cp-resources": "shx cp package.json dist/ && shx cp src/plugin.js dist/plugin.js",
+    "dev": "vite --port 3004",
+    "build": "vite build && npm run cp-resources",
+    "preview": "vite preview --port 3003"
+  }
+}

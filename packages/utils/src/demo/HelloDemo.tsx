@@ -37,11 +37,7 @@ export function HelloDemo() {
       <View style={styles.buttonContainer}>
         <Button title="Say Hello" onPress={handleHello} />
         <View style={styles.spacer} />
-        <Button 
-          title="Say Hello Async" 
-          onPress={handleHelloAsync} 
-          disabled={loading}
-        />
+        <Button title="Say Hello Async" onPress={handleHelloAsync} disabled={loading} />
       </View>
     </View>
   );

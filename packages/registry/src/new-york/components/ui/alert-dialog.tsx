@@ -32,12 +32,14 @@ function AlertDialogOverlay({
           Platform.select({
             web: 'animate-in fade-in-0 fixed',
           }),
-          className
+          className,
         )}
-        {...props}>
+        {...props}
+      >
         <NativeOnlyAnimatedView
           entering={FadeIn.duration(200).delay(50)}
-          exiting={FadeOut.duration(150)}>
+          exiting={FadeOut.duration(150)}
+        >
           <>{children}</>
         </NativeOnlyAnimatedView>
       </AlertDialogPrimitive.Overlay>
@@ -62,7 +64,7 @@ function AlertDialogContent({
             Platform.select({
               web: 'animate-in fade-in-0 zoom-in-95 duration-200',
             }),
-            className
+            className,
           )}
           {...props}
         />

@@ -1,0 +1,33 @@
+{
+  "name": "@rnr/tron-mini",
+  "version": "0.1.0",
+  "description": "Reusable Electron core and preload for Tron apps",
+  "license": "MIT",
+  "private": true,
+  "type": "commonjs",
+  "main": "./dist/main/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/main/index.js",
+      "require": "./dist/main/index.js"
+    },
+    "./preload": {
+      "types": "./dist/preload/index.d.ts",
+      "import": "./dist/preload/index.js",
+      "require": "./dist/preload/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "electron": "^28.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "rimraf": "^5.0.5"
+  }
+}

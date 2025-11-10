@@ -14,7 +14,7 @@
     "build:linux": "electron-builder --linux"
   },
   "devDependencies": {
-    "electron": "33.2.0",
+    "electron": "35.7.5",
     "electron-builder": "^24.13.3"
   },
   "build": {
@@ -38,8 +38,14 @@
         "to": "next/apps/docs/public"
       }
     ],
-    "mac": { "target": "dmg" },
-    "win": { "target": "nsis" },
-    "linux": { "target": "AppImage" }
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   }
 }

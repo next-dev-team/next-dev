@@ -1,3 +1,0 @@
-{
-  "extends": ["@rnr/configs/eslint/next"]
-}

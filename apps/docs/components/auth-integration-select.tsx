@@ -39,7 +39,7 @@ export function AuthIntegrationSelect({
             <span className="opacity-50">
               {
                 INTEGRATIONS.find((integration) =>
-                  integration.name === props.value ? props.value : props.defaultValue
+                  integration.name === props.value ? props.value : props.defaultValue,
                 )?.label
               }
             </span>

@@ -27,9 +27,10 @@ export function Callout({ className, children, title, type, ...props }: CalloutP
     <div
       className={cn(
         'bg-fd-card text-fd-card-foreground my-4 flex gap-2 rounded-xl border p-3 ps-1 text-sm shadow-sm',
-        className
+        className,
       )}
-      {...props}>
+      {...props}
+    >
       <div role="none" className={!type ? 'w-1' : 'w-0.5'} />
       {Icon && <Icon className="mt-0.5 size-4" />}
       <div className="flex min-w-0 flex-1 flex-col gap-2">

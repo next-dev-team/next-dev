@@ -37,7 +37,7 @@ function FormItem<T>({
                     className: hasError
                       ? `${(children as any).props?.className || ''} border-destructive`.trim()
                       : (children as any).props?.className,
-                  } as any
+                  } as any,
                 )
               : children;
 

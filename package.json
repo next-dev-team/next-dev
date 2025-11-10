@@ -4,19 +4,27 @@
   "scripts": {
     "dev": "turbo dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",
+    "dev:web": "turbo dev --filter=@rnr/tron-core-web",
     "dev:electron": "pnpm --filter @rnr/electron dev",
     "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:android": "turbo dev:android --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:web": "turbo dev:web --filter=@rnr/showcase --concurrency 32",
+    "dev:tron": "pnpm --filter @rnr/tron-core run dev",
     "lint": "turbo lint",
+    "lint:fix": "turbo lint -- --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "turbo test",
     "build": "turbo build",
     "build:showcase": "turbo build --filter=showcase",
     "build:docs": "turbo build --filter=docs",
-    "clean": "turbo clean && rm -rf .turbo node_modules"
+    "clean": "turbo clean && rm -rf .turbo node_modules",
+    "gen:list": "turbo gen list --config turbo/generators/config.ts",
+    "gen:tron-mini": "turbo gen run tron-mini --config turbo/generators/config.ts"
   },
   "devDependencies": {
     "@rnr/configs": "workspace:*",
+    "@turbo/gen": "^2.1.1",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "turbo": "^2.6.0",

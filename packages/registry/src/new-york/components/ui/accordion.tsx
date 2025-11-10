@@ -22,7 +22,8 @@ function Accordion({
     <LayoutAnimationConfig skipEntering>
       <AccordionPrimitive.Root
         {...(props as AccordionPrimitive.RootProps)}
-        asChild={Platform.OS !== 'web'}>
+        asChild={Platform.OS !== 'web'}
+      >
         <Animated.View layout={LinearTransition.duration(200)}>{children}</Animated.View>
       </AccordionPrimitive.Root>
     </LayoutAnimationConfig>
@@ -40,14 +41,16 @@ function AccordionItem({
       className={cn(
         'border-border border-b',
         Platform.select({ web: 'last:border-b-0' }),
-        className
+        className,
       )}
       value={value}
       asChild
-      {...props}>
+      {...props}
+    >
       <Animated.View
         className="native:overflow-hidden"
-        layout={Platform.select({ native: LinearTransition.duration(200) })}>
+        layout={Platform.select({ native: LinearTransition.duration(200) })}
+      >
         {children}
       </Animated.View>
     </AccordionPrimitive.Item>
@@ -67,21 +70,19 @@ function AccordionTrigger({
 
   const progress = useDerivedValue(
     () => (isExpanded ? withTiming(1, { duration: 250 }) : withTiming(0, { duration: 200 })),
-    [isExpanded]
+    [isExpanded],
   );
   const chevronStyle = useAnimatedStyle(
     () => ({
       transform: [{ rotate: `${progress.value * 180}deg` }],
     }),
-    [progress]
+    [progress],
   );
 
   return (
     <TextClassContext.Provider
-      value={cn(
-        'text-left text-sm font-medium',
-        Platform.select({ web: 'group-hover:underline' })
-      )}>
+      value={cn('text-left text-sm font-medium', Platform.select({ web: 'group-hover:underline' }))}
+    >
       <AccordionPrimitive.Header>
         <AccordionPrimitive.Trigger {...props} asChild>
           <Trigger
@@ -90,8 +91,9 @@ function AccordionTrigger({
               Platform.select({
                 web: 'focus-visible:border-ring focus-visible:ring-ring/50 flex flex-1 outline-none transition-all hover:underline focus-visible:ring-[3px] disabled:pointer-events-none [&[data-state=open]>svg]:rotate-180',
               }),
-              className
-            )}>
+              className,
+            )}
+          >
             <>{children}</>
             <Animated.View style={chevronStyle}>
               <Icon
@@ -101,7 +103,7 @@ function AccordionTrigger({
                   'text-muted-foreground shrink-0',
                   Platform.select({
                     web: 'pointer-events-none translate-y-0.5 transition-transform duration-200',
-                  })
+                  }),
                 )}
               />
             </Animated.View>
@@ -125,12 +127,14 @@ function AccordionContent({
           'overflow-hidden',
           Platform.select({
             web: isExpanded ? 'animate-accordion-down' : 'animate-accordion-up',
-          })
+          }),
         )}
-        {...props}>
+        {...props}
+      >
         <Animated.View
           exiting={Platform.select({ native: FadeOutUp.duration(200) })}
-          className={cn('pb-4', className)}>
+          className={cn('pb-4', className)}
+        >
           {children}
         </Animated.View>
       </AccordionPrimitive.Content>

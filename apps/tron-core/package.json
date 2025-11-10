@@ -1,0 +1,76 @@
+{
+  "name": "@rnr/tron-core",
+  "version": "1.0.0",
+  "description": "Tron Core - Plugin-based Electron application",
+  "main": "dist/main/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run build:main:watch\" \"npm run build:renderer:watch\" \"npm run electron:dev\"",
+    "dev:main": "npm run build:main && npm run electron:dev",
+    "dev:renderer": "npm run build:renderer && npm run electron:dev",
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build",
+    "build:main:watch": "tsc -p tsconfig.main.json --watch",
+    "build:renderer:watch": "vite build --watch",
+    "electron:dev": "wait-on dist/main/index.js && electron dist/main/index.js --enable-logging",
+    "electron:pack": "npm run build && electron-builder",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@rnr/tron-mini": "workspace:*",
+    "electron": "^28.0.0",
+    "electron-store": "^8.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "concurrently": "^8.2.2",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10",
+    "vitest": "^1.1.0",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.rnr.tron-core",
+    "productName": "Tron Core",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "plugins/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  },
+  "keywords": [
+    "electron",
+    "plugin",
+    "tron",
+    "counter",
+    "react"
+  ],
+  "author": "RNR Team",
+  "license": "MIT"
+}

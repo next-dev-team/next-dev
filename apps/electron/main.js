@@ -47,11 +47,15 @@ function startDocsDev() {
     }
     console.log('[electron] Starting Next.js docs dev server...');
     // Use pnpm filter to start the docs app
-    const proc = spawn(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', ['--filter', '@rnr/docs', 'dev'], {
-      cwd: REPO_ROOT,
-      stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env },
-    });
+    const proc = spawn(
+      process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm',
+      ['--filter', '@rnr/docs', 'dev'],
+      {
+        cwd: REPO_ROOT,
+        stdio: ['ignore', 'pipe', 'pipe'],
+        env: { ...process.env },
+      },
+    );
     proc.stdout.on('data', (data) => {
       process.stdout.write(`[next] ${data}`);
     });

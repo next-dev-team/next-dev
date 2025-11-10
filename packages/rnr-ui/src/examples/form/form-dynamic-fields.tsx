@@ -32,7 +32,8 @@ export function FormDynamicFieldsPreview() {
         <Form.Item
           name="firstName"
           label="First Name"
-          rules={[{ required: true, message: 'Please enter your first name' }]}>
+          rules={[{ required: true, message: 'Please enter your first name' }]}
+        >
           <TextInput
             placeholder="Enter first name"
             className="border-input bg-background text-foreground rounded-md border px-3 py-2"
@@ -42,7 +43,8 @@ export function FormDynamicFieldsPreview() {
         <Form.Item
           name="lastName"
           label="Last Name"
-          rules={[{ required: true, message: 'Please enter your last name' }]}>
+          rules={[{ required: true, message: 'Please enter your last name' }]}
+        >
           <TextInput
             placeholder="Enter last name"
             className="border-input bg-background text-foreground rounded-md border px-3 py-2"
@@ -61,7 +63,8 @@ export function FormDynamicFieldsPreview() {
                   { required: true, message: 'Email is required' },
                   { type: 'email', message: 'Please enter a valid email' },
                 ]}
-                noStyle>
+                noStyle
+              >
                 <TextInput
                   placeholder={`Email ${index + 1}`}
                   keyboardType="email-address"

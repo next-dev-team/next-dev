@@ -44,7 +44,8 @@ export default function RootLayout() {
     <ThemeProvider value={NAV_THEME[colorScheme]}>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <GestureHandlerRootView
-        style={{ flex: 1, backgroundColor: NAV_THEME[colorScheme].colors.background }}>
+        style={{ flex: 1, backgroundColor: NAV_THEME[colorScheme].colors.background }}
+      >
         <KeyboardProvider>
           <Stack
             screenOptions={{
@@ -57,7 +58,8 @@ export default function RootLayout() {
                 );
               },
               headerRight: () => <HeaderRightView />,
-            }}>
+            }}
+          >
             <Stack.Screen
               name="index"
               options={{

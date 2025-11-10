@@ -90,4 +90,3 @@ describe('type inference', () => {
     expect(expectOmitted).toStrictEqual({ id: 1, name: 'Alice' });
   });
 });
-

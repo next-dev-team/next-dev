@@ -1,4 +1,3 @@
-
 # Electron app for Next Docs
 
 This Electron app launches the Next.js docs (`@rnr/docs`) and embeds it in a desktop window.

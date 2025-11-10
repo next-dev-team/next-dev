@@ -82,15 +82,26 @@ export function FormFieldDependenciesPreview() {
           label="Postal Code"
           rules={[
             { required: true, message: 'Postal code is required' },
-            ...(country === 'USA' ? [
-              { pattern: /^\d{5}(-\d{4})?$/, message: 'Please enter a valid US ZIP code' }
-            ] : country === 'Canada' ? [
-              { pattern: /^[A-Z]\d[A-Z] \d[A-Z]\d$/, message: 'Please enter a valid Canadian postal code' }
-            ] : []),
+            ...(country === 'USA'
+              ? [{ pattern: /^\d{5}(-\d{4})?$/, message: 'Please enter a valid US ZIP code' }]
+              : country === 'Canada'
+                ? [
+                    {
+                      pattern: /^[A-Z]\d[A-Z] \d[A-Z]\d$/,
+                      message: 'Please enter a valid Canadian postal code',
+                    },
+                  ]
+                : []),
           ]}
         >
           <TextInput
-            placeholder={country === 'USA' ? '12345 or 12345-6789' : country === 'Canada' ? 'A1A 1A1' : 'Enter postal code'}
+            placeholder={
+              country === 'USA'
+                ? '12345 or 12345-6789'
+                : country === 'Canada'
+                  ? 'A1A 1A1'
+                  : 'Enter postal code'
+            }
             className="border-input bg-background text-foreground rounded-md border px-3 py-2"
           />
         </Form.Item>

@@ -19,7 +19,8 @@ export function FormBasicPreview() {
           rules={[
             { required: true, message: 'Please enter your email' },
             { type: 'email', message: 'Please enter a valid email' },
-          ]}>
+          ]}
+        >
           <TextInput
             placeholder="Enter your email"
             keyboardType="email-address"
@@ -34,7 +35,8 @@ export function FormBasicPreview() {
           rules={[
             { required: true, message: 'Please enter your password' },
             { min: 6, message: 'Password must be at least 6 characters' },
-          ]}>
+          ]}
+        >
           <TextInput
             placeholder="Enter your password"
             secureTextEntry

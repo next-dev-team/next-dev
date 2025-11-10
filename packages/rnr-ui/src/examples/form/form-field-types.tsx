@@ -67,7 +67,10 @@ export function FormFieldTypesPreview() {
           rules={[
             { required: true, message: 'Please enter your password' },
             { min: 8, message: 'Password must be at least 8 characters' },
-            { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, message: 'Password must contain uppercase, lowercase, and number' },
+            {
+              pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
+              message: 'Password must contain uppercase, lowercase, and number',
+            },
           ]}
         >
           <TextInput
@@ -81,15 +84,13 @@ export function FormFieldTypesPreview() {
         <Form.Item
           name="bio"
           label="Bio"
-          rules={[
-            { max: 200, message: 'Bio must be less than 200 characters' },
-          ]}
+          rules={[{ max: 200, message: 'Bio must be less than 200 characters' }]}
         >
           <TextInput
             placeholder="Tell us about yourself"
             multiline
             numberOfLines={4}
-            className="border-input bg-background text-foreground rounded-md border px-3 py-2 min-h-[100px]"
+            className="border-input bg-background text-foreground min-h-[100px] rounded-md border px-3 py-2"
           />
         </Form.Item>
 
@@ -98,8 +99,8 @@ export function FormFieldTypesPreview() {
         </View>
 
         {submittedData && (
-          <View className="mt-4 p-4 bg-muted rounded-md">
-            <Text className="font-semibold mb-2">Submitted Data:</Text>
+          <View className="bg-muted mt-4 rounded-md p-4">
+            <Text className="mb-2 font-semibold">Submitted Data:</Text>
             <Text>{JSON.stringify(submittedData, null, 2)}</Text>
           </View>
         )}
