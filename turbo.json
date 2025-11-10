@@ -10,7 +10,8 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**", "node_modules/.cache/metro/**", ".next/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "env": ["ELECTRON_BUILD"]
     },
     "dev": {
       "cache": false,
