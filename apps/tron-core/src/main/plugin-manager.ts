@@ -1,7 +1,7 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import path from 'path';
 import fs from 'fs/promises';
-import { Plugin, PluginMetadata, PluginDescriptor, PluginContext } from '@rnr/tron-mini/types/plugins';
+import { Plugin, PluginMetadata, PluginDescriptor, PluginContext } from '@rnr/tron-mini';
 import { EventEmitter } from 'events';
 import { DatabaseService } from './database-service';
 import { SecurityManager } from './security-manager';

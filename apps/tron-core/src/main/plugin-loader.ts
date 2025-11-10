@@ -212,7 +212,7 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        preload: path.join(__dirname, 'preload.js'),
+        preload: require.resolve('@rnr/tron-mini/preload'),
         additionalArguments: [`--plugin-id=${descriptor.id}`]
       }
     });

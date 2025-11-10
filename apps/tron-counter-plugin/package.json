@@ -40,12 +40,13 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^5.4.20"
+    "vite": "^5.4.20",
+    "shx": "^0.3.4"
   },
   "scripts": {
-    "cp-resources": "cp -r package.json dist/ && cp src/plugin.js dist/plugin.js",
-    "dev": "../../node_modules/.bin/vite --port 3002",
-    "build": "node_modules/.bin/vite build && npm run cp-resources",
-    "preview": "../../node_modules/.bin/vite preview --port 3001"
+    "cp-resources": "shx cp package.json dist/ && shx cp src/plugin.js dist/plugin.js",
+    "dev": "vite --port 3002",
+    "build": "vite build && npm run cp-resources",
+    "preview": "vite preview --port 3001"
   }
 }

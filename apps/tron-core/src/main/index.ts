@@ -80,7 +80,7 @@ export class TronCoreApp {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        preload: path.join(__dirname, 'preload.js'),
+        preload: require.resolve('@rnr/tron-mini/preload'),
       },
       titleBarStyle: 'default',
     });
@@ -231,7 +231,7 @@ export class TronCoreApp {
       webPreferences: {
         nodeIntegration: false,
         contextIsolation: true,
-        preload: path.join(__dirname, 'preload.js'),
+        preload: require.resolve('@rnr/tron-mini/preload'),
         additionalArguments: [`--plugin-id=${pluginId}`],
       },
       title: `Plugin: ${pluginId}`,
