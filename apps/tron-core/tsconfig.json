@@ -15,12 +15,6 @@
       "@/*": ["./src/renderer/*"]
     }
   },
-  "include": [
-    "src/renderer/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/main"
-  ]
+  "include": ["src/renderer/**/*"],
+  "exclude": ["node_modules", "dist", "src/main"]
 }

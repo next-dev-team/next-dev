@@ -2,13 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 export class SecurityManager {
-  private suspiciousPatterns = [
-    /child_process\./,
-    /eval\(/,
-    /Function\(/,
-  ];
+  private suspiciousPatterns = [/child_process\./, /eval\(/, /Function\(/];
 
-  validatePluginCode(entryPath: string): { valid: boolean; warnings?: string[]; errors?: string[] } {
+  validatePluginCode(entryPath: string): {
+    valid: boolean;
+    warnings?: string[];
+    errors?: string[];
+  } {
     const warnings: string[] = [];
     const errors: string[] = [];
 

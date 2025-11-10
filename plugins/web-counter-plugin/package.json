@@ -12,7 +12,9 @@
     "author": "Plugin Developer",
     "license": "MIT",
     "type": "ui",
-    "permissions": ["storage"],
+    "permissions": [
+      "storage"
+    ],
     "ui": "index.html",
     "icon": "counter-icon.svg",
     "development": {

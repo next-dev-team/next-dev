@@ -9,7 +9,7 @@ export class PluginLoader {
   private pluginAPIBridge: PluginAPIBridge;
   private databaseService: DatabaseService;
   private loadedPlugins: Map<string, PluginInterface> = new Map();
-private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
+  private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
   private isDev: boolean = false;
 
   constructor(pluginAPIBridge: PluginAPIBridge, databaseService: DatabaseService, isDev: boolean) {
@@ -20,11 +20,11 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
 
   async loadBuiltInPlugins(): Promise<void> {
     const pluginsDir = path.join(__dirname, '../plugins');
-    
+
     try {
       await fs.access(pluginsDir);
       const pluginDirs = await fs.readdir(pluginsDir, { withFileTypes: true });
-      
+
       for (const dir of pluginDirs) {
         if (dir.isDirectory()) {
           const pluginPath = path.join(pluginsDir, dir.name);
@@ -82,12 +82,15 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
     }
   }
 
-  private async loadPluginFromPath(pluginPath: string, isBuiltIn: boolean): Promise<PluginDescriptor | null> {
+  private async loadPluginFromPath(
+    pluginPath: string,
+    isBuiltIn: boolean,
+  ): Promise<PluginDescriptor | null> {
     try {
       // Check if manifest exists
       const manifestPath = path.join(pluginPath, 'package.json');
       const manifest = await this.loadPluginManifest(manifestPath);
-      
+
       if (!manifest) {
         throw new Error('Plugin manifest not found or invalid');
       }
@@ -97,7 +100,7 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
         id: manifest.name.toLowerCase().replace(/\s+/g, '-'),
         manifest,
         path: pluginPath,
-        status: 'installed'
+        status: 'installed',
       };
 
       // Load the plugin module
@@ -109,24 +112,23 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
       // Initialize the plugin
       const plugin = pluginModule.plugin || pluginModule.default || pluginModule;
       const pluginAPI = this.pluginAPIBridge.createPluginAPI(descriptor.id);
-      
+
       await plugin.initialize(pluginAPI);
-      
+
       // Store the loaded plugin
       this.loadedPlugins.set(descriptor.id, plugin);
       descriptor.status = 'loaded';
-      
+
       // Create plugin window if it's a UI plugin
       if (manifest.type === 'ui') {
         await this.createPluginWindow(descriptor);
       }
-      
+
       // Store in database
       await this.databaseService.addPlugin(descriptor);
-      
+
       console.log(`Plugin '${manifest.name}' loaded successfully`);
       return descriptor;
-      
     } catch (error) {
       console.error(`Failed to load plugin from ${pluginPath}:`, error);
       return null;
@@ -137,19 +139,19 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
     try {
       const manifestContent = await fs.readFile(manifestPath, 'utf-8');
       const manifest = JSON.parse(manifestContent);
-      
+
       // Check for tron-plugin configuration
       if (!manifest['tron-plugin']) {
         throw new Error('Plugin manifest missing tron-plugin configuration');
       }
-      
+
       return {
         ...manifest['tron-plugin'],
         name: manifest.name,
         version: manifest.version,
         description: manifest.description,
         author: manifest.author,
-        license: manifest.license
+        license: manifest.license,
       };
     } catch (error) {
       console.error('Error loading plugin manifest:', error);
@@ -166,13 +168,13 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
         path.join(pluginPath, 'src', 'plugin.ts'),
         path.join(pluginPath, 'src', 'plugin.js'),
         path.join(pluginPath, 'plugin.js'),
-        path.join(pluginPath, manifest.main || 'index.js')
+        path.join(pluginPath, manifest.main || 'index.js'),
       ];
 
       for (const entry of possibleEntries) {
         try {
           await fs.access(entry);
-          
+
           // For development, we might need to handle TypeScript files differently
           if (entry.endsWith('.ts')) {
             // In development, we might need to compile TypeScript on the fly
@@ -194,7 +196,7 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
           continue;
         }
       }
-      
+
       throw new Error('No valid plugin entry point found');
     } catch (error) {
       console.error('Error loading plugin module:', error);
@@ -204,7 +206,7 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
 
   private async createPluginWindow(descriptor: PluginDescriptor): Promise<void> {
     const { BrowserWindow } = require('electron');
-    
+
     const pluginWindow = new BrowserWindow({
       width: 800,
       height: 600,
@@ -213,13 +215,13 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
         nodeIntegration: false,
         contextIsolation: true,
         preload: require.resolve('@rnr/tron-mini/preload'),
-        additionalArguments: [`--plugin-id=${descriptor.id}`]
-      }
+        additionalArguments: [`--plugin-id=${descriptor.id}`],
+      },
     });
 
     // Load the plugin's UI
     const uiPath = path.join(descriptor.path, descriptor.manifest.ui || 'dist/index.html');
-    
+
     try {
       await fs.access(uiPath);
       pluginWindow.loadFile(uiPath);
@@ -286,21 +288,21 @@ private pluginWindows: Map<string, Electron.BrowserWindow> = new Map();
       // Initialize the plugin
       const plugin = pluginModule.plugin || pluginModule.default || pluginModule;
       const pluginAPI = this.pluginAPIBridge.createPluginAPI(descriptor.id);
-      
+
       await plugin.initialize(pluginAPI);
-      
+
       // Store the loaded plugin
       this.loadedPlugins.set(descriptor.id, plugin);
       descriptor.status = 'loaded';
-      
+
       // Create plugin window if it's a UI plugin
       if (descriptor.manifest.type === 'ui') {
         await this.createPluginWindow(descriptor);
       }
-      
+
       // Update database
       await this.databaseService.updatePlugin(descriptor);
-      
+
       console.log(`Installed plugin '${pluginId}' loaded successfully`);
       return descriptor;
     } catch (error) {

@@ -26,10 +26,10 @@ export class WebPluginLoader {
         name: meta?.name || url.hostname,
         version: meta?.version || '0.0.0',
         type: 'ui',
-        permissions: []
+        permissions: [],
       },
       config: { enabled: true, autoStart: false },
-      status: 'installed'
+      status: 'installed',
     };
     await this.db.addOrUpdatePlugin(descriptor);
     return descriptor;
@@ -45,12 +45,16 @@ export class WebPluginLoader {
       byPath[rel] = file;
       if (rel.endsWith('package.json')) {
         const text = await file.text();
-        try { pkg = JSON.parse(text); } catch {}
+        try {
+          pkg = JSON.parse(text);
+        } catch {}
       }
     }
 
     const tron = pkg?.['tron-plugin'] || {};
-    const id = (pkg?.name || tron?.name || 'local-plugin').toLowerCase().replace(/[^a-z0-9-]/gi, '-');
+    const id = (pkg?.name || tron?.name || 'local-plugin')
+      .toLowerCase()
+      .replace(/[^a-z0-9-]/gi, '-');
     const name = tron?.name || pkg?.name || id;
     const version = tron?.version || pkg?.version || '0.0.0';
 
@@ -68,17 +72,18 @@ export class WebPluginLoader {
         name,
         version,
         type: 'ui',
-        permissions: []
+        permissions: [],
       },
       config: { enabled: true, autoStart: false },
-      status: 'installed'
+      status: 'installed',
     };
     await this.db.addOrUpdatePlugin(descriptor);
     return descriptor;
   }
 
   private async registerAssetsWithServiceWorker(pluginId: string, files: FileList) {
-    if (!('serviceWorker' in navigator)) throw new Error('Service worker not supported in this browser');
+    if (!('serviceWorker' in navigator))
+      throw new Error('Service worker not supported in this browser');
     const reg = await navigator.serviceWorker.ready;
     const sw = reg.active || navigator.serviceWorker.controller;
     if (!sw) throw new Error('Service worker not active');
@@ -92,28 +97,42 @@ export class WebPluginLoader {
     }
 
     // Transfer ArrayBuffers for performance
-    const transfers = assets.map(a => a.data);
+    const transfers = assets.map((a) => a.data);
     sw.postMessage({ type: 'tron:registerPlugin', pluginId, assets }, transfers);
   }
 
   private mimeFromPath(p: string): string {
     const ext = p.split('.').pop()?.toLowerCase();
     switch (ext) {
-      case 'html': return 'text/html';
-      case 'js': return 'application/javascript';
-      case 'mjs': return 'application/javascript';
-      case 'css': return 'text/css';
-      case 'svg': return 'image/svg+xml';
-      case 'png': return 'image/png';
+      case 'html':
+        return 'text/html';
+      case 'js':
+        return 'application/javascript';
+      case 'mjs':
+        return 'application/javascript';
+      case 'css':
+        return 'text/css';
+      case 'svg':
+        return 'image/svg+xml';
+      case 'png':
+        return 'image/png';
       case 'jpg':
-      case 'jpeg': return 'image/jpeg';
-      case 'gif': return 'image/gif';
-      case 'webp': return 'image/webp';
-      case 'json': return 'application/json';
-      case 'map': return 'application/json';
-      case 'woff': return 'font/woff';
-      case 'woff2': return 'font/woff2';
-      default: return 'application/octet-stream';
+      case 'jpeg':
+        return 'image/jpeg';
+      case 'gif':
+        return 'image/gif';
+      case 'webp':
+        return 'image/webp';
+      case 'json':
+        return 'application/json';
+      case 'map':
+        return 'application/json';
+      case 'woff':
+        return 'font/woff';
+      case 'woff2':
+        return 'font/woff2';
+      default:
+        return 'application/octet-stream';
     }
   }
 

@@ -26,7 +26,8 @@ export function setupPreload() {
         ipcRenderer.invoke('plugin-api:execute-command', pluginId, commandName, ...args),
       registerCommand: (pluginId: string, commandName: string, handler: string) =>
         ipcRenderer.invoke('plugin-api:register-command', pluginId, commandName, handler),
-      getData: (pluginId: string, key: string) => ipcRenderer.invoke('plugin-api:get-data', pluginId, key),
+      getData: (pluginId: string, key: string) =>
+        ipcRenderer.invoke('plugin-api:get-data', pluginId, key),
       setData: (pluginId: string, key: string, value: any) =>
         ipcRenderer.invoke('plugin-api:set-data', pluginId, key, value),
     },
@@ -47,13 +48,15 @@ export function setupPreload() {
       id: pluginId,
       registerComponent: (componentName: string, componentData: any) =>
         ipcRenderer.invoke('plugin-api:register-component', pluginId, componentName, componentData),
-      getComponent: (componentName: string) => ipcRenderer.invoke('plugin-api:get-component', pluginId, componentName),
+      getComponent: (componentName: string) =>
+        ipcRenderer.invoke('plugin-api:get-component', pluginId, componentName),
       executeCommand: (commandName: string, ...args: any[]) =>
         ipcRenderer.invoke('plugin-api:execute-command', pluginId, commandName, ...args),
       registerCommand: (commandName: string, handler: string) =>
         ipcRenderer.invoke('plugin-api:register-command', pluginId, commandName, handler),
       getData: (key: string) => ipcRenderer.invoke('plugin-api:get-data', pluginId, key),
-      setData: (key: string, value: any) => ipcRenderer.invoke('plugin-api:set-data', pluginId, key, value),
+      setData: (key: string, value: any) =>
+        ipcRenderer.invoke('plugin-api:set-data', pluginId, key, value),
     });
   }
 }

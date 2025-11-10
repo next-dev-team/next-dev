@@ -9,18 +9,11 @@ module.exports = {
     ecmaVersion: 2024,
     sourceType: 'module',
   },
-  extends: [
-    'eslint:recommended',
-  ],
+  extends: ['eslint:recommended'],
   rules: {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': 'warn',
     'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
   },
-  ignorePatterns: [
-    'node_modules/',
-    'dist/',
-    'build/',
-    '.turbo/',
-  ],
+  ignorePatterns: ['node_modules/', 'dist/', 'build/', '.turbo/'],
 };

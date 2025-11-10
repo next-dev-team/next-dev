@@ -2,9 +2,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    require.resolve('./base.cjs'),
-  ],
+  extends: [require.resolve('./base.cjs')],
   rules: {
     'no-process-exit': 'off',
     'no-restricted-syntax': [

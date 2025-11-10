@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 function TodoInput({ onAddTodo }) {
-  const [inputValue, setInputValue] = useState('')
+  const [inputValue, setInputValue] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (inputValue.trim()) {
-      onAddTodo(inputValue)
-      setInputValue('')
+      onAddTodo(inputValue);
+      setInputValue('');
     }
-  }
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSubmit(e)
+      handleSubmit(e);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="todo-input-form">
@@ -29,16 +29,12 @@ function TodoInput({ onAddTodo }) {
           className="todo-input"
           autoFocus
         />
-        <button 
-          type="submit" 
-          className="add-button"
-          disabled={!inputValue.trim()}
-        >
+        <button type="submit" className="add-button" disabled={!inputValue.trim()}>
           <span className="add-icon">+</span>
         </button>
       </div>
     </form>
-  )
+  );
 }
 
-export default TodoInput
+export default TodoInput;

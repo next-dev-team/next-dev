@@ -1,36 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 function TodoItem({ todo, onToggle, onDelete, onEdit }) {
-  const [isEditing, setIsEditing] = useState(false)
-  const [editValue, setEditValue] = useState(todo.text)
+  const [isEditing, setIsEditing] = useState(false);
+  const [editValue, setEditValue] = useState(todo.text);
 
   const handleEdit = () => {
-    setIsEditing(true)
-    setEditValue(todo.text)
-  }
+    setIsEditing(true);
+    setEditValue(todo.text);
+  };
 
   const handleSave = () => {
-    onEdit(editValue)
-    setIsEditing(false)
-  }
+    onEdit(editValue);
+    setIsEditing(false);
+  };
 
   const handleCancel = () => {
-    setEditValue(todo.text)
-    setIsEditing(false)
-  }
+    setEditValue(todo.text);
+    setIsEditing(false);
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSave()
+      handleSave();
     } else if (e.key === 'Escape') {
-      handleCancel()
+      handleCancel();
     }
-  }
+  };
 
   return (
     <div className={`todo-item ${todo.completed ? 'completed' : ''}`}>
       <div className="todo-content">
-        <button 
+        <button
           className={`toggle-button ${todo.completed ? 'checked' : ''}`}
           onClick={onToggle}
           aria-label={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
@@ -51,11 +51,7 @@ function TodoItem({ todo, onToggle, onDelete, onEdit }) {
             />
           </div>
         ) : (
-          <div 
-            className="todo-text"
-            onDoubleClick={handleEdit}
-            title="Double-click to edit"
-          >
+          <div className="todo-text" onDoubleClick={handleEdit} title="Double-click to edit">
             {todo.text}
           </div>
         )}
@@ -64,44 +60,28 @@ function TodoItem({ todo, onToggle, onDelete, onEdit }) {
       <div className="todo-actions">
         {!isEditing && (
           <>
-            <button 
-              className="edit-button"
-              onClick={handleEdit}
-              aria-label="Edit todo"
-            >
+            <button className="edit-button" onClick={handleEdit} aria-label="Edit todo">
               ✏️
             </button>
-            <button 
-              className="delete-button"
-              onClick={onDelete}
-              aria-label="Delete todo"
-            >
+            <button className="delete-button" onClick={onDelete} aria-label="Delete todo">
               🗑️
             </button>
           </>
         )}
-        
+
         {isEditing && (
           <>
-            <button 
-              className="save-button"
-              onClick={handleSave}
-              aria-label="Save changes"
-            >
+            <button className="save-button" onClick={handleSave} aria-label="Save changes">
               ✓
             </button>
-            <button 
-              className="cancel-button"
-              onClick={handleCancel}
-              aria-label="Cancel editing"
-            >
+            <button className="cancel-button" onClick={handleCancel} aria-label="Cancel editing">
               ✕
             </button>
           </>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default TodoItem
+export default TodoItem;

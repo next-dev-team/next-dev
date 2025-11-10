@@ -17,7 +17,7 @@ export class PluginManager {
   constructor(
     databaseService: DatabaseService,
     securityManager: SecurityManager,
-    pluginAPIBridge: PluginAPIBridge
+    pluginAPIBridge: PluginAPIBridge,
   ) {
     this.databaseService = databaseService;
     this.securityManager = securityManager;
@@ -27,7 +27,7 @@ export class PluginManager {
   async initialize(): Promise<void> {
     // Load existing plugins from database
     const savedPlugins = await this.databaseService.getAllPlugins();
-    
+
     for (const plugin of savedPlugins) {
       this.plugins.set(plugin.id, {
         id: plugin.id,
@@ -45,7 +45,7 @@ export class PluginManager {
     // Validate plugin source
     const manifestPath = path.join(sourcePath, 'package.json');
     const manifest = JSON.parse(await fs.readFile(manifestPath, 'utf-8'));
-    
+
     // Validate plugin metadata
     const metadata: PluginMetadata = {
       name: manifest.name,
@@ -88,7 +88,7 @@ export class PluginManager {
 
     // Load plugin
     const plugin = await this.loadPlugin(descriptor);
-    
+
     // Save to database
     await this.databaseService.savePlugin({
       id: pluginId,
@@ -111,7 +111,7 @@ export class PluginManager {
     // Load plugin module
     const pluginPath = descriptor.path ?? '';
     const pluginModule = await import(path.join(pluginPath, 'dist', 'index.js'));
-    
+
     const plugin: Plugin = {
       metadata: descriptor.metadata as PluginMetadata,
       config: descriptor.config,
@@ -145,13 +145,13 @@ export class PluginManager {
 
   private async copyPluginFiles(sourcePath: string, targetPath: string): Promise<void> {
     await fs.mkdir(targetPath, { recursive: true });
-    
+
     const files = await fs.readdir(sourcePath);
     for (const file of files) {
       const srcFile = path.join(sourcePath, file);
       const destFile = path.join(targetPath, file);
       const stat = await fs.stat(srcFile);
-      
+
       if (stat.isDirectory()) {
         await this.copyPluginFiles(srcFile, destFile);
       } else {

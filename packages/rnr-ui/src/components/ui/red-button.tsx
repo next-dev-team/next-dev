@@ -11,20 +11,20 @@ const redButtonVariants = cva('', {
         'bg-red-500 active:bg-red-500/90',
         Platform.select({
           web: 'hover:bg-red-500/90',
-        })
+        }),
       ),
       destructive: cn(
         'bg-red-700 active:bg-red-700/90',
         Platform.select({
           web: 'hover:bg-red-700/90',
-        })
+        }),
       ),
       outline: 'border-red-400 dark:border-red-400',
       secondary: cn(
         'bg-red-200 active:bg-red-200/80',
         Platform.select({
           web: 'hover:bg-red-200/80',
-        })
+        }),
       ),
       ghost: 'active:bg-red-500/10 dark:active:bg-red-500/10',
       link: '',
@@ -42,7 +42,7 @@ const redButtonTextVariants = cva('', {
       destructive: '',
       outline: cn(
         'group-active:text-red-400',
-        Platform.select({ web: 'group-hover:text-red-400' })
+        Platform.select({ web: 'group-hover:text-red-400' }),
       ),
       secondary: 'text-black',
       ghost: '',

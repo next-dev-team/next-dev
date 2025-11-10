@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     loadPlugins();
-    
+
     // Listen for plugin updates
     if (window.electronAPI) {
       window.electronAPI.onPluginsLoaded((loadedPlugins: string[]) => {
@@ -87,14 +87,14 @@ function App() {
         <h1>Tron Core</h1>
         <p>Plugin-based Electron Application</p>
       </header>
-      
+
       <main className="app-main">
         <div className="app-content">
           <section className="plugin-section">
             <h2>Plugin Manager</h2>
             <PluginManager onPluginInstalled={loadPlugins} />
           </section>
-          
+
           <section className="plugin-section">
             <h2>Installed Plugins</h2>
             <PluginList

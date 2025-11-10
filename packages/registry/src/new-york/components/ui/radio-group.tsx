@@ -21,9 +21,10 @@ function RadioGroupItem({
           web: 'focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive outline-none transition-all focus-visible:ring-[3px] disabled:cursor-not-allowed',
         }),
         props.disabled && 'opacity-50',
-        className
+        className,
       )}
-      {...props}>
+      {...props}
+    >
       <RadioGroupPrimitive.Indicator className="bg-primary size-2 rounded-full" />
     </RadioGroupPrimitive.Item>
   );

@@ -35,13 +35,10 @@ export class TronCoreApp {
     this.pluginManager = new PluginManager(
       this.databaseService,
       this.securityManager,
-      this.pluginAPIBridge
+      this.pluginAPIBridge,
     );
 
-    this.pluginDevLoader = new PluginDevLoader(
-      this.pluginAPIBridge,
-      isDev
-    );
+    this.pluginDevLoader = new PluginDevLoader(this.pluginAPIBridge, isDev);
 
     // Initialize plugin loader used by IPC handlers
     this.pluginLoader = new PluginLoader(this.pluginAPIBridge, this.databaseService, isDev);
@@ -200,15 +197,15 @@ export class TronCoreApp {
   private async loadBuiltInPlugins(): Promise<void> {
     // Load built-in plugins from the plugins directory
     const builtInPluginsPath = path.join(__dirname, '../../plugins');
-    
+
     try {
       const fs = await import('fs/promises');
       const pluginDirs = await fs.readdir(builtInPluginsPath);
-      
+
       for (const pluginDir of pluginDirs) {
         const pluginPath = path.join(builtInPluginsPath, pluginDir);
         const stat = await fs.stat(pluginPath);
-        
+
         if (stat.isDirectory()) {
           try {
             await this.pluginLoader.loadBuiltInPlugins();
@@ -240,7 +237,7 @@ export class TronCoreApp {
     // Load plugin content
     const pluginPath = path.join(app.getPath('userData'), 'plugins', pluginId);
     const pluginIndex = path.join(pluginPath, 'dist', 'index.html');
-    
+
     if (isDev) {
       // In development, load from plugin's dev server
       pluginWindow.loadURL(`http://localhost:5174?plugin=${pluginId}`);
@@ -249,7 +246,7 @@ export class TronCoreApp {
     }
 
     this.pluginWindows.set(pluginId, pluginWindow);
-    
+
     pluginWindow.on('closed', () => {
       this.pluginWindows.delete(pluginId);
     });

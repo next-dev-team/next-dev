@@ -15,10 +15,10 @@ interface PluginListProps {
   onUnloadPlugin: (pluginId: string) => void;
 }
 
-export const PluginList: React.FC<PluginListProps> = ({ 
-  plugins, 
-  onLoadPlugin, 
-  onUnloadPlugin 
+export const PluginList: React.FC<PluginListProps> = ({
+  plugins,
+  onLoadPlugin,
+  onUnloadPlugin,
 }) => {
   if (plugins.length === 0) {
     return (
@@ -43,24 +43,16 @@ export const PluginList: React.FC<PluginListProps> = ({
               {plugin.isActive ? '● Active' : '○ Inactive'}
             </div>
           </div>
-          
-          {plugin.description && (
-            <p className="plugin-description">{plugin.description}</p>
-          )}
-          
+
+          {plugin.description && <p className="plugin-description">{plugin.description}</p>}
+
           <div className="plugin-actions">
             {plugin.isActive ? (
-              <button 
-                onClick={() => onUnloadPlugin(plugin.id)}
-                className="action-button unload"
-              >
+              <button onClick={() => onUnloadPlugin(plugin.id)} className="action-button unload">
                 Unload
               </button>
             ) : (
-              <button 
-                onClick={() => onLoadPlugin(plugin.id)}
-                className="action-button load"
-              >
+              <button onClick={() => onLoadPlugin(plugin.id)} className="action-button load">
                 Load
               </button>
             )}

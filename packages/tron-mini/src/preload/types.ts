@@ -2,12 +2,18 @@ export interface ElectronAPI {
   getPlugins: () => Promise<any[]>;
   loadPlugin: (pluginId: string) => Promise<{ success: boolean; error?: string }>;
   unloadPlugin: (pluginId: string) => Promise<{ success: boolean; error?: string }>;
-  installPlugin: (pluginPath: string) => Promise<{ success: boolean; plugin?: any; error?: string }>;
+  installPlugin: (
+    pluginPath: string,
+  ) => Promise<{ success: boolean; plugin?: any; error?: string }>;
   resetDatabase: () => Promise<{ success: boolean; message?: string; error?: string }>;
   testIPC: () => Promise<{ success: boolean; pluginsCount?: number; error?: string }>;
   openPluginDirectory: () => Promise<{ success: boolean; path?: string; error?: string }>;
   pluginAPI: {
-    registerComponent: (pluginId: string, componentName: string, componentData: any) => Promise<boolean>;
+    registerComponent: (
+      pluginId: string,
+      componentName: string,
+      componentData: any,
+    ) => Promise<boolean>;
     getComponent: (pluginId: string, componentName: string) => Promise<any>;
     executeCommand: (pluginId: string, commandName: string, ...args: any[]) => Promise<any>;
     registerCommand: (pluginId: string, commandName: string, handler: string) => Promise<boolean>;

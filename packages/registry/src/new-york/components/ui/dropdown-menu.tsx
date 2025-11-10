@@ -47,8 +47,9 @@ function DropdownMenuSubTrigger({
     <TextClassContext.Provider
       value={cn(
         'text-sm select-none group-active:text-accent-foreground',
-        open && 'text-accent-foreground'
-      )}>
+        open && 'text-accent-foreground',
+      )}
+    >
       <DropdownMenuPrimitive.SubTrigger
         className={cn(
           'active:bg-accent group flex flex-row items-center rounded-sm px-2 py-2 sm:py-1.5',
@@ -56,9 +57,10 @@ function DropdownMenuSubTrigger({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none [&_svg]:pointer-events-none',
           }),
           open && 'bg-accent',
-          inset && 'pl-8'
+          inset && 'pl-8',
         )}
-        {...props}>
+        {...props}
+      >
         <>{children}</>
         <Icon as={icon} className={cn('text-foreground ml-auto size-4 shrink-0', iconClassName)} />
       </DropdownMenuPrimitive.SubTrigger>
@@ -79,7 +81,7 @@ function DropdownMenuSubContent({
           Platform.select({
             web: 'animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 fade-in-0 data-[state=closed]:zoom-out-95 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-(--radix-context-menu-content-transform-origin) z-50 min-w-[8rem]',
           }),
-          className
+          className,
         )}
         {...props}
       />
@@ -114,7 +116,8 @@ function DropdownMenuContent({
                 ])
               : StyleSheet.absoluteFill,
           })}
-          className={overlayClassName}>
+          className={overlayClassName}
+        >
           <NativeOnlyAnimatedView entering={FadeIn}>
             <TextClassContext.Provider value="text-popover-foreground">
               <DropdownMenuPrimitive.Content
@@ -124,10 +127,10 @@ function DropdownMenuContent({
                     web: cn(
                       'animate-in fade-in-0 zoom-in-95 max-h-(--radix-context-menu-content-available-height) origin-(--radix-context-menu-content-transform-origin) z-50 cursor-default',
                       props.side === 'bottom' && 'slide-in-from-top-2',
-                      props.side === 'top' && 'slide-in-from-bottom-2'
+                      props.side === 'top' && 'slide-in-from-bottom-2',
                     ),
                   }),
-                  className
+                  className,
                 )}
                 {...props}
               />
@@ -154,21 +157,22 @@ function DropdownMenuItem({
     <TextClassContext.Provider
       value={cn(
         'select-none text-sm text-popover-foreground group-active:text-popover-foreground',
-        variant === 'destructive' && 'text-destructive group-active:text-destructive'
-      )}>
+        variant === 'destructive' && 'text-destructive group-active:text-destructive',
+      )}
+    >
       <DropdownMenuPrimitive.Item
         className={cn(
           'active:bg-accent group relative flex flex-row items-center gap-2 rounded-sm px-2 py-2 sm:py-1.5',
           Platform.select({
             web: cn(
               'focus:bg-accent focus:text-accent-foreground cursor-default outline-none data-[disabled]:pointer-events-none',
-              variant === 'destructive' && 'focus:bg-destructive/10 dark:focus:bg-destructive/20'
+              variant === 'destructive' && 'focus:bg-destructive/10 dark:focus:bg-destructive/20',
             ),
           }),
           variant === 'destructive' && 'active:bg-destructive/10 dark:active:bg-destructive/20',
           props.disabled && 'opacity-50',
           inset && 'pl-8',
-          className
+          className,
         )}
         {...props}
       />
@@ -193,16 +197,17 @@ function DropdownMenuCheckboxItem({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none data-[disabled]:pointer-events-none',
           }),
           props.disabled && 'opacity-50',
-          className
+          className,
         )}
-        {...props}>
+        {...props}
+      >
         <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
           <DropdownMenuPrimitive.ItemIndicator>
             <Icon
               as={Check}
               className={cn(
                 'text-foreground size-4',
-                Platform.select({ web: 'pointer-events-none' })
+                Platform.select({ web: 'pointer-events-none' }),
               )}
             />
           </DropdownMenuPrimitive.ItemIndicator>
@@ -230,9 +235,10 @@ function DropdownMenuRadioItem({
             web: 'focus:bg-accent focus:text-accent-foreground cursor-default outline-none data-[disabled]:pointer-events-none',
           }),
           props.disabled && 'opacity-50',
-          className
+          className,
         )}
-        {...props}>
+        {...props}
+      >
         <View className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
           <DropdownMenuPrimitive.ItemIndicator>
             <View className="bg-foreground h-2 w-2 rounded-full" />
@@ -258,7 +264,7 @@ function DropdownMenuLabel({
       className={cn(
         'text-foreground px-2 py-2 text-sm font-medium sm:py-1.5',
         inset && 'pl-8',
-        className
+        className,
       )}
       {...props}
     />

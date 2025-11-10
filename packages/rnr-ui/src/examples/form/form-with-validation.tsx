@@ -25,7 +25,7 @@ export function FormWithValidationPreview() {
           <TextInput
             placeholder="Enter username"
             autoCapitalize="none"
-            className="border border-input rounded-md px-3 py-2 bg-background text-foreground"
+            className="border-input bg-background text-foreground rounded-md border px-3 py-2"
           />
         </Form.Item>
 
@@ -41,7 +41,7 @@ export function FormWithValidationPreview() {
             placeholder="Enter email"
             keyboardType="email-address"
             autoCapitalize="none"
-            className="border border-input rounded-md px-3 py-2 bg-background text-foreground"
+            className="border-input bg-background text-foreground rounded-md border px-3 py-2"
           />
         </Form.Item>
 
@@ -56,17 +56,14 @@ export function FormWithValidationPreview() {
           <TextInput
             placeholder="Enter phone number"
             keyboardType="phone-pad"
-            className="border border-input rounded-md px-3 py-2 bg-background text-foreground"
+            className="border-input bg-background text-foreground rounded-md border px-3 py-2"
           />
         </Form.Item>
 
         <View className="mt-4">
-          <Button onPress={() => form.submit()}>
-            Submit Form
-          </Button>
+          <Button onPress={() => form.submit()}>Submit Form</Button>
         </View>
       </Form>
     </View>
   );
 }
-

@@ -13,7 +13,6 @@ import { DownloadAppBanner } from '@docs/components/download-app-banner';
 
 New CLI. New docs. New registry. New showcase app. New sponsors.
 
-
 ### Now part of the Vercel OSS Program [#august-2025-vercel-oss]
 
 <VercelOssBadge />
@@ -27,7 +26,6 @@ React Native Reusables is now part of the [Vercel OSS Program](https://vercel.co
 </a>
 
 React Native Reusables now features a [template](https://github.com/founded-labs/react-native-reusables-templates/tree/main/clerk-auth) and sponsored [blocks](/docs/blocks/authentication) from [Clerk](https://go.clerk.com/gjgxNgT), helping you quickly integrate authentication into your apps with React Native Reusables.
-
 
 ### First React Native shadcn registry _(probably)_ [#august-2025-first-react-native-shadcn-registry]
 
@@ -43,10 +41,9 @@ To make the experience even smoother, we built a thin wrapper around the CLI.
 
 - If you skip the component name, you'll get a multi-select prompt
 
+<CommandTabs args={['add']} />
 
-<CommandTabs args={["add"]} />
-
-<span className="text-sm">For more details, see the [add options](/docs/cli#add).</span> 
+<span className="text-sm">For more details, see the [add options](/docs/cli#add).</span>
 
 Same power, tailored for React Native Reusables.
 
@@ -80,9 +77,9 @@ Features:
 
 - Stronger foundation for future updates
 
-<CommandTabs args={["doctor"]} />
+<CommandTabs args={['doctor']} />
 
-<span className="text-sm">For more details, see the [doctor command](/docs/cli#doctor).</span> 
+<span className="text-sm">For more details, see the [doctor command](/docs/cli#doctor).</span>
 
 ### Improved component architecture [#august-2025-improved-component-architecture]
 
@@ -91,7 +88,6 @@ Every component has been refined and standardized.
 - Improved platform-specific logic
 
 - Easier to override and customize
-
 
 ### Blocks [#august-2025-blocks]
 
@@ -117,16 +113,14 @@ A single icon component to replace all icons from the deprecated `/lib/icons` di
 
 **Install the new icon component with the CLI**
 
-<CommandTabs args={["add", "icon"]} />
-
+<CommandTabs args={['add', 'icon']} />
 
 ```tsx
 // Example usage
 import { Icon } from '@/components/ui/icon';
 import { HeartIcon } from 'lucide-react-native';
 
-<Icon as={HeartIcon} className="size-4 text-red-500" />
-
+<Icon as={HeartIcon} className="size-4 text-red-500" />;
 ```
 
 ### Text variants [#august-2025-text-variants]
@@ -152,18 +146,19 @@ Available variants: `default`, `h1` , `h2`, `h3`, `h4`, `p`, `block-quote`, `cod
 - `components/ui/typography.tsx`: deprecated in favor of the new [`variant`](#august-2025-text-variants) prop on the `Text` component.
 
 ### Upgrade Notes [#august-2025-upgrade-notes]
+
 1. Run the `doctor` command to diagnose. Then, follow the instructions to get your project up to date:
 
-<CommandTabs args={["doctor"]} />
+<CommandTabs args={['doctor']} />
 
 2. Update your components by running the `add` command with `--overwrite` and list the components from your project:
 
 <Callout type="warn">
-  Make sure you commit your changes before running the add command and use the diff view to see what's changed and to keep
-  your own custom changes.
+  Make sure you commit your changes before running the add command and use the diff view to see
+  what's changed and to keep your own custom changes.
 </Callout>
 
-<CommandTabs args={["add", "--overwrite", "[...components]"]} />
+<CommandTabs args={['add', '--overwrite', '[...components]']} />
 
 <span className='sr-only'>
 

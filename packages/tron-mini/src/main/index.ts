@@ -10,7 +10,11 @@ export class TronMiniApp {
   private databaseService = new DatabaseService();
   private pluginBridge = new PluginAPIBridge(this.databaseService);
   private securityManager = new SecurityManager();
-  private pluginLoader = new PluginLoader(this.pluginBridge, this.databaseService, this.securityManager);
+  private pluginLoader = new PluginLoader(
+    this.pluginBridge,
+    this.databaseService,
+    this.securityManager,
+  );
 
   async init() {
     await app.whenReady();

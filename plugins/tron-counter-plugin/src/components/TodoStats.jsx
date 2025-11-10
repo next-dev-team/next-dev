@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function TodoStats({ activeTodosCount, completedTodosCount, onClearCompleted }) {
-  const totalTodos = activeTodosCount + completedTodosCount
+  const totalTodos = activeTodosCount + completedTodosCount;
 
   return (
     <div className="todo-stats">
@@ -12,15 +12,12 @@ function TodoStats({ activeTodosCount, completedTodosCount, onClearCompleted }) 
       </div>
 
       {completedTodosCount > 0 && (
-        <button 
-          className="clear-completed-button"
-          onClick={onClearCompleted}
-        >
+        <button className="clear-completed-button" onClick={onClearCompleted}>
           Clear completed ({completedTodosCount})
         </button>
       )}
     </div>
-  )
+  );
 }
 
-export default TodoStats
+export default TodoStats;

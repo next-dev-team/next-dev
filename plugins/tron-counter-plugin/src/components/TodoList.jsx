@@ -1,14 +1,14 @@
-import React from 'react'
-import TodoItem from './TodoItem'
+import React from 'react';
+import TodoItem from './TodoItem';
 
 function TodoList({ todos, onToggleTodo, onDeleteTodo, onEditTodo }) {
   if (todos.length === 0) {
-    return null
+    return null;
   }
 
   return (
     <div className="todo-list">
-      {todos.map(todo => (
+      {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
@@ -18,7 +18,7 @@ function TodoList({ todos, onToggleTodo, onDeleteTodo, onEditTodo }) {
         />
       ))}
     </div>
-  )
+  );
 }
 
-export default TodoList
+export default TodoList;

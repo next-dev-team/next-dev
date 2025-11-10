@@ -16,14 +16,14 @@ export function FormAsyncValidationPreview() {
     if (!value) {
       return Promise.reject(new Error('Username is required'));
     }
-    
+
     if (value.length < 3) {
       return Promise.reject(new Error('Username must be at least 3 characters'));
     }
 
     // Simulate API call to check if username is available
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
 
     // Simulate username availability check
@@ -48,7 +48,7 @@ export function FormAsyncValidationPreview() {
 
     // Simulate API call to check if email is available
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 800));
+    await new Promise((resolve) => setTimeout(resolve, 800));
     setLoading(false);
 
     // Simulate email availability check
@@ -73,7 +73,7 @@ export function FormAsyncValidationPreview() {
 
     // Simulate API call to validate phone number
     setLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 1200));
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     setLoading(false);
 
     // Simulate phone validation
@@ -88,7 +88,7 @@ export function FormAsyncValidationPreview() {
   return (
     <View className="w-full max-w-md">
       <Form form={form} onFinish={onFinish}>
-        <Text className="text-sm text-muted-foreground mb-4">
+        <Text className="text-muted-foreground mb-4 text-sm">
           Try usernames: admin, user, test (these are taken)
         </Text>
 

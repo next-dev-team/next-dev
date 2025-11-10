@@ -23,8 +23,8 @@ describe('PluginLoader entrypoint resolution', () => {
       license: 'MIT',
       type: 'ui',
       permissions: ['storage'],
-      ui: 'dist/index.html'
-    }
+      ui: 'dist/index.html',
+    },
   };
 
   const pluginJs = `"use strict";
@@ -38,10 +38,19 @@ describe('PluginLoader entrypoint resolution', () => {
   beforeAll(async () => {
     await fs.rm(tmpRoot, { recursive: true, force: true });
     await fs.mkdir(tmpDist, { recursive: true });
-    await fs.writeFile(path.join(tmpRoot, 'package.json'), JSON.stringify(tmpManifestRoot, null, 2));
-    await fs.writeFile(path.join(tmpDist, 'package.json'), JSON.stringify(tmpManifestRoot, null, 2));
+    await fs.writeFile(
+      path.join(tmpRoot, 'package.json'),
+      JSON.stringify(tmpManifestRoot, null, 2),
+    );
+    await fs.writeFile(
+      path.join(tmpDist, 'package.json'),
+      JSON.stringify(tmpManifestRoot, null, 2),
+    );
     await fs.writeFile(path.join(tmpDist, 'plugin.js'), pluginJs);
-    await fs.writeFile(path.join(tmpDist, 'index.html'), '<!doctype html><html><body>tmp</body></html>');
+    await fs.writeFile(
+      path.join(tmpDist, 'index.html'),
+      '<!doctype html><html><body>tmp</body></html>',
+    );
   });
 
   afterAll(async () => {

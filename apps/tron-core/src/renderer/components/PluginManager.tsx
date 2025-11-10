@@ -181,14 +181,10 @@ export const PluginManager: React.FC<PluginManagerProps> = ({ onPluginInstalled 
             onChange={(e) => setInstallPath(e.target.value)}
             className="plugin-path-input"
           />
-          <button 
-            onClick={handleBrowsePlugin}
-            className="browse-button"
-            disabled={installing}
-          >
+          <button onClick={handleBrowsePlugin} className="browse-button" disabled={installing}>
             Browse
           </button>
-          <button 
+          <button
             onClick={handleInstallPlugin}
             className="install-button"
             disabled={installing || !installPath.trim() || !electronReady}
@@ -197,12 +193,14 @@ export const PluginManager: React.FC<PluginManagerProps> = ({ onPluginInstalled 
           </button>
         </div>
         {!electronReady && (
-          <div className="warning-message">Electron API not ready (browser preview). Use Electron app to install.</div>
+          <div className="warning-message">
+            Electron API not ready (browser preview). Use Electron app to install.
+          </div>
         )}
         {error && <div className="error-message">{error}</div>}
         {status && <div className="status-message">{status}</div>}
       </div>
-      
+
       <div className="plugin-info">
         <h3>Plugin Requirements</h3>
         <ul>
@@ -219,11 +217,7 @@ export const PluginManager: React.FC<PluginManagerProps> = ({ onPluginInstalled 
           >
             {resetting ? 'Resetting...' : 'Reset Database'}
           </button>
-          <button
-            onClick={handleTestAPI}
-            className="test-button"
-            disabled={!electronReady}
-          >
+          <button onClick={handleTestAPI} className="test-button" disabled={!electronReady}>
             Test API
           </button>
         </div>

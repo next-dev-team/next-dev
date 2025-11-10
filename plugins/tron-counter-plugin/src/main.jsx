@@ -1,6 +1,6 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
 
 // Minimal web bridge: handle MessageChannel from host and say hello
 // This enables the plugin to run inside the Tron web host via iframe.
@@ -26,4 +26,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-)
+);

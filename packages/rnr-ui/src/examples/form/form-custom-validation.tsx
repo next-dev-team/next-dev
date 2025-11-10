@@ -18,7 +18,9 @@ export function FormCustomValidationPreview() {
       return Promise.reject(new Error('Username must be at least 3 characters'));
     }
     if (!/^[a-zA-Z0-9_]+$/.test(value)) {
-      return Promise.reject(new Error('Username can only contain letters, numbers, and underscores'));
+      return Promise.reject(
+        new Error('Username can only contain letters, numbers, and underscores'),
+      );
     }
     return Promise.resolve();
   };
@@ -55,11 +57,7 @@ export function FormCustomValidationPreview() {
     <View className="w-full max-w-md">
       <Form form={form} onFinish={onFinish}>
         {/* Username with custom validation */}
-        <Form.Item
-          name="username"
-          label="Username"
-          rules={[{ validator: validateUsername }]}
-        >
+        <Form.Item name="username" label="Username" rules={[{ validator: validateUsername }]}>
           <TextInput
             placeholder="Choose a username"
             autoCapitalize="none"
@@ -68,11 +66,7 @@ export function FormCustomValidationPreview() {
         </Form.Item>
 
         {/* Age with custom validation */}
-        <Form.Item
-          name="age"
-          label="Age"
-          rules={[{ validator: validateAge }]}
-        >
+        <Form.Item name="age" label="Age" rules={[{ validator: validateAge }]}>
           <TextInput
             placeholder="Enter your age"
             keyboardType="numeric"

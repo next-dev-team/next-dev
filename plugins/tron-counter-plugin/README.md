@@ -50,16 +50,19 @@ todo-plugin/
 To develop this plugin:
 
 1. Navigate to the plugin directory:
+
    ```bash
    cd plugins/todo-plugin
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Start development server:
+
    ```bash
    npm run dev
    ```
@@ -90,6 +93,7 @@ The plugin integrates with the Electron Super App plugin system through:
 ## Error Handling
 
 The plugin includes comprehensive error handling for:
+
 - Storage API failures (with localStorage fallback)
 - Network connectivity issues
 - Invalid input validation
@@ -98,6 +102,7 @@ The plugin includes comprehensive error handling for:
 ## Responsive Design
 
 The plugin is fully responsive and adapts to different screen sizes:
+
 - **Desktop**: Full-width layout with hover effects
 - **Mobile**: Stacked layout with touch-friendly controls
 - **Small screens**: Optimized spacing and button sizes

@@ -37,10 +37,14 @@ export default function App() {
     await refresh();
   }
 
-  const isLoaded = (id: string) => plugins.find(p => p.id === id)?.status === 'loaded';
+  const isLoaded = (id: string) => plugins.find((p) => p.id === id)?.status === 'loaded';
 
   if (loading) {
-    return <div className="app"><div className="card">Loading Tron Core Web…</div></div>;
+    return (
+      <div className="app">
+        <div className="card">Loading Tron Core Web…</div>
+      </div>
+    );
   }
 
   return (
@@ -56,7 +60,12 @@ export default function App() {
           <div ref={viewRef} />
         </div>
       </div>
-      <PluginList plugins={plugins} onLoad={handleLoad} onUnload={handleUnload} isLoaded={isLoaded} />
+      <PluginList
+        plugins={plugins}
+        onLoad={handleLoad}
+        onUnload={handleUnload}
+        isLoaded={isLoaded}
+      />
     </div>
   );
 }

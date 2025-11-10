@@ -12,29 +12,44 @@ export class PluginAPIBridge {
 
   private setupIPCHandlers() {
     // Plugin API handlers
-    ipcMain.handle('plugin-api:register-component', async (event, pluginId: string, componentName: string, componentData: any) => {
-      return this.registerComponent(pluginId, componentName, componentData);
-    });
+    ipcMain.handle(
+      'plugin-api:register-component',
+      async (event, pluginId: string, componentName: string, componentData: any) => {
+        return this.registerComponent(pluginId, componentName, componentData);
+      },
+    );
 
-    ipcMain.handle('plugin-api:get-component', async (event, pluginId: string, componentName: string) => {
-      return this.getComponent(pluginId, componentName);
-    });
+    ipcMain.handle(
+      'plugin-api:get-component',
+      async (event, pluginId: string, componentName: string) => {
+        return this.getComponent(pluginId, componentName);
+      },
+    );
 
-    ipcMain.handle('plugin-api:execute-command', async (event, pluginId: string, commandName: string, ...args: any[]) => {
-      return this.executeCommand(pluginId, commandName, ...args);
-    });
+    ipcMain.handle(
+      'plugin-api:execute-command',
+      async (event, pluginId: string, commandName: string, ...args: any[]) => {
+        return this.executeCommand(pluginId, commandName, ...args);
+      },
+    );
 
-    ipcMain.handle('plugin-api:register-command', async (event, pluginId: string, commandName: string, handler: string) => {
-      return this.registerCommand(pluginId, commandName, handler);
-    });
+    ipcMain.handle(
+      'plugin-api:register-command',
+      async (event, pluginId: string, commandName: string, handler: string) => {
+        return this.registerCommand(pluginId, commandName, handler);
+      },
+    );
 
     ipcMain.handle('plugin-api:get-data', async (event, pluginId: string, key: string) => {
       return this.getPluginData(pluginId, key);
     });
 
-    ipcMain.handle('plugin-api:set-data', async (event, pluginId: string, key: string, value: any) => {
-      return this.setPluginData(pluginId, key, value);
-    });
+    ipcMain.handle(
+      'plugin-api:set-data',
+      async (event, pluginId: string, key: string, value: any) => {
+        return this.setPluginData(pluginId, key, value);
+      },
+    );
   }
 
   registerPluginWindow(pluginId: string, window: BrowserWindow) {
@@ -118,7 +133,7 @@ export class PluginAPIBridge {
           });
         }
       },
-      sendMessage: (message: any) => this.sendToPlugin(pluginId, 'plugin-message', message)
+      sendMessage: (message: any) => this.sendToPlugin(pluginId, 'plugin-message', message),
     };
   }
 }

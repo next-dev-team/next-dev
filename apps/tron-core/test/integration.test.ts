@@ -11,19 +11,19 @@ const mockBrowserWindow = {
   loadURL: jest.fn(),
   on: jest.fn(),
   isDestroyed: jest.fn(() => false),
-  close: jest.fn()
+  close: jest.fn(),
 };
 
 jest.mock('electron', () => ({
   app: {
     on: jest.fn(),
-    quit: jest.fn()
+    quit: jest.fn(),
   },
   BrowserWindow: jest.fn(() => mockBrowserWindow),
   ipcMain: {
     handle: jest.fn(),
-    on: jest.fn()
-  }
+    on: jest.fn(),
+  },
 }));
 
 describe('Tron Core Plugin Integration', () => {
@@ -35,7 +35,7 @@ describe('Tron Core Plugin Integration', () => {
     databaseService = new DatabaseService();
     pluginAPIBridge = new PluginAPIBridge(databaseService);
     pluginLoader = new PluginLoader(pluginAPIBridge, databaseService);
-    
+
     await databaseService.initialize();
   });
 
@@ -51,21 +51,18 @@ describe('Tron Core Plugin Integration', () => {
 
   test('should handle plugin manifest validation', async () => {
     const testPluginPath = path.join(__dirname, 'test-plugin');
-    
+
     // Create a test plugin directory
     await fs.mkdir(testPluginPath, { recursive: true });
-    
+
     // Create invalid manifest
     const invalidManifest = {
       name: 'test-plugin',
-      version: '1.0.0'
+      version: '1.0.0',
       // Missing tron-plugin configuration
     };
-    
-    await fs.writeFile(
-      path.join(testPluginPath, 'package.json'),
-      JSON.stringify(invalidManifest)
-    );
+
+    await fs.writeFile(path.join(testPluginPath, 'package.json'), JSON.stringify(invalidManifest));
 
     const result = await pluginLoader.loadExternalPlugin(testPluginPath);
     expect(result).toBeNull();
@@ -76,7 +73,7 @@ describe('Tron Core Plugin Integration', () => {
 
   test('should create plugin API with correct methods', () => {
     const pluginAPI = pluginAPIBridge.createPluginAPI('test-plugin');
-    
+
     expect(pluginAPI).toBeDefined();
     expect(pluginAPI.id).toBe('test-plugin');
     expect(typeof pluginAPI.getData).toBe('function');
@@ -87,23 +84,23 @@ describe('Tron Core Plugin Integration', () => {
 
   test('should handle plugin data storage', async () => {
     const pluginAPI = pluginAPIBridge.createPluginAPI('test-plugin');
-    
+
     // Test data storage
     await pluginAPI.setData('counter-value', 42);
     const retrievedValue = await pluginAPI.getData('counter-value');
-    
+
     expect(retrievedValue).toBe(42);
   });
 
   test('should handle plugin messaging', (done) => {
     const pluginAPI = pluginAPIBridge.createPluginAPI('test-plugin');
     const testMessage = { type: 'test', content: 'Hello World' };
-    
+
     pluginAPI.onMessage((message) => {
       expect(message).toEqual(testMessage);
       done();
     });
-    
+
     pluginAPI.sendMessage(testMessage);
   });
 
@@ -112,7 +109,7 @@ describe('Tron Core Plugin Integration', () => {
     // For now, we'll test the basic functionality
     const loadedPlugins = pluginLoader.getLoadedPlugins();
     expect(Array.isArray(loadedPlugins)).toBe(true);
-    
+
     // Test unloading non-existent plugin
     const result = await pluginLoader.unloadPlugin('non-existent');
     expect(result).toBe(false);
@@ -137,8 +134,8 @@ describe('Counter Plugin Specific Tests', () => {
         license: 'MIT',
         type: 'ui',
         permissions: ['storage'],
-        ui: 'dist/index.html'
-      }
+        ui: 'dist/index.html',
+      },
     };
 
     expect(manifest['tron-plugin']).toBeDefined();
@@ -150,11 +147,11 @@ describe('Counter Plugin Specific Tests', () => {
   test('should handle plugin permissions validation', () => {
     const validPermissions = ['storage', 'network', 'filesystem'];
     const pluginPermissions = ['storage'];
-    
-    const hasValidPermissions = pluginPermissions.every(permission => 
-      validPermissions.includes(permission)
+
+    const hasValidPermissions = pluginPermissions.every((permission) =>
+      validPermissions.includes(permission),
     );
-    
+
     expect(hasValidPermissions).toBe(true);
   });
 });

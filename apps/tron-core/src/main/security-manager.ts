@@ -3,11 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 
 export class SecurityManager {
-  private allowedOrigins: string[] = [
-    'localhost',
-    '127.0.0.1',
-    'file://',
-  ];
+  private allowedOrigins: string[] = ['localhost', '127.0.0.1', 'file://'];
 
   private restrictedModules: string[] = [
     'child_process',
@@ -34,16 +30,16 @@ export class SecurityManager {
 
     // Generate plugin signature
     const signature = await this.generatePluginSignature(pluginPath);
-    
+
     console.log(`Plugin ${metadata.name} validated with signature: ${signature}`);
   }
 
   private async scanPluginCode(pluginPath: string): Promise<void> {
     const codeFiles = await this.getCodeFiles(pluginPath);
-    
+
     for (const file of codeFiles) {
       const content = await fs.readFile(file, 'utf-8');
-      
+
       // Check for suspicious patterns
       const suspiciousPatterns = [
         /eval\s*\(/,
@@ -67,28 +63,28 @@ export class SecurityManager {
   private async getCodeFiles(dir: string): Promise<string[]> {
     const files: string[] = [];
     const entries = await fs.readdir(dir, { withFileTypes: true });
-    
+
     for (const entry of entries) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
-        files.push(...await this.getCodeFiles(fullPath));
+        files.push(...(await this.getCodeFiles(fullPath)));
       } else if (entry.isFile() && this.isCodeFile(entry.name)) {
         files.push(fullPath);
       }
     }
-    
+
     return files;
   }
 
   private isCodeFile(filename: string): boolean {
     const codeExtensions = ['.js', '.ts', '.jsx', '.tsx', '.json'];
-    return codeExtensions.some(ext => filename.endsWith(ext));
+    return codeExtensions.some((ext) => filename.endsWith(ext));
   }
 
   private validatePluginPermissions(metadata: any): void {
     // Check if plugin requests restricted permissions
     const permissions = metadata.permissions || [];
-    
+
     for (const permission of permissions) {
       if (this.restrictedModules.includes(permission)) {
         throw new Error(`Plugin requests restricted permission: ${permission}`);
@@ -99,20 +95,20 @@ export class SecurityManager {
   private async generatePluginSignature(pluginPath: string): Promise<string> {
     const hash = crypto.createHash('sha256');
     const files = await this.getCodeFiles(pluginPath);
-    
+
     // Sort files for consistent signature
     files.sort();
-    
+
     for (const file of files) {
       const content = await fs.readFile(file);
       hash.update(content);
     }
-    
+
     return hash.digest('hex');
   }
 
   isOriginAllowed(origin: string): boolean {
-    return this.allowedOrigins.some(allowed => origin.includes(allowed));
+    return this.allowedOrigins.some((allowed) => origin.includes(allowed));
   }
 
   sanitizePluginData(data: any): any {
@@ -124,7 +120,7 @@ export class SecurityManager {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#x27;');
     }
-    
+
     if (typeof data === 'object' && data !== null) {
       const sanitized: any = {};
       for (const key in data) {
@@ -134,7 +130,7 @@ export class SecurityManager {
       }
       return sanitized;
     }
-    
+
     return data;
   }
 }

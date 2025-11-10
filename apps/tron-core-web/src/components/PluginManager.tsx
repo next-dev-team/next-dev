@@ -30,10 +30,21 @@ export default function PluginManager({ loader, onPluginInstalled }: Props) {
     <div className="card">
       <h2>Install Plugin</h2>
       <div className="row">
-        <input className="input" placeholder="https://host/plugin/index.html" value={url} onChange={e => setUrl(e.target.value)} />
-        <button className="btn primary" onClick={install} disabled={!url || installing}>{installing ? 'Installing…' : 'Install'}</button>
+        <input
+          className="input"
+          placeholder="https://host/plugin/index.html"
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+        />
+        <button className="btn primary" onClick={install} disabled={!url || installing}>
+          {installing ? 'Installing…' : 'Install'}
+        </button>
       </div>
-      {error && <div className="muted" style={{ color: 'var(--danger)', marginTop: 8 }}>{error}</div>}
+      {error && (
+        <div className="muted" style={{ color: 'var(--danger)', marginTop: 8 }}>
+          {error}
+        </div>
+      )}
       <div className="muted" style={{ marginTop: 8 }}>
         Provide the public URL to the plugin's built UI (index.html).
       </div>
@@ -63,7 +74,11 @@ export default function PluginManager({ loader, onPluginInstalled }: Props) {
           />
           <span className="muted">Select a built dist/ folder (like Tron Electron)</span>
         </div>
-        {folderInstalling && <div className="muted" style={{ marginTop: 8 }}>Installing from folder…</div>}
+        {folderInstalling && (
+          <div className="muted" style={{ marginTop: 8 }}>
+            Installing from folder…
+          </div>
+        )}
       </div>
     </div>
   );

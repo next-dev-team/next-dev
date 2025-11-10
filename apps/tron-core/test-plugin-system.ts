@@ -28,7 +28,7 @@ async function testPluginSystem() {
     console.log('\n🔌 Testing plugin API bridge...');
     const testPluginId = 'test-plugin';
     const pluginAPI = pluginAPIBridge.createPluginAPI(testPluginId);
-    
+
     // Test data storage
     await pluginAPI.setData('test-key', 'test-value');
     const retrievedValue = await pluginAPI.getData('test-key');
@@ -41,11 +41,11 @@ async function testPluginSystem() {
       messageReceived = true;
       console.log('✅ Message received:', message);
     });
-    
+
     pluginAPI.sendMessage({ type: 'test', content: 'Hello from test!' });
-    
+
     // Wait a bit for message processing
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     console.log(`✅ Message handling test: ${messageReceived ? 'PASSED' : 'FAILED'}`);
 
     // Test 5: Plugin unloading
@@ -61,7 +61,6 @@ async function testPluginSystem() {
 
     console.log('\n🎉 All plugin system tests completed successfully!');
     process.exit(0);
-
   } catch (error) {
     console.error('❌ Plugin system test failed:', error);
     process.exit(1);

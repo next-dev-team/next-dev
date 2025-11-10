@@ -10,7 +10,10 @@ self.addEventListener('message', (event) => {
     for (const asset of msg.assets) {
       // asset: { path, contentType, data:ArrayBuffer }
       if (asset && asset.path && asset.data) {
-        store.set(asset.path, { data: asset.data, type: asset.contentType || 'application/octet-stream' });
+        store.set(asset.path, {
+          data: asset.data,
+          type: asset.contentType || 'application/octet-stream',
+        });
       }
     }
     PLUGINS.set(msg.pluginId, store);

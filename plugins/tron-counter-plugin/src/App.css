@@ -6,9 +6,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -387,8 +387,12 @@ body {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading p {
@@ -428,35 +432,35 @@ body {
   .app {
     padding: 16px;
   }
-  
+
   .todo-title {
     font-size: 2rem;
   }
-  
+
   .input-container {
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .todo-input {
     width: 100%;
   }
-  
+
   .add-button {
     width: 100%;
     padding: 16px;
   }
-  
+
   .todo-filter {
     flex-direction: column;
     gap: 12px;
     align-items: stretch;
   }
-  
+
   .filter-buttons {
     justify-content: center;
   }
-  
+
   .todo-stats {
     flex-direction: column;
     gap: 12px;

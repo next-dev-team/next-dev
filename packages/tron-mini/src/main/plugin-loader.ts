@@ -18,7 +18,11 @@ export class PluginLoader {
   private securityManager: SecurityManager;
   private pluginWindows: Map<string, BrowserWindow> = new Map();
 
-  constructor(pluginBridge: PluginAPIBridge, databaseService: DatabaseService, securityManager: SecurityManager) {
+  constructor(
+    pluginBridge: PluginAPIBridge,
+    databaseService: DatabaseService,
+    securityManager: SecurityManager,
+  ) {
     this.pluginBridge = pluginBridge;
     this.databaseService = databaseService;
     this.securityManager = securityManager;
@@ -29,7 +33,10 @@ export class PluginLoader {
       const entry = opts.entry || path.join(process.cwd(), 'plugins', opts.id, 'index.html');
       const validation = this.securityManager.validatePluginCode(entry);
       if (!validation.valid) {
-        return { success: false, error: validation.errors?.join(', ') || 'Security validation failed' };
+        return {
+          success: false,
+          error: validation.errors?.join(', ') || 'Security validation failed',
+        };
       }
 
       const pluginWindow = new BrowserWindow({
@@ -49,7 +56,13 @@ export class PluginLoader {
       this.pluginBridge.registerPluginWindow(opts.id, pluginWindow);
       this.pluginWindows.set(opts.id, pluginWindow);
 
-      await this.databaseService.addOrUpdatePlugin({ id: opts.id, name: opts.name, version: opts.version, path: entry, enabled: true });
+      await this.databaseService.addOrUpdatePlugin({
+        id: opts.id,
+        name: opts.name,
+        version: opts.version,
+        path: entry,
+        enabled: true,
+      });
       return { success: true };
     } catch (e: any) {
       return { success: false, error: e?.message || String(e) };

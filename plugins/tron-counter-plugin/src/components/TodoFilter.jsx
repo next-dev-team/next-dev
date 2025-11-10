@@ -1,22 +1,20 @@
-import React from 'react'
+import React from 'react';
 
 function TodoFilter({ filter, onFilterChange, onToggleAll, allCompleted }) {
   const filters = [
     { key: 'all', label: 'All' },
     { key: 'active', label: 'Active' },
-    { key: 'completed', label: 'Completed' }
-  ]
+    { key: 'completed', label: 'Completed' },
+  ];
 
   return (
     <div className="todo-filter">
-      <button 
+      <button
         className={`toggle-all-button ${allCompleted ? 'all-completed' : ''}`}
         onClick={onToggleAll}
         title={allCompleted ? 'Mark all as incomplete' : 'Mark all as complete'}
       >
-        <span className="toggle-all-icon">
-          {allCompleted ? '↻' : '✓'}
-        </span>
+        <span className="toggle-all-icon">{allCompleted ? '↻' : '✓'}</span>
       </button>
 
       <div className="filter-buttons">
@@ -31,7 +29,7 @@ function TodoFilter({ filter, onFilterChange, onToggleAll, allCompleted }) {
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default TodoFilter
+export default TodoFilter;

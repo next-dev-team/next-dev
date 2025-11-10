@@ -15,14 +15,15 @@ export class WebDatabaseService {
 
   async addOrUpdatePlugin(descriptor: PluginDescriptor): Promise<void> {
     const plugins = await this.getAllPlugins();
-    const idx = plugins.findIndex(p => p.id === descriptor.id);
-    if (idx >= 0) plugins[idx] = descriptor; else plugins.push(descriptor);
+    const idx = plugins.findIndex((p) => p.id === descriptor.id);
+    if (idx >= 0) plugins[idx] = descriptor;
+    else plugins.push(descriptor);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(plugins));
   }
 
   async updatePlugin(id: string, patch: Partial<PluginDescriptor>): Promise<void> {
     const plugins = await this.getAllPlugins();
-    const idx = plugins.findIndex(p => p.id === id);
+    const idx = plugins.findIndex((p) => p.id === id);
     if (idx >= 0) {
       plugins[idx] = { ...plugins[idx], ...patch } as PluginDescriptor;
       localStorage.setItem(STORAGE_KEY, JSON.stringify(plugins));
@@ -31,6 +32,6 @@ export class WebDatabaseService {
 
   async removePlugin(id: string): Promise<void> {
     const plugins = await this.getAllPlugins();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(plugins.filter(p => p.id !== id)));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(plugins.filter((p) => p.id !== id)));
   }
 }

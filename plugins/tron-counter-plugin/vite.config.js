@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
@@ -7,12 +7,12 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        main: 'index.html'
-      }
-    }
+        main: 'index.html',
+      },
+    },
   },
   base: './',
   server: {
-    port: 3000
-  }
-})
+    port: 3000,
+  },
+});

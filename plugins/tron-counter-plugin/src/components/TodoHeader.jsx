@@ -1,12 +1,14 @@
-import React from "react";
+import React from 'react';
 
 function TodoHeader() {
   // Debug: Log what's available on the window object
-  console.log("[Todo Plugin] Window object keys:", Object.keys(window));
-  console.log("[Todo Plugin] window.pluginAPI:", window.pluginAPI);
-  
-  const pluginId = window?.pluginAPI?.getPluginId ? window.pluginAPI.getPluginId() : "API not available";
-  console.log("[Todo Plugin] Plugin ID from API:", pluginId);
+  console.log('[Todo Plugin] Window object keys:', Object.keys(window));
+  console.log('[Todo Plugin] window.pluginAPI:', window.pluginAPI);
+
+  const pluginId = window?.pluginAPI?.getPluginId
+    ? window.pluginAPI.getPluginId()
+    : 'API not available';
+  console.log('[Todo Plugin] Plugin ID from API:', pluginId);
 
   return (
     <header className="todo-header">

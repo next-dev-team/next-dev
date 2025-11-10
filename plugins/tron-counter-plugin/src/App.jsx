@@ -1,137 +1,127 @@
-import React, { useState, useEffect } from 'react'
-import TodoHeader from './components/TodoHeader'
-import TodoInput from './components/TodoInput'
-import TodoList from './components/TodoList'
-import TodoFilter from './components/TodoFilter'
-import TodoStats from './components/TodoStats'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import TodoHeader from './components/TodoHeader';
+import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
+import TodoFilter from './components/TodoFilter';
+import TodoStats from './components/TodoStats';
+import './App.css';
 
-const STORAGE_KEY = 'todo-plugin-data'
+const STORAGE_KEY = 'todo-plugin-data';
 
 function App() {
-  const [todos, setTodos] = useState([])
-  const [filter, setFilter] = useState('all')
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Load todos from plugin storage on mount
   useEffect(() => {
-    loadTodos()
-  }, [])
+    loadTodos();
+  }, []);
 
   // Save todos to plugin storage whenever todos change
   useEffect(() => {
     if (!loading) {
-      saveTodos()
+      saveTodos();
     }
-  }, [todos, loading])
+  }, [todos, loading]);
 
   const loadTodos = async () => {
     try {
-      setLoading(true)
-      setError(null)
-      
+      setLoading(true);
+      setError(null);
+
       if (window.pluginAPI && window.pluginAPI.storage) {
-        const savedTodos = await window.pluginAPI.storage.get(STORAGE_KEY)
+        const savedTodos = await window.pluginAPI.storage.get(STORAGE_KEY);
         if (savedTodos && Array.isArray(savedTodos)) {
-          setTodos(savedTodos)
+          setTodos(savedTodos);
         }
       } else {
         // Fallback to localStorage for development
-        const savedTodos = localStorage.getItem(STORAGE_KEY)
+        const savedTodos = localStorage.getItem(STORAGE_KEY);
         if (savedTodos) {
-          setTodos(JSON.parse(savedTodos))
+          setTodos(JSON.parse(savedTodos));
         }
       }
     } catch (err) {
-      setError('Failed to load todos')
-      console.error('Error loading todos:', err)
+      setError('Failed to load todos');
+      console.error('Error loading todos:', err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const saveTodos = async () => {
     try {
       if (window.pluginAPI && window.pluginAPI.storage) {
-        await window.pluginAPI.storage.set(STORAGE_KEY, todos)
+        await window.pluginAPI.storage.set(STORAGE_KEY, todos);
       } else {
         // Fallback to localStorage for development
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
       }
     } catch (err) {
-      setError('Failed to save todos')
-      console.error('Error saving todos:', err)
+      setError('Failed to save todos');
+      console.error('Error saving todos:', err);
     }
-  }
+  };
 
   const addTodo = (text) => {
-    if (!text.trim()) return
+    if (!text.trim()) return;
 
     const newTodo = {
       id: Date.now() + Math.random(),
       text: text.trim(),
       completed: false,
-      createdAt: new Date().toISOString()
-    }
+      createdAt: new Date().toISOString(),
+    };
 
-    setTodos(prev => [newTodo, ...prev])
-  }
+    setTodos((prev) => [newTodo, ...prev]);
+  };
 
   const toggleTodo = (id) => {
-    setTodos(prev => 
-      prev.map(todo => 
-        todo.id === id 
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      )
-    )
-  }
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+    );
+  };
 
   const deleteTodo = (id) => {
-    setTodos(prev => prev.filter(todo => todo.id !== id))
-  }
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
 
   const editTodo = (id, newText) => {
     if (!newText.trim()) {
-      deleteTodo(id)
-      return
+      deleteTodo(id);
+      return;
     }
 
-    setTodos(prev => 
-      prev.map(todo => 
-        todo.id === id 
-          ? { ...todo, text: newText.trim() }
-          : todo
-      )
-    )
-  }
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text: newText.trim() } : todo)),
+    );
+  };
 
   const clearCompleted = () => {
-    setTodos(prev => prev.filter(todo => !todo.completed))
-  }
+    setTodos((prev) => prev.filter((todo) => !todo.completed));
+  };
 
   const toggleAll = () => {
-    const allCompleted = todos.every(todo => todo.completed)
-    setTodos(prev => 
-      prev.map(todo => ({ ...todo, completed: !allCompleted }))
-    )
-  }
+    const allCompleted = todos.every((todo) => todo.completed);
+    setTodos((prev) => prev.map((todo) => ({ ...todo, completed: !allCompleted })));
+  };
 
   const getFilteredTodos = () => {
     switch (filter) {
       case 'active':
-        return todos.filter(todo => !todo.completed)
+        return todos.filter((todo) => !todo.completed);
       case 'completed':
-        return todos.filter(todo => todo.completed)
+        return todos.filter((todo) => todo.completed);
       default:
-        return todos
+        return todos;
     }
-  }
+  };
 
-  const filteredTodos = getFilteredTodos()
-  const activeTodosCount = todos.filter(todo => !todo.completed).length
-  const completedTodosCount = todos.filter(todo => todo.completed).length
+  const filteredTodos = getFilteredTodos();
+  const activeTodosCount = todos.filter((todo) => !todo.completed).length;
+  const completedTodosCount = todos.filter((todo) => todo.completed).length;
 
   if (loading) {
     return (
@@ -141,40 +131,42 @@ function App() {
           <p>Loading todos...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="app">
       <TodoHeader />
-      
+
       {error && (
         <div className="error-message">
           {error}
-          <button onClick={() => setError(null)} className="error-close">×</button>
+          <button onClick={() => setError(null)} className="error-close">
+            ×
+          </button>
         </div>
       )}
 
       <div className="todo-container">
         <TodoInput onAddTodo={addTodo} />
-        
+
         {todos.length > 0 && (
           <>
-            <TodoFilter 
-              filter={filter} 
+            <TodoFilter
+              filter={filter}
               onFilterChange={setFilter}
               onToggleAll={toggleAll}
-              allCompleted={todos.every(todo => todo.completed)}
+              allCompleted={todos.every((todo) => todo.completed)}
             />
-            
-            <TodoList 
+
+            <TodoList
               todos={filteredTodos}
               onToggleTodo={toggleTodo}
               onDeleteTodo={deleteTodo}
               onEditTodo={editTodo}
             />
-            
-            <TodoStats 
+
+            <TodoStats
               activeTodosCount={activeTodosCount}
               completedTodosCount={completedTodosCount}
               onClearCompleted={clearCompleted}
@@ -191,7 +183,7 @@ function App() {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
