@@ -69,4 +69,4 @@ try {
   // Ignore errors when imported in non-Electron environments
 }
 
-export * from './types';
+export type { ElectronAPI, PluginAPI } from './types';
