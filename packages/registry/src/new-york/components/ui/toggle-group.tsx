@@ -24,10 +24,9 @@ function ToggleGroup({
         'flex flex-row items-center rounded-md shadow-none',
         Platform.select({ web: 'w-fit' }),
         variant === 'outline' && 'shadow-sm shadow-black/5',
-        className,
+        className
       )}
-      {...props}
-    >
+      {...props}>
       <ToggleGroupContext.Provider value={{ variant, size }}>
         {children}
       </ToggleGroupContext.Provider>
@@ -39,7 +38,7 @@ function useToggleGroupContext() {
   const context = React.useContext(ToggleGroupContext);
   if (context === null) {
     throw new Error(
-      'ToggleGroup compound components cannot be rendered outside the ToggleGroup component',
+      'ToggleGroup compound components cannot be rendered outside the ToggleGroup component'
     );
   }
   return context;
@@ -68,9 +67,8 @@ function ToggleGroupItem({
         'text-sm text-foreground font-medium',
         ToggleGroupPrimitive.utils.getIsSelected(value, props.value)
           ? 'text-accent-foreground'
-          : Platform.select({ web: 'group-hover:text-muted-foreground' }),
-      )}
-    >
+          : Platform.select({ web: 'group-hover:text-muted-foreground' })
+      )}>
       <ToggleGroupPrimitive.Item
         className={cn(
           toggleVariants({
@@ -87,10 +85,9 @@ function ToggleGroupItem({
           Platform.select({
             web: 'flex-1 focus:z-10 focus-visible:z-10',
           }),
-          className,
+          className
         )}
-        {...props}
-      >
+        {...props}>
         {children}
       </ToggleGroupPrimitive.Item>
     </TextClassContext.Provider>

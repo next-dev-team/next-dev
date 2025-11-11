@@ -52,8 +52,7 @@ export function VerifyEmailForm() {
                 onPress={() => {
                   // TODO: Resend code
                   restartCountdown();
-                }}
-              >
+                }}>
                 <Text className="text-center text-xs">
                   Didn&apos;t receive the code? Resend{' '}
                   {countdown > 0 ? (
@@ -73,8 +72,7 @@ export function VerifyEmailForm() {
                 className="mx-auto"
                 onPress={() => {
                   // TODO: Navigate to sign up screen
-                }}
-              >
+                }}>
                 <Text>Cancel</Text>
               </Button>
             </View>

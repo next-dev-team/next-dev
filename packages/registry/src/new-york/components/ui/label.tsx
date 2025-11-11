@@ -18,19 +18,18 @@ function Label({
         Platform.select({
           web: 'cursor-default leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50 group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50',
         }),
-        disabled && 'opacity-50',
+        disabled && 'opacity-50'
       )}
       onPress={onPress}
       onLongPress={onLongPress}
       onPressIn={onPressIn}
       onPressOut={onPressOut}
-      disabled={disabled}
-    >
+      disabled={disabled}>
       <LabelPrimitive.Text
         className={cn(
           'text-foreground text-sm font-medium',
           Platform.select({ web: 'leading-none' }),
-          className,
+          className
         )}
         {...props}
       />

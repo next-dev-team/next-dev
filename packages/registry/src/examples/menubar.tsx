@@ -153,15 +153,13 @@ export function MenubarPreview() {
           <MenubarCheckboxItem
             checked={isChecked}
             onCheckedChange={setIsChecked}
-            closeOnPress={false}
-          >
+            closeOnPress={false}>
             <Text>Always Show Bookmarks Bar</Text>
           </MenubarCheckboxItem>
           <MenubarCheckboxItem
             checked={isChecked2}
             onCheckedChange={setIsChecked2}
-            closeOnPress={false}
-          >
+            closeOnPress={false}>
             <Text>Always Show Full URLs</Text>
           </MenubarCheckboxItem>
           <MenubarSeparator />

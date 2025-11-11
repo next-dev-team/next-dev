@@ -50,8 +50,7 @@ export function UserMenu() {
               size="sm"
               onPress={() => {
                 // TODO: Navigate to account settings screen
-              }}
-            >
+              }}>
               <Icon as={SettingsIcon} className="size-4" />
               <Text>Manage Account</Text>
             </Button>
@@ -67,8 +66,7 @@ export function UserMenu() {
           className="h-16 justify-start gap-3 rounded-none rounded-b-md px-3 sm:h-14"
           onPress={() => {
             // TODO: Navigate to add account screen
-          }}
-        >
+          }}>
           <View className="size-10 items-center justify-center">
             <View className="border-border bg-muted/50 size-7 items-center justify-center rounded-full border border-dashed">
               <Icon as={PlusIcon} className="size-5" />

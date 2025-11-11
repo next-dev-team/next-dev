@@ -25,8 +25,7 @@ export function HeaderRightView() {
         size="sm"
         className="h-7 rounded-full bg-transparent active:bg-transparent"
         onPress={onReload}
-        disabled={isDownloading}
-      >
+        disabled={isDownloading}>
         {isDownloading ? (
           <ActivityIndicator color="white" size="small" className="scale-75" />
         ) : (

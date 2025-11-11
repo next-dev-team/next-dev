@@ -34,8 +34,7 @@ export function CheckboxPreview() {
         />
         <Label
           onPress={Platform.select({ native: toggleCheckedState('termsChecked') })}
-          htmlFor="terms"
-        >
+          htmlFor="terms">
           Accept terms and conditions
         </Label>
       </View>
@@ -48,8 +47,7 @@ export function CheckboxPreview() {
         <View className="flex-1 gap-2">
           <Label
             onPress={Platform.select({ native: toggleCheckedState('terms2Checked') })}
-            htmlFor="terms-2"
-          >
+            htmlFor="terms-2">
             Accept terms and conditions
           </Label>
           <Text className="text-muted-foreground text-sm">
@@ -67,8 +65,7 @@ export function CheckboxPreview() {
         <Label
           onPress={Platform.select({ native: toggleCheckedState('toggleChecked') })}
           htmlFor="toggle"
-          disabled
-        >
+          disabled>
           Enable notifications
         </Label>
       </View>
@@ -78,9 +75,8 @@ export function CheckboxPreview() {
         className={cn(
           'web:hover:bg-accent/50 border-border flex flex-row rounded-lg border p-3',
           state.toggle2Checked &&
-            'web:hover:bg-blue-50 border-blue-600 bg-blue-50 dark:border-blue-900 dark:bg-blue-950',
-        )}
-      >
+            'web:hover:bg-blue-50 border-blue-600 bg-blue-50 dark:border-blue-900 dark:bg-blue-950'
+        )}>
         <View className="flex flex-1 flex-row items-start gap-3">
           <Checkbox
             id="toggle-2"

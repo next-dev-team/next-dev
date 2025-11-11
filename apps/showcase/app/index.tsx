@@ -30,9 +30,8 @@ export default function ComponentsScreen() {
     <View
       className={cn(
         'web:p-4 mx-auto w-full max-w-lg flex-1',
-        Platform.select({ android: cn('border-border/0 border-t', !isAtTop && 'border-border') }),
-      )}
-    >
+        Platform.select({ android: cn('border-border/0 border-t', !isAtTop && 'border-border') })
+      )}>
       <FlashList
         ref={flashListRef}
         data={data}
@@ -72,9 +71,8 @@ export default function ComponentsScreen() {
                 className={cn(
                   'dark:bg-background border-border flex-row justify-between rounded-none border-b-0 pl-4 pr-3.5',
                   index === 0 && 'rounded-t-lg',
-                  index === data.length - 1 && 'rounded-b-lg border-b',
-                )}
-              >
+                  index === data.length - 1 && 'rounded-b-lg border-b'
+                )}>
                 <Text className="text-base font-normal">{item.name}</Text>
 
                 <Icon as={ChevronRight} className="text-muted-foreground size-4 stroke-[1.5px]" />

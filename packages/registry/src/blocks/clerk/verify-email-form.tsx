@@ -115,8 +115,7 @@ export function VerifyEmailForm() {
                 className="mx-auto"
                 onPress={() => {
                   // TODO: Navigate to sign up screen
-                }}
-              >
+                }}>
                 <Text>Cancel</Text>
               </Button>
             </View>

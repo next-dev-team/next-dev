@@ -39,8 +39,7 @@ export function ContextMenuPreview() {
     <ContextMenu className="h-[150px] w-[300px]">
       <ContextMenuTrigger
         onLongPress={onLongPress}
-        className="border-border web:outline-none web:cursor-default flex h-full w-full items-center justify-center rounded-md border border-dashed"
-      >
+        className="border-border web:outline-none web:cursor-default flex h-full w-full items-center justify-center rounded-md border border-dashed">
         <Text className="text-sm">
           {Platform.select({ web: 'Right click here', native: 'Long press here' })}
         </Text>
@@ -86,15 +85,13 @@ export function ContextMenuPreview() {
         <ContextMenuCheckboxItem
           closeOnPress={false}
           checked={checkboxValue}
-          onCheckedChange={setCheckboxValue}
-        >
+          onCheckedChange={setCheckboxValue}>
           <Text>Show Bookmarks</Text>
         </ContextMenuCheckboxItem>
         <ContextMenuCheckboxItem
           closeOnPress={false}
           checked={checkboxValue2}
-          onCheckedChange={setCheckboxValue2}
-        >
+          onCheckedChange={setCheckboxValue2}>
           <Text>Show Full URLs</Text>
         </ContextMenuCheckboxItem>
         <ContextMenuSeparator />

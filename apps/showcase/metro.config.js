@@ -17,13 +17,6 @@ config.resolver.nodeModulesPaths = [
   path.resolve(monorepoRoot, 'node_modules'),
 ];
 
-config.resolver.extraNodeModules = {
-  ...config.resolver.extraNodeModules,
-  react: path.resolve(monorepoRoot, 'node_modules/react'),
-  'react-dom': path.resolve(monorepoRoot, 'node_modules/react-dom'),
-  'react-native': path.resolve(monorepoRoot, 'node_modules/react-native'),
-};
-
 const { resolver } = config;
 config.resolver = {
   ...resolver,

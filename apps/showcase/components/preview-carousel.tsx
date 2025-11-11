@@ -63,8 +63,7 @@ function PreviewCarousel({ previews, removeBottomSafeArea = false }: PreviewCaro
               variant="outline"
               size="icon"
               disabled={index === previews.length - 1}
-              onPress={onNextPress}
-            >
+              onPress={onNextPress}>
               <Icon as={ChevronRightIcon} className="size-4" />
             </Button>
           </View>

@@ -3,9 +3,6 @@
   "main": "index.js",
   "version": "0.0.3",
   "scripts": {
-    "dev": "pnpm start",
-    "dev:android": "pnpm start -- --android",
-    "dev:web": "pnpm start -- --web",
     "start": "ENV=development expo start --clear --dev-client",
     "device:ios": "ENV=development expo run:ios --device",
     "device:ios:prod": "expo run:ios --device",

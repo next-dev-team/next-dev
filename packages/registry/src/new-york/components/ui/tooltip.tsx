@@ -33,8 +33,7 @@ function TooltipContent({
                 ? FadeInDown.withInitialValues({ transform: [{ translateY: 3 }] }).duration(150)
                 : FadeInUp.withInitialValues({ transform: [{ translateY: -5 }] })
             }
-            exiting={FadeOut}
-          >
+            exiting={FadeOut}>
             <TextClassContext.Provider value="text-xs text-primary-foreground">
               <TooltipPrimitive.Content
                 sideOffset={sideOffset}
@@ -46,10 +45,10 @@ function TooltipContent({
                       side === 'bottom' && 'slide-in-from-top-2',
                       side === 'left' && 'slide-in-from-right-2',
                       side === 'right' && 'slide-in-from-left-2',
-                      side === 'top' && 'slide-in-from-bottom-2',
+                      side === 'top' && 'slide-in-from-bottom-2'
                     ),
                   }),
-                  className,
+                  className
                 )}
                 side={side}
                 {...props}

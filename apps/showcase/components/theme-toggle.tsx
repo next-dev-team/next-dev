@@ -27,8 +27,7 @@ export function ThemeToggle() {
       onPress={toggleColorScheme}
       variant="ghost"
       size="icon"
-      className="web:mr-5 size-9 rounded-full"
-    >
+      className="web:mr-5 size-9 rounded-full">
       <Image source={THEME_TOGGLE_IMAGES[colorScheme]} style={IMAGE_STYLE} />
     </Button>
   );

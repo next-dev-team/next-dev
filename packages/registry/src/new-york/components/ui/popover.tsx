@@ -38,10 +38,10 @@ function PopoverContent({
                     web: cn(
                       'animate-in fade-in-0 zoom-in-95 origin-(--radix-popover-content-transform-origin) cursor-auto',
                       props.side === 'bottom' && 'slide-in-from-top-2',
-                      props.side === 'top' && 'slide-in-from-bottom-2',
+                      props.side === 'top' && 'slide-in-from-bottom-2'
                     ),
                   }),
-                  className,
+                  className
                 )}
                 {...props}
               />
