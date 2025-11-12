@@ -16,8 +16,8 @@
     "format:check": "prettier --check .",
     "test": "turbo test",
     "build": "turbo build",
-    "build:showcase": "turbo build --filter=showcase",
-    "build:docs": "turbo build --filter=docs",
+    "build:showcase": "turbo build --filter=@rnr/showcase",
+    "build:docs": "turbo build --filter=@rnr/docs",
     "clean": "turbo clean && rm -rf .turbo node_modules",
     "gen:list": "turbo gen list --config turbo/generators/config.ts",
     "gen:tron-mini": "turbo gen run tron-mini --config turbo/generators/config.ts"
