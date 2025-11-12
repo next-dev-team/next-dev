@@ -1,0 +1,19 @@
+# TypeScript declaration files
+**/*.d.ts
+**/*.d.ts.map
+
+# Specific problematic files
+apps/tron-core/src/shared/types.d.ts
+apps/tron-core/src/shared/types.d.ts.map
+
+# Build directories
+dist/
+build/
+.next/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.generated.ts
+*.gen.ts
