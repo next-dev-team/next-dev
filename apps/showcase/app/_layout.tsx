@@ -44,27 +44,29 @@ export default function RootLayout() {
     <ThemeProvider value={NAV_THEME[colorScheme]}>
       <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
       <GestureHandlerRootView
-        style={{ flex: 1, backgroundColor: NAV_THEME[colorScheme].colors.background }}>
+        style={{ flex: 1, backgroundColor: NAV_THEME[colorScheme].colors.background }}
+      >
         <KeyboardProvider>
           <Stack
             screenOptions={{
               headerBackTitle: 'Back',
               headerTitle(props) {
                 return (
-                  <Text className="ios:font-medium android:mt-1.5 text-xl">
+                  <Text className="ios:font-medium text-xl">
                     {toOptions(props.children.split('/').pop())}
                   </Text>
                 );
               },
               headerRight: () => <HeaderRightView />,
-            }}>
+              headerTitleAlign: 'center',
+              // headerShadowVisible: false,
+            }}
+          >
+            <Stack.Screen name="index" options={{}} />
             <Stack.Screen
-              name="index"
+              name="(tabs)"
               options={{
-                headerLargeTitle: true,
-                headerTitle: 'Showcase',
-                headerLargeTitleShadowVisible: false,
-                headerTransparent: true,
+                headerShown: false,
               }}
             />
           </Stack>

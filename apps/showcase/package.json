@@ -27,6 +27,8 @@
     "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {
+    "expo-blur": "^15.0.7",
+    "expo-linear-gradient": "^15.0.7",
     "@expo-google-fonts/geist": "^0.4.0",
     "@hookform/resolvers": "^3.3.4",
     "@react-native-community/slider": "5.0.1",
