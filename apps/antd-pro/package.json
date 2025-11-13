@@ -6,6 +6,8 @@
     "build": "max build",
     "dev": "cross-env DID_YOU_KNOW=none max dev",
     "format": "prettier --cache --write .",
+    "generate": "orval --config orval.config.ts",
+    "test:e2e": "playwright test",
     "postinstall": "max setup",
     "setup": "max setup",
     "start": "npm run dev"
@@ -13,14 +15,17 @@
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "@ant-design/pro-components": "^2.8.10",
+    "@tanstack/react-query": "^5.90.8",
     "@umijs/max": "^4.5.3",
     "antd": "^5.28.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.56.1",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",
     "cross-env": "^10.1.0",
     "lint-staged": "^13.2.0",
+    "orval": "^7.16.0",
     "prettier": "^2.8.7",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",

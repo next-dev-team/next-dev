@@ -35,7 +35,8 @@ package-lock.json
 .*.swo
 .*.swn
 .*.swm
-
+playwright-report
+test-results
 # Sublime Text
 *.sublime-project
 *.sublime-workspace

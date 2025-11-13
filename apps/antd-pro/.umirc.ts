@@ -20,7 +20,11 @@ export default defineConfig({
       path: '/home',
       component: './Home',
     },
-
+    {
+      name: 'PetStore Login',
+      path: '/petstore-login',
+      component: './PetStoreLogin',
+    },
   ],
   npmClient: 'pnpm',
 });
