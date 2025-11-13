@@ -6,7 +6,6 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {},
-  utoopack: {},
   reactQuery: {},
   layout: {
     title: '@umijs/max',

@@ -1,25 +1,48 @@
 # AGENTS.md
 
-This file provides guidance to neovate when working with code in this repository.
+This file provides guidance when working with code in this repository.
+
+## Project Overview
+
+This is a JavaScript/TypeScript monorepo for open-source UI components and developer tooling. It includes:
+
+- Apps: Ant Design Pro (web UI), Electron, Next.js, documentation site, component showcase
+- Packages: configs, a component registry, utilities, reusable React Native components
+- Strict unified scripts and style guidelines with pnpm for package management
+- Emphasis on cross-platform UI and developer workflow tools
 
 ## Development Commands
 
-- **Install dependencies:** `pnpm install`
-- **Build/Compilation Commands:**
-  - Entire monorepo: `pnpm build` (via TurboRepo)
-  - CLI: `pnpm --filter @react-native-reusables/cli build`
-  - Docs: `pnpm --filter @rnr/docs build`
-  - Showcase: `pnpm --filter @rnr/showcase build`
-  - Electron: `pnpm --filter @rnr/tron-core build`
-  - Web app: `pnpm --filter @rnr/tron-core-web build`
-  - Next.js 16 app: `pnpm --filter @rnr/next16 build`
-  - Ant Design Pro app: `pnpm --filter @rnr/ant-pro build`
-- **Testing commands:**
-  - All tests: `pnpm test` (via TurboRepo orchestrator)
-  - Specific scope: CLI or utils test suite includes Vitest (e.g., `pnpm --filter @rnr/utils test`)
-  - Test with coverage: Check CLI `vitest {run, --coverage}`
-- **Linting/Formatting commands:**
-  - `pnpm lint` (with ES Lint and predefined configs, fixes: `pnpm lint:fix`)
-  - `pnpm format` && readable broken integrity aud with cle formatting
+Common scripts in each app/package:
 
-continues may require help-generated solving/errors න diverted maps wrong touched recent bug correlation/issuesgevoegd doc structures behind trails saves sufficient execution expandеют avoid мин❓refer set direction
+- `pnpm install` – Install dependencies
+- `pnpm build` – Run build
+- `pnpm test` – Run tests
+- `pnpm run lint` – Run linter
+See each package’s README for details.
+
+## Architecture
+
+- Modular: Each app/package is separated for web, electron, registry, utilities, etc.
+- Shared code: Utilities, configs, and components are reused across projects
+- Strict lint/typecheck: Ensures quality and consistency
+- Uses pnpm with workspace for fast, consistent package management
+
+## Code Style and Best Practices
+
+- TypeScript strict mode and workspace-wide lint/type rules
+- Single quotes, trailing commas, organized imports (see .eslintrc, prettier, biome, etc.)
+- Prefer async/await, throw on errors, suffix classes by type
+- Naming: PascalCase for types/classes, camelCase for functions/variables
+
+## Testing & Release
+
+- Each package/app uses Vitest or appropriate test framework
+- Tests in `__tests__` or `*.test.ts(x)` files
+- Run tests and ensure passing before build or release
+- Release: Use pnpm scripts for versioning, changelog, and publish
+
+## Misc
+
+- Node.js v18+ required, managed by Volta
+- Refer to agent and contributing guides for advanced workflow

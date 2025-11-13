@@ -1,4 +1,8 @@
 {
+  "playwright": {
+    "command": "npx",
+    "args": ["-y", "@executeautomation/playwright-mcp-server"]
+  },
   "mcpServers": {
     "context7": {
       "url": "https://mcp.context7.com/mcp",
