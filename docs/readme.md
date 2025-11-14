@@ -14,6 +14,9 @@ Generate React Query hooks from OpenAPI/Swagger specs:
 
 | Tool | Description |
 |------|-------------|
+| **kubb** | [kubb-labs/kubb](https://github.com/kubb-labs/kubb) – TypeScript-first OpenAPI codegen with React Query, Zod, MSW & more |
+| **swagger-mcp-server** | [tuskermanshu/swagger-mcp-server](https://github.com/tuskermanshu/swagger-mcp-server) – MCP server for Swagger/OpenAPI specs |
+
 | **openapi-typescript-codegen** | TypeScript clients with React Query support |
 | **orval** | Popular, configurable, full TypeScript types |
 | **openapi-react-query-codegen** | Purpose-built for React Query |
@@ -25,3 +28,7 @@ Generate React Query hooks from OpenAPI/Swagger specs:
 
 The canonical OpenAPI sample—ideal for learning and testing tools.  
 [https://petstore.swagger.io](https://petstore.swagger.io)
+
+# MCP Server
+
+[https://www.mcp.pizza/mcp-server/BP4E/swagger-mcp-server](https://www.mcp.pizza/mcp-server/BP4E/swagger-mcp-server)
