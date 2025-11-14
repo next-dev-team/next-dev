@@ -8,6 +8,7 @@
     "format": "prettier --cache --write .",
     "generate": "orval --config orval.config.ts",
     "test:e2e": "playwright test",
+    "test": "vitest run",
     "postinstall": "max setup",
     "setup": "max setup",
     "start": "npm run dev"
@@ -29,6 +30,7 @@
     "prettier": "^2.8.7",
     "prettier-plugin-organize-imports": "^3.2.2",
     "prettier-plugin-packagejson": "^2.4.3",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.3",
+    "vitest": "^2.0.0"
   }
 }

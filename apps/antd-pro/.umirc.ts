@@ -25,6 +25,11 @@ export default defineConfig({
       path: '/petstore-login',
       component: './PetStoreLogin',
     },
+    {
+      name: 'User Create',
+      path: '/user-create',
+      component: './UserCreate',
+    },
   ],
   npmClient: 'pnpm',
 });

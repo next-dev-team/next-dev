@@ -1,25 +1,17 @@
 import { defineConfig, devices } from '@playwright/test';
+const PORT = process.env.PORT ? Number(process.env.PORT) : 8000;
+const BASE = process.env.PW_BASE_URL || `http://localhost:${PORT}`;
 
 export default defineConfig({
   testDir: './tests',
-  fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
-  use: {
-    baseURL: 'http://localhost:8000',
-    trace: 'on-first-retry',
+  use: { baseURL: BASE },
+  webServer: {
+    command: `cross-env PORT=${PORT} pnpm dev`,
+    port: PORT,
+    reuseExistingServer: true,
+    timeout: 120000,
   },
   projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+    { name: 'chromium', use: devices['Desktop Chrome'] },
   ],
-  webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:8000',
-    reuseExistingServer: !process.env.CI,
-  },
 });
