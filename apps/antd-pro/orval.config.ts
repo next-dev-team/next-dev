@@ -13,7 +13,7 @@ export default defineConfig({
       mode: 'tags-split',
       target: './src/api/petstore',
       client: 'react-query',
-      httpClient: 'fetch',
+      httpClient: 'axios',
       baseUrl: { getBaseUrlFromSpecification: true },
       override: {
         mutator: {

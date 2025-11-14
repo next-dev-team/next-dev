@@ -28,5 +28,9 @@
     "clean": {
       "cache": false
     }
+    ,
+    "postinstall": {
+      "cache": false
+    }
   }
 }
