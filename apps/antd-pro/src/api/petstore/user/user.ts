@@ -39,52 +39,84 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
+ * @summary Creates list of users with given input array
+ */
+export const createUsersWithListInput = (
+    userArrayBody: BodyType<UserArrayBody>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<void>(
+      {url: `https://petstore.swagger.io/v2/user/createWithList`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userArrayBody, signal
+    },
+      options);
+    }
+  
+
+
+export const getCreateUsersWithListInputMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext> => {
+
+const mutationKey = ['createUsersWithListInput'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUsersWithListInput>>, {data: BodyType<UserArrayBody>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createUsersWithListInput(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateUsersWithListInputMutationResult = NonNullable<Awaited<ReturnType<typeof createUsersWithListInput>>>
+    export type CreateUsersWithListInputMutationBody = BodyType<UserArrayBody>
+    export type CreateUsersWithListInputMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates list of users with given input array
+ */
+export const useCreateUsersWithListInput = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createUsersWithListInput>>,
+        TError,
+        {data: BodyType<UserArrayBody>},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateUsersWithListInputMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
  * @summary Get user by user name
  */
-export type getUserByNameResponse200 = {
-  data: User
-  status: 200
-}
-
-export type getUserByNameResponse400 = {
-  data: void
-  status: 400
-}
-
-export type getUserByNameResponse404 = {
-  data: void
-  status: 404
-}
-    
-export type getUserByNameResponseSuccess = (getUserByNameResponse200) & {
-  headers: Headers;
-};
-export type getUserByNameResponseError = (getUserByNameResponse400 | getUserByNameResponse404) & {
-  headers: Headers;
-};
-
-export type getUserByNameResponse = (getUserByNameResponseSuccess | getUserByNameResponseError)
-
-export const getGetUserByNameUrl = (username: string,) => {
-
-
+export const getUserByName = (
+    username: string,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<User>(
+      {url: `https://petstore.swagger.io/v2/user/${username}`, method: 'GET', signal
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/user/${username}`
-}
-
-export const getUserByName = async (username: string, options?: RequestInit): Promise<getUserByNameResponse> => {
-  
-  return customRequest<getUserByNameResponse>(getGetUserByNameUrl(username),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -104,7 +136,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserByName>>> = ({ signal }) => getUserByName(username, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getUserByName>>> = ({ signal }) => getUserByName(username, requestOptions, signal);
 
       
 
@@ -166,45 +198,20 @@ export function useGetUserByName<TData = Awaited<ReturnType<typeof getUserByName
  * This can only be done by the logged in user.
  * @summary Updated user
  */
-export type updateUserResponse400 = {
-  data: void
-  status: 400
-}
-
-export type updateUserResponse404 = {
-  data: void
-  status: 404
-}
-    
-;
-export type updateUserResponseError = (updateUserResponse400 | updateUserResponse404) & {
-  headers: Headers;
-};
-
-export type updateUserResponse = (updateUserResponseError)
-
-export const getUpdateUserUrl = (username: string,) => {
-
-
+export const updateUser = (
+    username: string,
+    user: BodyType<User>,
+ options?: SecondParameter<typeof customRequest>,) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/user/${username}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: user
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/user/${username}`
-}
-
-export const updateUser = async (username: string,
-    user: User, options?: RequestInit): Promise<updateUserResponse> => {
-  
-  return customRequest<updateUserResponse>(getUpdateUserUrl(username),
-  {      
-    ...options,
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      user,)
-  }
-);}
-
-
 
 
 export const getUpdateUserMutationOptions = <TError = ErrorType<void>,
@@ -256,43 +263,17 @@ export const useUpdateUser = <TError = ErrorType<void>,
  * This can only be done by the logged in user.
  * @summary Delete user
  */
-export type deleteUserResponse400 = {
-  data: void
-  status: 400
-}
-
-export type deleteUserResponse404 = {
-  data: void
-  status: 404
-}
-    
-;
-export type deleteUserResponseError = (deleteUserResponse400 | deleteUserResponse404) & {
-  headers: Headers;
-};
-
-export type deleteUserResponse = (deleteUserResponseError)
-
-export const getDeleteUserUrl = (username: string,) => {
-
-
+export const deleteUser = (
+    username: string,
+ options?: SecondParameter<typeof customRequest>,) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/user/${username}`, method: 'DELETE'
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/user/${username}`
-}
-
-export const deleteUser = async (username: string, options?: RequestInit): Promise<deleteUserResponse> => {
-  
-  return customRequest<deleteUserResponse>(getDeleteUserUrl(username),
-  {      
-    ...options,
-    method: 'DELETE'
-    
-    
-  }
-);}
-
-
 
 
 export const getDeleteUserMutationOptions = <TError = ErrorType<void>,
@@ -341,304 +322,21 @@ export const useDeleteUser = <TError = ErrorType<void>,
       return useMutation(mutationOptions, queryClient);
     }
     /**
- * This can only be done by the logged in user.
- * @summary Create user
- */
-export type createUserResponseDefault = {
-  data: void
-  status: number
-}
-    
-;
-export type createUserResponseError = (createUserResponseDefault) & {
-  headers: Headers;
-};
-
-export type createUserResponse = (createUserResponseError)
-
-export const getCreateUserUrl = () => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/user`
-}
-
-export const createUser = async (user: User, options?: RequestInit): Promise<createUserResponse> => {
-  
-  return customRequest<createUserResponse>(getCreateUserUrl(),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      user,)
-  }
-);}
-
-
-
-
-export const getCreateUserMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext> => {
-
-const mutationKey = ['createUser'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUser>>, {data: BodyType<User>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createUser(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateUserMutationResult = NonNullable<Awaited<ReturnType<typeof createUser>>>
-    export type CreateUserMutationBody = BodyType<User>
-    export type CreateUserMutationError = ErrorType<void>
-
-    /**
- * @summary Create user
- */
-export const useCreateUser = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createUser>>,
-        TError,
-        {data: BodyType<User>},
-        TContext
-      > => {
-
-      const mutationOptions = getCreateUserMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
- * @summary Creates list of users with given input array
- */
-export type createUsersWithArrayInputResponseDefault = {
-  data: void
-  status: number
-}
-    
-;
-export type createUsersWithArrayInputResponseError = (createUsersWithArrayInputResponseDefault) & {
-  headers: Headers;
-};
-
-export type createUsersWithArrayInputResponse = (createUsersWithArrayInputResponseError)
-
-export const getCreateUsersWithArrayInputUrl = () => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/user/createWithArray`
-}
-
-export const createUsersWithArrayInput = async (userArrayBody: UserArrayBody, options?: RequestInit): Promise<createUsersWithArrayInputResponse> => {
-  
-  return customRequest<createUsersWithArrayInputResponse>(getCreateUsersWithArrayInputUrl(),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      userArrayBody,)
-  }
-);}
-
-
-
-
-export const getCreateUsersWithArrayInputMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext> => {
-
-const mutationKey = ['createUsersWithArrayInput'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUsersWithArrayInput>>, {data: BodyType<UserArrayBody>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createUsersWithArrayInput(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateUsersWithArrayInputMutationResult = NonNullable<Awaited<ReturnType<typeof createUsersWithArrayInput>>>
-    export type CreateUsersWithArrayInputMutationBody = BodyType<UserArrayBody>
-    export type CreateUsersWithArrayInputMutationError = ErrorType<void>
-
-    /**
- * @summary Creates list of users with given input array
- */
-export const useCreateUsersWithArrayInput = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createUsersWithArrayInput>>,
-        TError,
-        {data: BodyType<UserArrayBody>},
-        TContext
-      > => {
-
-      const mutationOptions = getCreateUsersWithArrayInputMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
- * @summary Creates list of users with given input array
- */
-export type createUsersWithListInputResponseDefault = {
-  data: void
-  status: number
-}
-    
-;
-export type createUsersWithListInputResponseError = (createUsersWithListInputResponseDefault) & {
-  headers: Headers;
-};
-
-export type createUsersWithListInputResponse = (createUsersWithListInputResponseError)
-
-export const getCreateUsersWithListInputUrl = () => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/user/createWithList`
-}
-
-export const createUsersWithListInput = async (userArrayBody: UserArrayBody, options?: RequestInit): Promise<createUsersWithListInputResponse> => {
-  
-  return customRequest<createUsersWithListInputResponse>(getCreateUsersWithListInputUrl(),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      userArrayBody,)
-  }
-);}
-
-
-
-
-export const getCreateUsersWithListInputMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext> => {
-
-const mutationKey = ['createUsersWithListInput'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUsersWithListInput>>, {data: BodyType<UserArrayBody>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createUsersWithListInput(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateUsersWithListInputMutationResult = NonNullable<Awaited<ReturnType<typeof createUsersWithListInput>>>
-    export type CreateUsersWithListInputMutationBody = BodyType<UserArrayBody>
-    export type CreateUsersWithListInputMutationError = ErrorType<void>
-
-    /**
- * @summary Creates list of users with given input array
- */
-export const useCreateUsersWithListInput = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithListInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createUsersWithListInput>>,
-        TError,
-        {data: BodyType<UserArrayBody>},
-        TContext
-      > => {
-
-      const mutationOptions = getCreateUsersWithListInputMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
  * @summary Logs user into the system
  */
-export type loginUserResponse200 = {
-  data: string
-  status: 200
-}
-
-export type loginUserResponse400 = {
-  data: void
-  status: 400
-}
-    
-export type loginUserResponseSuccess = (loginUserResponse200) & {
-  headers: Headers;
-};
-export type loginUserResponseError = (loginUserResponse400) & {
-  headers: Headers;
-};
-
-export type loginUserResponse = (loginUserResponseSuccess | loginUserResponseError)
-
-export const getLoginUserUrl = (params: LoginUserParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-    
-    if (value !== undefined) {
-      normalizedParams.append(key, value === null ? 'null' : value.toString())
+export const loginUser = (
+    params: LoginUserParams,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<string>(
+      {url: `https://petstore.swagger.io/v2/user/login`, method: 'GET',
+        params, signal
+    },
+      options);
     }
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `https://petstore.swagger.io/v2/user/login?${stringifiedParams}` : `https://petstore.swagger.io/v2/user/login`
-}
-
-export const loginUser = async (params: LoginUserParams, options?: RequestInit): Promise<loginUserResponse> => {
   
-  return customRequest<loginUserResponse>(getLoginUserUrl(params),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -658,7 +356,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof loginUser>>> = ({ signal }) => loginUser(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof loginUser>>> = ({ signal }) => loginUser(params, requestOptions, signal);
 
       
 
@@ -719,38 +417,18 @@ export function useLoginUser<TData = Awaited<ReturnType<typeof loginUser>>, TErr
 /**
  * @summary Logs out current logged in user session
  */
-export type logoutUserResponseDefault = {
-  data: void
-  status: number
-}
+export const logoutUser = (
     
-;
-export type logoutUserResponseError = (logoutUserResponseDefault) & {
-  headers: Headers;
-};
-
-export type logoutUserResponse = (logoutUserResponseError)
-
-export const getLogoutUserUrl = () => {
-
-
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<void>(
+      {url: `https://petstore.swagger.io/v2/user/logout`, method: 'GET', signal
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/user/logout`
-}
-
-export const logoutUser = async ( options?: RequestInit): Promise<logoutUserResponse> => {
-  
-  return customRequest<logoutUserResponse>(getLogoutUserUrl(),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -770,7 +448,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof logoutUser>>> = ({ signal }) => logoutUser({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof logoutUser>>> = ({ signal }) => logoutUser(requestOptions, signal);
 
       
 
@@ -828,3 +506,133 @@ export function useLogoutUser<TData = Awaited<ReturnType<typeof logoutUser>>, TE
 
 
 
+/**
+ * @summary Creates list of users with given input array
+ */
+export const createUsersWithArrayInput = (
+    userArrayBody: BodyType<UserArrayBody>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<void>(
+      {url: `https://petstore.swagger.io/v2/user/createWithArray`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: userArrayBody, signal
+    },
+      options);
+    }
+  
+
+
+export const getCreateUsersWithArrayInputMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext> => {
+
+const mutationKey = ['createUsersWithArrayInput'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUsersWithArrayInput>>, {data: BodyType<UserArrayBody>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createUsersWithArrayInput(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateUsersWithArrayInputMutationResult = NonNullable<Awaited<ReturnType<typeof createUsersWithArrayInput>>>
+    export type CreateUsersWithArrayInputMutationBody = BodyType<UserArrayBody>
+    export type CreateUsersWithArrayInputMutationError = ErrorType<void>
+
+    /**
+ * @summary Creates list of users with given input array
+ */
+export const useCreateUsersWithArrayInput = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUsersWithArrayInput>>, TError,{data: BodyType<UserArrayBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createUsersWithArrayInput>>,
+        TError,
+        {data: BodyType<UserArrayBody>},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateUsersWithArrayInputMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * This can only be done by the logged in user.
+ * @summary Create user
+ */
+export const createUser = (
+    user: BodyType<User>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<void>(
+      {url: `https://petstore.swagger.io/v2/user`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: user, signal
+    },
+      options);
+    }
+  
+
+
+export const getCreateUserMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext> => {
+
+const mutationKey = ['createUser'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUser>>, {data: BodyType<User>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  createUser(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type CreateUserMutationResult = NonNullable<Awaited<ReturnType<typeof createUser>>>
+    export type CreateUserMutationBody = BodyType<User>
+    export type CreateUserMutationError = ErrorType<void>
+
+    /**
+ * @summary Create user
+ */
+export const useCreateUser = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: BodyType<User>}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof createUser>>,
+        TError,
+        {data: BodyType<User>},
+        TContext
+      > => {
+
+      const mutationOptions = getCreateUserMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    

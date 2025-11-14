@@ -5,6 +5,12 @@
  * This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.
  * OpenAPI spec version: 1.0.7
  */
+export interface ApiResponse {
+  code?: number;
+  type?: string;
+  message?: string;
+}
+
 export interface Category {
   id?: number;
   name?: string;
@@ -36,12 +42,6 @@ export interface Pet {
 export interface Tag {
   id?: number;
   name?: string;
-}
-
-export interface ApiResponse {
-  code?: number;
-  type?: string;
-  message?: string;
 }
 
 /**
@@ -89,13 +89,6 @@ export type UserArrayBody = User[];
  */
 export type PetBody = Pet;
 
-export type UpdatePetWithFormBody = {
-  /** Updated name of the pet */
-  name?: string;
-  /** Updated status of the pet */
-  status?: string;
-};
-
 export type UploadFileBody = {
   /** Additional data to pass to server */
   additionalMetadata?: string;
@@ -125,6 +118,13 @@ export type FindPetsByTagsParams = {
  * Tags to filter by
  */
 tags: string[];
+};
+
+export type UpdatePetWithFormBody = {
+  /** Updated name of the pet */
+  name?: string;
+  /** Updated status of the pet */
+  status?: string;
 };
 
 export type GetInventory200 = {[key: string]: number};

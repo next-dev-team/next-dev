@@ -8,33 +8,43 @@ const getToken = () => {
   }
 };
 
-export const customRequest = async <T>(url: string, options: RequestInit): Promise<T> => {
-  const body = typeof options.body === 'string' ? JSON.parse(options.body) : options.body;
-  const headers = {
-    ...(options.headers as Record<string, string> | undefined),
-    ...(getToken() ? { api_key: getToken() } : {}),
-  } as any;
+type RequestConfig = {
+  url: string;
+  method?: string;
+  headers?: Record<string, string>;
+  data?: unknown;
+  signal?: AbortSignal;
+};
 
-  const resp = await request(url, {
-    method: options.method as any,
-    headers,
-    data: body as any,
-    signal: (options as any).signal,
+type RequestOptions = {
+  headers?: Record<string, string>;
+};
+
+
+export const customRequest = async <T>(config: RequestConfig, options?: RequestOptions): Promise<T> => {
+  const mergedHeaders = {
+    ...(config.headers || {}),
+    ...(options?.headers || {}),
+    ...(getToken() ? { api_key: getToken(), Authorization: `Bearer ${getToken()}` } : {}),
+  } as Record<string, string>;
+
+  const resp = await request(config.url, {
+    method: (config.method || 'GET') as any,
+    headers: mergedHeaders,
+    data: config.data as any,
+    signal: config.signal as any,
     getResponse: true,
   });
 
-  const response = resp.response as Response;
   const data = resp.data as any;
 
-  if (url.includes('/user/login') && response.status === 200 && typeof data === 'string') {
+  if (config.url.includes('/user/login') && (resp as any).status === 200 && typeof data === 'string') {
     try {
       localStorage.setItem('petstoreToken', data);
     } catch { }
   }
 
-  const headersObj = response && response.headers ? response.headers : new Headers();
-
-  return { data, status: response?.status ?? 200, headers: headersObj } as T;
+  return data as T;
 };
 
 export type ErrorType<Error> = Error;

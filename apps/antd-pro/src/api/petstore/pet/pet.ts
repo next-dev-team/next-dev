@@ -43,334 +43,15 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
 
 
 /**
- * Returns a single pet
- * @summary Find pet by ID
- */
-export type getPetByIdResponse200 = {
-  data: Pet
-  status: 200
-}
-
-export type getPetByIdResponse400 = {
-  data: void
-  status: 400
-}
-
-export type getPetByIdResponse404 = {
-  data: void
-  status: 404
-}
-    
-export type getPetByIdResponseSuccess = (getPetByIdResponse200) & {
-  headers: Headers;
-};
-export type getPetByIdResponseError = (getPetByIdResponse400 | getPetByIdResponse404) & {
-  headers: Headers;
-};
-
-export type getPetByIdResponse = (getPetByIdResponseSuccess | getPetByIdResponseError)
-
-export const getGetPetByIdUrl = (petId: number,) => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/pet/${petId}`
-}
-
-export const getPetById = async (petId: number, options?: RequestInit): Promise<getPetByIdResponse> => {
-  
-  return customRequest<getPetByIdResponse>(getGetPetByIdUrl(petId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
-
-
-
-export const getGetPetByIdQueryKey = (petId?: number,) => {
-    return [
-    `https://petstore.swagger.io/v2/pet/${petId}`
-    ] as const;
-    }
-
-    
-export const getGetPetByIdQueryOptions = <TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getGetPetByIdQueryKey(petId);
-
-  
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPetById>>> = ({ signal }) => getPetById(petId, { signal, ...requestOptions });
-
-      
-
-      
-
-   return  { queryKey, queryFn, enabled: !!(petId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type GetPetByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getPetById>>>
-export type GetPetByIdQueryError = ErrorType<void>
-
-
-export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
- petId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getPetById>>,
-          TError,
-          Awaited<ReturnType<typeof getPetById>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
- petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof getPetById>>,
-          TError,
-          Awaited<ReturnType<typeof getPetById>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
- petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Find pet by ID
- */
-
-export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
- petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient 
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getGetPetByIdQueryOptions(petId,options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  query.queryKey = queryOptions.queryKey ;
-
-  return query;
-}
-
-
-
-
-/**
- * @summary Updates a pet in the store with form data
- */
-export type updatePetWithFormResponse405 = {
-  data: void
-  status: 405
-}
-    
-;
-export type updatePetWithFormResponseError = (updatePetWithFormResponse405) & {
-  headers: Headers;
-};
-
-export type updatePetWithFormResponse = (updatePetWithFormResponseError)
-
-export const getUpdatePetWithFormUrl = (petId: number,) => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/pet/${petId}`
-}
-
-export const updatePetWithForm = async (petId: number,
-    updatePetWithFormBody: UpdatePetWithFormBody, options?: RequestInit): Promise<updatePetWithFormResponse> => {
-    const formUrlEncoded = new URLSearchParams();
-if(updatePetWithFormBody.name !== undefined) {
- formUrlEncoded.append(`name`, updatePetWithFormBody.name)
- }
-if(updatePetWithFormBody.status !== undefined) {
- formUrlEncoded.append(`status`, updatePetWithFormBody.status)
- }
-
-  return customRequest<updatePetWithFormResponse>(getUpdatePetWithFormUrl(petId),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...options?.headers },
-    body: 
-      formUrlEncoded,
-  }
-);}
-
-
-
-
-export const getUpdatePetWithFormMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext> => {
-
-const mutationKey = ['updatePetWithForm'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updatePetWithForm>>, {petId: number;data: BodyType<UpdatePetWithFormBody>}> = (props) => {
-          const {petId,data} = props ?? {};
-
-          return  updatePetWithForm(petId,data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdatePetWithFormMutationResult = NonNullable<Awaited<ReturnType<typeof updatePetWithForm>>>
-    export type UpdatePetWithFormMutationBody = BodyType<UpdatePetWithFormBody>
-    export type UpdatePetWithFormMutationError = ErrorType<void>
-
-    /**
- * @summary Updates a pet in the store with form data
- */
-export const useUpdatePetWithForm = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updatePetWithForm>>,
-        TError,
-        {petId: number;data: BodyType<UpdatePetWithFormBody>},
-        TContext
-      > => {
-
-      const mutationOptions = getUpdatePetWithFormMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
- * @summary Deletes a pet
- */
-export type deletePetResponse400 = {
-  data: void
-  status: 400
-}
-
-export type deletePetResponse404 = {
-  data: void
-  status: 404
-}
-    
-;
-export type deletePetResponseError = (deletePetResponse400 | deletePetResponse404) & {
-  headers: Headers;
-};
-
-export type deletePetResponse = (deletePetResponseError)
-
-export const getDeletePetUrl = (petId: number,) => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/pet/${petId}`
-}
-
-export const deletePet = async (petId: number, options?: RequestInit): Promise<deletePetResponse> => {
-  
-  return customRequest<deletePetResponse>(getDeletePetUrl(petId),
-  {      
-    ...options,
-    method: 'DELETE'
-    
-    
-  }
-);}
-
-
-
-
-export const getDeletePetMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext> => {
-
-const mutationKey = ['deletePet'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePet>>, {petId: number}> = (props) => {
-          const {petId} = props ?? {};
-
-          return  deletePet(petId,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeletePetMutationResult = NonNullable<Awaited<ReturnType<typeof deletePet>>>
-    
-    export type DeletePetMutationError = ErrorType<void>
-
-    /**
- * @summary Deletes a pet
- */
-export const useDeletePet = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deletePet>>,
-        TError,
-        {petId: number},
-        TContext
-      > => {
-
-      const mutationOptions = getDeletePetMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
  * @summary uploads an image
  */
-export type uploadFileResponse200 = {
-  data: ApiResponse
-  status: 200
-}
-    
-export type uploadFileResponseSuccess = (uploadFileResponse200) & {
-  headers: Headers;
-};
-;
-
-export type uploadFileResponse = (uploadFileResponseSuccess)
-
-export const getUploadFileUrl = (petId: number,) => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/pet/${petId}/uploadImage`
-}
-
-export const uploadFile = async (petId: number,
-    uploadFileBody: UploadFileBody, options?: RequestInit): Promise<uploadFileResponse> => {
-    const formData = new FormData();
+export const uploadFile = (
+    petId: number,
+    uploadFileBody: BodyType<UploadFileBody>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      const formData = new FormData();
 if(uploadFileBody.additionalMetadata !== undefined) {
  formData.append(`additionalMetadata`, uploadFileBody.additionalMetadata)
  }
@@ -378,17 +59,14 @@ if(uploadFileBody.file !== undefined) {
  formData.append(`file`, uploadFileBody.file)
  }
 
-  return customRequest<uploadFileResponse>(getUploadFileUrl(petId),
-  {      
-    ...options,
-    method: 'POST'
-    ,
-    body: 
-      formData,
-  }
-);}
-
-
+      return customRequest<ApiResponse>(
+      {url: `https://petstore.swagger.io/v2/pet/${petId}/uploadImage`, method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data', },
+       data: formData, signal
+    },
+      options);
+    }
+  
 
 
 export const getUploadFileMutationOptions = <TError = ErrorType<unknown>,
@@ -439,39 +117,20 @@ export const useUploadFile = <TError = ErrorType<unknown>,
     /**
  * @summary Add a new pet to the store
  */
-export type addPetResponse405 = {
-  data: void
-  status: 405
-}
-    
-;
-export type addPetResponseError = (addPetResponse405) & {
-  headers: Headers;
-};
-
-export type addPetResponse = (addPetResponseError)
-
-export const getAddPetUrl = () => {
-
-
+export const addPet = (
+    petBody: BodyType<PetBody>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/pet`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: petBody, signal
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/pet`
-}
-
-export const addPet = async (petBody: PetBody, options?: RequestInit): Promise<addPetResponse> => {
-  
-  return customRequest<addPetResponse>(getAddPetUrl(),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      petBody,)
-  }
-);}
-
-
 
 
 export const getAddPetMutationOptions = <TError = ErrorType<void>,
@@ -522,49 +181,19 @@ export const useAddPet = <TError = ErrorType<void>,
     /**
  * @summary Update an existing pet
  */
-export type updatePetResponse400 = {
-  data: void
-  status: 400
-}
-
-export type updatePetResponse404 = {
-  data: void
-  status: 404
-}
-
-export type updatePetResponse405 = {
-  data: void
-  status: 405
-}
-    
-;
-export type updatePetResponseError = (updatePetResponse400 | updatePetResponse404 | updatePetResponse405) & {
-  headers: Headers;
-};
-
-export type updatePetResponse = (updatePetResponseError)
-
-export const getUpdatePetUrl = () => {
-
-
+export const updatePet = (
+    petBody: BodyType<PetBody>,
+ options?: SecondParameter<typeof customRequest>,) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/pet`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: petBody
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/pet`
-}
-
-export const updatePet = async (petBody: PetBody, options?: RequestInit): Promise<updatePetResponse> => {
-  
-  return customRequest<updatePetResponse>(getUpdatePetUrl(),
-  {      
-    ...options,
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      petBody,)
-  }
-);}
-
-
 
 
 export const getUpdatePetMutationOptions = <TError = ErrorType<void>,
@@ -616,58 +245,19 @@ export const useUpdatePet = <TError = ErrorType<void>,
  * Multiple status values can be provided with comma separated strings
  * @summary Finds Pets by status
  */
-export type findPetsByStatusResponse200 = {
-  data: Pet[]
-  status: 200
-}
-
-export type findPetsByStatusResponse400 = {
-  data: void
-  status: 400
-}
-    
-export type findPetsByStatusResponseSuccess = (findPetsByStatusResponse200) & {
-  headers: Headers;
-};
-export type findPetsByStatusResponseError = (findPetsByStatusResponse400) & {
-  headers: Headers;
-};
-
-export type findPetsByStatusResponse = (findPetsByStatusResponseSuccess | findPetsByStatusResponseError)
-
-export const getFindPetsByStatusUrl = (params: FindPetsByStatusParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-    const explodeParameters = ["status"];
-
-    if (Array.isArray(value) && explodeParameters.includes(key)) {
-      value.forEach((v) => {
-        normalizedParams.append(key, v === null ? 'null' : v.toString());
-      });
-      return;
-    }
+export const findPetsByStatus = (
+    params: FindPetsByStatusParams,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
       
-    
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `https://petstore.swagger.io/v2/pet/findByStatus?${stringifiedParams}` : `https://petstore.swagger.io/v2/pet/findByStatus`
-}
-
-export const findPetsByStatus = async (params: FindPetsByStatusParams, options?: RequestInit): Promise<findPetsByStatusResponse> => {
+      
+      return customRequest<Pet[]>(
+      {url: `https://petstore.swagger.io/v2/pet/findByStatus`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
   
-  return customRequest<findPetsByStatusResponse>(getFindPetsByStatusUrl(params),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -687,7 +277,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof findPetsByStatus>>> = ({ signal }) => findPetsByStatus(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof findPetsByStatus>>> = ({ signal }) => findPetsByStatus(params, requestOptions, signal);
 
       
 
@@ -750,58 +340,19 @@ export function useFindPetsByStatus<TData = Awaited<ReturnType<typeof findPetsBy
  * @deprecated
  * @summary Finds Pets by tags
  */
-export type findPetsByTagsResponse200 = {
-  data: Pet[]
-  status: 200
-}
-
-export type findPetsByTagsResponse400 = {
-  data: void
-  status: 400
-}
-    
-export type findPetsByTagsResponseSuccess = (findPetsByTagsResponse200) & {
-  headers: Headers;
-};
-export type findPetsByTagsResponseError = (findPetsByTagsResponse400) & {
-  headers: Headers;
-};
-
-export type findPetsByTagsResponse = (findPetsByTagsResponseSuccess | findPetsByTagsResponseError)
-
-export const getFindPetsByTagsUrl = (params: FindPetsByTagsParams,) => {
-  const normalizedParams = new URLSearchParams();
-
-  Object.entries(params || {}).forEach(([key, value]) => {
-    const explodeParameters = ["tags"];
-
-    if (Array.isArray(value) && explodeParameters.includes(key)) {
-      value.forEach((v) => {
-        normalizedParams.append(key, v === null ? 'null' : v.toString());
-      });
-      return;
-    }
+export const findPetsByTags = (
+    params: FindPetsByTagsParams,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
       
-    
-  });
-
-  const stringifiedParams = normalizedParams.toString();
-
-  return stringifiedParams.length > 0 ? `https://petstore.swagger.io/v2/pet/findByTags?${stringifiedParams}` : `https://petstore.swagger.io/v2/pet/findByTags`
-}
-
-export const findPetsByTags = async (params: FindPetsByTagsParams, options?: RequestInit): Promise<findPetsByTagsResponse> => {
+      
+      return customRequest<Pet[]>(
+      {url: `https://petstore.swagger.io/v2/pet/findByTags`, method: 'GET',
+        params, signal
+    },
+      options);
+    }
   
-  return customRequest<findPetsByTagsResponse>(getFindPetsByTagsUrl(params),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -821,7 +372,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof findPetsByTags>>> = ({ signal }) => findPetsByTags(params, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof findPetsByTags>>> = ({ signal }) => findPetsByTags(params, requestOptions, signal);
 
       
 
@@ -880,3 +431,230 @@ export function useFindPetsByTags<TData = Awaited<ReturnType<typeof findPetsByTa
 
 
 
+/**
+ * Returns a single pet
+ * @summary Find pet by ID
+ */
+export const getPetById = (
+    petId: number,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<Pet>(
+      {url: `https://petstore.swagger.io/v2/pet/${petId}`, method: 'GET', signal
+    },
+      options);
+    }
+  
+
+
+
+export const getGetPetByIdQueryKey = (petId?: number,) => {
+    return [
+    `https://petstore.swagger.io/v2/pet/${petId}`
+    ] as const;
+    }
+
+    
+export const getGetPetByIdQueryOptions = <TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
+) => {
+
+const {query: queryOptions, request: requestOptions} = options ?? {};
+
+  const queryKey =  queryOptions?.queryKey ?? getGetPetByIdQueryKey(petId);
+
+  
+
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getPetById>>> = ({ signal }) => getPetById(petId, requestOptions, signal);
+
+      
+
+      
+
+   return  { queryKey, queryFn, enabled: !!(petId), ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
+
+export type GetPetByIdQueryResult = NonNullable<Awaited<ReturnType<typeof getPetById>>>
+export type GetPetByIdQueryError = ErrorType<void>
+
+
+export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
+ petId: number, options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPetById>>,
+          TError,
+          Awaited<ReturnType<typeof getPetById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
+ petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof getPetById>>,
+          TError,
+          Awaited<ReturnType<typeof getPetById>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
+ petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Find pet by ID
+ */
+
+export function useGetPetById<TData = Awaited<ReturnType<typeof getPetById>>, TError = ErrorType<void>>(
+ petId: number, options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof getPetById>>, TError, TData>>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient 
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getGetPetByIdQueryOptions(petId,options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  query.queryKey = queryOptions.queryKey ;
+
+  return query;
+}
+
+
+
+
+/**
+ * @summary Updates a pet in the store with form data
+ */
+export const updatePetWithForm = (
+    petId: number,
+    updatePetWithFormBody: BodyType<UpdatePetWithFormBody>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      const formUrlEncoded = new URLSearchParams();
+if(updatePetWithFormBody.name !== undefined) {
+ formUrlEncoded.append(`name`, updatePetWithFormBody.name)
+ }
+if(updatePetWithFormBody.status !== undefined) {
+ formUrlEncoded.append(`status`, updatePetWithFormBody.status)
+ }
+
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/pet/${petId}`, method: 'POST',
+      headers: {'Content-Type': 'application/x-www-form-urlencoded', },
+       data: formUrlEncoded, signal
+    },
+      options);
+    }
+  
+
+
+export const getUpdatePetWithFormMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext> => {
+
+const mutationKey = ['updatePetWithForm'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updatePetWithForm>>, {petId: number;data: BodyType<UpdatePetWithFormBody>}> = (props) => {
+          const {petId,data} = props ?? {};
+
+          return  updatePetWithForm(petId,data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdatePetWithFormMutationResult = NonNullable<Awaited<ReturnType<typeof updatePetWithForm>>>
+    export type UpdatePetWithFormMutationBody = BodyType<UpdatePetWithFormBody>
+    export type UpdatePetWithFormMutationError = ErrorType<void>
+
+    /**
+ * @summary Updates a pet in the store with form data
+ */
+export const useUpdatePetWithForm = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updatePetWithForm>>, TError,{petId: number;data: BodyType<UpdatePetWithFormBody>}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updatePetWithForm>>,
+        TError,
+        {petId: number;data: BodyType<UpdatePetWithFormBody>},
+        TContext
+      > => {
+
+      const mutationOptions = getUpdatePetWithFormMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
+ * @summary Deletes a pet
+ */
+export const deletePet = (
+    petId: number,
+ options?: SecondParameter<typeof customRequest>,) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/pet/${petId}`, method: 'DELETE'
+    },
+      options);
+    }
+  
+
+
+export const getDeletePetMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext> => {
+
+const mutationKey = ['deletePet'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deletePet>>, {petId: number}> = (props) => {
+          const {petId} = props ?? {};
+
+          return  deletePet(petId,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type DeletePetMutationResult = NonNullable<Awaited<ReturnType<typeof deletePet>>>
+    
+    export type DeletePetMutationError = ErrorType<void>
+
+    /**
+ * @summary Deletes a pet
+ */
+export const useDeletePet = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deletePet>>, TError,{petId: number}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof deletePet>>,
+        TError,
+        {petId: number},
+        TContext
+      > => {
+
+      const mutationOptions = getDeletePetMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    

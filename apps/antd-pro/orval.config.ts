@@ -14,7 +14,7 @@ export default defineConfig({
       target: './src/api/petstore',
       client: 'react-query',
       httpClient: 'axios',
-      baseUrl: { getBaseUrlFromSpecification: true },
+      baseUrl: "https://petstore.swagger.io/v2",
       override: {
         mutator: {
           path: './src/api/mutator/umi-request.ts',

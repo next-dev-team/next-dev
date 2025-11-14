@@ -41,38 +41,18 @@ type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
  * Returns a map of status codes to quantities
  * @summary Returns pet inventories by status
  */
-export type getInventoryResponse200 = {
-  data: GetInventory200
-  status: 200
-}
+export const getInventory = (
     
-export type getInventoryResponseSuccess = (getInventoryResponse200) & {
-  headers: Headers;
-};
-;
-
-export type getInventoryResponse = (getInventoryResponseSuccess)
-
-export const getGetInventoryUrl = () => {
-
-
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<GetInventory200>(
+      {url: `https://petstore.swagger.io/v2/store/inventory`, method: 'GET', signal
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/store/inventory`
-}
-
-export const getInventory = async ( options?: RequestInit): Promise<getInventoryResponse> => {
-  
-  return customRequest<getInventoryResponse>(getGetInventoryUrl(),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -92,7 +72,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInventory>>> = ({ signal }) => getInventory({ signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getInventory>>> = ({ signal }) => getInventory(requestOptions, signal);
 
       
 
@@ -151,53 +131,85 @@ export function useGetInventory<TData = Awaited<ReturnType<typeof getInventory>>
 
 
 /**
+ * @summary Place an order for a pet
+ */
+export const placeOrder = (
+    order: BodyType<Order>,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<Order>(
+      {url: `https://petstore.swagger.io/v2/store/order`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: order, signal
+    },
+      options);
+    }
+  
+
+
+export const getPlaceOrderMutationOptions = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext>, request?: SecondParameter<typeof customRequest>}
+): UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext> => {
+
+const mutationKey = ['placeOrder'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+      
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof placeOrder>>, {data: BodyType<Order>}> = (props) => {
+          const {data} = props ?? {};
+
+          return  placeOrder(data,requestOptions)
+        }
+
+        
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type PlaceOrderMutationResult = NonNullable<Awaited<ReturnType<typeof placeOrder>>>
+    export type PlaceOrderMutationBody = BodyType<Order>
+    export type PlaceOrderMutationError = ErrorType<void>
+
+    /**
+ * @summary Place an order for a pet
+ */
+export const usePlaceOrder = <TError = ErrorType<void>,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext>, request?: SecondParameter<typeof customRequest>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof placeOrder>>,
+        TError,
+        {data: BodyType<Order>},
+        TContext
+      > => {
+
+      const mutationOptions = getPlaceOrderMutationOptions(options);
+
+      return useMutation(mutationOptions, queryClient);
+    }
+    /**
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  * @summary Find purchase order by ID
  */
-export type getOrderByIdResponse200 = {
-  data: Order
-  status: 200
-}
-
-export type getOrderByIdResponse400 = {
-  data: void
-  status: 400
-}
-
-export type getOrderByIdResponse404 = {
-  data: void
-  status: 404
-}
-    
-export type getOrderByIdResponseSuccess = (getOrderByIdResponse200) & {
-  headers: Headers;
-};
-export type getOrderByIdResponseError = (getOrderByIdResponse400 | getOrderByIdResponse404) & {
-  headers: Headers;
-};
-
-export type getOrderByIdResponse = (getOrderByIdResponseSuccess | getOrderByIdResponseError)
-
-export const getGetOrderByIdUrl = (orderId: number,) => {
-
-
+export const getOrderById = (
+    orderId: number,
+ options?: SecondParameter<typeof customRequest>,signal?: AbortSignal
+) => {
+      
+      
+      return customRequest<Order>(
+      {url: `https://petstore.swagger.io/v2/store/order/${orderId}`, method: 'GET', signal
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/store/order/${orderId}`
-}
-
-export const getOrderById = async (orderId: number, options?: RequestInit): Promise<getOrderByIdResponse> => {
-  
-  return customRequest<getOrderByIdResponse>(getGetOrderByIdUrl(orderId),
-  {      
-    ...options,
-    method: 'GET'
-    
-    
-  }
-);}
-
-
 
 
 
@@ -217,7 +229,7 @@ const {query: queryOptions, request: requestOptions} = options ?? {};
 
   
 
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOrderById>>> = ({ signal }) => getOrderById(orderId, { signal, ...requestOptions });
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof getOrderById>>> = ({ signal }) => getOrderById(orderId, requestOptions, signal);
 
       
 
@@ -279,43 +291,17 @@ export function useGetOrderById<TData = Awaited<ReturnType<typeof getOrderById>>
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * @summary Delete purchase order by ID
  */
-export type deleteOrderResponse400 = {
-  data: void
-  status: 400
-}
-
-export type deleteOrderResponse404 = {
-  data: void
-  status: 404
-}
-    
-;
-export type deleteOrderResponseError = (deleteOrderResponse400 | deleteOrderResponse404) & {
-  headers: Headers;
-};
-
-export type deleteOrderResponse = (deleteOrderResponseError)
-
-export const getDeleteOrderUrl = (orderId: number,) => {
-
-
+export const deleteOrder = (
+    orderId: number,
+ options?: SecondParameter<typeof customRequest>,) => {
+      
+      
+      return customRequest<unknown>(
+      {url: `https://petstore.swagger.io/v2/store/order/${orderId}`, method: 'DELETE'
+    },
+      options);
+    }
   
-
-  return `https://petstore.swagger.io/v2/store/order/${orderId}`
-}
-
-export const deleteOrder = async (orderId: number, options?: RequestInit): Promise<deleteOrderResponse> => {
-  
-  return customRequest<deleteOrderResponse>(getDeleteOrderUrl(orderId),
-  {      
-    ...options,
-    method: 'DELETE'
-    
-    
-  }
-);}
-
-
 
 
 export const getDeleteOrderMutationOptions = <TError = ErrorType<void>,
@@ -360,96 +346,6 @@ export const useDeleteOrder = <TError = ErrorType<void>,
       > => {
 
       const mutationOptions = getDeleteOrderMutationOptions(options);
-
-      return useMutation(mutationOptions, queryClient);
-    }
-    /**
- * @summary Place an order for a pet
- */
-export type placeOrderResponse200 = {
-  data: Order
-  status: 200
-}
-
-export type placeOrderResponse400 = {
-  data: void
-  status: 400
-}
-    
-export type placeOrderResponseSuccess = (placeOrderResponse200) & {
-  headers: Headers;
-};
-export type placeOrderResponseError = (placeOrderResponse400) & {
-  headers: Headers;
-};
-
-export type placeOrderResponse = (placeOrderResponseSuccess | placeOrderResponseError)
-
-export const getPlaceOrderUrl = () => {
-
-
-  
-
-  return `https://petstore.swagger.io/v2/store/order`
-}
-
-export const placeOrder = async (order: Order, options?: RequestInit): Promise<placeOrderResponse> => {
-  
-  return customRequest<placeOrderResponse>(getPlaceOrderUrl(),
-  {      
-    ...options,
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...options?.headers },
-    body: JSON.stringify(
-      order,)
-  }
-);}
-
-
-
-
-export const getPlaceOrderMutationOptions = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext>, request?: SecondParameter<typeof customRequest>}
-): UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext> => {
-
-const mutationKey = ['placeOrder'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-      
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof placeOrder>>, {data: BodyType<Order>}> = (props) => {
-          const {data} = props ?? {};
-
-          return  placeOrder(data,requestOptions)
-        }
-
-        
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type PlaceOrderMutationResult = NonNullable<Awaited<ReturnType<typeof placeOrder>>>
-    export type PlaceOrderMutationBody = BodyType<Order>
-    export type PlaceOrderMutationError = ErrorType<void>
-
-    /**
- * @summary Place an order for a pet
- */
-export const usePlaceOrder = <TError = ErrorType<void>,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof placeOrder>>, TError,{data: BodyType<Order>}, TContext>, request?: SecondParameter<typeof customRequest>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof placeOrder>>,
-        TError,
-        {data: BodyType<Order>},
-        TContext
-      > => {
-
-      const mutationOptions = getPlaceOrderMutationOptions(options);
 
       return useMutation(mutationOptions, queryClient);
     }

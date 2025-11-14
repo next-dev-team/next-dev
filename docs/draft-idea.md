@@ -1,0 +1,2 @@
+can you create mcp integrate api , I mean i have react query generate from swagger json so I want you to integrate api with front end i just provide related info ux ui image or figma and page, route etc so you can integrate it and testing api related with vitest then e2e with playright make sure it work or success if not you don't stop until it tell you to stop
+eg. api and react query that already generated so let create mcp then apply demo with
