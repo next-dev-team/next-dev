@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { codeInspectorPlugin } from "code-inspector-plugin";
 
 const nextConfig: NextConfig = {
   // Explicitly set the base path to resolve workspace root issues
@@ -13,7 +14,10 @@ const nextConfig: NextConfig = {
   },
   // Configure Turbopack root directory to fix workspace warning
   turbopack: {
-    root: __dirname,
+    rules: codeInspectorPlugin({
+      bundler: "turbopack",
+      hotKeys: ["ctrlKey", 'shiftKey', 'altKey'],
+    }),
   },
 };
 
