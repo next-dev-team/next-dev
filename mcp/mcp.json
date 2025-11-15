@@ -1,0 +1,11 @@
+{
+         "mcpServers": {
+                  "integrate-api": {
+                           "command": "node",
+                           "args": [
+                                    "c:\\Users\\XXXX\\Documents\\GitHub\\next-dev\\mcp\\integrate-api\\dist\\index.js"
+                           ],
+                           "env": {}
+                  }
+         }
+}
