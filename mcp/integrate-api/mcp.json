@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "integrate-api-dev": {
+      "command": "pnpm",
+      "args": ["-C", "mcp/integrate-api", "run", "dev"],
+      "transport": "stdio"
+    },
+    "integrate-api": {
+      "command": "pnpm",
+      "args": ["-C", "mcp/integrate-api", "run", "start"],
+      "transport": "stdio"
+    }
+  }
+}

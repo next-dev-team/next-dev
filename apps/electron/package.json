@@ -5,7 +5,7 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "dev": "NODE_ENV=development electron .",
+    "dev": "cross-env NODE_ENV=development electron .",
     "start": "electron .",
     "prebuild": "pnpm -C ../docs build",
     "build": "electron-builder -mwl",
@@ -14,6 +14,7 @@
     "build:linux": "electron-builder --linux"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "electron": "35.7.5",
     "electron-builder": "^24.13.3"
   },
