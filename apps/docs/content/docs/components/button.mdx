@@ -3,24 +3,14 @@ title: Button
 description: Displays a button or a component that looks like a button.
 ---
 
-import { CommandTabs } from '@docs/components/command-tabs';
-import { ExternalLinks } from '@docs/components/external-links';
-import { PreviewCard } from '@docs/components/preview-card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
-import {
-  ButtonPreview,
-  ButtonDestructivePreview,
-  ButtonOutlinePreview,
-  ButtonSecondaryPreview,
-  ButtonGhostPreview,
-  ButtonLinkPreview,
-  ButtonIconPreview,
-  ButtonWithIconPreview,
-  ButtonLoadingPreview,
-} from '@docs/components/examples';
+import { CommandTabs } from "@docs/components/command-tabs";
+import { ExternalLinks } from "@docs/components/external-links";
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { ButtonPreview, ButtonDestructivePreview, ButtonOutlinePreview, ButtonSecondaryPreview, ButtonGhostPreview, ButtonLinkPreview, ButtonIconPreview, ButtonWithIconPreview, ButtonLoadingPreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-<div className="h-5" />
+<div className="h-5"/>
 
 <Tabs defaultValue="preview">
   <TabsList>
@@ -45,6 +35,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
   </TabsContent>
 </Tabs>
 
+
 ## Installation
 
 <Tabs defaultValue="cli">
@@ -67,7 +58,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
       </Step>
       <Step>
-
+ 
         **Copy and paste the following code into your project.**
 
         ```json doc-gen:file
@@ -106,6 +97,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 ```tsx
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+
 ```
 
 ```tsx
@@ -119,7 +111,7 @@ import { Text } from '@/components/ui/text';
 You can use the `buttonVariants` and `buttonTextVariants` helpers to create a link that looks like a button.
 
 ```tsx
-import { buttonVariants, buttonTextVariants } from '@/components/ui/button';
+import { buttonVariants, buttonTextVariants } from "@/components/ui/button"
 ```
 
 ```tsx
@@ -162,7 +154,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Secondary
 
@@ -186,7 +178,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Destructive
 
@@ -210,7 +202,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Outline
 
@@ -234,7 +226,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Ghost
 
@@ -258,7 +250,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Link
 
@@ -282,7 +274,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Icon
 
@@ -306,7 +298,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### With Icon
 
@@ -330,7 +322,7 @@ Alternatively, you can set the `asChild` parameter and nest the link component.
   </TabsContent>
 </Tabs>
 
-<div className="h-5" />
+<div className="h-5"/>
 
 #### Loading
 

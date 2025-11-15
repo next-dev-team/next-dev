@@ -17,9 +17,8 @@ export function DownloadAppBanner({
       <div
         className={cn(
           'flex max-w-[25.5rem] flex-col items-center justify-center gap-8 lg:items-start',
-          size === 'sm' && 'max-w-xs',
-        )}
-      >
+          size === 'sm' && 'max-w-xs'
+        )}>
         <div>
           <h1 className="pb-1 text-center text-3xl font-medium lg:text-left lg:text-4xl">
             {title}

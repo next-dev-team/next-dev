@@ -18,13 +18,12 @@ export default function Layout({ children }: { children: ReactNode }) {
               <div className="flex items-center justify-center">
                 <RnrIcon />
               </div>
-              <p className="text-base">Next Dev</p>
+              <p className="text-base">Reusables</p>
             </div>
           ),
         }}
         sidebar={SIDEBAR_PROPS}
-        githubUrl="https://github.com/founded-labs/react-native-reusables"
-      >
+        githubUrl="https://github.com/founded-labs/react-native-reusables">
         {children}
       </DocsLayout>
     </>

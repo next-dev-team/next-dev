@@ -9,6 +9,7 @@ import { SquareTerminalIcon, WrenchIcon } from 'lucide-react';
 import { InstallationTabs } from '@docs/components/installation-tabs';
 import { CommandTabs } from '@docs/components/command-tabs';
 
+ 
 ## Create project
 
 Run `init` to start a new project, or follow the manual steps to set up an existing one.
@@ -17,34 +18,33 @@ Run `init` to start a new project, or follow the manual steps to set up an exist
 
 <InstallationTabs value="cli">
 
-<div className="h-px" />
+<div className='h-px' />
 
-<CommandTabs args={['init']} />
+  <CommandTabs args={["init"]}/>
 
-<div className="text-fd-muted-foreground">
-  This creates a new project in the current directory. For more details, see the [init
-  options](/docs/cli#init).
+<div className='text-fd-muted-foreground'>
+  This creates a new project in the current directory. For more details, see the [init options](/docs/cli#init).
 </div>
+
 
 ## Add components
 
 You can now start adding components to your app.
 
-<CommandTabs args={['add', 'button']} />
+<CommandTabs args={["add", "button"]} />
 
-<div className="pt-px">
-  The command above will add the `Button` component to your project. You can then import it like
-  this:
+<div className='pt-px'>
+  The command above will add the `Button` component to your project. You can then import it like this:
 </div>
 
 <div />
 
 ```tsx title="index.tsx"
-import { Button } from '@/components/ui/button';
+  import { Button } from '@/components/ui/button';
 
-export default function Screen() {
-  return <Button>Click me</Button>;
-}
+  export default function Screen() {
+    return <Button>Click me</Button>;
+  }
 ```
 
 <div className='text-fd-muted-foreground'>

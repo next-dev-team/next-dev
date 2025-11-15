@@ -20,8 +20,7 @@ export function BlocksGrid() {
           size="lg"
           variant="link"
           key={block.href}
-          className="justify-start px-0 text-base font-normal"
-        >
+          className="justify-start px-0 text-base font-normal">
           <Link href={block.href}>{block.title}</Link>
         </Button>
       ))}

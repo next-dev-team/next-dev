@@ -5,7 +5,9 @@
   "title": "User Menu (Clerk)",
   "author": "@mrzachnugent",
   "description": "A popover menu presenting options and actions for the current user with Clerk integration.",
-  "dependencies": ["@clerk/clerk-expo"],
+  "dependencies": [
+    "@clerk/clerk-expo"
+  ],
   "registryDependencies": [
     "https://reactnativereusables.com/r/new-york/avatar.json",
     "https://reactnativereusables.com/r/new-york/button.json",

@@ -3,14 +3,12 @@ export function AppStoreButton() {
     <a
       target="_blank"
       href="https://apps.apple.com/ca/app/react-native-reusables/id6748838250"
-      className="rounded-md"
-    >
+      className="rounded-md">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         id="livetype"
         viewBox="0 0 119.66407 40"
-        className="h-10 sm:h-12"
-      >
+        className="h-10 sm:h-12">
         <title>Download_on_the_App_Store_Badge_US-UK_RGB_wht_092917</title>
         <g>
           <g>

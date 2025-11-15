@@ -3,12 +3,12 @@ title: Select
 description: Displays a list of options for the user to pick from—triggered by a button.
 ---
 
-import { CommandTabs } from '@docs/components/command-tabs';
-import { ExternalLinks } from '@docs/components/external-links';
+import { CommandTabs } from "@docs/components/command-tabs";
+import { ExternalLinks } from "@docs/components/external-links";
 import { PortalInfoAlert } from '@docs/components/portal-info-alert';
-import { PreviewCard } from '@docs/components/preview-card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
-import { SelectPreview, ScrollableSelectPreview } from '@docs/components/examples';
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { SelectPreview, ScrollableSelectPreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 <ExternalLinks
@@ -18,7 +18,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
   ]}
 />
 
-<div className="h-5" />
+<div className="h-5"/>
 
 <Tabs defaultValue="preview">
   <TabsList>
@@ -43,6 +43,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
   </TabsContent>
 </Tabs>
 
+
 ## Installation
 
 <Tabs defaultValue="cli">
@@ -65,7 +66,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
       </Step>
       <Step>
-
+ 
         **Copy and paste the following code into your project.**
 
         ```json doc-gen:file
@@ -120,24 +121,25 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select"
+
 ```
 
 ```tsx
-<Select>
-  <SelectTrigger className="w-[180px]">
-    <SelectValue placeholder="Select a fruit" />
+ <Select>
+  <SelectTrigger className='w-[180px]'>
+    <SelectValue placeholder='Select a fruit' />
   </SelectTrigger>
-  <SelectContent insets={contentInsets} className="w-[180px]">
+  <SelectContent insets={contentInsets} className='w-[180px]'>
     <SelectGroup>
       <SelectLabel>Fruits</SelectLabel>
-      <SelectItem label="Apple" value="apple">
+      <SelectItem label='Apple' value='apple'>
         Apple
       </SelectItem>
-      <SelectItem label="Banana" value="banana">
+      <SelectItem label='Banana' value='banana'>
         Banana
       </SelectItem>
-      <SelectItem label="Blueberry" value="blueberry">
+      <SelectItem label='Blueberry' value='blueberry'>
         Blueberry
       </SelectItem>
     </SelectGroup>

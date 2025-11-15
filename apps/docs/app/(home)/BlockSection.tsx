@@ -9,8 +9,7 @@ export default function BlocksSection() {
       <div className="flex w-1/3 flex-1 flex-col items-start gap-2 py-64">
         <Badge
           variant="outline"
-          className="bg-card dark:bg-secondary border-border/70 gap-1 pr-2 font-normal shadow-sm"
-        >
+          className="bg-card dark:bg-secondary border-border/70 gap-1 pr-2 font-normal shadow-sm">
           <Heart className="size-3" />
           Sponsored by Clerk
         </Badge>

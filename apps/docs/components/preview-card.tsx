@@ -44,8 +44,7 @@ export function PreviewCard({ preview }: PreviewCardProps) {
       <a
         href={`https://reactnativereusables.com/showcase/links/${component}`}
         target="_blank"
-        className="not-prose bg-primary text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/50 mt-4 inline-flex w-full shrink-0 items-center gap-2.5 rounded-lg p-2.5 text-sm font-medium shadow-sm outline-none transition-all focus-visible:ring-[3px] sm:hidden dark:p-2 [&_svg]:shrink-0"
-      >
+        className="not-prose bg-primary text-primary-foreground focus-visible:border-ring focus-visible:ring-ring/50 mt-4 inline-flex w-full shrink-0 items-center gap-2.5 rounded-lg p-2.5 text-sm font-medium shadow-sm outline-none transition-all focus-visible:ring-[3px] sm:hidden dark:p-2 [&_svg]:shrink-0">
         <div className="bg-primary flex items-center justify-center rounded-lg p-1 shadow-md dark:bg-black dark:p-2">
           <RnrIcon className="size-11 text-white dark:size-10" pathClassName="stroke-1" />
         </div>
@@ -98,7 +97,7 @@ function useWindowSize(): WindowSize {
 
 export function useIsDarkMode(): boolean {
   const [isDark, setIsDark] = React.useState(() =>
-    document.documentElement.classList.contains('dark'),
+    document.documentElement.classList.contains('dark')
   );
 
   React.useEffect(() => {

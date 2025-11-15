@@ -7,7 +7,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Next Dev',
+  title: 'React Native Reusables',
   description:
     'Bringing shadcn/ui to React Native. Beautifully crafted components with Nativewind, open source, and almost as easy to use.',
 };
@@ -34,8 +34,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center"
-              >
+                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center">
                 <Link href="/docs">Docs</Link>
               </Button>
             ),
@@ -47,8 +46,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center"
-              >
+                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center">
                 <Link href="/docs/blocks/authentication">Blocks</Link>
               </Button>
             ),
@@ -60,14 +58,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                 variant="ghost"
                 size="sm"
                 asChild
-                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center"
-              >
+                className="hover:bg-fd-accent dark:hover:bg-fd-accent -ml-1.5 justify-start sm:ml-0 sm:justify-center">
                 <Link href="/docs/components/accordion">Components</Link>
               </Button>
             ),
           },
-        ]}
-      >
+        ]}>
         {children}
       </HomeLayout>
     </>

@@ -1,10 +1,5 @@
 import { createMDX } from 'fumadocs-mdx/next';
 
-// Toggle build output based on environment.
-// Electron builds need `standalone`; web builds should use `export`.
-const isElectronBuild =
-  process.env.BUILD_TARGET === 'electron' || process.env.ELECTRON_BUILD === '1';
-
 const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
@@ -13,7 +8,6 @@ const withMDX = createMDX({
 const config = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  // output: isElectronBuild ? 'standalone' : 'export',
   transpilePackages: [
     '@rnr/registry',
     'react-native',
@@ -32,9 +26,6 @@ const config = {
     'expo-modules-core',
   ],
   images: {
-    // When exporting static HTML, Next.js Image Optimization API is unavailable.
-    // Set unoptimized for web export; keep optimization for electron standalone server.
-    unoptimized: !isElectronBuild,
     remotePatterns: [
       {
         protocol: 'https',
@@ -47,9 +38,7 @@ const config = {
     ],
   },
   experimental: {
-    // Use Babel for Reanimated worklets plugin support on web
-    // SWC-only can break worklets transformation
-    // forceSwcTransforms: true,
+    forceSwcTransforms: true,
   },
   // TODO(zach)
   eslint: {
@@ -123,7 +112,7 @@ function withExpo(nextConfig) {
       config.plugins.push(
         new options.webpack.DefinePlugin({
           __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
-        }),
+        })
       );
 
       // Execute the user-defined webpack config.

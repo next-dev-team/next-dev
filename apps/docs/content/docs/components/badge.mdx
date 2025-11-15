@@ -3,14 +3,14 @@ title: Badge
 description: Displays a badge or a component that looks like a badge.
 ---
 
-import { CommandTabs } from '@docs/components/command-tabs';
-import { ExternalLinks } from '@docs/components/external-links';
-import { PreviewCard } from '@docs/components/preview-card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
-import { BadgePreview } from '@docs/components/examples';
+import { CommandTabs } from "@docs/components/command-tabs";
+import { ExternalLinks } from "@docs/components/external-links";
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { BadgePreview } from "@docs/components/examples";
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-<div className="h-5" />
+<div className="h-5"/>
 
 <Tabs defaultValue="preview">
   <TabsList>
@@ -35,6 +35,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
   </TabsContent>
 </Tabs>
 
+
 ## Installation
 
 <Tabs defaultValue="cli">
@@ -57,7 +58,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
       </Step>
       <Step>
-
+ 
        **Copy and paste the following code into your project.**
 
         ```json doc-gen:file
@@ -79,7 +80,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
           }
         }
         ```
-
+ 
       </Step>
       <Step>
 
@@ -96,6 +97,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 ```tsx
 import { Badge } from '@/components/ui/badge';
 import { Text } from '@/components/ui/text';
+
 ```
 
 ```tsx
@@ -109,7 +111,7 @@ import { Text } from '@/components/ui/text';
 You can use the `badgeVariants` and `badgeTextVariants` helpers to create a link that looks like a badge.
 
 ```tsx
-import { badgeVariants, badgeTextVariants } from '@/components/ui/badge';
+import { badgeVariants, badgeTextVariants } from "@/components/ui/badge"
 ```
 
 ```tsx

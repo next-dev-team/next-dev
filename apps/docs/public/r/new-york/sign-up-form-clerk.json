@@ -5,7 +5,9 @@
   "title": "Sign Up Form (Clerk)",
   "author": "@mrzachnugent",
   "description": "A form for creating an account with email and password or social providers with Clerk integration.",
-  "dependencies": ["@clerk/clerk-expo"],
+  "dependencies": [
+    "@clerk/clerk-expo"
+  ],
   "registryDependencies": [
     "https://reactnativereusables.com/r/new-york/button.json",
     "https://reactnativereusables.com/r/new-york/card.json",

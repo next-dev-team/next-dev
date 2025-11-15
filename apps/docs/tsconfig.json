@@ -3,7 +3,11 @@
     "jsxImportSource": "nativewind",
     "baseUrl": ".",
     "target": "ESNext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,8 +21,12 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@docs/*": ["./*"],
-      "@/registry/*": ["../../packages/registry/src/*"]
+      "@docs/*": [
+        "./*"
+      ],
+      "@/registry/*": [
+        "../../packages/registry/src/*"
+      ]
     },
     "plugins": [
       {
@@ -35,5 +43,7 @@
     "next-env.d.ts",
     "dist/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }

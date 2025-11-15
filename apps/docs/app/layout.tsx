@@ -1,5 +1,4 @@
 import './global.css';
-import 'raf/polyfill';
 
 import { CookiesProvider } from '@docs/components/cookies-provider';
 import { SafeAreaProvider } from '@docs/components/safe-area-provider';

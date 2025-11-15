@@ -8,8 +8,7 @@ export function VercelOssBadge() {
         width="240"
         height="24"
         viewBox="0 0 240 24"
-        className="fill-fd-foreground"
-      >
+        className="fill-fd-foreground">
         <path d="M126.243 10.3583H125.068L128.654 0H129.829L126.243 10.3583Z" fillOpacity="0.5" />
         <path d="M133.507 10.3583H132.332L135.918 0H137.093L133.507 10.3583Z" fillOpacity="0.5" />
         <path

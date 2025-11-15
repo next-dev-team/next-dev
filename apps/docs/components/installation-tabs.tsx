@@ -18,8 +18,7 @@ function InstallationTabs({
   return (
     <LinkTabs
       ref={onRef(value)}
-      value={value === 'cli' ? '/docs/installation' : '/docs/installation/manual'}
-    >
+      value={value === 'cli' ? '/docs/installation' : '/docs/installation/manual'}>
       <LinkTabsList>
         <LinkTabsTrigger href="/docs/installation">CLI</LinkTabsTrigger>
         <LinkTabsTrigger href="/docs/installation/manual">Manual</LinkTabsTrigger>
@@ -37,7 +36,7 @@ function onRef(value: 'cli' | 'manual') {
       return;
     }
     const link = document.querySelector(
-      'a[data-active="false"][href="/docs/installation"]',
+      'a[data-active="false"][href="/docs/installation"]'
     ) as HTMLAnchorElement | null;
     if (!link) {
       return;

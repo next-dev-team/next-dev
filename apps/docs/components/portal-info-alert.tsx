@@ -7,8 +7,7 @@ export function PortalInfoAlert() {
       A{' '}
       <Link
         href="/docs/installation/manual#add-the-portal-host-to-your-root-layout"
-        className="hover:underline"
-      >
+        className="hover:underline">
         <code className="bg-muted rounded-sm px-1 py-0.5 text-[0.813rem]">PortalHost</code>
       </Link>{' '}
       must be added at the root of your app to support portal rendering on native platforms. Without

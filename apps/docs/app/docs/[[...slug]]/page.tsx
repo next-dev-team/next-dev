@@ -26,8 +26,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       }}
       footer={{
         component: <Footer url={page.url} />,
-      }}
-    >
+      }}>
       <DocsBody>
         <div className="flex items-center justify-between gap-2">
           <DocsTitle className="mb-0 font-semibold">{page.data.title}</DocsTitle>
@@ -47,9 +46,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 {...props}
                 className={cn(
                   className,
-                  'bg-fd-foreground/95 dark:bg-fd-secondary/50 text-background dark:text-foreground *:dark relative',
-                )}
-              >
+                  'bg-fd-foreground/95 dark:bg-fd-secondary/50 text-background dark:text-foreground *:dark relative'
+                )}>
                 <Pre>{props.children}</Pre>
               </CodeBlock>
             ),
@@ -83,8 +81,7 @@ function NeighbourButtons({ url }: { url: string }) {
             href={neighbours.next?.url || '/docs/customization'}
             target={
               neighbours.next?.url.startsWith('https://foundedlabs.com') ? '_blank' : undefined
-            }
-          >
+            }>
             <ArrowRightIcon />
           </Link>
         </Button>
@@ -106,8 +103,7 @@ export function Footer({ url }: { url: string }) {
             variant="ghost"
             size="sm"
             asChild
-            className="bg-fd-accent hover:bg-fd-accent/80 dark:hover:bg-fd-accent/80"
-          >
+            className="bg-fd-accent hover:bg-fd-accent/80 dark:hover:bg-fd-accent/80">
             <Link href={neighbours.previous?.url || '/docs'}>
               <ArrowLeftIcon />
               {neighbours.previous?.name || 'Introduction'}
@@ -121,8 +117,7 @@ export function Footer({ url }: { url: string }) {
             variant="ghost"
             size="sm"
             asChild
-            className="bg-fd-accent hover:bg-fd-accent/80 dark:hover:bg-fd-accent/80"
-          >
+            className="bg-fd-accent hover:bg-fd-accent/80 dark:hover:bg-fd-accent/80">
             <Link href={neighbours.next?.url || '/docs/customization'}>
               {neighbours.next?.name || 'Customization'}
               <ArrowRightIcon />
@@ -137,8 +132,7 @@ export function Footer({ url }: { url: string }) {
             href="https://x.com/mrzachnugent"
             target="_blank"
             rel="noreferrer"
-            className="underline underline-offset-4"
-          >
+            className="underline underline-offset-4">
             mrzachnugent
           </a>{' '}
           at{' '}
@@ -146,8 +140,7 @@ export function Footer({ url }: { url: string }) {
             href="https://foundedlabs.com"
             target="_blank"
             rel="noreferrer"
-            className="decoration-fd-muted-foreground/0 hover:decoration-fd-muted-foreground underline underline-offset-4"
-          >
+            className="decoration-fd-muted-foreground/0 hover:decoration-fd-muted-foreground underline underline-offset-4">
             Founded Labs
           </a>
           , bringing{' '}
@@ -155,8 +148,7 @@ export function Footer({ url }: { url: string }) {
             href="https://ui.shadcn.com"
             target="_blank"
             rel="noreferrer"
-            className="underline underline-offset-4"
-          >
+            className="underline underline-offset-4">
             shadcn/ui
           </a>{' '}
           to React Native. Source on{' '}
@@ -164,8 +156,7 @@ export function Footer({ url }: { url: string }) {
             href="https://github.com/founded-labs/react-native-reusables"
             target="_blank"
             rel="noreferrer"
-            className="underline underline-offset-4"
-          >
+            className="underline underline-offset-4">
             GitHub
           </a>
           .
@@ -185,8 +176,7 @@ function TableOfContentFooter() {
       <div className="text-muted-foreground pb-2">We help companies ship world-class UI/UX.</div>
       <Button
         size="sm"
-        className="from-primary to-primary/75 group-hover:to-primary/80 relative w-fit bg-transparent bg-gradient-to-br duration-150 group-hover:pr-8"
-      >
+        className="from-primary to-primary/75 group-hover:to-primary/80 relative w-fit bg-transparent bg-gradient-to-br duration-150 group-hover:pr-8">
         Learn more
         <ExternalLinkIcon className="absolute right-2 top-1/2 size-3.5 -translate-x-1 -translate-y-1/2 scale-y-0 opacity-0 duration-100 group-hover:translate-x-0 group-hover:scale-y-100 group-hover:opacity-100" />
       </Button>
