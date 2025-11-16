@@ -5,13 +5,16 @@
   "description": "Tron Core Web: web runtime and UI for Tron plugins",
   "type": "module",
   "scripts": {
+    "gen:api": "kubb generate --config kubb.config.ts",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@rnr/configs": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",

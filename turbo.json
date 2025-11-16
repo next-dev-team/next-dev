@@ -13,6 +13,9 @@
       "outputs": [".next/**", "!.next/cache/**"],
       "env": ["ELECTRON_BUILD"]
     },
+    "gen:api": {
+      "outputs": ["src/gen/**"]
+    },
     "dev": {
       "cache": false,
       "persistent": true

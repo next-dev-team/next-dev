@@ -11,6 +11,7 @@
     "./eslint/typescript": "./eslint/typescript.cjs",
     "./eslint/next": "./eslint/next.cjs",
     "./prettier": "./prettier/index.cjs",
+    "./kubb-react-query": "./kubb/react-query.ts",
     "./vitest/base": "./vitest/base.ts"
   },
   "peerDependencies": {
@@ -22,6 +23,8 @@
     "eslint-config-next": "*",
     "prettier": "^3",
     "prettier-plugin-tailwindcss": "*",
+    "@tanstack/react-query": "^5",
+    "@kubb/core": "^4",
     "vitest": "^2"
   }
 }

@@ -13,3 +13,4 @@ apps/*/build/
 packages/*/dist/
 packages/*/build/
 **/*.d.ts
+/gen/

@@ -3,6 +3,7 @@ import PluginManager from './components/PluginManager';
 import PluginList from './components/PluginList';
 import { WebPluginLoader } from './runtime/web-plugin-loader';
 import type { PluginDescriptor } from './types/plugins';
+import { FindPetsByStatusQueryParamsStatusEnumKey, useFindPetsByStatusHook } from './gen';
 
 export default function App() {
   const loader = useMemo(() => new WebPluginLoader(), []);
@@ -10,6 +11,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const viewRef = useRef<HTMLDivElement>(null);
   const [activePluginId, setActivePluginId] = useState<string | null>(null);
+
+  const [status] = useState<FindPetsByStatusQueryParamsStatusEnumKey>('available');
+  const { data: pets, refetch } = useFindPetsByStatusHook({ status });
 
   useEffect(() => {
     (async () => {
@@ -66,6 +70,10 @@ export default function App() {
         onUnload={handleUnload}
         isLoaded={isLoaded}
       />
+      <div>Test API {JSON.stringify(pets)}</div>
+      <div>
+        <button onClick={() => refetch()}>Test API</button>
+      </div>
     </div>
   );
 }
