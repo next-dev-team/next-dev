@@ -8,6 +8,7 @@ packages/*/build
 
 # Expo
 .expo
+android
 __generated__
 web-build
 expo-env.d.ts

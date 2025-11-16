@@ -1,0 +1,40 @@
+{
+  "name": "@rnr/gallery-app",
+  "version": "0.0.1",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "eas:android": "eas build --platform android --profile preview",
+    "start": "ENV=development expo start --clear --dev-client",
+    "ios": "ENV=development expo run:ios",
+    "android": "ENV=development expo run:android",
+    "prebuild": "ENV=development expo prebuild --clean",
+    "build:web": "npx expo export -p web",
+    "serve:web": "npx serve dist --single",
+    "clean": "rm -rf .expo node_modules",
+    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
+  },
+  "dependencies": {
+    "@rn-primitives/slot": "~1.2.0",
+    "@rnr/registry": "workspace:*",
+    "@rnr/rnr-ui": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "expo": "^54.0.12",
+    "expo-image-picker": "~17.0.8",
+    "expo-media-library": "~18.2.0",
+    "expo-router": "~6.0.10",
+    "nativewind": "^4.2.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-web": "~0.21.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@types/react": "~19.1.17",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.9.3"
+  }
+}

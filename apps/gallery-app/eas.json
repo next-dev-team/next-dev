@@ -1,0 +1,29 @@
+{
+  "cli": {
+    "version": ">= 7.6.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "credentialsSource": "remote",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "credentialsSource": "remote",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "credentialsSource": "remote",
+      "android": {
+        "buildType": "app-bundle"
+      }
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
