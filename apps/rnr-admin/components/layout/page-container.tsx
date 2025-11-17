@@ -4,6 +4,8 @@ import { ReactNode, useEffect } from 'react';
 import { useAppStore } from '@/lib/store';
 import { ArrowLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { ProHeader } from '@rnr/rnr-ui-pro';
+import { Button } from '@/registry/new-york/components/ui/button';
 import { cn } from '@/lib/utils';
 
 interface PageContainerProps {
@@ -14,8 +16,15 @@ interface PageContainerProps {
   showBack?: boolean;
   actions?: ReactNode;
   className?: string;
+  tags?: ReactNode;
+  avatar?: ReactNode;
+  footer?: ReactNode;
 }
 
+/**
+ * PageContainer - Web-optimized wrapper using ProHeader from rnr-ui-pro
+ * Maintains compatibility with existing pages while using Pro components
+ */
 export function PageContainer({
   children,
   title,
@@ -24,6 +33,9 @@ export function PageContainer({
   showBack = false,
   actions,
   className,
+  tags,
+  avatar,
+  footer,
 }: PageContainerProps) {
   const router = useRouter();
   const { setBreadcrumbs } = useAppStore();
@@ -34,30 +46,35 @@ export function PageContainer({
     }
   }, [breadcrumbs, setBreadcrumbs]);
 
+  // Show header if we have any header content
+  const hasHeader = title || description || showBack || actions || tags || avatar;
+
   return (
     <div className={cn('space-y-6', className)}>
-      {/* Page Header */}
-      {(title || description || showBack || actions) && (
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
-            {showBack && (
-              <button
-                onClick={() => router.back()}
-                className="flex h-10 w-10 items-center justify-center rounded-lg border bg-background hover:bg-accent transition-colors"
-              >
-                <ArrowLeft className="h-5 w-5" />
-              </button>
-            )}
-            <div className="space-y-1">
-              {title && (
-                <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
-              )}
-              {description && (
-                <p className="text-muted-foreground">{description}</p>
-              )}
-            </div>
+      {/* Page Header using ProHeader */}
+      {hasHeader && (
+        <div className="flex items-center gap-4">
+          {showBack && (
+            <Button
+              variant="outline"
+              size="icon"
+              onPress={() => router.back()}
+              className="h-10 w-10"
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          )}
+          <div className="flex-1">
+            <ProHeader
+              title={title}
+              subTitle={description}
+              tags={tags}
+              avatar={avatar}
+              extra={actions}
+              footer={footer}
+              ghost
+            />
           </div>
-          {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
       )}
 

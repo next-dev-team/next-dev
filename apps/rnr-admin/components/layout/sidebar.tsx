@@ -17,6 +17,8 @@ import {
   FolderKanban,
   Menu,
   ChevronLeft,
+  Sparkles,
+  LogIn,
 } from 'lucide-react';
 
 interface MenuItem {
@@ -49,6 +51,12 @@ const menuItems: MenuItem[] = [
         icon: <Users className="h-4 w-4" />,
       },
       {
+        title: 'Users Pro',
+        href: '/tables/users-pro',
+        icon: <Users className="h-4 w-4" />,
+        badge: 'New',
+      },
+      {
         title: 'Products',
         href: '/tables/products',
         icon: <Package className="h-4 w-4" />,
@@ -75,6 +83,41 @@ const menuItems: MenuItem[] = [
         title: 'Advanced Form',
         href: '/forms/advanced',
         icon: <FileText className="h-4 w-4" />,
+      },
+      {
+        title: 'ProForm',
+        href: '/forms/pro-form',
+        icon: <FileText className="h-4 w-4" />,
+        badge: 'New',
+      },
+    ],
+  },
+  {
+    title: 'Pro Components',
+    href: '/pro-components',
+    icon: <Sparkles className="h-5 w-5" />,
+    badge: 'New',
+  },
+  {
+    title: 'Auth Pages',
+    href: '/auth',
+    icon: <LogIn className="h-5 w-5" />,
+    children: [
+      {
+        title: 'Login Pro',
+        href: '/login-pro',
+        icon: <LogIn className="h-4 w-4" />,
+        badge: 'New',
+      },
+      {
+        title: 'Login',
+        href: '/login',
+        icon: <LogIn className="h-4 w-4" />,
+      },
+      {
+        title: 'Register',
+        href: '/register',
+        icon: <Users className="h-4 w-4" />,
       },
     ],
   },
