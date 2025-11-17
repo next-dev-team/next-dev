@@ -378,6 +378,9 @@ importers:
       '@rnr/rnr-ui':
         specifier: workspace:*
         version: link:../../packages/rnr-ui
+      '@rnr/rnr-ui-pro':
+        specifier: workspace:*
+        version: link:../../packages/rnr-ui-pro
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -963,6 +966,52 @@ importers:
       react-native-worklets:
         specifier: 0.5.1
         version: 0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.18(tsx@4.20.6)(yaml@2.8.1)
+
+  packages/rnr-ui-pro:
+    dependencies:
+      '@rnr/registry':
+        specifier: workspace:*
+        version: link:../registry
+      '@rnr/rnr-ui':
+        specifier: workspace:*
+        version: link:../rnr-ui
+      class-variance-authority:
+        specifier: ^0.7.0
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.0
+        version: 2.1.1
+      nativewind:
+        specifier: ^4.2.1
+        version: 4.2.1(react-native-reanimated@4.1.5(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)(tailwindcss@3.4.18(tsx@4.20.6)(yaml@2.8.1))
+      react-native-web:
+        specifier: '*'
+        version: 0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      tailwind-merge:
+        specifier: ^2.2.1
+        version: 2.6.0
+    devDependencies:
+      '@tsconfig/recommended':
+        specifier: ^1.0.1
+        version: 1.0.13
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.1.17
+      '@types/react-dom':
+        specifier: ^19.1.0
+        version: 19.1.11(@types/react@19.1.17)
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
+      react-native:
+        specifier: 0.81.5
+        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.18(tsx@4.20.6)(yaml@2.8.1)

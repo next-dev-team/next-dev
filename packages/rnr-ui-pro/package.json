@@ -1,0 +1,53 @@
+{
+  "name": "@rnr/rnr-ui-pro",
+  "description": "Professional UI components for React Native Reusables - Inspired by Ant Design Pro",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf .turbo dist node_modules"
+  },
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "imports": {
+    "@/*": [
+      "./src/*.ts",
+      "./src/*.tsx"
+    ]
+  },
+  "dependencies": {
+    "@rnr/registry": "workspace:*",
+    "@rnr/rnr-ui": "workspace:*",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "nativewind": "^4.2.1",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "tailwindcss": "^3.4.14"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*",
+    "react-native": "*",
+    "react-native-web": "*"
+  },
+  "peerDependenciesMeta": {
+    "react-native": {
+      "optional": true
+    },
+    "react-native-web": {
+      "optional": true
+    }
+  }
+}
+

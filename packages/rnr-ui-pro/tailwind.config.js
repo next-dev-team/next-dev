@@ -2,13 +2,7 @@
 module.exports = {
   darkMode: 'class',
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './lib/**/*.{js,ts,jsx,tsx,mdx}',
-    '../../packages/registry/src/**/*.{js,ts,jsx,tsx}',
-    '../../packages/rnr-ui/src/**/*.{js,ts,jsx,tsx}',
-    '../../packages/rnr-ui-pro/src/**/*.{js,ts,jsx,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   presets: [require('nativewind/preset')],
   theme: {
@@ -48,13 +42,8 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
-      borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
-      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [],
 };
 
