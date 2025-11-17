@@ -112,7 +112,7 @@ function withExpo(nextConfig) {
       config.plugins.push(
         new options.webpack.DefinePlugin({
           __DEV__: JSON.stringify(process.env.NODE_ENV !== 'production'),
-        }),
+        })
       );
 
       // Execute the user-defined webpack config.

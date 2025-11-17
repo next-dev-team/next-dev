@@ -9,8 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -p ./tsconfig.json --noEmit --emitDeclarationOnly false",
-    "clean": "rm -rf .turbo dist node_modules"
+    "typecheck": "tsc -p ./tsconfig.json --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
     "react": "^19.1.0",

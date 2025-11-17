@@ -15,13 +15,13 @@
     "build:renderer:watch": "vite build --watch",
     "electron:dev": "wait-on dist/main/index.js && electron dist/main/index.js --enable-logging",
     "electron:pack": "npm run build && electron-builder",
-    "clean": "rm -rf .turbo dist node_modules",
+    "clean": "rimraf dist",
     "lint": "eslint src --ext .ts,.tsx --ignore-pattern '**/*.d.ts' --ignore-pattern 'src/shared/types.d.ts'",
     "test": "vitest"
   },
   "dependencies": {
     "@rnr/tron-mini": "workspace:*",
-    "electron": "^28.0.0",
+    "electron": "^35.7.5",
     "electron-store": "^8.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

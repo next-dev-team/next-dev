@@ -2,8 +2,8 @@ import FormRc, { Field } from 'rc-field-form';
 import { FieldProps } from 'rc-field-form/es/Field';
 import React from 'react';
 import { View } from 'react-native';
-import { Label } from '@rn-primitives/label';
-import { Text as RNText } from 'react-native';
+import { Label } from '~/components/ui/label';
+import { Text } from '~/components/ui/text';
 
 function FormItem<T>({
   name,
@@ -51,14 +51,14 @@ function FormItem<T>({
             {label && (
               <Label className="mb-2 text-base font-medium">
                 {label}
-                {hasRequired && <RNText className="text-destructive ml-1">*</RNText>}
+                {hasRequired && <Text className="text-destructive ml-1">*</Text>}
               </Label>
             )}
             {childNode}
             {errorMessage && (
-              <RNText className="text-destructive mt-1 text-sm">
+              <Text variant="small" className="text-destructive mt-1">
                 {errorMessage}
-              </RNText>
+              </Text>
             )}
           </View>
         );
