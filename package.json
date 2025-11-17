@@ -19,7 +19,7 @@
     "build": "turbo build",
     "build:showcase": "turbo build --filter=@rnr/showcase",
     "build:docs": "turbo build --filter=@rnr/docs",
-    "clean": "turbo clean && rm -rf .turbo node_modules",
+    "clean": "rm -rf .turbo node_modules && turbo clean",
     "gen:list": "turbo gen list --config turbo/generators/config.ts",
     "gen:tron-mini": "turbo gen run tron-mini --config turbo/generators/config.ts"
   },

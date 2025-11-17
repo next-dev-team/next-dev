@@ -8,6 +8,7 @@
     "dev": "NODE_ENV=development electron .",
     "start": "electron .",
     "prebuild": "pnpm -C ../docs build",
+    "clean": "rm -rf .turbo dist node_modules",
     "build": "electron-builder -mwl",
     "build:mac": "electron-builder --mac",
     "build:win": "electron-builder --win",

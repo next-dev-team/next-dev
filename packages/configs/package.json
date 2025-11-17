@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "main": "./index.js",
+  "scripts": {
+    "clean": "rm -rf .turbo dist node_modules"
+  },
   "exports": {
     "./eslint/base": "./eslint/base.cjs",
     "./eslint/node": "./eslint/node.cjs",

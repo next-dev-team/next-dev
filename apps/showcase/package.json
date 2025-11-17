@@ -23,7 +23,7 @@
     "update:ios": "eas update --platform ios",
     "build:web": "npx expo export -p web",
     "serve:web": "npx serve dist --single",
-    "clean": "rm -rf .expo node_modules",
+    "clean": "rm -rf .turbo .expo dist node_modules",
     "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {

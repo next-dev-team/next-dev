@@ -3,7 +3,7 @@
   "description": "Utility functions for React Native Reusables",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf node_modules",
+    "clean": "rm -rf .turbo dist node_modules",
     "test": "vitest run --coverage"
   },
   "version": "0.0.0",

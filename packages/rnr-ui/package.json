@@ -3,7 +3,7 @@
   "description": "Example library for React Native Reusables Registry Template",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -rf node_modules"
+    "clean": "rm -rf .turbo dist node_modules"
   },
   "version": "0.0.0",
   "type": "module",

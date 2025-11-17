@@ -16,7 +16,7 @@
   "scripts": {
     "build": "tsup && pnpm copy-package-json",
     "build:ts": "tsup",
-    "clean": "rimraf dist/*",
+    "clean": "rm -rf .turbo dist node_modules",
     "check": "tsc -b tsconfig.json",
     "dev": "INTERNAL_ENV=development tsx src/bin.ts",
     "lint": "eslint \"**/{src,test,examples,scripts,dtslint}/**/*.{ts,mjs}\"",

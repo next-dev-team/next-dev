@@ -22,7 +22,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "build:watch": "tsc -p tsconfig.json --watch --preserveWatchOutput",
-    "clean": "rimraf dist"
+    "clean": "rm -rf .turbo dist node_modules"
   },
   "peerDependencies": {
     "electron": "^28.0.0"
