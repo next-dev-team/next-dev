@@ -1,0 +1,49 @@
+---
+title: ProLayout
+description: Advanced layout component inspired by Ant Design Pro with side/top/mix navigation, breadcrumb, header actions, and responsive behavior.
+---
+
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { ProLayoutBasicPreview } from "@docs/components/examples";
+
+<div className="h-5"/>
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <div id="preview" className='*:hidden scroll-m-20' aria-hidden>
+      ## Preview
+    </div>
+    <PreviewCard preview={<ProLayoutBasicPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/examples/pro-layout/pro-layout-basic.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+
+## Usage
+
+```tsx
+import { ProLayout } from '@/components/ui';
+```
+
+## API
+
+Key props include `route`, `layout` (`side|top|mix`), `navTheme`, `fixSiderbar`, `fixedHeader`, `headerContentRender`, `rightContentRender`, `breadcrumbRender`, `autoCollapseThreshold`, `onRouteChange`, and `selectedKeys`.
+
+## Examples
+
+### Basic Layout
+
+<PreviewCard preview={<ProLayoutBasicPreview />} />

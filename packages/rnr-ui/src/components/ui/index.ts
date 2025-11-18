@@ -25,7 +25,9 @@ export type {
   ProTableRequestData,
 } from './pro-table';
 export { ProLayout } from './pro-layout';
-export type { ProLayoutProps, MenuItem } from './pro-layout';
+export type { ProLayoutProps, MenuItem, RouteItem } from './pro-layout';
+export { PageContainer } from './page-container';
+export type { PageContainerProps, BreadcrumbProps, BreadcrumbRoute, WaterMarkProps, PageHeaderProps, PageContainerTabItem } from './page-container';
 export { ProCard, ProCardGroup } from './pro-card';
 export type { ProCardProps, ProCardTabs, ProCardGroupProps } from './pro-card';
 export { ProDescriptions } from './pro-descriptions';

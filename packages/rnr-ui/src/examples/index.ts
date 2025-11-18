@@ -9,3 +9,5 @@ export * from './form/form-field-dependencies';
 export * from './form/form-async-validation';
 export * from './pro-form';
 export * from './pro-table';
+export * from './pro-layout';
+export * from './page-container';

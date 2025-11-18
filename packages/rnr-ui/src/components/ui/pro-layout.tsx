@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Pressable, Platform } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { View, ScrollView, Pressable, Platform, useWindowDimensions } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
@@ -10,6 +10,13 @@ export interface MenuItem {
   icon?: React.ReactNode;
   routes?: MenuItem[];
   disabled?: boolean;
+}
+
+export interface RouteItem {
+  path?: string;
+  name?: string;
+  icon?: React.ReactNode;
+  routes?: RouteItem[];
 }
 
 export interface ProLayoutProps {
@@ -26,6 +33,7 @@ export interface ProLayoutProps {
    * Menu data
    */
   menuDataRender?: () => MenuItem[];
+  route?: RouteItem;
   /**
    * Menu header render function
    */
@@ -42,11 +50,8 @@ export interface ProLayoutProps {
    * On menu header click handler
    */
   onMenuHeaderClick?: (e: any) => void;
-  /**
-   * Layout mode: 'side' or 'top'
-   * @default 'side'
-   */
-  layout?: 'side' | 'top';
+  navTheme?: 'light' | 'dark';
+  layout?: 'side' | 'top' | 'mix';
   /**
    * Fixed header
    * @default false
@@ -84,6 +89,7 @@ export interface ProLayoutProps {
    * Header actions
    */
   headerContentRender?: () => React.ReactNode;
+  rightContentRender?: () => React.ReactNode;
   /**
    * Header title render
    */
@@ -105,21 +111,27 @@ export interface ProLayoutProps {
    * Current location/pathname
    */
   location?: { pathname?: string };
+  selectedKeys?: string[];
   /**
    * On menu item click
    */
   onMenuClick?: (item: MenuItem) => void;
+  onRouteChange?: (pathname: string) => void;
+  breadcrumbRender?: (routes: RouteItem[], pathname?: string) => React.ReactNode;
+  autoCollapseThreshold?: number;
 }
 
 function ProLayout({
   title = 'Ant Design Pro',
   logo,
   menuDataRender,
+  route,
   menuHeaderRender,
   menuFooterRender,
   menuExtraRender,
   onMenuHeaderClick,
   layout = 'side',
+  navTheme = 'light',
   fixedHeader = false,
   fixSiderbar = false,
   contentWidth = 'Fluid',
@@ -128,15 +140,21 @@ function ProLayout({
   onCollapse,
   collapsedButtonRender = true,
   headerContentRender,
+  rightContentRender,
   headerTitleRender,
   loading = false,
   pure = false,
   children,
   location,
+  selectedKeys,
   onMenuClick,
+  onRouteChange,
+  breadcrumbRender,
+  autoCollapseThreshold = 768,
 }: ProLayoutProps) {
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
   const [selectedKey, setSelectedKey] = useState<string | undefined>(location?.pathname);
+  const { width } = useWindowDimensions();
 
   const collapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
 
@@ -148,7 +166,32 @@ function ProLayout({
     onCollapse?.(newCollapsed);
   };
 
-  const menuData = menuDataRender?.() || [];
+  const menuData = useMemo(() => {
+    if (menuDataRender) return menuDataRender() || [];
+    const transform = (item?: RouteItem): MenuItem[] => {
+      if (!item) return [];
+      const children = item.routes || [];
+      return children.map((c) => ({
+        path: c.path,
+        name: c.name || c.path || '',
+        icon: c.icon,
+        routes: transform(c as RouteItem),
+      }));
+    };
+    return transform(route);
+  }, [menuDataRender, route]);
+
+  useEffect(() => {
+    if (controlledCollapsed === undefined) {
+      setInternalCollapsed(width < autoCollapseThreshold);
+    }
+  }, [width, autoCollapseThreshold, controlledCollapsed]);
+
+  useEffect(() => {
+    if (selectedKeys && selectedKeys.length > 0) {
+      setSelectedKey(selectedKeys[0]);
+    }
+  }, [selectedKeys]);
 
   const renderLogo = () => {
     if (typeof logo === 'function') {
@@ -196,6 +239,7 @@ function ProLayout({
             if (!item.disabled) {
               setSelectedKey(item.path);
               onMenuClick?.(item);
+              if (item.path) onRouteChange?.(item.path);
             }
           }}
           disabled={item.disabled}
@@ -268,12 +312,12 @@ function ProLayout({
   };
 
   const renderTopMenu = () => {
-    if (layout !== 'top') {
+    if (layout !== 'top' && layout !== 'mix') {
       return null;
     }
 
     return (
-      <View className="bg-card border-border border-b">
+      <View className={cn('border-border border-b', navTheme === 'dark' ? 'bg-muted' : 'bg-card')}>
         <View className={cn('flex-row items-center justify-between px-4', fixedHeader && 'fixed top-0 left-0 right-0 z-10')}>
           <Pressable
             onPress={onMenuHeaderClick}
@@ -284,12 +328,55 @@ function ProLayout({
               {title}
             </Text>
           </Pressable>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View className="flex-row gap-1">
-              {menuData.map((item) => renderMenuItem(item))}
-            </View>
-          </ScrollView>
+          {layout === 'top' && (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View className="flex-row gap-1">
+                {menuData.map((item) => renderMenuItem(item))}
+              </View>
+            </ScrollView>
+          )}
           {headerContentRender && <View>{headerContentRender()}</View>}
+          {rightContentRender && <View>{rightContentRender()}</View>}
+        </View>
+      </View>
+    );
+  };
+
+  const currentPath = selectedKey || location?.pathname;
+
+  const buildBreadcrumb = useMemo(() => {
+    const result: RouteItem[] = [];
+    const dfs = (node?: RouteItem, trail: RouteItem[] = []) => {
+      if (!node) return false;
+      const nextTrail = node.path ? [...trail, node] : trail;
+      if (node.path && node.path === currentPath) {
+        result.push(...nextTrail);
+        return true;
+      }
+      for (const child of node.routes || []) {
+        if (dfs(child, nextTrail)) return true;
+      }
+      return false;
+    };
+    dfs(route, []);
+    return result;
+  }, [route, currentPath]);
+
+  const renderBreadcrumbBar = () => {
+    if (!route && !breadcrumbRender) return null;
+    if (breadcrumbRender) return <View className="border-border border-b px-4 py-2">{breadcrumbRender(buildBreadcrumb, currentPath)}</View>;
+    if (buildBreadcrumb.length === 0) return null;
+    return (
+      <View className="border-border border-b px-4 py-2">
+        <View className="flex-row flex-wrap items-center gap-1">
+          {buildBreadcrumb.map((node, idx) => (
+            <View key={(node.path || node.name || '') + idx} className="flex-row items-center">
+              <Text className="text-sm">
+                {node.name || node.path || ''}
+              </Text>
+              {idx < buildBreadcrumb.length - 1 && <Text className="mx-1 text-muted-foreground">/</Text>}
+            </View>
+          ))}
         </View>
       </View>
     );
@@ -312,10 +399,11 @@ function ProLayout({
       {renderSidebar()}
       <View className="flex-1 flex-col">
         {renderTopMenu()}
+        {renderBreadcrumbBar()}
         <View
           className={cn(
             'flex-1',
-            layout === 'side' && fixSiderbar && (collapsed ? 'ml-16' : 'ml-64'),
+            layout !== 'top' && fixSiderbar && (collapsed ? 'ml-16' : 'ml-64'),
             layout === 'top' && fixedHeader && 'mt-16',
             contentWidth === 'Fixed' && 'max-w-7xl mx-auto w-full',
           )}
@@ -328,5 +416,5 @@ function ProLayout({
 }
 
 export { ProLayout };
-export type { ProLayoutProps, MenuItem };
+export type { ProLayoutProps, MenuItem, RouteItem };
 
