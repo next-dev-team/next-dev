@@ -5,6 +5,8 @@
   "description": "An out-of-box UI solution for enterprise applications",
   "repository": "git@github.com:ant-design/ant-design-pro.git",
   "scripts": {
+    "gen:api": "kubb generate --config kubb.config.ts",
+    "typecheck": "tsc -p ./tsconfig.json --noEmit --emitDeclarationOnly false",
     "analyze": "cross-env ANALYZE=1 max build",
     "biome:lint": "npx @biomejs/biome lint",
     "build": "max build",
@@ -14,7 +16,6 @@
     "jest": "jest",
     "lint": "npm run biome:lint && npm run tsc",
     "lint-staged": "lint-staged",
-    "openapi": "max openapi",
     "prepare": "husky",
     "preview": "npm run build && max preview --port 8000",
     "record": "cross-env NODE_ENV=development UMI_ENV=test max record --scene=login",
@@ -33,6 +34,7 @@
     "defaults"
   ],
   "dependencies": {
+    "@rnr/configs": "workspace:*",
     "@ant-design/icons": "^5.6.1",
     "@ant-design/pro-components": "^2.8.9",
     "@ant-design/v5-patch-for-react-19": "^1.0.3",

@@ -1,4 +1,4 @@
-import getBaseConfig from '@rnr/configs/kubb-react-query';
+import getBaseConfig from '@rnr/configs/kubb/react-query';
 
 export default getBaseConfig({
   baseURL: 'https://petstore3.swagger.io/api/v3',
