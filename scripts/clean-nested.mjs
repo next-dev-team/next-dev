@@ -3,8 +3,47 @@
 import { readdir, rm } from 'fs/promises';
 import { join } from 'path';
 import { existsSync } from 'fs';
+import readline from 'readline';
 
 const BUILD_ARTIFACTS = ['.turbo', 'node_modules', 'dist', 'build', 'expo', '.next'];
+
+function askConfirmation(question) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase().trim() === 'y' || answer.toLowerCase().trim() === 'yes');
+    });
+  });
+}
+
+async function cleanRootArtifacts(projectRoot) {
+  console.log('\nCleaning root level build artifacts...');
+
+  try {
+    const items = await readdir(projectRoot, { withFileTypes: true });
+
+    for (const item of items) {
+      if (item.isDirectory() && BUILD_ARTIFACTS.includes(item.name)) {
+        const fullPath = join(projectRoot, item.name);
+        try {
+          await rm(fullPath, { recursive: true, force: true });
+          console.log(`  ✓ Removed ${fullPath}`);
+        } catch (error) {
+          console.error(`  ⚠ Failed to remove ${fullPath}: ${error.message}`);
+        }
+      }
+    }
+
+    console.log('✓ Root level cleanup completed');
+  } catch (error) {
+    console.error(`Error cleaning root artifacts: ${error.message}`);
+  }
+}
 
 async function cleanDirectory(dirPath) {
   if (!existsSync(dirPath)) {
@@ -44,13 +83,42 @@ async function cleanDirectory(dirPath) {
 }
 
 async function main() {
-  console.log('Cleaning nested build artifacts...');
-
   // Get the project root directory (where the script is run from)
   const projectRoot = process.cwd();
 
-  // Clean apps directory
+  console.log('🧹 Build Artifacts Cleanup Script');
+  console.log('================================\n');
+  console.log('This will remove the following build artifacts:');
+  console.log(`  ${BUILD_ARTIFACTS.join(', ')}\n`);
+  console.log('Locations to clean:');
+  console.log(`  - Root level: ${projectRoot}`);
+
   const appsDir = join(projectRoot, 'apps');
+  const packagesDir = join(projectRoot, 'packages');
+
+  if (existsSync(appsDir)) {
+    console.log(`  - Nested in: ${appsDir}`);
+  }
+  if (existsSync(packagesDir)) {
+    console.log(`  - Nested in: ${packagesDir}`);
+  }
+
+  console.log('');
+
+  // Ask for confirmation
+  const confirmed = await askConfirmation('Do you want to proceed? (y/N): ');
+
+  if (!confirmed) {
+    console.log('❌ Cleanup cancelled.');
+    process.exit(0);
+  }
+
+  console.log('\n🚀 Starting cleanup...\n');
+
+  // Clean root level artifacts first
+  await cleanRootArtifacts(projectRoot);
+
+  // Clean apps directory
   if (existsSync(appsDir)) {
     await cleanDirectory(appsDir);
   } else {
@@ -58,14 +126,13 @@ async function main() {
   }
 
   // Clean packages directory
-  const packagesDir = join(projectRoot, 'packages');
   if (existsSync(packagesDir)) {
     await cleanDirectory(packagesDir);
   } else {
     console.log('No packages directory found');
   }
 
-  console.log('✅ Nested build artifacts cleanup completed!');
+  console.log('\n✅ Build artifacts cleanup completed!');
 }
 
 // Run the script
