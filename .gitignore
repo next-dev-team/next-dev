@@ -65,3 +65,5 @@ xcuserdata
 # VSCode
 .history/
 apps/electron/dist/RNR Docs-0.0.1-arm64.dmg
+
+.figma
