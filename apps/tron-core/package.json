@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@rnr/tron-mini": "workspace:*",
-    "electron": "^35.7.5",
+    "electron": "^36.8.1",
     "electron-store": "^8.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
