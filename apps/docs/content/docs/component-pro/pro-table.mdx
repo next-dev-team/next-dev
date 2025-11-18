@@ -1,0 +1,226 @@
+---
+title: ProTable
+description: An advanced table component inspired by Ant Design Pro with data fetching, pagination, search, and filtering capabilities.
+---
+
+import { CommandTabs } from "@docs/components/command-tabs";
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { ProTableBasicPreview } from "@docs/components/examples";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+<div className="h-5"/>
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <div id="preview" className='*:hidden scroll-m-20' aria-hidden>
+      ## Preview
+    </div>
+    <PreviewCard preview={<ProTableBasicPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/examples/pro-table/pro-table-basic.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+
+## Installation
+
+ProTable is part of the `@rnr/rnr-ui` package. Make sure you have the following dependencies installed:
+
+<Steps>
+  <Step>
+
+    **Install the following dependencies:**
+
+    ```
+    npm install @rnr/rnr-ui @rn-primitives/table
+    ```
+
+    Or if using a monorepo:
+
+    ```
+    pnpm add @rnr/rnr-ui @rn-primitives/table
+    ```
+
+  </Step>
+  <Step>
+
+    **Copy and paste the following code into your project.**
+
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/components/ui/pro-table.tsx",
+      "codeblock": {
+        "lang": "tsx",
+        "meta": "title=\"@/components/ui/pro-table.tsx\""
+      }
+    }
+    ```
+
+  </Step>
+  <Step>
+
+    **Update the import paths to match your project setup.**
+
+  </Step>
+</Steps>
+
+### Usage
+
+```tsx
+import { ProTable } from '@/components/ui/pro-table';
+import type { ProTableColumn, ProTableRequestData } from '@/components/ui/pro-table';
+```
+
+```tsx
+const columns: ProTableColumn<User>[] = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+  },
+];
+
+const request = async (params: any): Promise<ProTableRequestData> => {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
+  const result = await response.json();
+  return {
+    data: result.data,
+    success: true,
+    total: result.total,
+  };
+};
+
+<ProTable
+  columns={columns}
+  request={request}
+  rowKey="id"
+  headerTitle="User Management"
+  pagination={{
+    pageSize: 10,
+    showSizeChanger: true,
+  }}
+  search={{
+    labelWidth: 100,
+  }}
+/>
+```
+
+## API
+
+### ProTable Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `columns` | `ProTableColumn<T>[]` | - | Table columns configuration |
+| `request` | `(params: ProTableRequestParams) => Promise<ProTableRequestData>` | - | Data fetching function |
+| `dataSource` | `T[]` | - | Static data source (alternative to request) |
+| `rowKey` | `string \| (record: T) => string` | `'id'` | Row key field |
+| `loading` | `boolean` | `false` | Loading state |
+| `pagination` | `boolean \| object` | `true` | Pagination configuration |
+| `search` | `boolean \| object` | `false` | Search configuration |
+| `toolBarRender` | `() => React.ReactNode[]` | - | Toolbar actions |
+| `headerTitle` | `React.ReactNode` | - | Table header title |
+| `actionRef` | `React.MutableRefObject` | - | Table actions ref |
+| `onRow` | `(record: T, index: number) => { onPress?: () => void }` | - | Row click handler |
+| `rowSelection` | `object` | - | Row selection configuration |
+
+### ProTableColumn
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `title` | `string` | Column title |
+| `dataIndex` | `string \| string[]` | Data field name |
+| `key` | `string` | Unique key |
+| `width` | `number \| string` | Column width |
+| `align` | `'left' \| 'center' \| 'right'` | Column alignment |
+| `render` | `(value: any, record: T, index: number) => React.ReactNode` | Custom render function |
+| `sorter` | `boolean \| (a: T, b: T) => number` | Sort configuration |
+| `filter` | `boolean` | Enable filtering |
+| `filters` | `Array<{ text: string; value: any }>` | Filter options |
+| `fixed` | `'left' \| 'right'` | Fixed column |
+| `ellipsis` | `boolean` | Enable ellipsis |
+
+## Examples
+
+### Basic Table
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <PreviewCard preview={<ProTableBasicPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/examples/pro-table/pro-table-basic.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+
+### With Search and Pagination
+
+```tsx
+<ProTable
+  columns={columns}
+  request={request}
+  rowKey="id"
+  headerTitle="User Management"
+  pagination={{
+    pageSize: 10,
+    showSizeChanger: true,
+    pageSizeOptions: ['10', '20', '50', '100'],
+  }}
+  search={{
+    labelWidth: 100,
+    span: 3,
+  }}
+  toolBarRender={() => [
+    <Button key="add" onPress={() => console.log('Add')}>
+      Add User
+    </Button>,
+  ]}
+/>
+```
+
+### With Row Selection
+
+```tsx
+<ProTable
+  columns={columns}
+  request={request}
+  rowKey="id"
+  rowSelection={{
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log('Selected:', selectedRowKeys, selectedRows);
+    },
+  }}
+/>
+```
+

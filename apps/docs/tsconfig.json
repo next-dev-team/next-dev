@@ -26,6 +26,10 @@
       ],
       "@/registry/*": [
         "../../packages/registry/src/*"
+      ],
+      
+      "~/*": [
+        "../../packages/rnr-ui/reusables/*"
       ]
     },
     "plugins": [

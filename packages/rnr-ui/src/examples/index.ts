@@ -7,3 +7,5 @@ export * from './form/form-custom-validation';
 export * from './form/form-dynamic-fields';
 export * from './form/form-field-dependencies';
 export * from './form/form-async-validation';
+export * from './pro-form';
+export * from './pro-table';

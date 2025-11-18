@@ -1,0 +1,262 @@
+---
+title: ProForm
+description: An enhanced form component inspired by Ant Design Pro with built-in validation, layout options, and submit handlers.
+---
+
+import { CommandTabs } from "@docs/components/command-tabs";
+import { PreviewCard } from "@docs/components/preview-card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { ProFormBasicPreview } from "@docs/components/examples";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+<div className="h-5"/>
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <div id="preview" className='*:hidden scroll-m-20' aria-hidden>
+      ## Preview
+    </div>
+    <PreviewCard preview={<ProFormBasicPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/examples/pro-form/pro-form-basic.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+
+## Installation
+
+ProForm is part of the `@rnr/rnr-ui` package. Make sure you have the following dependencies installed:
+
+<Steps>
+  <Step>
+
+    **Install the following dependencies:**
+
+    ```
+    npm install @rnr/rnr-ui rc-field-form
+    ```
+
+    Or if using a monorepo:
+
+    ```
+    pnpm add @rnr/rnr-ui rc-field-form
+    ```
+
+  </Step>
+  <Step>
+
+    **Copy and paste the following code into your project.**
+
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/components/ui/forms.tsx",
+      "codeblock": {
+        "lang": "tsx",
+        "meta": "title=\"@/components/ui/forms.tsx\""
+      }
+    }
+    ```
+
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/components/ui/pro-form.tsx",
+      "codeblock": {
+        "lang": "tsx",
+        "meta": "title=\"@/components/ui/pro-form.tsx\""
+      }
+    }
+    ```
+
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/components/ui/pro-form-fields.tsx",
+      "codeblock": {
+        "lang": "tsx",
+        "meta": "title=\"@/components/ui/pro-form-fields.tsx\""
+      }
+    }
+    ```
+
+  </Step>
+  <Step>
+
+    **Update the import paths to match your project setup.**
+
+  </Step>
+</Steps>
+
+### Usage
+
+```tsx
+import { ProForm, ProFormText, ProFormSelect, ProFormTextArea } from '@/components/ui/pro-form';
+```
+
+```tsx
+<ProForm
+  onFinish={async (values) => {
+    console.log('Form values:', values);
+  }}
+  title="Basic Form"
+  description="This is a basic form example"
+  layout="vertical"
+>
+  <ProFormText
+    name="username"
+    label="Username"
+    placeholder="Enter username"
+    rules={[
+      { required: true, message: 'Please enter username' },
+      { min: 3, message: 'Username must be at least 3 characters' },
+    ]}
+  />
+</ProForm>
+```
+
+## API
+
+### ProForm Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `layout` | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` | Form layout |
+| `submitButtonText` | `string` | `'Submit'` | Submit button text |
+| `resetButtonText` | `string` | - | Reset button text |
+| `submitter` | `boolean \| object` | `true` | Submit button configuration |
+| `onFinish` | `(values: T) => void \| Promise<void>` | - | Form submit handler |
+| `onReset` | `() => void` | - | Form reset handler |
+| `loading` | `boolean` | `false` | Loading state |
+| `title` | `string` | - | Form title |
+| `description` | `string` | - | Form description |
+| `scrollToFirstError` | `boolean` | `false` | Enable scroll to first error |
+| `gridCols` | `number` | `3` | Grid columns for horizontal layout |
+
+### ProForm Field Components
+
+#### ProFormText
+
+Text input field with validation support.
+
+```tsx
+<ProFormText
+  name="email"
+  label="Email"
+  type="email"
+  placeholder="Enter email"
+  rules={[
+    { required: true, message: 'Please enter email' },
+    { type: 'email', message: 'Please enter a valid email' },
+  ]}
+/>
+```
+
+#### ProFormSelect
+
+Select dropdown field.
+
+```tsx
+<ProFormSelect
+  name="country"
+  label="Country"
+  placeholder="Select country"
+  options={[
+    { label: 'United States', value: 'us' },
+    { label: 'Canada', value: 'ca' },
+  ]}
+  rules={[{ required: true, message: 'Please select a country' }]}
+/>
+```
+
+#### ProFormTextArea
+
+Textarea field with character count support.
+
+```tsx
+<ProFormTextArea
+  name="bio"
+  label="Bio"
+  placeholder="Tell us about yourself"
+  rows={4}
+  maxLength={200}
+  showCount
+/>
+```
+
+#### ProFormCheckbox
+
+Checkbox field.
+
+```tsx
+<ProFormCheckbox
+  name="agree"
+  text="I agree to the terms and conditions"
+  rules={[{ required: true, message: 'You must agree to continue' }]}
+/>
+```
+
+#### ProFormRadio
+
+Radio group field.
+
+```tsx
+<ProFormRadio
+  name="gender"
+  label="Gender"
+  options={[
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+  ]}
+  rules={[{ required: true, message: 'Please select gender' }]}
+/>
+```
+
+#### ProFormDigit
+
+Number input field with min/max/precision support.
+
+```tsx
+<ProFormDigit
+  name="age"
+  label="Age"
+  placeholder="Enter age"
+  min={0}
+  max={120}
+  precision={0}
+  rules={[{ required: true, message: 'Please enter age' }]}
+/>
+```
+
+## Examples
+
+### Basic Form
+
+<Tabs defaultValue="preview">
+  <TabsList>
+    <TabsTrigger value="preview">Preview</TabsTrigger>
+    <TabsTrigger value="code">Code</TabsTrigger>
+  </TabsList>
+  <TabsContent value="preview">
+    <PreviewCard preview={<ProFormBasicPreview />} />
+  </TabsContent>
+  <TabsContent value="code">
+    ```json doc-gen:file
+    {
+      "file": "./node_modules/@rnr/rnr-ui/src/examples/pro-form/pro-form-basic.tsx",
+      "codeblock": {
+        "lang": "tsx"
+      }
+    }
+    ```
+  </TabsContent>
+</Tabs>
+

@@ -10,6 +10,7 @@ const config = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   transpilePackages: [
     '@rnr/registry',
+    '@rnr/rnr-ui',
     'react-native',
     'react-native-web',
     'expo',

@@ -1,3 +1,4 @@
+'use client'
 import { RnrIcon } from '@docs/components/icons/rnr-icon';
 import { SkipNavigationButton } from '@docs/components/skip-navigation-button';
 import { source } from '@docs/lib/source';
