@@ -172,3 +172,4 @@ function ProForm<T = any>({
 ProForm.useForm = Form.useForm;
 
 export { ProForm };
+export * from './pro-form-fields';

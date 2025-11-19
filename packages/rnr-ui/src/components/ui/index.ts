@@ -8,6 +8,13 @@ export {
   ProFormCheckbox,
   ProFormRadio,
   ProFormDigit,
+  ProFormSelectMultiple,
+  ProFormList,
+  ProFormGroup,
+  ProFormDatePicker,
+  ProFormDateRangePicker,
+  ProFormSlider,
+  ProFormRate,
 } from './pro-form-fields';
 export type {
   ProFormTextProps,
@@ -16,6 +23,13 @@ export type {
   ProFormCheckboxProps,
   ProFormRadioProps,
   ProFormDigitProps,
+  ProFormSelectMultipleProps,
+  ProFormListProps,
+  ProFormGroupProps,
+  ProFormDatePickerProps,
+  ProFormDateRangePickerProps,
+  ProFormSliderProps,
+  ProFormRateProps,
 } from './pro-form-fields';
 export { ProTable } from './pro-table';
 export type {

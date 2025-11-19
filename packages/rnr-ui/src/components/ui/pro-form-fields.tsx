@@ -1,7 +1,7 @@
 import { Form } from './forms';
 import type { FieldProps } from 'rc-field-form/es/Field';
-import React from 'react';
-import { View, Platform } from 'react-native';
+import React, { useState } from 'react';
+import { View, Platform, TouchableOpacity } from 'react-native';
 import { Input } from '../../../../registry/src/new-york/components/ui/input';
 import {
   Select,
@@ -17,6 +17,7 @@ import {
   RadioGroupItem,
 } from '../../../../registry/src/new-york/components/ui/radio-group';
 import { Text } from '~/components/ui/text';
+import { Button } from '~/components/ui/button';
 
 // ProFormText - Text input field
 export interface ProFormTextProps<T = any> extends FieldProps<T> {
@@ -315,4 +316,415 @@ function ProFormDigit<T = any>({
   );
 }
 
-export { ProFormText, ProFormSelect, ProFormTextArea, ProFormCheckbox, ProFormRadio, ProFormDigit };
+// ProFormSelectMultiple - Multiple select field
+export interface ProFormSelectMultipleProps<T = any> extends FieldProps<T> {
+  placeholder?: string;
+  disabled?: boolean;
+  allowClear?: boolean;
+  options?: Array<{ label: string; value: any; disabled?: boolean }>;
+  showSearch?: boolean;
+  maxTagCount?: number;
+}
+
+function ProFormSelectMultiple<T = any>({
+  placeholder = 'Please select',
+  disabled,
+  allowClear,
+  options = [],
+  maxTagCount,
+  ...restProps
+}: ProFormSelectMultipleProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const hasError = meta.errors && meta.errors.length > 0;
+        const value = Array.isArray(control.value) ? control.value : [];
+
+        const handleValueChange = (newValue: string) => {
+          const currentValues = value as string[];
+          if (currentValues.includes(newValue)) {
+            control.onChange(currentValues.filter(v => v !== newValue));
+          } else {
+            control.onChange([...currentValues, newValue]);
+          }
+        };
+
+        const displayedOptions = maxTagCount 
+          ? options.slice(0, maxTagCount)
+          : options;
+
+        return (
+          <View>
+            <Select value={value[0]} onValueChange={handleValueChange} disabled={disabled}>
+              <SelectTrigger className={hasError ? 'border-destructive' : ''}>
+                <SelectValue 
+                  placeholder={value.length > 0 
+                    ? `${value.length} items selected` 
+                    : placeholder
+                  } 
+                />
+              </SelectTrigger>
+              <SelectContent>
+                {displayedOptions.map((option) => (
+                  <SelectItem
+                    key={String(option.value)}
+                    value={String(option.value)}
+                    label={option.label}
+                    disabled={option.disabled}
+                  />
+                ))}
+              </SelectContent>
+            </Select>
+            {value.length > 0 && (
+              <View className="mt-2 flex-row flex-wrap gap-1">
+                {value.map((val, index) => {
+                  const option = options.find(opt => opt.value === val);
+                  return option ? (
+                    <View 
+                      key={index}
+                      className="bg-primary/10 rounded px-2 py-1 flex-row items-center gap-1"
+                    >
+                      <Text className="text-xs">{option.label}</Text>
+                      {!disabled && (
+                        <Text 
+                          className="text-destructive text-xs"
+                          onPress={() => handleValueChange(String(val))}
+                        >
+                          ×
+                        </Text>
+                      )}
+                    </View>
+                  ) : null;
+                })}
+              </View>
+            )}
+          </View>
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+// ProFormList - Dynamic list field
+export interface ProFormListProps<T = any> extends FieldProps<T[]> {
+  creatorButtonText?: string;
+  deleteButtonText?: string;
+  min?: number;
+  max?: number;
+  children: (field: { name: number; key: number }, index: number) => React.ReactNode;
+}
+
+function ProFormList<T = any>({
+  creatorButtonText = 'Add Item',
+  deleteButtonText = 'Delete',
+  min = 0,
+  max,
+  children,
+  ...restProps
+}: ProFormListProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const value = Array.isArray(control.value) ? control.value : [];
+        const hasError = meta.errors && meta.errors.length > 0;
+
+        const addItem = () => {
+          if (max === undefined || value.length < max) {
+            control.onChange([...value, {} as T]);
+          }
+        };
+
+        const removeItem = (index: number) => {
+          if (min === undefined || value.length > min) {
+            const newValue = value.filter((_, i) => i !== index);
+            control.onChange(newValue);
+          }
+        };
+
+        return (
+          <View className={hasError ? 'border-destructive border rounded p-2' : ''}>
+            {value.map((item, index) => (
+              <View key={index} className="mb-2 p-2 border rounded bg-muted/30">
+                <View className="flex-row justify-between items-center mb-2">
+                  <Text className="text-sm font-medium">Item {index + 1}</Text>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onPress={() => removeItem(index)}
+                    disabled={value.length <= min}
+                  >
+                    <Text className="text-xs">{deleteButtonText}</Text>
+                  </Button>
+                </View>
+                {children({ name: index, key: index }, index)}
+              </View>
+            ))}
+            <Button
+              variant="outline"
+              size="sm"
+              onPress={addItem}
+              disabled={max !== undefined && value.length >= max}
+              className="mt-2"
+            >
+              <Text className="text-sm">{creatorButtonText}</Text>
+            </Button>
+          </View>
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+// ProFormGroup - Group field container
+export interface ProFormGroupProps {
+  title?: string;
+  collapsible?: boolean;
+  collapsed?: boolean;
+  children: React.ReactNode;
+  className?: string;
+}
+
+function ProFormGroup({
+  title,
+  collapsible = false,
+  collapsed = false,
+  children,
+  className = '',
+}: ProFormGroupProps) {
+  const [isCollapsed, setIsCollapsed] = useState(collapsed);
+
+  return (
+    <View className={`border rounded-lg p-4 mb-4 ${className}`}>
+      {title && (
+        <View className="flex-row justify-between items-center mb-3">
+          <Text className="text-lg font-semibold">{title}</Text>
+          {collapsible && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onPress={() => setIsCollapsed(!isCollapsed)}
+            >
+              <Text>{isCollapsed ? '▼' : '▲'}</Text>
+            </Button>
+          )}
+        </View>
+      )}
+      {!isCollapsed && <View>{children}</View>}
+    </View>
+  );
+}
+
+// ProFormDatePicker - Date picker field
+export interface ProFormDatePickerProps<T = any> extends FieldProps<T> {
+  placeholder?: string;
+  disabled?: boolean;
+  format?: string;
+  showTime?: boolean;
+}
+
+function ProFormDatePicker<T = any>({
+  placeholder = 'Select date',
+  disabled,
+  format = 'YYYY-MM-DD',
+  showTime = false,
+  ...restProps
+}: ProFormDatePickerProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const hasError = meta.errors && meta.errors.length > 0;
+        const value = control.value;
+
+        // Simple date input implementation
+        return (
+          <Input
+            {...control}
+            value={value ? String(value) : ''}
+            onChangeText={control.onChange}
+            onBlur={control.onBlur}
+            placeholder={placeholder}
+            editable={!disabled}
+            className={hasError ? 'border-destructive' : ''}
+          />
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+// ProFormDateRangePicker - Date range picker field
+export interface ProFormDateRangePickerProps<T = any> extends FieldProps<T> {
+  placeholder?: [string, string];
+  disabled?: boolean;
+  format?: string;
+}
+
+function ProFormDateRangePicker<T = any>({
+  placeholder = ['Start date', 'End date'],
+  disabled,
+  format = 'YYYY-MM-DD',
+  ...restProps
+}: ProFormDateRangePickerProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const hasError = meta.errors && meta.errors.length > 0;
+        const value = control.value || {};
+        const [startDate, endDate] = Array.isArray(value) ? value : [value.start, value.end];
+
+        return (
+          <View className="flex-row gap-2">
+            <Input
+              value={startDate ? String(startDate) : ''}
+              onChangeText={(text) => {
+                const newValue = Array.isArray(value) ? [text, value[1]] : { start: text, end: value?.end };
+                control.onChange(newValue);
+              }}
+              onBlur={control.onBlur}
+              placeholder={placeholder[0]}
+              editable={!disabled}
+              className={`flex-1 ${hasError ? 'border-destructive' : ''}`}
+            />
+            <Text className="self-center">~</Text>
+            <Input
+              value={endDate ? String(endDate) : ''}
+              onChangeText={(text) => {
+                const newValue = Array.isArray(value) ? [value[0], text] : { start: value?.start, end: text };
+                control.onChange(newValue);
+              }}
+              onBlur={control.onBlur}
+              placeholder={placeholder[1]}
+              editable={!disabled}
+              className={`flex-1 ${hasError ? 'border-destructive' : ''}`}
+            />
+          </View>
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+// ProFormSlider - Slider field
+export interface ProFormSliderProps<T = any> extends FieldProps<T> {
+  min?: number;
+  max?: number;
+  step?: number;
+  disabled?: boolean;
+  marks?: Record<number, string>;
+}
+
+function ProFormSlider<T = any>({
+  min = 0,
+  max = 100,
+  step = 1,
+  disabled,
+  marks,
+  ...restProps
+}: ProFormSliderProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const hasError = meta.errors && meta.errors.length > 0;
+        const value = typeof control.value === 'number' ? control.value : min;
+
+        return (
+          <View>
+            <View className="flex-row justify-between mb-2">
+              <Text className="text-sm text-muted-foreground">{min}</Text>
+              <Text className="text-sm font-medium">{value}</Text>
+              <Text className="text-sm text-muted-foreground">{max}</Text>
+            </View>
+            <View className="h-2 bg-muted rounded-full relative">
+              <View 
+                className="bg-primary h-2 rounded-full"
+                style={{ width: `${((value - min) / (max - min)) * 100}%` }}
+              />
+              <View 
+                className="w-4 h-4 bg-primary rounded-full absolute -top-1"
+                style={{ left: `${((value - min) / (max - min)) * 100}%` }}
+              />
+            </View>
+            {marks && (
+              <View className="flex-row justify-between mt-2">
+                {Object.entries(marks).map(([markValue, markLabel]) => (
+                  <Text key={markValue} className="text-xs text-muted-foreground">
+                    {markLabel}
+                  </Text>
+                ))}
+              </View>
+            )}
+          </View>
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+// ProFormRate - Rate field
+export interface ProFormRateProps<T = any> extends FieldProps<T> {
+  count?: number;
+  disabled?: boolean;
+  allowHalf?: boolean;
+  character?: string;
+}
+
+function ProFormRate<T = any>({
+  count = 5,
+  disabled,
+  allowHalf = false,
+  character = '★',
+  ...restProps
+}: ProFormRateProps<T>) {
+  return (
+    <Form.Item {...restProps}>
+      {(control, meta) => {
+        const hasError = meta.errors && meta.errors.length > 0;
+        const value = typeof control.value === 'number' ? control.value : 0;
+
+        const handleRate = (rating: number) => {
+          if (!disabled) {
+            control.onChange(rating === value ? 0 : rating);
+          }
+        };
+
+        return (
+          <View className="flex-row gap-1">
+            {Array.from({ length: count }, (_, index) => {
+              const starValue = index + 1;
+              const isFilled = starValue <= value;
+              const isHalf = allowHalf && starValue - 0.5 === value;
+              
+              return (
+                <Text
+                  key={index}
+                  className={`text-2xl ${
+                    isFilled || isHalf ? 'text-yellow-400' : 'text-gray-300'
+                  } ${!disabled ? 'active:opacity-70' : ''}`}
+                  onPress={() => handleRate(starValue)}
+                >
+                  {character}
+                </Text>
+              );
+            })}
+          </View>
+        );
+      }}
+    </Form.Item>
+  );
+}
+
+export { 
+  ProFormText, 
+  ProFormSelect, 
+  ProFormTextArea, 
+  ProFormCheckbox, 
+  ProFormRadio, 
+  ProFormDigit,
+  ProFormSelectMultiple,
+  ProFormList,
+  ProFormGroup,
+  ProFormDatePicker,
+  ProFormDateRangePicker,
+  ProFormSlider,
+  ProFormRate
+};
