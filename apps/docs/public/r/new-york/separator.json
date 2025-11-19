@@ -5,9 +5,7 @@
   "title": "Separator",
   "author": "@mrzachnugent",
   "description": "Visually or semantically separates content.",
-  "dependencies": [
-    "@rn-primitives/separator"
-  ],
+  "dependencies": ["@rn-primitives/separator"],
   "files": [
     {
       "path": "./node_modules/@rnr/registry/src/new-york/components/ui/separator.tsx",

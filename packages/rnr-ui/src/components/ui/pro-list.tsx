@@ -162,13 +162,17 @@ function ProList<T extends Record<string, any> = any>({
   const renderMeta = (meta?: ProListMeta) => {
     if (!meta) return null;
 
-    const avatarContent = meta.avatar
-      ? typeof meta.avatar === 'object' && 'src' in meta.avatar
-        ? meta.avatar.src
-          ? <Image source={{ uri: meta.avatar.src }} className="h-12 w-12 rounded-full" />
-          : meta.avatar.icon
-        : meta.avatar
-      : null;
+    const avatarContent = meta.avatar ? (
+      typeof meta.avatar === 'object' && 'src' in meta.avatar ? (
+        meta.avatar.src ? (
+          <Image source={{ uri: meta.avatar.src }} className="h-12 w-12 rounded-full" />
+        ) : (
+          meta.avatar.icon
+        )
+      ) : (
+        meta.avatar
+      )
+    ) : null;
 
     return (
       <View className="flex-row items-start gap-3">
@@ -219,7 +223,7 @@ function ProList<T extends Record<string, any> = any>({
           )}
         >
           {renderMeta(meta)}
-          {content && <View className="flex-1 ml-4">{content}</View>}
+          {content && <View className="ml-4 flex-1">{content}</View>}
           {extra && <View className="ml-4">{extra}</View>}
           {actions && actions.length > 0 && (
             <View className="ml-4 flex-row gap-2">
@@ -236,11 +240,7 @@ function ProList<T extends Record<string, any> = any>({
       <Pressable
         key={key}
         onPress={() => onItemPress?.(item, index)}
-        className={cn(
-          'p-4',
-          split && 'border-b',
-          onItemPress && 'active:bg-accent',
-        )}
+        className={cn('p-4', split && 'border-b', onItemPress && 'active:bg-accent')}
       >
         {renderMeta(meta)}
         {content && <View className="mt-2">{content}</View>}
@@ -404,4 +404,3 @@ function ProList<T extends Record<string, any> = any>({
 
 export { ProList };
 export type { ProListProps, ProListMeta, ProListItem };
-

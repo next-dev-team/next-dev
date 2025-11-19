@@ -73,7 +73,26 @@ function PageContainer({
   const tabActiveKey = controlledTabKey ?? internalTabKey;
 
   const renderBreadcrumb = () => {
-    if (breadcrumbRender) return <View className="border-border border-b px-4 py-2">{breadcrumbRender({ title, subTitle, extra, content, children, footer, loading, header, breadcrumb, waterMarkProps, tabList, tabActiveKey: tabActiveKey, onTabChange })}</View>;
+    if (breadcrumbRender)
+      return (
+        <View className="border-border border-b px-4 py-2">
+          {breadcrumbRender({
+            title,
+            subTitle,
+            extra,
+            content,
+            children,
+            footer,
+            loading,
+            header,
+            breadcrumb,
+            waterMarkProps,
+            tabList,
+            tabActiveKey: tabActiveKey,
+            onTabChange,
+          })}
+        </View>
+      );
     const routes = breadcrumb?.routes || [];
     if (routes.length === 0) return null;
     return (
@@ -82,7 +101,7 @@ function PageContainer({
           {routes.map((r, i) => (
             <View key={(r.path || r.breadcrumbName || '') + i} className="flex-row items-center">
               <Text className="text-sm">{r.breadcrumbName || r.path || ''}</Text>
-              {i < routes.length - 1 && <Text className="mx-1 text-muted-foreground">/</Text>}
+              {i < routes.length - 1 && <Text className="text-muted-foreground mx-1">/</Text>}
             </View>
           ))}
         </View>
@@ -91,7 +110,13 @@ function PageContainer({
   };
 
   const renderHeader = () => {
-    const hasHeader = title || subTitle || extra || header?.avatar || (header?.tags && header?.tags.length > 0) || header?.backIcon;
+    const hasHeader =
+      title ||
+      subTitle ||
+      extra ||
+      header?.avatar ||
+      (header?.tags && header?.tags.length > 0) ||
+      header?.backIcon;
     if (!hasHeader) return null;
     return (
       <View className="border-border border-b px-4 py-3">
@@ -115,7 +140,11 @@ function PageContainer({
           {extra && <View className="flex-row gap-2">{extra}</View>}
         </View>
         {header?.tags && header.tags.length > 0 && (
-          <View className="mt-2 flex-row flex-wrap gap-2">{header.tags.map((t, i) => <View key={i}>{t}</View>)}</View>
+          <View className="mt-2 flex-row flex-wrap gap-2">
+            {header.tags.map((t, i) => (
+              <View key={i}>{t}</View>
+            ))}
+          </View>
         )}
       </View>
     );
@@ -125,7 +154,7 @@ function PageContainer({
     if (!tabList || tabList.length === 0) return null;
     return (
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="border-border border-b flex-row items-center gap-1 px-2">
+        <View className="border-border flex-row items-center gap-1 border-b px-2">
           {tabList.map((tab) => (
             <Pressable
               key={tab.key}
@@ -133,7 +162,10 @@ function PageContainer({
                 if (controlledTabKey === undefined) setInternalTabKey(tab.key);
                 onTabChange?.(tab.key);
               }}
-              className={cn('rounded-md px-3 py-2', tabActiveKey === tab.key ? 'bg-primary/10' : 'active:bg-muted')}
+              className={cn(
+                'rounded-md px-3 py-2',
+                tabActiveKey === tab.key ? 'bg-primary/10' : 'active:bg-muted',
+              )}
             >
               <View>{tab.tab}</View>
             </Pressable>
@@ -152,10 +184,24 @@ function PageContainer({
     return (
       <View pointerEvents="none" className="absolute inset-0">
         {Array.from({ length: rows }).map((_, r) => (
-          <View key={r} style={{ flexDirection: 'row', transform: [{ rotate: `${wm.rotate ?? -20}deg` }] }}>
+          <View
+            key={r}
+            style={{ flexDirection: 'row', transform: [{ rotate: `${wm.rotate ?? -20}deg` }] }}
+          >
             {Array.from({ length: cols }).map((__, c) => (
-              <View key={c} style={{ width: gap, height: gap, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: wm.fontSize ?? 14, color: wm.color ?? '#999', opacity: wm.opacity ?? 0.25 }}>{wm.content}</Text>
+              <View
+                key={c}
+                style={{ width: gap, height: gap, alignItems: 'center', justifyContent: 'center' }}
+              >
+                <Text
+                  style={{
+                    fontSize: wm.fontSize ?? 14,
+                    color: wm.color ?? '#999',
+                    opacity: wm.opacity ?? 0.25,
+                  }}
+                >
+                  {wm.content}
+                </Text>
               </View>
             ))}
           </View>
@@ -177,9 +223,7 @@ function PageContainer({
       {renderHeader()}
       {renderTabs()}
       {content && <View className="px-4 py-4">{content}</View>}
-      <View className="px-4 py-4">
-        {children}
-      </View>
+      <View className="px-4 py-4">{children}</View>
       {footer && <View className="border-border border-t px-4 py-3">{footer}</View>}
       <Watermark />
     </View>
@@ -187,4 +231,11 @@ function PageContainer({
 }
 
 export { PageContainer };
-export type { PageContainerProps, BreadcrumbProps, BreadcrumbRoute, WaterMarkProps, PageHeaderProps, PageContainerTabItem };
+export type {
+  PageContainerProps,
+  BreadcrumbProps,
+  BreadcrumbRoute,
+  WaterMarkProps,
+  PageHeaderProps,
+  PageContainerTabItem,
+};

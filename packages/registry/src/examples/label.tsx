@@ -28,7 +28,8 @@ export function LabelPreview() {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
             setChecked((prev) => !prev);
           },
-        })}>
+        })}
+      >
         Accept terms and conditions
       </Label>
     </View>

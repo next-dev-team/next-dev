@@ -1,0 +1,42 @@
+{
+  "name": "@rnr/admin",
+  "main": "index.js",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "ENV=development expo start --clear --dev-client",
+    "ios": "ENV=development expo run:ios",
+    "android": "ENV=development expo run:android",
+    "build:web": "npx expo export -p web",
+    "serve:web": "npx serve dist --single",
+    "clean": "rm -rf .expo node_modules",
+    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
+  },
+  "dependencies": {
+    "@rnr/registry": "workspace:*",
+    "@rnr/rnr-ui": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "expo": "^54.0.12",
+    "expo-router": "~6.0.10",
+    "expo-status-bar": "~3.0.8",
+    "lucide-react-native": "^0.545.0",
+    "nativewind": "^4.2.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-native": "0.81.4",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-reanimated": "~4.1.2",
+    "react-native-safe-area-context": "5.6.1",
+    "react-native-screens": "^4.16.0",
+    "react-native-svg": "15.12.1",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "babel-plugin-module-resolver": "^5.0.0",
+    "@types/react": "~19.1.17",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.9.3"
+  }
+}

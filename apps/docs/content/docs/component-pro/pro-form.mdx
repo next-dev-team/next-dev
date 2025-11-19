@@ -3,13 +3,13 @@ title: ProForm
 description: An enhanced form component inspired by Ant Design Pro with built-in validation, layout options, and submit handlers.
 ---
 
-import { CommandTabs } from "@docs/components/command-tabs";
-import { PreviewCard } from "@docs/components/preview-card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
-import { ProFormBasicPreview } from "@docs/components/examples";
+import { CommandTabs } from '@docs/components/command-tabs';
+import { PreviewCard } from '@docs/components/preview-card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
+import { ProFormBasicPreview } from '@docs/components/examples';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-<div className="h-5"/>
+<div className="h-5" />
 
 <Tabs defaultValue="preview">
   <TabsList>
@@ -127,19 +127,19 @@ import { ProForm, ProFormText, ProFormSelect, ProFormTextArea } from '@/componen
 
 ### ProForm Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `layout` | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` | Form layout |
-| `submitButtonText` | `string` | `'Submit'` | Submit button text |
-| `resetButtonText` | `string` | - | Reset button text |
-| `submitter` | `boolean \| object` | `true` | Submit button configuration |
-| `onFinish` | `(values: T) => void \| Promise<void>` | - | Form submit handler |
-| `onReset` | `() => void` | - | Form reset handler |
-| `loading` | `boolean` | `false` | Loading state |
-| `title` | `string` | - | Form title |
-| `description` | `string` | - | Form description |
-| `scrollToFirstError` | `boolean` | `false` | Enable scroll to first error |
-| `gridCols` | `number` | `3` | Grid columns for horizontal layout |
+| Prop                 | Type                                     | Default        | Description                        |
+| -------------------- | ---------------------------------------- | -------------- | ---------------------------------- |
+| `layout`             | `'horizontal' \| 'vertical' \| 'inline'` | `'horizontal'` | Form layout                        |
+| `submitButtonText`   | `string`                                 | `'Submit'`     | Submit button text                 |
+| `resetButtonText`    | `string`                                 | -              | Reset button text                  |
+| `submitter`          | `boolean \| object`                      | `true`         | Submit button configuration        |
+| `onFinish`           | `(values: T) => void \| Promise<void>`   | -              | Form submit handler                |
+| `onReset`            | `() => void`                             | -              | Form reset handler                 |
+| `loading`            | `boolean`                                | `false`        | Loading state                      |
+| `title`              | `string`                                 | -              | Form title                         |
+| `description`        | `string`                                 | -              | Form description                   |
+| `scrollToFirstError` | `boolean`                                | `false`        | Enable scroll to first error       |
+| `gridCols`           | `number`                                 | `3`            | Grid columns for horizontal layout |
 
 ### ProForm Field Components
 
@@ -259,4 +259,3 @@ Number input field with min/max/precision support.
     ```
   </TabsContent>
 </Tabs>
-

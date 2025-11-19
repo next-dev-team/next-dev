@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { ProForm, ProFormText, ProFormSelect, ProFormTextArea } from '@rnr/rnr-ui'
-import { View } from 'react-native'
+import { ProForm, ProFormText, ProFormSelect, ProFormTextArea } from '@rnr/rnr-ui';
+import { View } from 'react-native';
 
 export function ProFormBasicPreview() {
   const handleFinish = async (values: any) => {
-    console.log('Form values:', values)
-  }
+    console.log('Form values:', values);
+  };
 
   return (
     <View className="w-full max-w-md p-4">
@@ -59,5 +59,5 @@ export function ProFormBasicPreview() {
         />
       </ProForm>
     </View>
-  )
+  );
 }

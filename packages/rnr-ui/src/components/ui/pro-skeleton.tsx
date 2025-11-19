@@ -88,10 +88,7 @@ function ProSkeleton({
 
     return (
       <View
-        className={cn(
-          'bg-muted h-4 rounded',
-          active && 'animate-pulse',
-        )}
+        className={cn('bg-muted h-4 rounded', active && 'animate-pulse')}
         style={{ width: typeof width === 'number' ? width : width }}
       />
     );
@@ -113,10 +110,7 @@ function ProSkeleton({
           return (
             <View
               key={index}
-              className={cn(
-                'bg-muted h-3 rounded',
-                active && 'animate-pulse',
-              )}
+              className={cn('bg-muted h-3 rounded', active && 'animate-pulse')}
               style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth }}
             />
           );
@@ -252,14 +246,15 @@ interface SkeletonImageProps {
   className?: string;
 }
 
-function SkeletonImage({ width = 200, height = 200, active = true, className }: SkeletonImageProps) {
+function SkeletonImage({
+  width = 200,
+  height = 200,
+  active = true,
+  className,
+}: SkeletonImageProps) {
   return (
     <View
-      className={cn(
-        'bg-muted rounded-md',
-        active && 'animate-pulse',
-        className,
-      )}
+      className={cn('bg-muted rounded-md', active && 'animate-pulse', className)}
       style={{ width, height }}
     />
   );
@@ -331,11 +326,7 @@ interface SkeletonTitleProps {
 function SkeletonTitle({ width = '60%', active = true, className }: SkeletonTitleProps) {
   return (
     <View
-      className={cn(
-        'bg-muted h-4 rounded',
-        active && 'animate-pulse',
-        className,
-      )}
+      className={cn('bg-muted h-4 rounded', active && 'animate-pulse', className)}
       style={{ width: typeof width === 'number' ? width : width }}
     />
   );
@@ -378,10 +369,7 @@ function SkeletonParagraph({
         return (
           <View
             key={index}
-            className={cn(
-              'bg-muted h-3 rounded',
-              active && 'animate-pulse',
-            )}
+            className={cn('bg-muted h-3 rounded', active && 'animate-pulse')}
             style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth }}
           />
         );
@@ -398,7 +386,15 @@ ProSkeleton.Avatar = SkeletonAvatar;
 ProSkeleton.Title = SkeletonTitle;
 ProSkeleton.Paragraph = SkeletonParagraph;
 
-export { ProSkeleton, SkeletonButton, SkeletonInput, SkeletonImage, SkeletonAvatar, SkeletonTitle, SkeletonParagraph };
+export {
+  ProSkeleton,
+  SkeletonButton,
+  SkeletonInput,
+  SkeletonImage,
+  SkeletonAvatar,
+  SkeletonTitle,
+  SkeletonParagraph,
+};
 export type {
   ProSkeletonProps,
   SkeletonButtonProps,
@@ -408,4 +404,3 @@ export type {
   SkeletonTitleProps,
   SkeletonParagraphProps,
 };
-

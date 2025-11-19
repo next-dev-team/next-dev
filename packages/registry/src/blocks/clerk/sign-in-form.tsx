@@ -98,7 +98,8 @@ export function SignInForm() {
                   className="web:h-fit ml-auto h-4 px-1 py-0 sm:h-4"
                   onPress={() => {
                     // TODO: Navigate to forgot password screen
-                  }}>
+                  }}
+                >
                   <Text className="font-normal leading-4">Forgot your password?</Text>
                 </Button>
               </View>
@@ -123,7 +124,8 @@ export function SignInForm() {
             <Pressable
               onPress={() => {
                 // TODO: Navigate to sign up screen
-              }}>
+              }}
+            >
               <Text className="text-sm underline underline-offset-4">Sign up</Text>
             </Pressable>
           </Text>

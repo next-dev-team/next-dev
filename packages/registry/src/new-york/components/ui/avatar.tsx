@@ -28,7 +28,7 @@ function AvatarFallback({
     <AvatarPrimitive.Fallback
       className={cn(
         'bg-muted flex size-full flex-row items-center justify-center rounded-full',
-        className
+        className,
       )}
       {...props}
     />

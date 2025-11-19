@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { RnrIcon } from '@docs/components/icons/rnr-icon';
 import { SkipNavigationButton } from '@docs/components/skip-navigation-button';
 import { source } from '@docs/lib/source';
@@ -24,7 +24,8 @@ export default function Layout({ children }: { children: ReactNode }) {
           ),
         }}
         sidebar={SIDEBAR_PROPS}
-        githubUrl="https://github.com/founded-labs/react-native-reusables">
+        githubUrl="https://github.com/founded-labs/react-native-reusables"
+      >
         {children}
       </DocsLayout>
     </>

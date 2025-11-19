@@ -11,6 +11,7 @@
     "dev:showcase:android": "turbo dev:android --filter=@rnr/showcase --concurrency 32",
     "dev:showcase:web": "turbo dev:web --filter=@rnr/showcase --concurrency 32",
     "dev:tron": "pnpm --filter @rnr/tron-core run dev",
+    "dev:admin": "cd apps/rnr-admin && pnpm start",
     "lint": "turbo lint",
     "lint:fix": "turbo lint -- --fix",
     "format": "prettier --write .",

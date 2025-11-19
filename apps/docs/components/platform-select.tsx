@@ -36,7 +36,7 @@ export function PlatformSelect(props: SelectProps) {
             <span className="opacity-50">
               {
                 PLATFORMS.find((platform) =>
-                  platform.name === props.value ? props.value : props.defaultValue
+                  platform.name === props.value ? props.value : props.defaultValue,
                 )?.label
               }
             </span>

@@ -5,9 +5,7 @@
   "title": "Social Connections",
   "author": "@mrzachnugent",
   "description": "A set of buttons for authenticating through social providers.",
-  "registryDependencies": [
-    "https://reactnativereusables.com/r/new-york/button.json"
-  ],
+  "registryDependencies": ["https://reactnativereusables.com/r/new-york/button.json"],
   "files": [
     {
       "path": "./node_modules/@rnr/registry/src/blocks/social-connections.tsx",

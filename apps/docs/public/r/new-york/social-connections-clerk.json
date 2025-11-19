@@ -5,14 +5,8 @@
   "title": "Social Connections (Clerk)",
   "author": "@mrzachnugent",
   "description": "A set of buttons for authenticating through social providers with Clerk integration.",
-  "dependencies": [
-    "@clerk/clerk-expo",
-    "expo-auth-session",
-    "expo-web-browser"
-  ],
-  "registryDependencies": [
-    "https://reactnativereusables.com/r/new-york/button.json"
-  ],
+  "dependencies": ["@clerk/clerk-expo", "expo-auth-session", "expo-web-browser"],
+  "registryDependencies": ["https://reactnativereusables.com/r/new-york/button.json"],
   "files": [
     {
       "path": "./node_modules/@rnr/registry/src/blocks/clerk/social-connections.tsx",

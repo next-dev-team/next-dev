@@ -30,8 +30,9 @@ export default function ComponentsScreen() {
     <View
       className={cn(
         'web:p-4 mx-auto w-full max-w-lg flex-1',
-        Platform.select({ android: cn('border-border/0 border-t', !isAtTop && 'border-border') })
-      )}>
+        Platform.select({ android: cn('border-border/0 border-t', !isAtTop && 'border-border') }),
+      )}
+    >
       <FlashList
         ref={flashListRef}
         data={data}
@@ -62,11 +63,7 @@ export default function ComponentsScreen() {
           ),
           web: (
             <View className="pb-2">
-              <Input
-                placeholder="Search..."
-                onChangeText={setSearch}
-                autoCorrect={false}
-              />
+              <Input placeholder="Search..." onChangeText={setSearch} autoCorrect={false} />
             </View>
           ),
         })}
@@ -78,9 +75,10 @@ export default function ComponentsScreen() {
                 size="default"
                 unstable_pressDelay={100}
                 className={cn(
-                  'flex-row justify-between px-3 py-2 mb-1 rounded-lg',
-                  'hover:bg-accent active:bg-accent'
-                )}>
+                  'mb-1 flex-row justify-between rounded-lg px-3 py-2',
+                  'hover:bg-accent active:bg-accent',
+                )}
+              >
                 <Text className="text-sm font-medium">{item.name}</Text>
                 <Icon as={ChevronRight} className="text-muted-foreground size-3.5 stroke-[1.5px]" />
               </Button>

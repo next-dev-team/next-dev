@@ -33,7 +33,9 @@ export function ProTableBasicPreview() {
       dataIndex: 'status',
       key: 'status',
       render: (value) => (
-        <View className={`px-2 py-1 rounded ${value === 'active' ? 'bg-green-100' : 'bg-gray-100'}`}>
+        <View
+          className={`rounded px-2 py-1 ${value === 'active' ? 'bg-green-100' : 'bg-gray-100'}`}
+        >
           <Text className="text-xs">{value}</Text>
         </View>
       ),
@@ -74,4 +76,3 @@ export function ProTableBasicPreview() {
     </View>
   );
 }
-

@@ -28,12 +28,14 @@ function Checkbox({
         }),
         props.checked && cn('border-primary', checkedClassName),
         props.disabled && 'opacity-50',
-        className
+        className,
       )}
       hitSlop={DEFAULT_HIT_SLOP}
-      {...props}>
+      {...props}
+    >
       <CheckboxPrimitive.Indicator
-        className={cn('bg-primary h-full w-full items-center justify-center', indicatorClassName)}>
+        className={cn('bg-primary h-full w-full items-center justify-center', indicatorClassName)}
+      >
         <Icon
           as={Check}
           size={12}

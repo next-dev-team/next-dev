@@ -4,23 +4,32 @@ description: A form for verifying an email address with an OTP sent via email.
 ---
 
 import { BlockPreviewCard } from '@docs/components/preview-card';
-import { VerifyEmailForm } from "@docs/components/blocks";
-import { ExternalLinks } from "@docs/components/external-links";
-import { Step, Steps } from 'fumadocs-ui/components/steps';                                                                                 
-import { CommandTabs } from "@docs/components/command-tabs";
-import { AuthBlockTabs, AuthBlockTabsCliContent, AuthBlockTabsManualContent } from '@docs/components/auth-block-tabs';
+import { VerifyEmailForm } from '@docs/components/blocks';
+import { ExternalLinks } from '@docs/components/external-links';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { CommandTabs } from '@docs/components/command-tabs';
+import {
+  AuthBlockTabs,
+  AuthBlockTabsCliContent,
+  AuthBlockTabsManualContent,
+} from '@docs/components/auth-block-tabs';
 import { Callout } from '@docs/components/callout';
 
 <ExternalLinks links={[{ title: 'Clerk docs', url: 'https://go.clerk.com/Q1MKAz0' }]} />
 
 <div className="h-5" />
 
-<div id="preview" className='*:hidden scroll-m-20' aria-hidden>
+<div id="preview" className="scroll-m-20 *:hidden" aria-hidden>
   ## Preview
 </div>
-    
-<BlockPreviewCard preview={<div className="w-full max-w-sm"><VerifyEmailForm /></div>} />
 
+<BlockPreviewCard
+  preview={
+    <div className="w-full max-w-sm">
+      <VerifyEmailForm />
+    </div>
+  }
+/>
 
 ## Installation
 
@@ -51,10 +60,11 @@ import { Callout } from '@docs/components/callout';
             </ScrollView>
           );
         }
-        ``` 
+        ```
 
       </Step>
     </Steps>
+
   </AuthBlockTabsCliContent>
   <AuthBlockTabsCliContent integration="clerk">
     <Steps>
@@ -65,7 +75,7 @@ import { Callout } from '@docs/components/callout';
         **If you haven't already**
 
         Follow steps 2-4 of Clerk's [Expo quick start](https://go.clerk.com/8e6CCee#set-your-clerk-api-keys) to configure your app for Clerk.
-        
+
       </Step>
       <Step>
         **All set!**
@@ -92,6 +102,7 @@ import { Callout } from '@docs/components/callout';
 
       </Step>
     </Steps>
+
   </AuthBlockTabsCliContent>
 
   <AuthBlockTabsManualContent integration="none">
@@ -123,7 +134,7 @@ import { Callout } from '@docs/components/callout';
         ```
 
       </Step>
-      
+
       <Step>
 
         **Adjust for your project setup.**
@@ -147,7 +158,7 @@ import { Callout } from '@docs/components/callout';
         ```
 
         - Follow steps 2-4 of Clerk's [Expo quick start](https://go.clerk.com/8e6CCee#set-your-clerk-api-keys) to configure your app for Clerk.
-        
+
       </Step>
 
       <Step>
@@ -177,7 +188,7 @@ import { Callout } from '@docs/components/callout';
         ```
 
       </Step>
-      
+
       <Step>
 
         **Adjust for your project setup.**
@@ -186,6 +197,6 @@ import { Callout } from '@docs/components/callout';
 
       </Step>
     </Steps>
-    
+
   </AuthBlockTabsManualContent>
 </AuthBlockTabs>

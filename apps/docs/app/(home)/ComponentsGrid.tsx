@@ -46,16 +46,19 @@ export default function ComponentsGrid() {
           <span className="text-muted-foreground">Platform:</span>{' '}
           <button
             className={`cursor-pointer rounded-sm border px-1.5 py-1 duration-150 ${!nativePreview ? 'bg-white shadow dark:bg-neutral-800' : 'hover:bg-fd-accent/70 border-transparent'}`}
-            onClick={() => setNativePreview(false)}>
+            onClick={() => setNativePreview(false)}
+          >
             Web
           </button>
           <button
             className={`cursor-pointer rounded-sm border px-1.5 py-1 duration-150 ${nativePreview ? 'bg-white shadow dark:bg-neutral-800' : 'hover:bg-fd-accent/70 border-transparent'}`}
-            onClick={() => setNativePreview(true)}>
+            onClick={() => setNativePreview(true)}
+          >
             Native
           </button>
           <div
-            className={`absolute left-0 top-10 z-20 flex max-w-sm flex-col items-center gap-6 rounded-lg border border-dashed bg-white p-4 shadow-xl duration-100 dark:bg-black ${nativePreview ? 'translate-y-0 opacity-100 blur-0' : 'pointer-events-none -translate-y-2 opacity-0 blur-md'}`}>
+            className={`absolute left-0 top-10 z-20 flex max-w-sm flex-col items-center gap-6 rounded-lg border border-dashed bg-white p-4 shadow-xl duration-100 dark:bg-black ${nativePreview ? 'translate-y-0 opacity-100 blur-0' : 'pointer-events-none -translate-y-2 opacity-0 blur-md'}`}
+          >
             <QRCodeSVG
               value="https://reactnativereusables.com/showcase/links/home-screen"
               bgColor={isDark ? 'black' : 'white'}
