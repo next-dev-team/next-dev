@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator, Pressable } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Button } from '~/components/ui/button';
 import { Input } from '../../../../registry/src/new-york/components/ui/input';
@@ -22,7 +22,7 @@ export interface ProTableColumn<T = any> {
   /**
    * Data field name
    */
-  dataIndex: string | string[];
+  dataIndex: keyof T | string[];
   /**
    * Unique key
    */
@@ -67,8 +67,8 @@ export interface ProTableRequestParams {
   [key: string]: any;
 }
 
-export interface ProTableRequestData {
-  data: any[];
+export interface ProTableRequestData<T = any> {
+  data: T[];
   success: boolean;
   total?: number;
   [key: string]: any;
@@ -82,7 +82,7 @@ export interface ProTableProps<T = any> {
   /**
    * Request function to fetch data
    */
-  request?: (params: ProTableRequestParams) => Promise<ProTableRequestData>;
+  request?: (params: ProTableRequestParams) => Promise<ProTableRequestData<T>>;
   /**
    * Static data source
    */
@@ -282,7 +282,7 @@ function ProTable<T extends Record<string, any> = any>({
   const isLoading = loading || externalLoading;
 
   return (
-    <View className="w-full">
+    <View className="w-full flex-1">
       {/* Header */}
       {(headerTitle || toolBarRender) && (
         <View className="mb-4 flex-row items-center justify-between">
@@ -308,14 +308,17 @@ function ProTable<T extends Record<string, any> = any>({
                   ? column.dataIndex[0]
                   : column.dataIndex;
 
+                // Get the search key from dataIndex (handle both string and array cases)
+                const searchKey = Array.isArray(dataIndex) ? dataIndex.join('.') : String(dataIndex);
+                
                 return (
                   <View key={String(column.key || dataIndex)} className="min-w-[200px] flex-1">
                     <Text className="mb-1 text-sm">{column.title}</Text>
                     {column.filters ? (
                       <Select
-                        value={String(searchParams[dataIndex] || '')}
+                        value={{ value: String(searchParams[searchKey] || ''), label: String(searchParams[searchKey] || '') }}
                         onValueChange={(value) =>
-                          handleSearch({ ...searchParams, [dataIndex]: value })
+                          handleSearch({ ...searchParams, [searchKey]: value })
                         }
                       >
                         <SelectTrigger>
@@ -323,7 +326,7 @@ function ProTable<T extends Record<string, any> = any>({
                         </SelectTrigger>
                         <SelectContent>
                           {column.filters.map((filter) => (
-                            <SelectItem key={String(filter.value)} value={String(filter.value)}>
+                            <SelectItem key={String(filter.value)} value={String(filter.value)} label={filter.text}>
                               {filter.text}
                             </SelectItem>
                           ))}
@@ -332,9 +335,9 @@ function ProTable<T extends Record<string, any> = any>({
                     ) : (
                       <Input
                         placeholder={`Search ${column.title}`}
-                        value={String(searchParams[dataIndex] || '')}
+                        value={String(searchParams[searchKey] || '')}
                         onChangeText={(text) =>
-                          handleSearch({ ...searchParams, [dataIndex]: text })
+                          handleSearch({ ...searchParams, [searchKey]: text })
                         }
                       />
                     )}
@@ -354,7 +357,7 @@ function ProTable<T extends Record<string, any> = any>({
       )}
 
       {/* Table */}
-      <View className="overflow-hidden rounded-md border">
+      <View className="overflow-hidden rounded-md border flex-1">
         {isLoading && (
           <View className="bg-background/50 absolute inset-0 z-10 items-center justify-center">
             <ActivityIndicator size="large" />
@@ -384,9 +387,9 @@ function ProTable<T extends Record<string, any> = any>({
         </View>
 
         {/* Table Body */}
-        <ScrollView>
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
           {dataSource.length === 0 ? (
-            <View className="items-center justify-center p-8">
+            <View className="items-center justify-center p-8 flex-1">
               <Text className="text-muted-foreground">No data</Text>
             </View>
           ) : (
@@ -407,7 +410,7 @@ function ProTable<T extends Record<string, any> = any>({
                 >
                   {rowSelection && (
                     <View className="w-12 items-center justify-center p-2">
-                      <View
+                      <Pressable
                         className={cn(
                           'h-4 w-4 rounded border',
                           selectedRowKeys.includes(key) && 'bg-primary border-primary',

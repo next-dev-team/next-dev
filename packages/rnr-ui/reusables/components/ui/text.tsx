@@ -81,7 +81,7 @@ function Text({
       className={cn(textVariants({ variant }), textClass, className)}
       role={variant ? ROLE[variant] : undefined}
       aria-level={variant ? ARIA_LEVEL[variant] : undefined}
-      {...props}
+      {...(props as React.ComponentProps<typeof RNText> & { style?: any })}
     />
   );
 }

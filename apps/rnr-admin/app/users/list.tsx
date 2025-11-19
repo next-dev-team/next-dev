@@ -29,7 +29,7 @@ export default function UsersListPage() {
   };
 
   return (
-    <View className="w-full">
+    <View className="w-full flex-1">
       <ProTable<User> rowKey="id" columns={columns} request={request} pagination={{ pageSize: 10 }} />
     </View>
   );

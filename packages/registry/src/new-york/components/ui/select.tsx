@@ -1,6 +1,6 @@
 import { Icon } from '@/registry/new-york/components/ui/icon';
 import { NativeOnlyAnimatedView } from '@/registry/new-york/components/ui/native-only-animated-view';
-import { TextClassContext } from '@/registry/new-york/components/ui/text';
+import { TextClassContext } from './text';
 import { cn } from '@/registry/new-york/lib/utils';
 import * as SelectPrimitive from '@rn-primitives/select';
 import { Check, ChevronDown, ChevronDownIcon, ChevronUpIcon } from 'lucide-react-native';

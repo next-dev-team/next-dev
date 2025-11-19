@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@admin/*": ["./*"]
+      "@admin/*": ["./*"],
+      "~/*": ["../../packages/rnr-ui/reusables/*"],
+      "@/registry/*": ["../../packages/registry/src/*"]
     },
     "jsxImportSource": "nativewind",
     "jsx": "react-native",
@@ -31,5 +33,5 @@
     "nativewind-env.d.ts",
     "global.d.ts"
   ],
-  "exclude": ["node_modules", "build", "dist", ".expo"]
+  "exclude": ["node_modules", "build", "dist", ".expo", "../../packages/rnr-ui"]
 }

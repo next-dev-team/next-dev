@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, DimensionValue } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
 
@@ -231,7 +231,7 @@ function ProDescriptions({
           return (
             <View
               key={index}
-              style={{ flexBasis }}
+              style={{ flexBasis: flexBasis as DimensionValue }}
               className={cn(bordered && 'border-b border-r', paddingMap[size])}
             >
               <View className="mb-1">
@@ -253,4 +253,3 @@ function ProDescriptions({
 }
 
 export { ProDescriptions };
-export type { ProDescriptionsProps, ProDescriptionsItem };

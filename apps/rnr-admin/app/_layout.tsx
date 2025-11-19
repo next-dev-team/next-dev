@@ -1,5 +1,6 @@
 import '../global.css';
 
+import { Platform } from 'react-native';
 import { ProLayout } from '@admin/components/ProLayout';
 import type { RouteItem } from '@admin/components/ProLayout';
 import { Slot, usePathname, useRouter } from 'expo-router';
@@ -8,7 +9,7 @@ import { View, Text, Pressable } from 'react-native';
 import { Globe, Home, Users, Settings, ListPlus } from 'lucide-react-native';
 import { PortalHost } from '@rn-primitives/portal';
 import * as React from 'react';
-import { useAuth } from '@admin/components/AuthContext';
+import { useAuth, AuthProvider } from '@admin/components/AuthContext';
 
 const route: RouteItem = {
   routes: [
@@ -22,6 +23,7 @@ const route: RouteItem = {
         { path: '/users/create', name: 'Create' },
       ],
     },
+    { path: '/test-scroll', name: 'Scroll Test', icon: <Settings size={16} /> },
     { path: '/settings', name: 'Settings', icon: <Settings size={16} /> },
   ],
 };
@@ -66,29 +68,34 @@ export default function RootLayout() {
   const pathname = usePathname();
   const router = useRouter();
 
+  const containerStyle = Platform.OS === 'web' 
+    ? { flex: 1, height: '100%' as const, overflow: 'scroll' as const }
+    : { flex: 1, height: '100%' as const };
+
   return (
-    <>
-    <ProLayout
-      title="RNR Admin"
-      route={route}
-      layout="mix"
-      navTheme="light"
-      contentWidth="Fixed"
-      fixSiderbar
-      fixedHeader
-      headerContentRender={() => (
-        <Pressable className="rounded-md bg-muted px-2 py-1">
-          <Text style={{ fontSize: 12 }}>New</Text>
-        </Pressable>
-      )}
-      rightContentRender={() => <HeaderRight />}
-      location={{ pathname }}
-      onRouteChange={(p) => router.push(p)}
-      menuHeaderRender={() => <Logo />}
-    >
-      <Slot />
-    </ProLayout>
-    <PortalHost />
-    </>
+    <AuthProvider>
+    <View style={containerStyle}>
+      <ProLayout
+        title="RNR Admin"
+        route={route}
+        layout="mix"
+        navTheme="light"
+        contentWidth="Fixed"
+        fixSiderbar
+        headerContentRender={() => (
+          <Pressable className="rounded-md bg-muted px-2 py-1">
+            <Text style={{ fontSize: 12 }}>New</Text>
+          </Pressable>
+        )}
+        rightContentRender={() => <HeaderRight />}
+        location={{ pathname }}
+        onRouteChange={(p) => router.push(p)}
+        menuHeaderRender={() => <Logo />}
+      >
+        <Slot />
+      </ProLayout>
+      <PortalHost />
+    </View>
+    </AuthProvider>
   );
 }

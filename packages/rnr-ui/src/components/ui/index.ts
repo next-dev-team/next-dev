@@ -36,7 +36,7 @@ export type {
   PageContainerTabItem,
 } from './page-container';
 export { ProCard, ProCardGroup } from './pro-card';
-export type { ProCardProps, ProCardTabs, ProCardGroupProps } from './pro-card';
+export type { ProCardProps, ProCardTabs } from './pro-card';
 export { ProDescriptions } from './pro-descriptions';
 export type { ProDescriptionsProps, ProDescriptionsItem } from './pro-descriptions';
 export { ProList } from './pro-list';

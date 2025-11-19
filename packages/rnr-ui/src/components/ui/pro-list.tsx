@@ -176,7 +176,7 @@ function ProList<T extends Record<string, any> = any>({
 
     return (
       <View className="flex-row items-start gap-3">
-        {avatarContent && <View>{avatarContent}</View>}
+        {avatarContent && <View>{avatarContent as React.ReactNode}</View>}
         <View className="flex-1">
           {meta.title && (
             <Text variant="h4" className="mb-1">
@@ -227,7 +227,7 @@ function ProList<T extends Record<string, any> = any>({
           {extra && <View className="ml-4">{extra}</View>}
           {actions && actions.length > 0 && (
             <View className="ml-4 flex-row gap-2">
-              {actions.map((action, idx) => (
+              {actions.map((action: React.ReactNode, idx: number) => (
                 <View key={idx}>{action}</View>
               ))}
             </View>
@@ -249,7 +249,7 @@ function ProList<T extends Record<string, any> = any>({
             {extra && <View>{extra}</View>}
             {actions && actions.length > 0 && (
               <View className="flex-row gap-2">
-                {actions.map((action, idx) => (
+                {actions.map((action: React.ReactNode, idx: number) => (
                   <View key={idx}>{action}</View>
                 ))}
               </View>
@@ -403,4 +403,3 @@ function ProList<T extends Record<string, any> = any>({
 }
 
 export { ProList };
-export type { ProListProps, ProListMeta, ProListItem };

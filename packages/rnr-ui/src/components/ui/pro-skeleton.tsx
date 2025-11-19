@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, DimensionValue } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
 
@@ -89,7 +89,7 @@ function ProSkeleton({
     return (
       <View
         className={cn('bg-muted h-4 rounded', active && 'animate-pulse')}
-        style={{ width: typeof width === 'number' ? width : width }}
+        style={{ width: typeof width === 'number' ? width : width as DimensionValue }}
       />
     );
   };
@@ -111,7 +111,7 @@ function ProSkeleton({
             <View
               key={index}
               className={cn('bg-muted h-3 rounded', active && 'animate-pulse')}
-              style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth }}
+              style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth as DimensionValue }}
             />
           );
         })}
@@ -255,7 +255,7 @@ function SkeletonImage({
   return (
     <View
       className={cn('bg-muted rounded-md', active && 'animate-pulse', className)}
-      style={{ width, height }}
+      style={{ width: width as DimensionValue, height: height as DimensionValue }}
     />
   );
 }
@@ -327,7 +327,7 @@ function SkeletonTitle({ width = '60%', active = true, className }: SkeletonTitl
   return (
     <View
       className={cn('bg-muted h-4 rounded', active && 'animate-pulse', className)}
-      style={{ width: typeof width === 'number' ? width : width }}
+      style={{ width: typeof width === 'number' ? width : width as DimensionValue }}
     />
   );
 }
@@ -370,7 +370,7 @@ function SkeletonParagraph({
           <View
             key={index}
             className={cn('bg-muted h-3 rounded', active && 'animate-pulse')}
-            style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth }}
+            style={{ width: typeof rowWidth === 'number' ? rowWidth : rowWidth as DimensionValue }}
           />
         );
       })}
@@ -396,7 +396,6 @@ export {
   SkeletonParagraph,
 };
 export type {
-  ProSkeletonProps,
   SkeletonButtonProps,
   SkeletonInputProps,
   SkeletonImageProps,

@@ -231,11 +231,3 @@ function PageContainer({
 }
 
 export { PageContainer };
-export type {
-  PageContainerProps,
-  BreadcrumbProps,
-  BreadcrumbRoute,
-  WaterMarkProps,
-  PageHeaderProps,
-  PageContainerTabItem,
-};

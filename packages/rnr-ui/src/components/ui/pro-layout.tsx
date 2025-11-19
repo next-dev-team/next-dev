@@ -424,4 +424,3 @@ function ProLayout({
 }
 
 export { ProLayout };
-export type { ProLayoutProps, MenuItem, RouteItem };

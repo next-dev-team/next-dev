@@ -1,13 +1,14 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
-  "include": ["*.ts", "src", "nativewind-env.d.ts"],
+  "include": ["src", "nativewind-env.d.ts", "global.d.ts"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "~/*": ["reusables/*"],
       "@/rnr-ui/*": ["src/*"]
-    }
+    },
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

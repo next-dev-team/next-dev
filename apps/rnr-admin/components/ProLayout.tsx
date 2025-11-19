@@ -28,7 +28,6 @@ export interface ProLayoutProps {
   onMenuHeaderClick?: (e: any) => void;
   navTheme?: 'light' | 'dark';
   layout?: 'side' | 'top' | 'mix';
-  fixedHeader?: boolean;
   fixSiderbar?: boolean;
   contentWidth?: 'Fluid' | 'Fixed';
   collapsed?: boolean;
@@ -58,7 +57,6 @@ function ProLayout({
   onMenuHeaderClick,
   layout = 'side',
   navTheme = 'light',
-  fixedHeader = true,
   fixSiderbar = true,
   contentWidth = 'Fluid',
   collapsed: controlledCollapsed,
@@ -67,7 +65,6 @@ function ProLayout({
   collapsedButtonRender = true,
   headerContentRender,
   rightContentRender,
-  headerTitleRender,
   loading = false,
   pure = false,
   children,
@@ -278,14 +275,23 @@ function ProLayout({
 
   const contentWrapper = contentWidth === 'Fixed' ? 'max-w-[1200px] mx-auto w-full' : 'w-full';
   return (
-    <View className="flex-1 flex-row bg-background">
+    <View className="flex-1 flex-row bg-background" style={{ height: '100%' }}>
       {renderSidebar()}
       <View className="flex-1 flex-col">
         {renderTopMenu()}
-        <View className={layout !== 'top' && fixSiderbar ? (collapsed ? 'flex-1 ml-16' : 'flex-1 ml-64') : 'flex-1'}>
-          <View className={`${contentWrapper} p-6`}>
-            {children}
-          </View>
+        <View 
+          className={layout !== 'top' && fixSiderbar ? (collapsed ? 'flex-1 ml-16' : 'flex-1 ml-64') : 'flex-1'} 
+          style={{ flex: 1, overflow: 'hidden' }}
+        >
+          <ScrollView 
+            className={`${contentWrapper} p-6`} 
+            contentContainerStyle={{ flexGrow: 1 }}
+            style={{ flex: 1 }}
+          >
+            <View style={{ minHeight: '100%' }}>
+              {children}
+            </View>
+          </ScrollView>
         </View>
       </View>
     </View>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Pressable } from 'react-native';
+import { View, ScrollView, Pressable, DimensionValue } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Button } from '~/components/ui/button';
 import {
@@ -232,7 +232,7 @@ function ProCard({
 
   // Handle grid layout with colSpan
   if (colSpan) {
-    const spanStyle = typeof colSpan === 'number' ? { flex: colSpan / 24 } : { width: colSpan };
+    const spanStyle = typeof colSpan === 'number' ? { flex: colSpan / 24 } : { width: colSpan as DimensionValue };
 
     return (
       <View style={spanStyle} className={cn(wrap && 'flex-wrap')}>
@@ -302,4 +302,3 @@ function ProCardGroup({ direction = 'row', wrap = false, children, className }: 
 ProCard.Group = ProCardGroup;
 
 export { ProCard, ProCardGroup };
-export type { ProCardProps, ProCardTabs, ProCardGroupProps };

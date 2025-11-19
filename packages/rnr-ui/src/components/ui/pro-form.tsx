@@ -156,7 +156,7 @@ function ProForm<T = any>({
           {description}
         </Text>
       )}
-      <View className={layout === 'horizontal' ? 'flex-row flex-wrap gap-4' : ''}>{children}</View>
+      <View className={layout === 'horizontal' ? 'flex-row flex-wrap gap-4' : ''}>{children as React.ReactNode}</View>
       {renderSubmitter()}
     </Form>
   );

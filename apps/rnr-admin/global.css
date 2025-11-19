@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fix body overflow for web scrolling */
+body {
+  overflow: auto !important;
+}
+
+/* Ensure proper scrolling on web */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -27,6 +27,9 @@ const config: ExpoConfig = {
   web: {
     bundler: 'metro',
     output: 'static',
+    meta: {
+      viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+    },
   },
   plugins: ['expo-router'],
   experiments: { typedRoutes: true },
