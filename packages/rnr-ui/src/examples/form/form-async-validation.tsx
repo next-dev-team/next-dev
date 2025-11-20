@@ -23,7 +23,7 @@ export function FormAsyncValidationPreview() {
 
     // Simulate API call to check if username is available
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
     setLoading(false);
 
     // Simulate username availability check
@@ -48,7 +48,7 @@ export function FormAsyncValidationPreview() {
 
     // Simulate API call to check if email is available
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 800));
     setLoading(false);
 
     // Simulate email availability check
@@ -73,7 +73,7 @@ export function FormAsyncValidationPreview() {
 
     // Simulate API call to validate phone number
     setLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 1200));
     setLoading(false);
 
     // Simulate phone validation

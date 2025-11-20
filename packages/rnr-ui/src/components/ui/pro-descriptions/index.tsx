@@ -4,31 +4,11 @@ import { Text } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
 
 export interface ProDescriptionsItem {
-  /**
-   * Label text
-   */
   label: React.ReactNode;
-  /**
-   * Value content
-   */
   children?: React.ReactNode;
-  /**
-   * Value text (alternative to children)
-   */
   text?: React.ReactNode;
-  /**
-   * Span (columns 1-24)
-   * @default 1
-   */
   span?: number;
-  /**
-   * Copyable
-   * @default false
-   */
   copyable?: boolean;
-  /**
-   * Value type
-   */
   valueType?:
     | 'text'
     | 'money'
@@ -38,56 +18,19 @@ export interface ProDescriptionsItem {
     | 'percent'
     | 'index'
     | 'indexBorder';
-  /**
-   * Value enum
-   */
   valueEnum?: Record<string, { text: string; status?: string; color?: string }>;
 }
 
 export interface ProDescriptionsProps {
-  /**
-   * Description items
-   */
   items: ProDescriptionsItem[];
-  /**
-   * Title
-   */
   title?: React.ReactNode;
-  /**
-   * Tooltip
-   */
   tooltip?: React.ReactNode;
-  /**
-   * Column count
-   * @default 3
-   */
   column?: number;
-  /**
-   * Layout: 'horizontal' | 'vertical'
-   * @default 'horizontal'
-   */
   layout?: 'horizontal' | 'vertical';
-  /**
-   * Bordered
-   * @default false
-   */
   bordered?: boolean;
-  /**
-   * Size: 'default' | 'middle' | 'small'
-   * @default 'default'
-   */
   size?: 'default' | 'middle' | 'small';
-  /**
-   * Loading state
-   */
   loading?: boolean;
-  /**
-   * Extra content
-   */
   extra?: React.ReactNode;
-  /**
-   * Data source
-   */
   dataSource?: Record<string, any>;
 }
 
@@ -112,12 +55,10 @@ function ProDescriptions({
       return item.text;
     }
 
-    // Get value from dataSource if item has a key
     const key = (item as any).key;
     if (key && dataSource[key] !== undefined) {
       let value = dataSource[key];
 
-      // Handle valueEnum
       if (item.valueEnum && value !== undefined && value !== null) {
         const enumItem = item.valueEnum[String(value)];
         if (enumItem) {
@@ -134,7 +75,6 @@ function ProDescriptions({
         }
       }
 
-      // Handle valueType
       if (item.valueType) {
         switch (item.valueType) {
           case 'money':

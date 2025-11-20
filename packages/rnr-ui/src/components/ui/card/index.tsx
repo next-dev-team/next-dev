@@ -1,4 +1,3 @@
-// Re-export Card components from reusables
 export {
   Card,
   CardContent,
@@ -6,4 +5,4 @@ export {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '../../../reusables/components/ui/card';
+} from '~/components/ui/card';

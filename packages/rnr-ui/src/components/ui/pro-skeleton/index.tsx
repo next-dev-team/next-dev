@@ -4,40 +4,13 @@ import { Text } from '~/components/ui/text';
 import { cn } from '~/lib/utils';
 
 export interface ProSkeletonProps {
-  /**
-   * Loading state
-   * @default true
-   */
   loading?: boolean;
-  /**
-   * Skeleton active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Skeleton avatar
-   */
   avatar?: boolean | { size?: 'large' | 'small' | 'default'; shape?: 'circle' | 'square' };
-  /**
-   * Skeleton title
-   */
   title?: boolean | { width?: number | string };
-  /**
-   * Skeleton paragraph
-   */
   paragraph?: boolean | { rows?: number; width?: number | string | (number | string)[] };
-  /**
-   * Skeleton round
-   * @default false
-   */
   round?: boolean;
-  /**
-   * Children content (shown when not loading)
-   */
   children?: React.ReactNode;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -130,29 +103,11 @@ function ProSkeleton({
   );
 }
 
-// Skeleton.Button
 interface SkeletonButtonProps {
-  /**
-   * Button size
-   */
   size?: 'large' | 'default' | 'small';
-  /**
-   * Button shape
-   */
   shape?: 'default' | 'circle' | 'round';
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Block button
-   * @default false
-   */
   block?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -189,20 +144,9 @@ function SkeletonButton({
   );
 }
 
-// Skeleton.Input
 interface SkeletonInputProps {
-  /**
-   * Input size
-   */
   size?: 'large' | 'default' | 'small';
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -225,24 +169,10 @@ function SkeletonInput({ size = 'default', active = true, className }: SkeletonI
   );
 }
 
-// Skeleton.Image
 interface SkeletonImageProps {
-  /**
-   * Image width
-   */
   width?: number | string;
-  /**
-   * Image height
-   */
   height?: number | string;
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -260,24 +190,10 @@ function SkeletonImage({
   );
 }
 
-// Skeleton.Avatar
 interface SkeletonAvatarProps {
-  /**
-   * Avatar size
-   */
   size?: 'large' | 'default' | 'small';
-  /**
-   * Avatar shape
-   */
   shape?: 'circle' | 'square';
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -306,20 +222,9 @@ function SkeletonAvatar({
   );
 }
 
-// Skeleton.Title
 interface SkeletonTitleProps {
-  /**
-   * Title width
-   */
   width?: number | string;
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -332,25 +237,10 @@ function SkeletonTitle({ width = '60%', active = true, className }: SkeletonTitl
   );
 }
 
-// Skeleton.Paragraph
 interface SkeletonParagraphProps {
-  /**
-   * Number of rows
-   * @default 3
-   */
   rows?: number;
-  /**
-   * Row widths
-   */
   width?: number | string | (number | string)[];
-  /**
-   * Active animation
-   * @default true
-   */
   active?: boolean;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -378,7 +268,6 @@ function SkeletonParagraph({
   );
 }
 
-// Attach sub-components
 ProSkeleton.Button = SkeletonButton;
 ProSkeleton.Input = SkeletonInput;
 ProSkeleton.Image = SkeletonImage;

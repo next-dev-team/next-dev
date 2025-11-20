@@ -23,87 +23,24 @@ export interface ProCardTabs {
 }
 
 export interface ProCardProps {
-  /**
-   * Card title
-   */
   title?: React.ReactNode;
-  /**
-   * Card description
-   */
   description?: React.ReactNode;
-  /**
-   * Card extra content
-   */
   extra?: React.ReactNode;
-  /**
-   * Card actions
-   */
   actions?: React.ReactNode[];
-  /**
-   * Ghost mode - removes padding and background
-   * @default false
-   */
   ghost?: boolean;
-  /**
-   * Header bordered
-   * @default false
-   */
   headerBordered?: boolean;
-  /**
-   * Collapsed state (controlled)
-   */
   collapsed?: boolean;
-  /**
-   * Collapsible
-   * @default false
-   */
   collapsible?: boolean;
-  /**
-   * Default collapsed state
-   * @default false
-   */
   defaultCollapsed?: boolean;
-  /**
-   * On collapse handler
-   */
   onCollapse?: (collapsed: boolean) => void;
-  /**
-   * Custom collapse icon render
-   */
   collapsibleIconRender?: (props: { collapsed: boolean }) => React.ReactNode;
-  /**
-   * Tabs configuration
-   */
   tabs?: ProCardTabs;
-  /**
-   * Card variant
-   * @default 'outlined'
-   */
   variant?: 'outlined' | 'borderless';
-  /**
-   * Split direction for nested cards
-   */
   split?: 'vertical' | 'horizontal';
-  /**
-   * Column span for grid layout (1-24 or percentage)
-   */
   colSpan?: number | string;
-  /**
-   * Direction for flex layout
-   */
   direction?: 'row' | 'column';
-  /**
-   * Wrap support for nested cards
-   * @default false
-   */
   wrap?: boolean;
-  /**
-   * Card content
-   */
   children?: React.ReactNode;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 
@@ -230,7 +167,6 @@ function ProCard({
     </Card>
   );
 
-  // Handle grid layout with colSpan
   if (colSpan) {
     const spanStyle = typeof colSpan === 'number' ? { flex: colSpan / 24 } : { width: colSpan as DimensionValue };
 
@@ -241,7 +177,6 @@ function ProCard({
     );
   }
 
-  // Handle split layout
   if (split) {
     return (
       <View className={cn('flex-row', split === 'vertical' ? 'flex-row' : 'flex-col')}>
@@ -250,7 +185,6 @@ function ProCard({
     );
   }
 
-  // Handle direction
   if (direction) {
     return (
       <View
@@ -264,23 +198,10 @@ function ProCard({
   return cardContent;
 }
 
-// ProCard.Group for grouping cards
 interface ProCardGroupProps {
-  /**
-   * Direction for group layout
-   */
   direction?: 'row' | 'column';
-  /**
-   * Wrap support
-   */
   wrap?: boolean;
-  /**
-   * Children cards
-   */
   children: React.ReactNode;
-  /**
-   * Additional className
-   */
   className?: string;
 }
 

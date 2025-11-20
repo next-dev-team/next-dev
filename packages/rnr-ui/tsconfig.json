@@ -6,9 +6,12 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["reusables/*"],
-      "@/rnr-ui/*": ["src/*"]
+      "@/rnr-ui/*": ["src/*"],
+      "@/registry/*": ["../registry/src/*"]
     },
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": [],
+    "lib": ["ES2019"]
   },
   "exclude": ["node_modules", "dist"]
 }

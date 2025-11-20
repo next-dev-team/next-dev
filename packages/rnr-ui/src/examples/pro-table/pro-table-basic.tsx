@@ -50,7 +50,7 @@ export function ProTableBasicPreview() {
 
   const request = async (): Promise<ProTableRequestData> => {
     // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
     return {
       data: mockData,
       success: true,

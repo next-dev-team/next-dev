@@ -20,107 +20,37 @@ export interface RouteItem {
 }
 
 export interface ProLayoutProps {
-  /**
-   * Layout title
-   * @default 'Ant Design Pro'
-   */
   title?: React.ReactNode;
-  /**
-   * Logo component or URL
-   */
   logo?: React.ReactNode | (() => React.ReactNode);
-  /**
-   * Menu data
-   */
   menuDataRender?: () => MenuItem[];
   route?: RouteItem;
-  /**
-   * Menu header render function
-   */
   menuHeaderRender?:
     | React.ReactNode
     | ((logo: React.ReactNode, title: React.ReactNode) => React.ReactNode);
-  /**
-   * Menu footer render function
-   */
   menuFooterRender?: (menuProps: any) => React.ReactNode;
-  /**
-   * Menu extra render function
-   */
   menuExtraRender?: (menuProps: any) => React.ReactNode;
-  /**
-   * On menu header click handler
-   */
   onMenuHeaderClick?: (e: any) => void;
   navTheme?: 'light' | 'dark';
   layout?: 'side' | 'top' | 'mix';
-  /**
-   * Fixed header
-   * @default false
-   */
   fixedHeader?: boolean;
-  /**
-   * Fixed sidebar
-   * @default false
-   */
   fixSiderbar?: boolean;
-  /**
-   * Content width: 'Fluid' or 'Fixed'
-   * @default 'Fluid'
-   */
   contentWidth?: 'Fluid' | 'Fixed';
-  /**
-   * Collapsed state (controlled)
-   */
   collapsed?: boolean;
-  /**
-   * Default collapsed state
-   * @default false
-   */
   defaultCollapsed?: boolean;
-  /**
-   * On collapse change handler
-   */
   onCollapse?: (collapsed: boolean) => void;
-  /**
-   * Show collapsed button
-   * @default true
-   */
   collapsedButtonRender?: boolean | ((collapsed: boolean) => React.ReactNode);
-  /**
-   * Header actions
-   */
   headerContentRender?: () => React.ReactNode;
   rightContentRender?: () => React.ReactNode;
-  /**
-   * Header title render
-   */
   headerTitleRender?: (
     logo: React.ReactNode,
     title: React.ReactNode,
     props: any,
   ) => React.ReactNode;
-  /**
-   * Loading state
-   */
   loading?: boolean;
-  /**
-   * Pure mode - removes all self-contained interfaces
-   * @default false
-   */
   pure?: boolean;
-  /**
-   * Children content
-   */
   children: React.ReactNode;
-  /**
-   * Current location/pathname
-   */
   location?: { pathname?: string };
   selectedKeys?: string[];
-  /**
-   * On menu item click
-   */
   onMenuClick?: (item: MenuItem) => void;
   onRouteChange?: (pathname: string) => void;
   breadcrumbRender?: (routes: RouteItem[], pathname?: string) => React.ReactNode;

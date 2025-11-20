@@ -1,4 +1,4 @@
-import { Form } from './forms';
+import { Form } from '../forms';
 import type { FormProps as RcFormProps } from 'rc-field-form';
 import React from 'react';
 import { View, ScrollView } from 'react-native';
@@ -6,24 +6,9 @@ import { Button } from '~/components/ui/button';
 import { Text } from '~/components/ui/text';
 
 export interface ProFormProps<T = any> extends Omit<RcFormProps<T>, 'onFinish'> {
-  /**
-   * Form layout
-   * @default 'horizontal'
-   */
   layout?: 'horizontal' | 'vertical' | 'inline';
-  /**
-   * Submit button text
-   * @default 'Submit'
-   */
   submitButtonText?: string;
-  /**
-   * Reset button text
-   */
   resetButtonText?: string;
-  /**
-   * Show submit button
-   * @default true
-   */
   submitter?:
     | boolean
     | {
@@ -38,35 +23,12 @@ export interface ProFormProps<T = any> extends Omit<RcFormProps<T>, 'onFinish'> 
           dom: React.ReactNode,
         ) => React.ReactNode;
       };
-  /**
-   * Form submit handler
-   */
   onFinish?: (values: T) => void | Promise<void>;
-  /**
-   * Form reset handler
-   */
   onReset?: () => void;
-  /**
-   * Loading state
-   */
   loading?: boolean;
-  /**
-   * Form title
-   */
   title?: string;
-  /**
-   * Form description
-   */
   description?: string;
-  /**
-   * Enable scroll
-   * @default false
-   */
   scrollToFirstError?: boolean;
-  /**
-   * Grid columns for horizontal layout
-   * @default 3
-   */
   gridCols?: number;
 }
 
@@ -168,8 +130,7 @@ function ProForm<T = any>({
   return formContent;
 }
 
-// Attach useForm to ProForm
 ProForm.useForm = Form.useForm;
 
 export { ProForm };
-export * from './pro-form-fields';
+export * from '../pro-form-fields';

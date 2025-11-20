@@ -5,89 +5,30 @@ import { Button } from '~/components/ui/button';
 import { cn } from '~/lib/utils';
 
 export interface ProListMeta {
-  /**
-   * Title
-   */
   title?: React.ReactNode;
-  /**
-   * Description
-   */
   description?: React.ReactNode;
-  /**
-   * Avatar
-   */
   avatar?: React.ReactNode | { src?: string; icon?: React.ReactNode };
-  /**
-   * Actions
-   */
   actions?: React.ReactNode[];
 }
 
 export interface ProListItem<T = any> {
-  /**
-   * Item data
-   */
   data: T;
-  /**
-   * Item meta
-   */
   meta?: ProListMeta;
-  /**
-   * Item content
-   */
   content?: React.ReactNode;
-  /**
-   * Item actions
-   */
   actions?: React.ReactNode[];
-  /**
-   * Item extra
-   */
   extra?: React.ReactNode;
-  /**
-   * Custom render function
-   */
   render?: (item: T, index: number) => React.ReactNode;
 }
 
 export interface ProListProps<T = any> {
-  /**
-   * Data source
-   */
   dataSource?: T[];
-  /**
-   * Request function
-   */
   request?: (params: any) => Promise<{ data: T[]; success: boolean; total?: number }>;
-  /**
-   * Item render function
-   */
   renderItem?: (item: T, index: number) => React.ReactNode;
-  /**
-   * Meta render function
-   */
   itemLayout?: 'vertical' | 'horizontal';
-  /**
-   * List size: 'default' | 'large' | 'small'
-   * @default 'default'
-   */
   size?: 'default' | 'large' | 'small';
-  /**
-   * Split
-   * @default true
-   */
   split?: boolean;
-  /**
-   * Grid columns (for grid layout)
-   */
   grid?: { gutter?: number; column?: number };
-  /**
-   * Loading state
-   */
   loading?: boolean;
-  /**
-   * Pagination config
-   */
   pagination?:
     | boolean
     | {
@@ -96,21 +37,9 @@ export interface ProListProps<T = any> {
         total?: number;
         onChange?: (page: number, pageSize: number) => void;
       };
-  /**
-   * Header title
-   */
   headerTitle?: React.ReactNode;
-  /**
-   * Toolbar render
-   */
   toolBarRender?: () => React.ReactNode[];
-  /**
-   * Row key
-   */
   rowKey?: string | ((item: T, index: number) => string);
-  /**
-   * On item press
-   */
   onItemPress?: (item: T, index: number) => void;
 }
 
@@ -145,7 +74,8 @@ function ProList<T extends Record<string, any> = any>({
             setTotal(result.total || result.data?.length || 0);
           }
         })
-        .finally(() => setIsLoading(false));
+        .catch(() => {})
+        .then(() => setIsLoading(false));
     } else {
       setData(dataSource);
       setTotal(dataSource.length);

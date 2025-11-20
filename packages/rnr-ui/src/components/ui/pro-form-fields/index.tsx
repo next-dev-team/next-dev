@@ -1,25 +1,26 @@
-import { Form } from './forms';
+import { Form } from '../forms';
 import type { FieldProps } from 'rc-field-form/es/Field';
 import React, { useState } from 'react';
 import { View, Platform, TouchableOpacity } from 'react-native';
-import { Input } from '../../../../registry/src/new-york/components/ui/input';
+import { Input } from '@/registry/new-york/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../../registry/src/new-york/components/ui/select';
-import { Textarea } from '../../../../registry/src/new-york/components/ui/textarea';
-import { Checkbox } from '../../../../registry/src/new-york/components/ui/checkbox';
+  type Option,
+} from '@/registry/new-york/components/ui/select';
+import { Textarea } from '@/registry/new-york/components/ui/textarea';
+import { Checkbox } from '@/registry/new-york/components/ui/checkbox';
 import {
   RadioGroup,
   RadioGroupItem,
-} from '../../../../registry/src/new-york/components/ui/radio-group';
+} from '@/registry/new-york/components/ui/radio-group';
 import { Text } from '~/components/ui/text';
+import { cn } from '~/lib/utils';
 import { Button } from '~/components/ui/button';
 
-// ProFormText - Text input field
 export interface ProFormTextProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -30,6 +31,7 @@ export interface ProFormTextProps<T = any> extends FieldProps<T> {
   maxLength?: number;
   showCount?: boolean;
   type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
+  label?: string;
 }
 
 function ProFormText<T = any>({
@@ -45,7 +47,7 @@ function ProFormText<T = any>({
   ...restProps
 }: ProFormTextProps<T>) {
   return (
-    <Form.Item {...restProps}>
+    <Form.Item {...(restProps as any)}>
       {(control, meta) => {
         const hasError = meta.errors && meta.errors.length > 0;
         const value = control.value ?? '';
@@ -83,7 +85,6 @@ function ProFormText<T = any>({
   );
 }
 
-// ProFormSelect - Select dropdown field
 export interface ProFormSelectProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -91,6 +92,7 @@ export interface ProFormSelectProps<T = any> extends FieldProps<T> {
   options?: Array<{ label: string; value: any; disabled?: boolean }>;
   mode?: 'single' | 'multiple';
   showSearch?: boolean;
+  label?: string;
 }
 
 function ProFormSelect<T = any>({
@@ -106,9 +108,18 @@ function ProFormSelect<T = any>({
       {(control, meta) => {
         const hasError = meta.errors && meta.errors.length > 0;
         const value = control.value;
+        const currentOption =
+          options.find((opt) => String(opt.value) === String(value)) ||
+          (value
+            ? { value: String(value), label: String(value) }
+            : undefined);
 
         return (
-          <Select value={value} onValueChange={control.onChange} disabled={disabled}>
+          <Select
+            value={currentOption as any}
+            onValueChange={(option: Option) => control.onChange(option?.value)}
+            disabled={disabled}
+          >
             <SelectTrigger className={hasError ? 'border-destructive' : ''}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
@@ -129,7 +140,6 @@ function ProFormSelect<T = any>({
   );
 }
 
-// ProFormTextArea - Textarea field
 export interface ProFormTextAreaProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -138,6 +148,7 @@ export interface ProFormTextAreaProps<T = any> extends FieldProps<T> {
   maxLength?: number;
   showCount?: boolean;
   autoSize?: boolean | { minRows?: number; maxRows?: number };
+  label?: string;
 }
 
 function ProFormTextArea<T = any>({
@@ -186,10 +197,10 @@ function ProFormTextArea<T = any>({
   );
 }
 
-// ProFormCheckbox - Checkbox field
 export interface ProFormCheckboxProps<T = any> extends FieldProps<T> {
   text?: string;
   disabled?: boolean;
+  label?: string;
 }
 
 function ProFormCheckbox<T = any>({ text, disabled, ...restProps }: ProFormCheckboxProps<T>) {
@@ -213,10 +224,10 @@ function ProFormCheckbox<T = any>({ text, disabled, ...restProps }: ProFormCheck
   );
 }
 
-// ProFormRadio - Radio group field
 export interface ProFormRadioProps<T = any> extends FieldProps<T> {
   options?: Array<{ label: string; value: any; disabled?: boolean }>;
   disabled?: boolean;
+  label?: string;
 }
 
 function ProFormRadio<T = any>({ options = [], disabled, ...restProps }: ProFormRadioProps<T>) {
@@ -252,7 +263,6 @@ function ProFormRadio<T = any>({ options = [], disabled, ...restProps }: ProForm
   );
 }
 
-// ProFormDigit - Number input field
 export interface ProFormDigitProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -260,6 +270,7 @@ export interface ProFormDigitProps<T = any> extends FieldProps<T> {
   max?: number;
   step?: number;
   precision?: number;
+  label?: string;
 }
 
 function ProFormDigit<T = any>({
@@ -316,7 +327,6 @@ function ProFormDigit<T = any>({
   );
 }
 
-// ProFormSelectMultiple - Multiple select field
 export interface ProFormSelectMultipleProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -340,12 +350,12 @@ function ProFormSelectMultiple<T = any>({
         const hasError = meta.errors && meta.errors.length > 0;
         const value = Array.isArray(control.value) ? control.value : [];
 
-        const handleValueChange = (newValue: string) => {
+        const handleValueChange = (option: Option) => {
           const currentValues = value as string[];
-          if (currentValues.includes(newValue)) {
-            control.onChange(currentValues.filter(v => v !== newValue));
+          if (option?.value && currentValues.includes(option.value)) {
+            control.onChange(currentValues.filter(v => v !== option.value));
           } else {
-            control.onChange([...currentValues, newValue]);
+            control.onChange([...currentValues, option?.value]);
           }
         };
 
@@ -355,7 +365,15 @@ function ProFormSelectMultiple<T = any>({
 
         return (
           <View>
-            <Select value={value[0]} onValueChange={handleValueChange} disabled={disabled}>
+            <Select
+              value={
+                value[0]
+                  ? ({ value: String(value[0]), label: String(value[0]) } as any)
+                  : undefined
+              }
+              onValueChange={handleValueChange}
+              disabled={disabled}
+            >
               <SelectTrigger className={hasError ? 'border-destructive' : ''}>
                 <SelectValue 
                   placeholder={value.length > 0 
@@ -378,7 +396,7 @@ function ProFormSelectMultiple<T = any>({
             {value.length > 0 && (
               <View className="mt-2 flex-row flex-wrap gap-1">
                 {value.map((val, index) => {
-                  const option = options.find(opt => opt.value === val);
+                  const option = options.find(opt => String(opt.value) === String(val));
                   return option ? (
                     <View 
                       key={index}
@@ -386,9 +404,11 @@ function ProFormSelectMultiple<T = any>({
                     >
                       <Text className="text-xs">{option.label}</Text>
                       {!disabled && (
-                        <Text 
+                        <Text
                           className="text-destructive text-xs"
-                          onPress={() => handleValueChange(String(val))}
+                          onPress={() =>
+                            handleValueChange({ value: String(val), label: String(val) } as any)
+                          }
                         >
                           ×
                         </Text>
@@ -405,8 +425,8 @@ function ProFormSelectMultiple<T = any>({
   );
 }
 
-// ProFormList - Dynamic list field
-export interface ProFormListProps<T = any> extends FieldProps<T[]> {
+export interface ProFormListProps<T = any> {
+  name: string;
   creatorButtonText?: string;
   deleteButtonText?: string;
   min?: number;
@@ -420,10 +440,10 @@ function ProFormList<T = any>({
   min = 0,
   max,
   children,
-  ...restProps
+  name,
 }: ProFormListProps<T>) {
   return (
-    <Form.Item {...restProps}>
+    <Form.Item name={name as any}>
       {(control, meta) => {
         const value = Array.isArray(control.value) ? control.value : [];
         const hasError = meta.errors && meta.errors.length > 0;
@@ -475,7 +495,6 @@ function ProFormList<T = any>({
   );
 }
 
-// ProFormGroup - Group field container
 export interface ProFormGroupProps {
   title?: string;
   collapsible?: boolean;
@@ -514,7 +533,6 @@ function ProFormGroup({
   );
 }
 
-// ProFormDatePicker - Date picker field
 export interface ProFormDatePickerProps<T = any> extends FieldProps<T> {
   placeholder?: string;
   disabled?: boolean;
@@ -535,7 +553,6 @@ function ProFormDatePicker<T = any>({
         const hasError = meta.errors && meta.errors.length > 0;
         const value = control.value;
 
-        // Simple date input implementation
         return (
           <Input
             {...control}
@@ -552,7 +569,6 @@ function ProFormDatePicker<T = any>({
   );
 }
 
-// ProFormDateRangePicker - Date range picker field
 export interface ProFormDateRangePickerProps<T = any> extends FieldProps<T> {
   placeholder?: [string, string];
   disabled?: boolean;
@@ -604,7 +620,6 @@ function ProFormDateRangePicker<T = any>({
   );
 }
 
-// ProFormSlider - Slider field
 export interface ProFormSliderProps<T = any> extends FieldProps<T> {
   min?: number;
   max?: number;
@@ -646,9 +661,9 @@ function ProFormSlider<T = any>({
             </View>
             {marks && (
               <View className="flex-row justify-between mt-2">
-                {Object.entries(marks).map(([markValue, markLabel]) => (
+                {Object.keys(marks as any).map((markValue) => (
                   <Text key={markValue} className="text-xs text-muted-foreground">
-                    {markLabel}
+                    {(marks as any)[markValue]}
                   </Text>
                 ))}
               </View>
@@ -660,7 +675,6 @@ function ProFormSlider<T = any>({
   );
 }
 
-// ProFormRate - Rate field
 export interface ProFormRateProps<T = any> extends FieldProps<T> {
   count?: number;
   disabled?: boolean;
@@ -682,28 +696,21 @@ function ProFormRate<T = any>({
         const value = typeof control.value === 'number' ? control.value : 0;
 
         const handleRate = (rating: number) => {
-          if (!disabled) {
-            control.onChange(rating === value ? 0 : rating);
-          }
+          if (!disabled) control.onChange(rating);
         };
 
         return (
-          <View className="flex-row gap-1">
-            {Array.from({ length: count }, (_, index) => {
-              const starValue = index + 1;
-              const isFilled = starValue <= value;
-              const isHalf = allowHalf && starValue - 0.5 === value;
-              
+          <View className="flex-row items-center gap-1">
+            {Array.from({ length: count * (allowHalf ? 2 : 1) }).map((_, index) => {
+              const isHalf = allowHalf && index % 2 === 1;
+              const ratingValue = allowHalf ? Math.ceil((index + 1) / 2) : index + 1;
+              const isActive = value >= ratingValue;
               return (
-                <Text
-                  key={index}
-                  className={`text-2xl ${
-                    isFilled || isHalf ? 'text-yellow-400' : 'text-gray-300'
-                  } ${!disabled ? 'active:opacity-70' : ''}`}
-                  onPress={() => handleRate(starValue)}
-                >
-                  {character}
-                </Text>
+                <TouchableOpacity key={index} onPress={() => handleRate(ratingValue)} disabled={disabled}>
+                  <Text className={cn(isActive ? 'text-yellow-500' : 'text-muted-foreground', 'text-lg')}>
+                    {character}
+                  </Text>
+                </TouchableOpacity>
               );
             })}
           </View>
@@ -713,12 +720,12 @@ function ProFormRate<T = any>({
   );
 }
 
-export { 
-  ProFormText, 
-  ProFormSelect, 
-  ProFormTextArea, 
-  ProFormCheckbox, 
-  ProFormRadio, 
+export {
+  ProFormText,
+  ProFormSelect,
+  ProFormTextArea,
+  ProFormCheckbox,
+  ProFormRadio,
   ProFormDigit,
   ProFormSelectMultiple,
   ProFormList,
@@ -726,5 +733,5 @@ export {
   ProFormDatePicker,
   ProFormDateRangePicker,
   ProFormSlider,
-  ProFormRate
+  ProFormRate,
 };

@@ -12,6 +12,7 @@ function FormItem<T>({
   ...restProps
 }: FieldProps<T> & {
   label?: string;
+  noStyle?: boolean;
 }) {
   const hasRequired = restProps.rules?.some((rule: any) => rule.required);
   return (
@@ -20,7 +21,6 @@ function FormItem<T>({
         const hasError = meta.errors && meta.errors.length > 0;
         const errorMessage = meta.errors?.[0];
 
-        // Handle function children - pass control, meta, form exactly like rc-field-form
         const childNode =
           typeof children === 'function'
             ? children(control, meta, form)
@@ -29,11 +29,9 @@ function FormItem<T>({
                   children as React.ReactElement<any>,
                   {
                     ...control,
-                    // Map React Native TextInput props
                     value: control.value ?? '',
                     onChangeText: (text: string) => control.onChange(text),
                     onBlur: control.onBlur,
-                    // Add error styling if needed
                     className: hasError
                       ? `${(children as any).props?.className || ''} border-destructive`.trim()
                       : (children as any).props?.className,
@@ -41,7 +39,6 @@ function FormItem<T>({
                 )
               : children;
 
-        // Only add UI wrapper if label or error exists
         if (!label && !errorMessage) {
           return childNode;
         }
@@ -67,7 +64,6 @@ function FormItem<T>({
   );
 }
 
-// Create Form component with Item attached
 const Form = FormRc as typeof FormRc & {
   Item: typeof FormItem;
   useForm: typeof FormRc.useForm;

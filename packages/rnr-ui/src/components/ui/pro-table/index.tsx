@@ -2,62 +2,30 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { View, ScrollView, ActivityIndicator, Pressable } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Button } from '~/components/ui/button';
-import { Input } from '../../../../registry/src/new-york/components/ui/input';
+import { Input } from '@/registry/new-york/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '../../../../registry/src/new-york/components/ui/select';
+  type Option,
+} from '@/registry/new-york/components/ui/select';
 import * as TablePrimitive from '@rn-primitives/table';
-import { cn } from '../../../../registry/src/new-york/lib/utils';
+import { cn } from '@/registry/new-york/lib/utils';
 import { Platform } from 'react-native';
 
 export interface ProTableColumn<T = any> {
-  /**
-   * Column title
-   */
   title: string;
-  /**
-   * Data field name
-   */
   dataIndex: keyof T | string[];
-  /**
-   * Unique key
-   */
   key?: string;
-  /**
-   * Column width
-   */
   width?: number | string;
-  /**
-   * Column align
-   */
   align?: 'left' | 'center' | 'right';
-  /**
-   * Custom render function
-   */
   render?: (value: any, record: T, index: number) => React.ReactNode;
-  /**
-   * Whether column can be sorted
-   */
   sorter?: boolean | ((a: T, b: T) => number);
-  /**
-   * Whether column can be filtered
-   */
   filter?: boolean;
-  /**
-   * Filter options
-   */
   filters?: Array<{ text: string; value: any }>;
-  /**
-   * Whether column is fixed
-   */
   fixed?: 'left' | 'right';
-  /**
-   * Column ellipsis
-   */
   ellipsis?: boolean;
 }
 
@@ -75,29 +43,11 @@ export interface ProTableRequestData<T = any> {
 }
 
 export interface ProTableProps<T = any> {
-  /**
-   * Table columns
-   */
   columns: ProTableColumn<T>[];
-  /**
-   * Request function to fetch data
-   */
   request?: (params: ProTableRequestParams) => Promise<ProTableRequestData<T>>;
-  /**
-   * Static data source
-   */
   dataSource?: T[];
-  /**
-   * Table row key
-   */
   rowKey?: string | ((record: T) => string);
-  /**
-   * Loading state
-   */
   loading?: boolean;
-  /**
-   * Pagination config
-   */
   pagination?:
     | boolean
     | {
@@ -109,9 +59,6 @@ export interface ProTableProps<T = any> {
         showQuickJumper?: boolean;
         onChange?: (page: number, pageSize: number) => void;
       };
-  /**
-   * Search config
-   */
   search?:
     | boolean
     | {
@@ -125,33 +72,18 @@ export interface ProTableProps<T = any> {
           dom: React.ReactNode[],
         ) => React.ReactNode[];
       };
-  /**
-   * Toolbar actions
-   */
   toolBarRender?: () => React.ReactNode[];
-  /**
-   * Table header title
-   */
   headerTitle?: React.ReactNode;
-  /**
-   * Table actions ref
-   */
   actionRef?: React.MutableRefObject<{
     reload: () => void;
     reset: () => void;
   }>;
-  /**
-   * On row click handler
-   */
   onRow?: (
     record: T,
     index: number,
   ) => {
     onPress?: () => void;
   };
-  /**
-   * Row selection config
-   */
   rowSelection?: {
     selectedRowKeys?: React.Key[];
     onChange?: (selectedRowKeys: React.Key[], selectedRows: T[]) => void;
@@ -283,7 +215,6 @@ function ProTable<T extends Record<string, any> = any>({
 
   return (
     <View className="w-full flex-1">
-      {/* Header */}
       {(headerTitle || toolBarRender) && (
         <View className="mb-4 flex-row items-center justify-between">
           {headerTitle && <Text variant="h3">{headerTitle}</Text>}
@@ -297,7 +228,6 @@ function ProTable<T extends Record<string, any> = any>({
         </View>
       )}
 
-      {/* Search Form */}
       {searchConfig && (
         <View className="bg-muted mb-4 rounded-md p-4">
           <View className="flex-row flex-wrap gap-4">
@@ -307,18 +237,18 @@ function ProTable<T extends Record<string, any> = any>({
                 const dataIndex = Array.isArray(column.dataIndex)
                   ? column.dataIndex[0]
                   : column.dataIndex;
-
-                // Get the search key from dataIndex (handle both string and array cases)
                 const searchKey = Array.isArray(dataIndex) ? dataIndex.join('.') : String(dataIndex);
-                
                 return (
                   <View key={String(column.key || dataIndex)} className="min-w-[200px] flex-1">
                     <Text className="mb-1 text-sm">{column.title}</Text>
                     {column.filters ? (
                       <Select
-                        value={{ value: String(searchParams[searchKey] || ''), label: String(searchParams[searchKey] || '') }}
-                        onValueChange={(value) =>
-                          handleSearch({ ...searchParams, [searchKey]: value })
+                        value={{
+                          value: String(searchParams[searchKey] || ''),
+                          label: String(searchParams[searchKey] || ''),
+                        }}
+                        onValueChange={(option: Option) =>
+                          handleSearch({ ...searchParams, [searchKey]: option?.value })
                         }
                       >
                         <SelectTrigger>
@@ -336,7 +266,7 @@ function ProTable<T extends Record<string, any> = any>({
                       <Input
                         placeholder={`Search ${column.title}`}
                         value={String(searchParams[searchKey] || '')}
-                        onChangeText={(text) =>
+                        onChangeText={(text: string) =>
                           handleSearch({ ...searchParams, [searchKey]: text })
                         }
                       />
@@ -356,7 +286,6 @@ function ProTable<T extends Record<string, any> = any>({
         </View>
       )}
 
-      {/* Table */}
       <View className="overflow-hidden rounded-md border flex-1">
         {isLoading && (
           <View className="bg-background/50 absolute inset-0 z-10 items-center justify-center">
@@ -364,7 +293,6 @@ function ProTable<T extends Record<string, any> = any>({
           </View>
         )}
 
-        {/* Table Header */}
         <View className="bg-muted flex-row border-b">
           {rowSelection && (
             <View className="w-12 items-center justify-center p-2">
@@ -386,7 +314,6 @@ function ProTable<T extends Record<string, any> = any>({
           ))}
         </View>
 
-        {/* Table Body */}
         <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
           {dataSource.length === 0 ? (
             <View className="items-center justify-center p-8 flex-1">
@@ -445,7 +372,6 @@ function ProTable<T extends Record<string, any> = any>({
         </ScrollView>
       </View>
 
-      {/* Pagination */}
       {paginationConfig && (
         <View className="mt-4 flex-row items-center justify-between">
           <Text className="text-muted-foreground text-sm">
