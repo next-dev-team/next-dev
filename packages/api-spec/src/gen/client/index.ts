@@ -1,0 +1,11 @@
+export { deleteApiPostsId } from "./deleteApiPostsId.ts";
+export { deleteApiUsersId } from "./deleteApiUsersId.ts";
+export { getApiPosts } from "./getApiPosts.ts";
+export { getApiPostsAuthorAuthorid } from "./getApiPostsAuthorAuthorid.ts";
+export { getApiPostsId } from "./getApiPostsId.ts";
+export { getApiUsers } from "./getApiUsers.ts";
+export { getApiUsersId } from "./getApiUsersId.ts";
+export { postApiPosts } from "./postApiPosts.ts";
+export { postApiUsers } from "./postApiUsers.ts";
+export { putApiPostsId } from "./putApiPostsId.ts";
+export { putApiUsersId } from "./putApiUsersId.ts";

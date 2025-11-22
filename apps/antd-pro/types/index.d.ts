@@ -1,4 +1,4 @@
-export namespace API {
+declare namespace API {
   /** GET /api/currentUser */
   export type GET_API_CURRENT_USER_QUERY = {
     /** example:  123 */
@@ -116,5 +116,31 @@ export namespace API {
     type: string;
     /** example: admin */
     currentAuthority: string;
+  };
+
+  export type RuleListItem = {
+    key: number;
+    disabled: boolean;
+    href: string;
+    avatar: string;
+    name: string;
+    owner: string;
+    desc: string;
+    callNo: number;
+    status: string | number;
+    updatedAt: string;
+    createdAt: string;
+    progress: number;
+  };
+
+  export type PageParams = {
+    current: number;
+    pageSize: number;
+  };
+
+  export type CurrentUser = {
+    access: string;
+    name?: string;
+    avatar?: string;
   };
 }

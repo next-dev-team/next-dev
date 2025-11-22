@@ -148,6 +148,7 @@ function postRule(req: Request, res: Response, u: string, b: Request) {
           updatedAt: dayjs().format('YYYY-MM-DD'),
           createdAt: dayjs().format('YYYY-MM-DD'),
           progress: Math.ceil(Math.random() * 100),
+          disabled: false,
         };
         tableListDataSource.unshift(newRule);
         return res.json(newRule);

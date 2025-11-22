@@ -7,10 +7,14 @@ import { AvatarDropdown, AvatarName, Footer, Question, SelectLang } from '@/comp
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import '@ant-design/v5-patch-for-react-19';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { ReactNode } from 'react';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isDevOrTest = isDev || process.env.CI;
 const loginPath = '/user/login';
+
+const queryClient = new QueryClient();
 
 /**
  * @see https://umijs.org/docs/api/runtime-config#getinitialstate
@@ -153,3 +157,7 @@ export const request: RequestConfig = {
   baseURL: isDev ? '' : 'https://proapi.azurewebsites.net',
   ...errorConfig,
 };
+
+export function rootContainer(container: ReactNode) {
+  return <QueryClientProvider client={queryClient}>{container}</QueryClientProvider>;
+}

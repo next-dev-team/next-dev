@@ -5,7 +5,7 @@
   "description": "An out-of-box UI solution for enterprise applications",
   "repository": "git@github.com:ant-design/ant-design-pro.git",
   "scripts": {
-    "gen:api": "kubb generate --config kubb.config.ts",
+    "gen:api1": "kubb generate --config kubb.config.ts",
     "typecheck": "tsc -p ./tsconfig.json --noEmit --emitDeclarationOnly false",
     "analyze": "cross-env ANALYZE=1 max build",
     "biome:lint": "npx @biomejs/biome lint",
@@ -43,7 +43,9 @@
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@tanstack/react-query": "^5.59.16",
+    "@rnr/api-spec": "workspace:*"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^3.3.0",

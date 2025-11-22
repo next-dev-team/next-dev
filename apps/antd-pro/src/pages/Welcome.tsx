@@ -2,6 +2,7 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
 import React from 'react';
+import { useGetApiPosts } from '@rnr/api-spec/src/gen/hooks';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -86,6 +87,8 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
+  const postsQuery = useGetApiPosts(undefined, { client: { baseURL: 'http://localhost:3000' } });
+  const posts = (postsQuery.data as any)?.data ?? [];
   return (
     <PageContainer>
       <Card
@@ -156,6 +159,40 @@ const Welcome: React.FC = () => {
               href="https://procomponents.ant.design"
               desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
             />
+          </div>
+        </div>
+      </Card>
+      <Card
+        style={{
+          borderRadius: 8,
+          marginTop: 16,
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+          }}
+        >
+          <div
+            style={{
+              fontSize: '16px',
+              color: token.colorTextHeading,
+            }}
+          >
+            Posts
+          </div>
+          <div>
+            {postsQuery.isLoading && <span>Loading...</span>}
+            {postsQuery.isError && <span>Error</span>}
+            {!postsQuery.isLoading && !postsQuery.isError && (
+              <ul>
+                {posts.map((p: any) => (
+                  <li key={p.id}>{p.title}</li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </Card>
