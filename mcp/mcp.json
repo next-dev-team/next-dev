@@ -2,12 +2,17 @@
   "mcpServers": {
     "mac-path": {
       "command": "node",
-      "args": ["/Users/zila/Documents/GitHub/next-dev/mcp/mac-path/dist/index.js"],
+      "args": ["/Users/xx/Documents/GitHub/next-dev/mcp/mac-path/dist/index.js"],
       "env": {}
     },
     "integrate-api": {
       "command": "node",
       "args": ["c:\\Users\\XXXX\\Documents\\GitHub\\next-dev\\mcp\\integrate-api\\dist\\index.js"],
+      "env": {}
+    },
+    "fullstack-generator": {
+      "command": "node",
+      "args": ["/Users/xx/Documents/GitHub/next-dev/mcp/fullstack/dist/index.js"],
       "env": {}
     }
   }
