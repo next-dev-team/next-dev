@@ -9,6 +9,7 @@ import {
   deleteApiUsersId,
 } from '@rnr/api-spec/src/gen/client';
 import type { User } from '@rnr/api-spec/src/gen/types';
+import { getAuthHeaders, getAuthHeadersWithContentType } from '@/utils/auth';
 
 export default function Users() {
   const [createOpen, setCreateOpen] = useState(false);
@@ -18,9 +19,13 @@ export default function Users() {
   const [editForm] = Form.useForm();
   const qc = useQueryClient();
 
-  const usersQuery = useQuery({ queryKey: ['users'], queryFn: () => getApiUsers() });
+  const usersQuery = useQuery({
+    queryKey: ['users'],
+    queryFn: () => getApiUsers({ headers: getAuthHeaders() }),
+  });
   const createMutation = useMutation({
-    mutationFn: (variables: any) => postApiUsers(variables.data),
+    mutationFn: (variables: any) =>
+      postApiUsers(variables.data, { headers: getAuthHeadersWithContentType() }),
     onSuccess: () => {
       message.success('Created');
       setCreateOpen(false);
@@ -30,7 +35,8 @@ export default function Users() {
     onError: (err: any) => message.error(err?.response?.data?.error ?? 'Create failed'),
   });
   const updateMutation = useMutation({
-    mutationFn: (variables: any) => putApiUsersId(variables.id, variables.data),
+    mutationFn: (variables: any) =>
+      putApiUsersId(variables.id, variables.data, { headers: getAuthHeadersWithContentType() }),
     onSuccess: () => {
       message.success('Updated');
       setEditOpen(false);
@@ -41,7 +47,7 @@ export default function Users() {
     onError: (err: any) => message.error(err?.response?.data?.error ?? 'Update failed'),
   });
   const deleteMutation = useMutation({
-    mutationFn: (variables: any) => deleteApiUsersId(variables.id),
+    mutationFn: (variables: any) => deleteApiUsersId(variables.id, { headers: getAuthHeaders() }),
     onSuccess: () => {
       message.success('Deleted');
       qc.invalidateQueries({ queryKey: ['users'] });

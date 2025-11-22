@@ -40,7 +40,14 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
   /**
    * 退出登录，并且将当前的 url 保存
    */
-  const loginOut = async () => {};
+  const loginOut = async () => {
+    // Clear localStorage tokens
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    
+    // Redirect to login page
+    history.push('/login');
+  };
   const { styles } = useStyles();
 
   const { initialState, setInitialState } = useModel('@@initialState');

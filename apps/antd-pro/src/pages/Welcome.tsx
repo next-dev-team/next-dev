@@ -4,6 +4,7 @@ import { Card, theme } from 'antd';
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getApiPosts } from '@rnr/api-spec/src/gen/client';
+import { getAuthHeaders } from '@/utils/auth';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -90,7 +91,7 @@ const Welcome: React.FC = () => {
   const { initialState } = useModel('@@initialState');
   const postsQuery: any = useQuery({
     queryKey: ['posts', 'welcome'],
-    queryFn: () => getApiPosts(),
+    queryFn: () => getApiPosts(undefined, { headers: getAuthHeaders() }),
   });
   const posts = (postsQuery.data as any)?.data ?? [];
   return (

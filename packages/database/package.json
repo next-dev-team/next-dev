@@ -16,7 +16,8 @@
     "db:reset": "prisma db push --force-reset && prisma db seed"
   },
   "dependencies": {
-    "@prisma/client": "^5.17.0"
+    "@prisma/client": "^5.17.0",
+    "bcrypt": "^6.0.0"
   },
   "devDependencies": {
     "prisma": "^5.17.0",

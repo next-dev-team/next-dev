@@ -12,22 +12,30 @@
  */
 export default [
   {
+    path: '/login',
+    component: './Login',
+    layout: false,
+  },
+  {
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
     component: './Welcome',
+    wrappers: ['@/wrappers/auth'],
   },
   {
     path: '/posts',
     name: 'Posts',
     icon: 'profile',
     component: './Posts',
+    wrappers: ['@/wrappers/auth'],
   },
   {
     path: '/users',
     name: 'Users',
     icon: 'user',
     component: './Users',
+    wrappers: ['@/wrappers/auth'],
   },
   {
     path: '/',

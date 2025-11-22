@@ -21,6 +21,7 @@ import {
   getApiUsers,
 } from '@rnr/api-spec/src/gen/client';
 import type { Post } from '@rnr/api-spec/src/gen/types';
+import { getAuthHeaders, getAuthHeadersWithContentType } from '@/utils/auth';
 
 export default function Posts() {
   const [page, setPage] = useState<number>(1);
@@ -35,11 +36,15 @@ export default function Posts() {
   const params = useMemo(() => ({ page, pageSize }), [page, pageSize]);
   const postsQuery = useQuery({
     queryKey: ['posts', page, pageSize],
-    queryFn: () => getApiPosts(params),
+    queryFn: () => getApiPosts(params, { headers: getAuthHeaders() }),
   });
-  const usersQuery = useQuery({ queryKey: ['users-for-posts'], queryFn: () => getApiUsers() });
+  const usersQuery = useQuery({
+    queryKey: ['users-for-posts'],
+    queryFn: () => getApiUsers({ headers: getAuthHeaders() }),
+  });
   const createMutation = useMutation({
-    mutationFn: (variables: any) => postApiPosts(variables.data),
+    mutationFn: (variables: any) =>
+      postApiPosts(variables.data, { headers: getAuthHeadersWithContentType() }),
     onSuccess: () => {
       message.success('Created');
       setCreateOpen(false);
@@ -49,7 +54,8 @@ export default function Posts() {
     onError: (err: any) => message.error(err?.response?.data?.error ?? 'Create failed'),
   });
   const updateMutation = useMutation({
-    mutationFn: (variables: any) => putApiPostsId(variables.id, variables.data),
+    mutationFn: (variables: any) =>
+      putApiPostsId(variables.id, variables.data, { headers: getAuthHeadersWithContentType() }),
     onSuccess: () => {
       message.success('Updated');
       setEditOpen(false);
@@ -60,7 +66,7 @@ export default function Posts() {
     onError: (err: any) => message.error(err?.response?.data?.error ?? 'Update failed'),
   });
   const deleteMutation = useMutation({
-    mutationFn: (variables: any) => deleteApiPostsId(variables.id),
+    mutationFn: (variables: any) => deleteApiPostsId(variables.id, { headers: getAuthHeaders() }),
     onSuccess: () => {
       message.success('Deleted');
       qc.invalidateQueries({ queryKey: ['posts'] });
