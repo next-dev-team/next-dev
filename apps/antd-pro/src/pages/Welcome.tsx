@@ -2,7 +2,8 @@ import { PageContainer } from '@ant-design/pro-components';
 import { useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
 import React from 'react';
-import { useGetApiPosts } from '@rnr/api-spec/src/gen/hooks';
+import { useQuery } from '@tanstack/react-query';
+import { getApiPosts } from '@rnr/api-spec/src/gen/client';
 
 /**
  * 每个单独的卡片，为了复用样式抽成了组件
@@ -87,7 +88,10 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   const { initialState } = useModel('@@initialState');
-  const postsQuery = useGetApiPosts(undefined, { client: { baseURL: 'http://localhost:3000' } });
+  const postsQuery: any = useQuery({
+    queryKey: ['posts', 'welcome'],
+    queryFn: () => getApiPosts(),
+  });
   const posts = (postsQuery.data as any)?.data ?? [];
   return (
     <PageContainer>

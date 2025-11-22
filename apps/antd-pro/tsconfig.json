@@ -22,5 +22,5 @@
     }
   },
   "include": ["./**/*.d.ts", "./**/*.ts", "./**/*.tsx"],
-  "exclude": ["../../packages/api-spec/**"]
+  "exclude": ["../../packages/api-spec/**", "kubb.config.ts"]
 }
