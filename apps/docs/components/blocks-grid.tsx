@@ -46,6 +46,41 @@ const BLOCKS = {
     { title: 'Team 04', href: '/docs/blocks/team/team-04' },
     { title: 'Team 05', href: '/docs/blocks/team/team-05' },
   ],
+  'ecommerce-product-card': [
+    { title: 'Product Card 01', href: '/docs/blocks/ecommerce-product-card/product-card-01' },
+    { title: 'Product Card 02', href: '/docs/blocks/ecommerce-product-card/product-card-02' },
+    { title: 'Product Card 03', href: '/docs/blocks/ecommerce-product-card/product-card-03' },
+    { title: 'Product Card 04', href: '/docs/blocks/ecommerce-product-card/product-card-04' },
+    { title: 'Product Card 05', href: '/docs/blocks/ecommerce-product-card/product-card-05' },
+  ],
+  'ecommerce-product-list': [
+    { title: 'Product List 01', href: '/docs/blocks/ecommerce-product-list/product-list-01' },
+    { title: 'Product List 02', href: '/docs/blocks/ecommerce-product-list/product-list-02' },
+    { title: 'Product List 03', href: '/docs/blocks/ecommerce-product-list/product-list-03' },
+    { title: 'Product List 04', href: '/docs/blocks/ecommerce-product-list/product-list-04' },
+    { title: 'Product List 05', href: '/docs/blocks/ecommerce-product-list/product-list-05' },
+  ],
+  'ecommerce-cart': [
+    { title: 'Cart 01', href: '/docs/blocks/ecommerce-cart/cart-01' },
+    { title: 'Cart 02', href: '/docs/blocks/ecommerce-cart/cart-02' },
+    { title: 'Cart 03', href: '/docs/blocks/ecommerce-cart/cart-03' },
+    { title: 'Cart 04', href: '/docs/blocks/ecommerce-cart/cart-04' },
+    { title: 'Cart 05', href: '/docs/blocks/ecommerce-cart/cart-05' },
+  ],
+  'ecommerce-checkout': [
+    { title: 'Checkout 01', href: '/docs/blocks/ecommerce-checkout/checkout-01' },
+    { title: 'Checkout 02', href: '/docs/blocks/ecommerce-checkout/checkout-02' },
+    { title: 'Checkout 03', href: '/docs/blocks/ecommerce-checkout/checkout-03' },
+    { title: 'Checkout 04', href: '/docs/blocks/ecommerce-checkout/checkout-04' },
+    { title: 'Checkout 05', href: '/docs/blocks/ecommerce-checkout/checkout-05' },
+  ],
+  'ecommerce-order-summary': [
+    { title: 'Order Summary 01', href: '/docs/blocks/ecommerce-order-summary/order-summary-01' },
+    { title: 'Order Summary 02', href: '/docs/blocks/ecommerce-order-summary/order-summary-02' },
+    { title: 'Order Summary 03', href: '/docs/blocks/ecommerce-order-summary/order-summary-03' },
+    { title: 'Order Summary 04', href: '/docs/blocks/ecommerce-order-summary/order-summary-04' },
+    { title: 'Order Summary 05', href: '/docs/blocks/ecommerce-order-summary/order-summary-05' },
+  ],
 };
 
 export function BlocksGrid({ category = 'authentication' }: { category?: keyof typeof BLOCKS }) {

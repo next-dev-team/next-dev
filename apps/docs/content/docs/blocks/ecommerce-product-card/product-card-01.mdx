@@ -4,6 +4,44 @@ description: Basic product card with image, title, price and add to cart.
 ---
 
 import { BlockPreviewCard } from '@docs/components/preview-card';
-import { ProductCard01 } from "@docs/components/blocks";
+import { ProductCard01 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
 
-<BlockPreviewCard preview={<div className="w-full max-w-sm"><ProductCard01 /></div>} />
+<BlockPreviewCard
+  preview={
+    <div className="w-full max-w-sm">
+      <ProductCard01 />
+    </div>
+  }
+/>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "product-card-01"]}/>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/registry/src/blocks/ecommerce-product-card/product-card-01.tsx",
+          "codeblock": {
+            "lang": "tsx"
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+
+  </TabsContent>
+</Tabs>
