@@ -5,3 +5,8 @@ export * from './sign-up-form';
 export * from './social-connections';
 export * from './user-menu';
 export * from './verify-email-form';
+export * from './pricing';
+export * from './hero';
+export * from './cards';
+export * from './error';
+export * from './team';
