@@ -7,6 +7,7 @@
     "dev:antd": "pnpm --filter @rnr/antd-pro dev",
     "dev:api": "pnpm --filter @rnr/api dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",
+    "pre:docs": "turbo start --filter=@rnr/docs",
     "dev:web": "turbo dev --filter=@rnr/tron-core-web",
     "dev:electron": "pnpm --filter @rnr/electron dev",
     "dev:showcase": "cd apps/showcase && pnpm start",

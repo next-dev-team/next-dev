@@ -25,3 +25,8 @@ Licensed under the [MIT license](/LICENSE).
 <a href="https://vercel.com/oss">
   <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge.svg" />
 </a>
+
+## Inspiration
+
+- [shadcn/ui](https://ui.shadcn.com)
+- [shadcn/studio](https://shadcnstudio.com/)
