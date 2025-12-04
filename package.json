@@ -4,6 +4,7 @@
   "scripts": {
     "gen:api": "turbo gen:api",
     "dev": "turbo dev",
+    "dev:rnr-next": "turbo dev --filter=rnr-next",
     "dev:antd": "pnpm --filter @rnr/antd-pro dev",
     "dev:api": "pnpm --filter @rnr/api dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",

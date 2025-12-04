@@ -1,0 +1,88 @@
+/** @type {import('next').NextConfig} */
+const config = {
+  reactStrictMode: true,
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  transpilePackages: [
+    '@rnr/registry',
+    '@rnr/rnr-ui',
+    'react-native',
+    'react-native-web',
+    'expo',
+    'nativewind',
+    'react-native-css-interop',
+    'react-native-reanimated',
+    'react-native-calendars',
+    'react-native-swipe-gestures',
+    'react-native-toast-message',
+    'react-native-gesture-handler',
+    'expo-haptics',
+    'expo-router',
+    'react-navigation',
+    'expo-modules-core',
+  ],
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+  },
+  experimental: {},
+  // TODO(zach)
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error'] } : false,
+  },
+};
+
+export default withExpo(config);
+
+// https://github.com/expo/expo-webpack-integrations/blob/main/packages/next-adapter/src/index.ts
+function withExpo(nextConfig) {
+  return {
+    ...nextConfig,
+    webpack(config, options) {
+      // Mix in aliases
+      if (!config.resolve) {
+        config.resolve = {};
+      }
+
+      config.resolve.alias = {
+        ...(config.resolve.alias || {}),
+        // Alias direct react-native imports to react-native-web
+        'react-native$': 'react-native-web',
+        // Alias internal react-native modules to react-native-web
+        'react-native/Libraries/EventEmitter/RCTDeviceEventEmitter$':
+          'react-native-web/dist/vendor/react-native/NativeEventEmitter/RCTDeviceEventEmitter',
+        'react-native/Libraries/vendor/emitter/EventEmitter$':
+          'react-native-web/dist/vendor/react-native/emitter/EventEmitter',
+        'react-native/Libraries/EventEmitter/NativeEventEmitter$':
+          'react-native-web/dist/vendor/react-native/NativeEventEmitter',
+      };
+
+      config.resolve.extensions = [
+        '.web.js',
+        '.web.jsx',
+        '.web.ts',
+        '.web.tsx',
+        ...(config.resolve.extensions || []),
+      ];
+
+      if (typeof nextConfig.webpack === 'function') {
+        return nextConfig.webpack(config, options);
+      }
+
+      return config;
+    },
+  };
+}
