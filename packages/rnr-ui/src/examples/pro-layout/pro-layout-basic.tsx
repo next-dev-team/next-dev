@@ -29,19 +29,29 @@ export function ProLayoutBasicPreview() {
         navTheme="dark"
         fixSiderbar
         fixedHeader
-        headerContentRender={() => <Button size="sm"><Text>New</Text></Button>}
+        headerContentRender={() => (
+          <Button size="sm">
+            <Text>New</Text>
+          </Button>
+        )}
         rightContentRender={() => <Text className="text-sm">User</Text>}
         location={{ pathname: '/users/list' }}
       >
         <PageContainer
           title="Users"
           subTitle="Manage system users"
-          extra={<Button><Text>Add User</Text></Button>}
-          breadcrumb={{ routes: [
-            { path: '/', breadcrumbName: 'Home' },
-            { path: '/users', breadcrumbName: 'Users' },
-            { path: '/users/list', breadcrumbName: 'List' },
-          ]}}
+          extra={
+            <Button>
+              <Text>Add User</Text>
+            </Button>
+          }
+          breadcrumb={{
+            routes: [
+              { path: '/', breadcrumbName: 'Home' },
+              { path: '/users', breadcrumbName: 'Users' },
+              { path: '/users/list', breadcrumbName: 'List' },
+            ],
+          }}
           tabList={[
             { key: 'list', tab: <Text>List</Text> },
             { key: 'activity', tab: <Text>Activity</Text> },

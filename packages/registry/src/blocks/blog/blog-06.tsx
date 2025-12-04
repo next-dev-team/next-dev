@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/registry/new-york/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardFooter,
+} from '@/registry/new-york/components/ui/card';
 import { Button } from '@/registry/new-york/components/ui/button';
 
 export function Blog06() {
@@ -14,11 +21,12 @@ export function Blog06() {
       <Card>
         <CardHeader>
           <View className="flex-row justify-between">
-            <Text className="text-sm text-muted-foreground">Dec 04, 2025</Text>
+            <Text className="text-muted-foreground text-sm">Dec 04, 2025</Text>
           </View>
           <CardTitle>Blog Post Title 06</CardTitle>
           <CardDescription>
-            A brief description of the blog post goes here. It summarizes the content to encourage reading.
+            A brief description of the blog post goes here. It summarizes the content to encourage
+            reading.
           </CardDescription>
         </CardHeader>
         <CardFooter>

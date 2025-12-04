@@ -19,10 +19,10 @@ export function Error02() {
       </View>
       <View className="flex-row gap-4">
         <Button variant="outline">
-            <Text>Contact Support</Text>
+          <Text>Contact Support</Text>
         </Button>
         <Button>
-            <Text>Refresh Page</Text>
+          <Text>Refresh Page</Text>
         </Button>
       </View>
     </View>

@@ -3,13 +3,13 @@ title: Alert
 description: Displays a callout for user attention.
 ---
 
-import { CommandTabs } from "@docs/components/command-tabs";
-import { PreviewCard } from "@docs/components/preview-card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
-import { AlertPreview } from "@docs/components/examples";
+import { CommandTabs } from '@docs/components/command-tabs';
+import { PreviewCard } from '@docs/components/preview-card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
+import { AlertPreview } from '@docs/components/examples';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-<div className="h-5"/>
+<div className="h-5" />
 
 <Tabs defaultValue="preview">
   <TabsList>
@@ -33,7 +33,6 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
     ```
   </TabsContent>
 </Tabs>
-
 
 ## Installation
 
@@ -88,6 +87,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
       </Step>
     </Steps>
+
   </TabsContent>
 </Tabs>
 
@@ -101,8 +101,6 @@ import { Terminal } from '@/lib/icons/Terminal';
 ```tsx
 <Alert icon={Terminal}>
   <AlertTitle>Heads up!</AlertTitle>
-  <AlertDescription>
-    You can use a terminal to run commands on your computer.
-  </AlertDescription>
+  <AlertDescription>You can use a terminal to run commands on your computer.</AlertDescription>
 </Alert>
 ```

@@ -31,11 +31,12 @@ export function CopyButton({
         }),
         'size-7 transition-opacity group-hover:opacity-100',
         !checked && 'opacity-0',
-        className
+        className,
       )}
       aria-label="Copy Text"
       onClick={onClick}
-      {...props}>
+      {...props}
+    >
       <CheckIcon className={cn('!size-3.5 transition-transform', !checked && 'scale-0')} />
       <CopyIcon className={cn('absolute !size-3.5 transition-transform', checked && 'scale-0')} />
     </button>

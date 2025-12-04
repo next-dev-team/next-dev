@@ -30,7 +30,7 @@ export default function TodoScreen() {
   ]);
   const [inputText, setInputText] = React.useState('');
   const [deleteConfirm, setDeleteConfirm] = React.useState<{ id: string; text: string } | null>(
-    null
+    null,
   );
 
   const addTodo = () => {
@@ -47,7 +47,7 @@ export default function TodoScreen() {
 
   const toggleTodo = (id: string) => {
     setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo))
+      todos.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
     );
   };
 
@@ -75,7 +75,7 @@ export default function TodoScreen() {
   return (
     <View className="bg-background flex-1">
       {/* Simple scrollable content */}
-      <ScrollView className="flex-1 android:pb-24 ios:pb-28">
+      <ScrollView className="android:pb-24 ios:pb-28 flex-1">
         <View className="px-4">
           {/* Content wrapper with max width for better readability */}
           <View className="mx-auto w-full max-w-lg">
@@ -111,8 +111,9 @@ export default function TodoScreen() {
                     onPress={() => toggleTodo(todo.id)}
                     className={cn(
                       'bg-card flex-row items-center rounded-lg border p-4',
-                      todo.completed && 'opacity-60'
-                    )}>
+                      todo.completed && 'opacity-60',
+                    )}
+                  >
                     <Checkbox
                       checked={todo.completed}
                       onCheckedChange={() => toggleTodo(todo.id)}
@@ -121,8 +122,9 @@ export default function TodoScreen() {
                     <Text
                       className={cn(
                         'flex-1 text-base',
-                        todo.completed && 'text-muted-foreground line-through'
-                      )}>
+                        todo.completed && 'text-muted-foreground line-through',
+                      )}
+                    >
                       {todo.text}
                     </Text>
                     <Button
@@ -132,7 +134,8 @@ export default function TodoScreen() {
                         e.stopPropagation();
                         deleteTodo(todo.id);
                       }}
-                      className="ml-2 h-8 w-8 p-1">
+                      className="ml-2 h-8 w-8 p-1"
+                    >
                       <Icon as={Trash2} className="text-destructive size-3.5" />
                     </Button>
                   </TouchableOpacity>

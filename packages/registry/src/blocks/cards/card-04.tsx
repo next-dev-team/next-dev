@@ -19,16 +19,19 @@ export function Card04() {
         <CardDescription>You have 3 unread messages.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-1">
-        {['Your subscription is expiring soon.', 'New login from Chrome on Windows.', 'Your report is ready to download.'].map((notification, index) => (
-          <View key={index} className="flex-row items-start space-x-4 rounded-md p-2 hover:bg-accent hover:text-accent-foreground transition-all">
-            <Icon as={Bell} size={16} className="mt-px text-primary" />
+        {[
+          'Your subscription is expiring soon.',
+          'New login from Chrome on Windows.',
+          'Your report is ready to download.',
+        ].map((notification, index) => (
+          <View
+            key={index}
+            className="hover:bg-accent hover:text-accent-foreground flex-row items-start space-x-4 rounded-md p-2 transition-all"
+          >
+            <Icon as={Bell} size={16} className="text-primary mt-px" />
             <View className="flex-1 space-y-1">
-              <Text className="text-sm font-medium leading-none">
-                Notification
-              </Text>
-              <Text className="text-sm text-muted-foreground">
-                {notification}
-              </Text>
+              <Text className="text-sm font-medium leading-none">Notification</Text>
+              <Text className="text-muted-foreground text-sm">{notification}</Text>
             </View>
           </View>
         ))}

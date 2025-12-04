@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "card-01",
-    "card-02",
-    "card-03",
-    "card-04",
-    "card-05"
-  ]
+  "pages": ["card-01", "card-02", "card-03", "card-04", "card-05"]
 }

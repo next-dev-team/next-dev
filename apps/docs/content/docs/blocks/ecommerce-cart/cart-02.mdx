@@ -4,12 +4,18 @@ description: Cart with order summary sidebar.
 ---
 
 import { BlockPreviewCard } from '@docs/components/preview-card';
-import { Cart02 } from "@docs/components/blocks";
-import { CommandTabs } from "@docs/components/command-tabs";
+import { Cart02 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
 
-<BlockPreviewCard preview={<div className="w-full"><Cart02 /></div>} />
+<BlockPreviewCard
+  preview={
+    <div className="w-full">
+      <Cart02 />
+    </div>
+  }
+/>
 
 ## Installation
 
@@ -36,5 +42,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/ta
         ```
       </Step>
     </Steps>
+
   </TabsContent>
 </Tabs>

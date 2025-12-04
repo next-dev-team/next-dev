@@ -3,7 +3,7 @@ import { history, useModel } from '@umijs/max';
 import type { MenuProps } from 'antd';
 import { Spin } from 'antd';
 import { createStyles } from 'antd-style';
-import React from 'react';
+import type React from 'react';
 import { flushSync } from 'react-dom';
 import HeaderDropdown from '../HeaderDropdown';
 
@@ -44,7 +44,7 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu, childre
     // Clear localStorage tokens
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    
+
     // Redirect to login page
     history.push('/login');
   };

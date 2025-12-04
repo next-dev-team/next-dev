@@ -1,9 +1,9 @@
 import { PageContainer } from '@ant-design/pro-components';
+import { getApiPosts } from '@rnr/api-spec/src/gen/client';
+import { useQuery } from '@tanstack/react-query';
 import { useModel } from '@umijs/max';
 import { Card, theme } from 'antd';
-import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getApiPosts } from '@rnr/api-spec/src/gen/client';
+import type React from 'react';
 import { getAuthHeaders } from '@/utils/auth';
 
 /**
@@ -138,6 +138,9 @@ const Welcome: React.FC = () => {
           >
             Ant Design Pro 是一个整合了 umi，Ant Design 和 ProComponents
             的脚手架方案。致力于在设计规范和基础组件的基础上，继续向上构建，提炼出典型模板/业务组件/配套设计资源，进一步提升企业级中后台产品设计研发过程中的『用户』和『设计者』的体验。
+            basic components, refining typical templates/business components/supporting design
+            resources, and further improving the experience of "users" and "designers" in the design
+            and development process of enterprise-level middle and back-end products.
           </p>
           <div
             style={{
@@ -146,23 +149,23 @@ const Welcome: React.FC = () => {
               gap: 16,
             }}
           >
-            <InfoCard
-              index={1}
-              href="https://umijs.org/docs/introduce/introduce"
               title="了解 umi"
               desc="umi 是一个可扩展的企业级前端应用框架,umi 以路由为基础的，同时支持配置式路由和约定式路由，保证路由的功能完备，并以此进行功能扩展。"
-            />
-            <InfoCard
-              index={2}
+              href="https://umijs.org/docs/introduce/introduce"
+              title="Learn about umi"
+              desc="umi is an extensible enterprise-level frontend application framework. umi is based on routing and supports both configuration-based routing and convention-based routing, ensuring complete routing functionality and using this for functional extensions."
               title="了解 ant design"
-              href="https://ant.design"
-              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
-            />
             <InfoCard
-              index={3}
+              desc="antd 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。"
+              title="Learn about ant design"
+              href="https://ant.design"
+              desc="antd is a React UI component library based on the Ant Design design system, mainly used for developing enterprise-level middle and back-end products."
               title="了解 Pro Components"
-              href="https://procomponents.ant.design"
+            <InfoCard
               desc="ProComponents 是一个基于 Ant Design 做了更高抽象的模板组件，以 一个组件就是一个页面为开发理念，为中后台开发带来更好的体验。"
+              title="Learn about Pro Components"
+              href="https://procomponents.ant.design"
+              desc="ProComponents is a template component based on Ant Design with higher abstraction. It adopts the development concept of one component per page, bringing a better experience for middle and back-end development."
             />
           </div>
         </div>

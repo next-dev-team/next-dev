@@ -2,7 +2,7 @@
 
 ## Starter repo
 
- <https://github.com/adebayoileri/universal-app-starter>
+<https://github.com/adebayoileri/universal-app-starter>
 
 ## Turbo repo
 

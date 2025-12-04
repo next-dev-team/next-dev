@@ -4,12 +4,18 @@ description: Minimalist product card with hover action.
 ---
 
 import { BlockPreviewCard } from '@docs/components/preview-card';
-import { ProductCard04 } from "@docs/components/blocks";
-import { CommandTabs } from "@docs/components/command-tabs";
+import { ProductCard04 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
 
-<BlockPreviewCard preview={<div className="w-full max-w-xs"><ProductCard04 /></div>} />
+<BlockPreviewCard
+  preview={
+    <div className="w-full max-w-xs">
+      <ProductCard04 />
+    </div>
+  }
+/>
 
 ## Installation
 
@@ -36,5 +42,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/ta
         ```
       </Step>
     </Steps>
+
   </TabsContent>
 </Tabs>

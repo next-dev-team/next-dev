@@ -37,7 +37,9 @@ export interface ProLayoutProps {
   /**
    * Menu header render function
    */
-  menuHeaderRender?: React.ReactNode | ((logo: React.ReactNode, title: React.ReactNode) => React.ReactNode);
+  menuHeaderRender?:
+    | React.ReactNode
+    | ((logo: React.ReactNode, title: React.ReactNode) => React.ReactNode);
   /**
    * Menu footer render function
    */
@@ -93,7 +95,11 @@ export interface ProLayoutProps {
   /**
    * Header title render
    */
-  headerTitleRender?: (logo: React.ReactNode, title: React.ReactNode, props: any) => React.ReactNode;
+  headerTitleRender?: (
+    logo: React.ReactNode,
+    title: React.ReactNode,
+    props: any,
+  ) => React.ReactNode;
   /**
    * Loading state
    */
@@ -252,7 +258,7 @@ function ProLayout({
         >
           {item.icon && <View>{item.icon}</View>}
           {!collapsed && (
-            <Text className={cn('text-sm', isSelected && 'font-semibold text-primary')}>
+            <Text className={cn('text-sm', isSelected && 'text-primary font-semibold')}>
               {item.name}
             </Text>
           )}
@@ -275,18 +281,14 @@ function ProLayout({
       <View
         className={cn(
           'bg-card border-border border-r',
-          fixSiderbar && 'fixed left-0 top-0 bottom-0 z-10',
+          fixSiderbar && 'fixed bottom-0 left-0 top-0 z-10',
           collapsed ? 'w-16' : 'w-64',
         )}
       >
         {renderMenuHeader()}
-        {menuExtraRender && (
-          <View className="px-4 pb-4">{menuExtraRender({ collapsed })}</View>
-        )}
+        {menuExtraRender && <View className="px-4 pb-4">{menuExtraRender({ collapsed })}</View>}
         <ScrollView className="flex-1">
-          <View className="gap-1 p-2">
-            {menuData.map((item) => renderMenuItem(item))}
-          </View>
+          <View className="gap-1 p-2">{menuData.map((item) => renderMenuItem(item))}</View>
         </ScrollView>
         {menuFooterRender && (
           <View className="border-border border-t p-4">{menuFooterRender({ collapsed })}</View>
@@ -296,12 +298,7 @@ function ProLayout({
             {typeof collapsedButtonRender === 'function' ? (
               collapsedButtonRender(collapsed)
             ) : (
-              <Button
-                variant="ghost"
-                size="sm"
-                onPress={handleCollapse}
-                className="w-full"
-              >
+              <Button variant="ghost" size="sm" onPress={handleCollapse} className="w-full">
                 {collapsed ? '→' : '←'}
               </Button>
             )}
@@ -318,10 +315,18 @@ function ProLayout({
 
     return (
       <View className={cn('border-border border-b', navTheme === 'dark' ? 'bg-muted' : 'bg-card')}>
-        <View className={cn('flex-row items-center justify-between px-4', fixedHeader && 'fixed top-0 left-0 right-0 z-10')}>
+        <View
+          className={cn(
+            'flex-row items-center justify-between px-4',
+            fixedHeader && 'fixed left-0 right-0 top-0 z-10',
+          )}
+        >
           <Pressable
             onPress={onMenuHeaderClick}
-            className={cn('flex-row items-center gap-3 py-4', onMenuHeaderClick && 'active:opacity-70')}
+            className={cn(
+              'flex-row items-center gap-3 py-4',
+              onMenuHeaderClick && 'active:opacity-70',
+            )}
           >
             {renderLogo() && <View>{renderLogo()}</View>}
             <Text variant="h4" className="font-semibold">
@@ -330,9 +335,7 @@ function ProLayout({
           </Pressable>
           {layout === 'top' && (
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View className="flex-row gap-1">
-                {menuData.map((item) => renderMenuItem(item))}
-              </View>
+              <View className="flex-row gap-1">{menuData.map((item) => renderMenuItem(item))}</View>
             </ScrollView>
           )}
           {headerContentRender && <View>{headerContentRender()}</View>}
@@ -364,17 +367,22 @@ function ProLayout({
 
   const renderBreadcrumbBar = () => {
     if (!route && !breadcrumbRender) return null;
-    if (breadcrumbRender) return <View className="border-border border-b px-4 py-2">{breadcrumbRender(buildBreadcrumb, currentPath)}</View>;
+    if (breadcrumbRender)
+      return (
+        <View className="border-border border-b px-4 py-2">
+          {breadcrumbRender(buildBreadcrumb, currentPath)}
+        </View>
+      );
     if (buildBreadcrumb.length === 0) return null;
     return (
       <View className="border-border border-b px-4 py-2">
         <View className="flex-row flex-wrap items-center gap-1">
           {buildBreadcrumb.map((node, idx) => (
             <View key={(node.path || node.name || '') + idx} className="flex-row items-center">
-              <Text className="text-sm">
-                {node.name || node.path || ''}
-              </Text>
-              {idx < buildBreadcrumb.length - 1 && <Text className="mx-1 text-muted-foreground">/</Text>}
+              <Text className="text-sm">{node.name || node.path || ''}</Text>
+              {idx < buildBreadcrumb.length - 1 && (
+                <Text className="text-muted-foreground mx-1">/</Text>
+              )}
             </View>
           ))}
         </View>
@@ -395,7 +403,7 @@ function ProLayout({
   }
 
   return (
-    <View className="flex-1 flex-row bg-background">
+    <View className="bg-background flex-1 flex-row">
       {renderSidebar()}
       <View className="flex-1 flex-col">
         {renderTopMenu()}
@@ -405,7 +413,7 @@ function ProLayout({
             'flex-1',
             layout !== 'top' && fixSiderbar && (collapsed ? 'ml-16' : 'ml-64'),
             layout === 'top' && fixedHeader && 'mt-16',
-            contentWidth === 'Fixed' && 'max-w-7xl mx-auto w-full',
+            contentWidth === 'Fixed' && 'mx-auto w-full max-w-7xl',
           )}
         >
           {children}
@@ -417,4 +425,3 @@ function ProLayout({
 
 export { ProLayout };
 export type { ProLayoutProps, MenuItem, RouteItem };
-

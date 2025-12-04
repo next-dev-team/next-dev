@@ -1,11 +1,6 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/registry/new-york/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/registry/new-york/components/ui/card';
 import { Text } from '@/registry/new-york/components/ui/text';
 import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/components/ui/avatar';
 
@@ -45,7 +40,7 @@ export function Team01() {
               </Avatar>
               <View>
                 <Text className="text-sm font-medium leading-none">{member.name}</Text>
-                <Text className="text-sm text-muted-foreground">{member.role}</Text>
+                <Text className="text-muted-foreground text-sm">{member.role}</Text>
               </View>
             </View>
           </View>

@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "otp-01",
-    "otp-02",
-    "otp-03",
-    "otp-04",
-    "otp-05"
-  ]
+  "pages": ["otp-01", "otp-02", "otp-03", "otp-04", "otp-05"]
 }

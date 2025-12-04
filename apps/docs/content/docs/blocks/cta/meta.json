@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "cta-01",
-    "cta-02",
-    "cta-03",
-    "cta-04",
-    "cta-05"
-  ]
+  "pages": ["cta-01", "cta-02", "cta-03", "cta-04", "cta-05"]
 }

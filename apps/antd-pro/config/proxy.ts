@@ -1,6 +1,6 @@
 /**
- * @name 代理的配置
- * @see 在生产环境 代理是无法生效的，所以这里没有生产环境的配置
+ * @name Proxy Configuration
+ * @see Proxy cannot take effect in the production environment, so there is no configuration for the production environment here.
  * -------------------------------
  * The agent cannot take effect in the production environment
  * so there is no configuration of the production environment
@@ -18,7 +18,7 @@ export default {
     },
   },
   /**
-   * @name 详细的代理配置
+   * @name Detailed proxy configuration
    * @doc https://github.com/chimurai/http-proxy-middleware
    */
   test: {

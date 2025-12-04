@@ -7,11 +7,11 @@ import { ProductCard04 } from '../ecommerce-product-card/product-card-04';
 
 export function ProductList05() {
   return (
-    <View className="w-full p-4 flex-row gap-8">
+    <View className="w-full flex-row gap-8 p-4">
       {/* Sidebar Filters */}
-      <View className="hidden md:flex w-64 space-y-6">
+      <View className="hidden w-64 space-y-6 md:flex">
         <View>
-          <Text className="font-semibold mb-4">Categories</Text>
+          <Text className="mb-4 font-semibold">Categories</Text>
           <View className="space-y-2">
             <View className="flex-row items-center gap-2">
               <Checkbox checked />
@@ -29,8 +29,8 @@ export function ProductList05() {
         </View>
         <Separator />
         <View>
-          <Text className="font-semibold mb-4">Price Range</Text>
-           <View className="space-y-2">
+          <Text className="mb-4 font-semibold">Price Range</Text>
+          <View className="space-y-2">
             <View className="flex-row items-center gap-2">
               <Checkbox />
               <Text>Under $50</Text>
@@ -56,13 +56,13 @@ export function ProductList05() {
           <View className="w-full sm:w-[48%] lg:w-[31%]">
             <ProductCard04 />
           </View>
-           <View className="w-full sm:w-[48%] lg:w-[31%]">
+          <View className="w-full sm:w-[48%] lg:w-[31%]">
             <ProductCard04 />
           </View>
-           <View className="w-full sm:w-[48%] lg:w-[31%]">
+          <View className="w-full sm:w-[48%] lg:w-[31%]">
             <ProductCard04 />
           </View>
-           <View className="w-full sm:w-[48%] lg:w-[31%]">
+          <View className="w-full sm:w-[48%] lg:w-[31%]">
             <ProductCard04 />
           </View>
         </View>

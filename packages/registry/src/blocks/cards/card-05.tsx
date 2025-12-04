@@ -25,20 +25,28 @@ export function Card05() {
         <View className="flex-row items-center justify-between space-x-2">
           <Label htmlFor="functional" className="flex-col space-y-1">
             <Text>Functional Cookies</Text>
-            <Text className="font-normal leading-snug text-muted-foreground text-xs">
+            <Text className="text-muted-foreground text-xs font-normal leading-snug">
               These cookies are essential for the website to function.
             </Text>
           </Label>
-          <Switch id="functional" checked={isNotificationsEnabled} onCheckedChange={setIsNotificationsEnabled} />
+          <Switch
+            id="functional"
+            checked={isNotificationsEnabled}
+            onCheckedChange={setIsNotificationsEnabled}
+          />
         </View>
         <View className="flex-row items-center justify-between space-x-2">
           <Label htmlFor="marketing" className="flex-col space-y-1">
-             <Text>Marketing Cookies</Text>
-            <Text className="font-normal leading-snug text-muted-foreground text-xs">
+            <Text>Marketing Cookies</Text>
+            <Text className="text-muted-foreground text-xs font-normal leading-snug">
               These cookies are used to track your browsing habits.
             </Text>
           </Label>
-          <Switch id="marketing" checked={isMarketingEnabled} onCheckedChange={setIsMarketingEnabled} />
+          <Switch
+            id="marketing"
+            checked={isMarketingEnabled}
+            onCheckedChange={setIsMarketingEnabled}
+          />
         </View>
       </CardContent>
     </Card>

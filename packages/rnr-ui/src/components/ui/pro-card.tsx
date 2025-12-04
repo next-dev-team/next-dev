@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { View, ScrollView, Pressable } from 'react-native';
 import { Text } from '~/components/ui/text';
 import { Button } from '~/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '~/components/ui/card';
 import { cn } from '~/lib/utils';
 
 export interface ProCardTabs {
@@ -122,7 +129,9 @@ function ProCard({
   className,
 }: ProCardProps) {
   const [internalCollapsed, setInternalCollapsed] = useState(defaultCollapsed);
-  const [activeTab, setActiveTab] = useState<string | undefined>(tabs?.activeKey || tabs?.items[0]?.key);
+  const [activeTab, setActiveTab] = useState<string | undefined>(
+    tabs?.activeKey || tabs?.items[0]?.key,
+  );
 
   const collapsed = controlledCollapsed !== undefined ? controlledCollapsed : internalCollapsed;
 
@@ -144,7 +153,7 @@ function ProCard({
   const cardContent = (
     <Card
       className={cn(
-        ghost && 'bg-transparent border-0 shadow-none p-0',
+        ghost && 'border-0 bg-transparent p-0 shadow-none',
         variant === 'borderless' && 'border-0',
         headerBordered && 'border-b',
         className,
@@ -187,9 +196,7 @@ function ProCard({
                   onPress={() => handleTabChange(tab.key)}
                   className={cn(
                     'border-b-2 px-4 py-2',
-                    activeTab === tab.key
-                      ? 'border-primary'
-                      : 'border-transparent',
+                    activeTab === tab.key ? 'border-primary' : 'border-transparent',
                   )}
                 >
                   <Text
@@ -225,9 +232,7 @@ function ProCard({
 
   // Handle grid layout with colSpan
   if (colSpan) {
-    const spanStyle = typeof colSpan === 'number'
-      ? { flex: colSpan / 24 }
-      : { width: colSpan };
+    const spanStyle = typeof colSpan === 'number' ? { flex: colSpan / 24 } : { width: colSpan };
 
     return (
       <View style={spanStyle} className={cn(wrap && 'flex-wrap')}>
@@ -239,12 +244,7 @@ function ProCard({
   // Handle split layout
   if (split) {
     return (
-      <View
-        className={cn(
-          'flex-row',
-          split === 'vertical' ? 'flex-row' : 'flex-col',
-        )}
-      >
+      <View className={cn('flex-row', split === 'vertical' ? 'flex-row' : 'flex-col')}>
         {cardContent}
       </View>
     );
@@ -254,11 +254,7 @@ function ProCard({
   if (direction) {
     return (
       <View
-        className={cn(
-          'flex',
-          direction === 'row' ? 'flex-row' : 'flex-col',
-          wrap && 'flex-wrap',
-        )}
+        className={cn('flex', direction === 'row' ? 'flex-row' : 'flex-col', wrap && 'flex-wrap')}
       >
         {cardContent}
       </View>
@@ -307,4 +303,3 @@ ProCard.Group = ProCardGroup;
 
 export { ProCard, ProCardGroup };
 export type { ProCardProps, ProCardTabs, ProCardGroupProps };
-

@@ -7,8 +7,8 @@ import { Timer } from 'lucide-react-native';
 
 export function Otp03() {
   return (
-    <View className="w-full max-w-sm mx-auto p-6 gap-6 items-center">
-      <View className="h-12 w-12 rounded-full bg-muted items-center justify-center">
+    <View className="mx-auto w-full max-w-sm items-center gap-6 p-6">
+      <View className="bg-muted h-12 w-12 items-center justify-center rounded-full">
         <Icon as={Timer} size={24} className="text-foreground" />
       </View>
       <View className="items-center gap-2">
@@ -17,20 +17,20 @@ export function Otp03() {
           We sent a verification code to user@example.com
         </Text>
       </View>
-      
-      <Input 
-        className="text-center text-2xl tracking-[1em] font-mono h-14" 
+
+      <Input
+        className="h-14 text-center font-mono text-2xl tracking-[1em]"
         placeholder="000000"
-        keyboardType="number-pad" 
+        keyboardType="number-pad"
         maxLength={6}
       />
 
-      <View className="items-center gap-4 w-full">
+      <View className="w-full items-center gap-4">
         <Button className="w-full">
-            <Text>Verify</Text>
+          <Text>Verify</Text>
         </Button>
-        <Text className="text-sm text-muted-foreground">
-            Resend code in <Text className="text-primary font-medium">00:59</Text>
+        <Text className="text-muted-foreground text-sm">
+          Resend code in <Text className="text-primary font-medium">00:59</Text>
         </Text>
       </View>
     </View>

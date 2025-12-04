@@ -4,12 +4,10 @@ import { Text } from '@/registry/new-york/components/ui/text';
 
 export function Cta03() {
   return (
-    <View className="w-full max-w-5xl mx-auto p-8">
-      <View className="flex-col md:flex-row items-center justify-between gap-8 bg-muted/50 p-10 rounded-2xl border border-border">
-        <View className="flex-1 gap-2 items-start">
-          <Text className="text-2xl font-bold sm:text-3xl">
-            Start your free trial
-          </Text>
+    <View className="mx-auto w-full max-w-5xl p-8">
+      <View className="bg-muted/50 border-border flex-col items-center justify-between gap-8 rounded-2xl border p-10 md:flex-row">
+        <View className="flex-1 items-start gap-2">
+          <Text className="text-2xl font-bold sm:text-3xl">Start your free trial</Text>
           <Text className="text-muted-foreground text-lg">
             No credit card required. Cancel anytime.
           </Text>

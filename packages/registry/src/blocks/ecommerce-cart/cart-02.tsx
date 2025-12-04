@@ -1,34 +1,40 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Button } from '@/registry/new-york/components/ui/button';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/registry/new-york/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/registry/new-york/components/ui/card';
 import { Text } from '@/registry/new-york/components/ui/text';
 import { Separator } from '@/registry/new-york/components/ui/separator';
 
 export function Cart02() {
   return (
-    <View className="w-full max-w-6xl mx-auto p-4 flex-col lg:flex-row gap-8">
+    <View className="mx-auto w-full max-w-6xl flex-col gap-8 p-4 lg:flex-row">
       <View className="flex-1">
-        <Text className="text-2xl font-bold mb-6">Shopping Cart</Text>
+        <Text className="mb-6 text-2xl font-bold">Shopping Cart</Text>
         <View className="space-y-6">
           {[1, 2, 3].map((item) => (
-            <Card key={item} className="flex-row p-4 gap-4">
-              <View className="w-24 h-24 bg-muted rounded" />
+            <Card key={item} className="flex-row gap-4 p-4">
+              <View className="bg-muted h-24 w-24 rounded" />
               <View className="flex-1 justify-between py-1">
                 <View>
-                  <Text className="font-semibold text-lg">Premium Product {item}</Text>
+                  <Text className="text-lg font-semibold">Premium Product {item}</Text>
                   <Text className="text-muted-foreground">Color: Black | Size: M</Text>
                 </View>
-                <View className="flex-row justify-between items-center">
-                   <Text className="font-medium">$120.00</Text>
-                   <Text className="text-sm text-primary">Edit</Text>
+                <View className="flex-row items-center justify-between">
+                  <Text className="font-medium">$120.00</Text>
+                  <Text className="text-primary text-sm">Edit</Text>
                 </View>
               </View>
             </Card>
           ))}
         </View>
       </View>
-      
+
       <View className="w-full lg:w-80">
         <Card>
           <CardHeader>
@@ -49,8 +55,8 @@ export function Cart02() {
             </View>
             <Separator />
             <View className="flex-row justify-between">
-              <Text className="font-bold text-lg">Total</Text>
-              <Text className="font-bold text-lg">$411.00</Text>
+              <Text className="text-lg font-bold">Total</Text>
+              <Text className="text-lg font-bold">$411.00</Text>
             </View>
           </CardContent>
           <CardFooter>

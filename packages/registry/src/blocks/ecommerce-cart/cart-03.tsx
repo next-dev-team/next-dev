@@ -7,13 +7,14 @@ import { Icon } from '@/registry/new-york/components/ui/icon';
 
 export function Cart03() {
   return (
-    <View className="w-full h-[400px] items-center justify-center p-4 text-center">
-      <View className="w-20 h-20 bg-muted rounded-full items-center justify-center mb-6">
+    <View className="h-[400px] w-full items-center justify-center p-4 text-center">
+      <View className="bg-muted mb-6 h-20 w-20 items-center justify-center rounded-full">
         <Icon as={ShoppingCart} size={40} className="text-muted-foreground" />
       </View>
-      <Text className="text-2xl font-bold mb-2">Your cart is empty</Text>
+      <Text className="mb-2 text-2xl font-bold">Your cart is empty</Text>
       <Text className="text-muted-foreground mb-8 max-w-md text-center">
-        Looks like you haven't added anything to your cart yet. Explore our products and find something you love.
+        Looks like you haven't added anything to your cart yet. Explore our products and find
+        something you love.
       </Text>
       <Button>
         <Text>Start Shopping</Text>

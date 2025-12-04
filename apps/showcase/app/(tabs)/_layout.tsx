@@ -25,7 +25,8 @@ function TabItem({ icon, label, color, focused, isDark }: TabItemProps) {
         justifyContent: 'center',
         paddingVertical: 8,
         width: '100%',
-      }}>
+      }}
+    >
       {/* Rounded square icon container */}
       <View
         style={{
@@ -45,7 +46,8 @@ function TabItem({ icon, label, color, focused, isDark }: TabItemProps) {
               ? 'rgba(14, 165, 233, 0.3)'
               : 'rgba(8, 145, 178, 0.2)'
             : 'transparent',
-        }}>
+        }}
+      >
         <Icon as={icon} size={20} style={{ color }} />
       </View>
       {/* Label */}
@@ -55,7 +57,8 @@ function TabItem({ icon, label, color, focused, isDark }: TabItemProps) {
           marginTop: 3,
           fontWeight: focused ? '600' : '400',
           color: color,
-        }}>
+        }}
+      >
         {label}
       </Text>
     </View>
@@ -139,7 +142,8 @@ export default function TabLayout() {
           tabBarActiveTintColor: isDark ? '#0ea5e9' : '#0891b2',
           tabBarInactiveTintColor: isDark ? 'rgba(142, 142, 147, 0.8)' : 'rgba(120, 120, 128, 0.8)',
           headerShown: false,
-        }}>
+        }}
+      >
         <Tabs.Screen
           name="components"
           options={{

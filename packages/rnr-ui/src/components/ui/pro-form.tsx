@@ -24,18 +24,20 @@ export interface ProFormProps<T = any> extends Omit<RcFormProps<T>, 'onFinish'> 
    * Show submit button
    * @default true
    */
-  submitter?: boolean | {
-    submitButtonProps?: React.ComponentProps<typeof Button>;
-    resetButtonProps?: React.ComponentProps<typeof Button>;
-    render?: (
-      props: {
-        submit: () => void;
-        reset: () => void;
-        loading?: boolean;
-      },
-      dom: React.ReactNode
-    ) => React.ReactNode;
-  };
+  submitter?:
+    | boolean
+    | {
+        submitButtonProps?: React.ComponentProps<typeof Button>;
+        resetButtonProps?: React.ComponentProps<typeof Button>;
+        render?: (
+          props: {
+            submit: () => void;
+            reset: () => void;
+            loading?: boolean;
+          },
+          dom: React.ReactNode,
+        ) => React.ReactNode;
+      };
   /**
    * Form submit handler
    */
@@ -110,7 +112,7 @@ function ProForm<T = any>({
           reset: handleReset,
           loading,
         },
-        <View className="flex-row gap-2 mt-4">
+        <View className="mt-4 flex-row gap-2">
           <Button onPress={() => form.submit()} disabled={loading} {...submitter.submitButtonProps}>
             <Text>{submitButtonText}</Text>
           </Button>
@@ -124,12 +126,12 @@ function ProForm<T = any>({
               <Text>{resetButtonText}</Text>
             </Button>
           )}
-        </View>
+        </View>,
       );
     }
 
     return (
-      <View className="flex-row gap-2 mt-4">
+      <View className="mt-4 flex-row gap-2">
         <Button onPress={() => form.submit()} disabled={loading}>
           <Text>{submitButtonText}</Text>
         </Button>
@@ -143,11 +145,7 @@ function ProForm<T = any>({
   };
 
   const formContent = (
-    <Form
-      {...restProps}
-      form={form}
-      onFinish={handleFinish}
-    >
+    <Form {...restProps} form={form} onFinish={handleFinish}>
       {title && (
         <Text variant="h3" className="mb-2">
           {title}
@@ -158,9 +156,7 @@ function ProForm<T = any>({
           {description}
         </Text>
       )}
-      <View className={layout === 'horizontal' ? 'flex-row flex-wrap gap-4' : ''}>
-        {children}
-      </View>
+      <View className={layout === 'horizontal' ? 'flex-row flex-wrap gap-4' : ''}>{children}</View>
       {renderSubmitter()}
     </Form>
   );
@@ -176,4 +172,3 @@ function ProForm<T = any>({
 ProForm.useForm = Form.useForm;
 
 export { ProForm };
-

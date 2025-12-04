@@ -8,28 +8,28 @@ import { Icon } from '@/registry/new-york/components/ui/icon';
 
 export function Cart01() {
   return (
-    <View className="w-full max-w-4xl mx-auto p-4">
-      <Text className="text-2xl font-bold mb-6">Shopping Cart</Text>
+    <View className="mx-auto w-full max-w-4xl p-4">
+      <Text className="mb-6 text-2xl font-bold">Shopping Cart</Text>
       <View className="space-y-4">
         <View className="flex-row items-center justify-between pb-4">
-          <Text className="font-semibold flex-1">Product</Text>
-          <Text className="font-semibold w-24 text-center">Quantity</Text>
-          <Text className="font-semibold w-24 text-right">Price</Text>
+          <Text className="flex-1 font-semibold">Product</Text>
+          <Text className="w-24 text-center font-semibold">Quantity</Text>
+          <Text className="w-24 text-right font-semibold">Price</Text>
           <View className="w-10" />
         </View>
         <Separator />
-        
+
         {[1, 2].map((item) => (
           <View key={item} className="flex-row items-center justify-between py-4">
             <View className="flex-1 flex-row gap-4">
-              <View className="w-16 h-16 bg-muted rounded" />
+              <View className="bg-muted h-16 w-16 rounded" />
               <View>
                 <Text className="font-medium">Product Name {item}</Text>
-                <Text className="text-sm text-muted-foreground">Variant: Blue</Text>
+                <Text className="text-muted-foreground text-sm">Variant: Blue</Text>
               </View>
             </View>
             <View className="w-24 items-center">
-              <View className="border rounded px-3 py-1">
+              <View className="rounded border px-3 py-1">
                 <Text>1</Text>
               </View>
             </View>
@@ -39,13 +39,13 @@ export function Cart01() {
             </Button>
           </View>
         ))}
-        
+
         <Separator />
-        <View className="flex-row justify-between items-center pt-4">
+        <View className="flex-row items-center justify-between pt-4">
           <Text className="text-lg font-medium">Total</Text>
           <Text className="text-2xl font-bold">$198.00</Text>
         </View>
-        <View className="items-end mt-4">
+        <View className="mt-4 items-end">
           <Button size="lg">
             <Text>Checkout</Text>
           </Button>

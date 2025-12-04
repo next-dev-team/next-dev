@@ -70,7 +70,8 @@ export function SignUpForm() {
             <Pressable
               onPress={() => {
                 // TODO: Navigate to sign in screen
-              }}>
+              }}
+            >
               <Text className="text-sm underline underline-offset-4">Sign in</Text>
             </Pressable>
           </Text>

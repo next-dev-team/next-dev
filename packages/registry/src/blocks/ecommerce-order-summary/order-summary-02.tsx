@@ -18,9 +18,9 @@ export function OrderSummary02() {
           <View key={order}>
             <View className="flex-row items-center justify-between py-2">
               <View className="flex-1">
-                 <Text className="font-semibold">Order #{1000 + order}</Text>
-                 <Text className="text-sm text-muted-foreground">3 items • $120.00</Text>
-                 <Text className="text-sm text-muted-foreground">Delivered on Jan 20, 2024</Text>
+                <Text className="font-semibold">Order #{1000 + order}</Text>
+                <Text className="text-muted-foreground text-sm">3 items • $120.00</Text>
+                <Text className="text-muted-foreground text-sm">Delivered on Jan 20, 2024</Text>
               </View>
               <Button variant="ghost" size="icon">
                 <Icon as={ChevronRight} size={20} />

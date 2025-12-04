@@ -9,12 +9,18 @@ export function PageContainerBasicPreview() {
       <PageContainer
         title="Orders"
         subTitle="Daily orders overview"
-        extra={<Button><Text>Export</Text></Button>}
-        breadcrumb={{ routes: [
-          { path: '/', breadcrumbName: 'Home' },
-          { path: '/orders', breadcrumbName: 'Orders' },
-          { path: '/orders/today', breadcrumbName: 'Today' },
-        ]}}
+        extra={
+          <Button>
+            <Text>Export</Text>
+          </Button>
+        }
+        breadcrumb={{
+          routes: [
+            { path: '/', breadcrumbName: 'Home' },
+            { path: '/orders', breadcrumbName: 'Orders' },
+            { path: '/orders/today', breadcrumbName: 'Today' },
+          ],
+        }}
         tabList={[
           { key: 'today', tab: <Text>Today</Text> },
           { key: 'week', tab: <Text>This Week</Text> },

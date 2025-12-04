@@ -7,24 +7,24 @@ import { Separator } from '@/registry/new-york/components/ui/separator';
 
 export function Checkout03() {
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Review Order</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <View>
-          <Text className="font-semibold mb-2">Shipping Address</Text>
+          <Text className="mb-2 font-semibold">Shipping Address</Text>
           <Text className="text-muted-foreground">John Doe</Text>
           <Text className="text-muted-foreground">123 Main St, New York, NY 10001</Text>
         </View>
         <Separator />
         <View>
-          <Text className="font-semibold mb-2">Payment Method</Text>
+          <Text className="mb-2 font-semibold">Payment Method</Text>
           <Text className="text-muted-foreground">Visa ending in 4242</Text>
         </View>
         <Separator />
         <View>
-          <Text className="font-semibold mb-2">Items</Text>
+          <Text className="mb-2 font-semibold">Items</Text>
           <View className="space-y-2">
             <View className="flex-row justify-between">
               <Text className="text-muted-foreground">1 x Premium Jacket</Text>
@@ -39,19 +39,19 @@ export function Checkout03() {
         <Separator />
         <View className="space-y-2">
           <View className="flex-row justify-between">
-             <Text>Subtotal</Text>
-             <Text>$170.00</Text>
+            <Text>Subtotal</Text>
+            <Text>$170.00</Text>
           </View>
           <View className="flex-row justify-between">
-             <Text>Shipping</Text>
-             <Text>$10.00</Text>
+            <Text>Shipping</Text>
+            <Text>$10.00</Text>
           </View>
           <View className="flex-row justify-between">
-             <Text className="font-bold text-lg">Total</Text>
-             <Text className="font-bold text-lg">$180.00</Text>
+            <Text className="text-lg font-bold">Total</Text>
+            <Text className="text-lg font-bold">$180.00</Text>
           </View>
         </View>
-        
+
         <Button className="w-full">Place Order</Button>
       </CardContent>
     </Card>

@@ -8,8 +8,8 @@ import { Icon } from '@/registry/new-york/components/ui/icon';
 
 export function ProductCard04() {
   return (
-    <View className="w-full max-w-xs group">
-      <Card className="aspect-[4/5] w-full bg-muted overflow-hidden relative border-0 shadow-none rounded-lg mb-3">
+    <View className="group w-full max-w-xs">
+      <Card className="bg-muted relative mb-3 aspect-[4/5] w-full overflow-hidden rounded-lg border-0 shadow-none">
         <View className="absolute inset-0 items-center justify-center">
           <Text className="text-muted-foreground">Product Image</Text>
         </View>
@@ -20,9 +20,9 @@ export function ProductCard04() {
         </View>
       </Card>
       <View>
-        <Text className="font-medium text-base">Minimalist Chair</Text>
-        <Text className="text-sm text-muted-foreground mt-1">Furniture</Text>
-        <Text className="font-semibold mt-1">$249.00</Text>
+        <Text className="text-base font-medium">Minimalist Chair</Text>
+        <Text className="text-muted-foreground mt-1 text-sm">Furniture</Text>
+        <Text className="mt-1 font-semibold">$249.00</Text>
       </View>
     </View>
   );

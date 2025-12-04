@@ -32,30 +32,30 @@ export async function getInitialState(): Promise<{
       avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXu0y%26F/avatar-20200506-104236.png',
       userid: '00000001',
       email: 'admin@example.com',
-      signature: '海纳百川，有容乃大',
-      title: '交互专家',
-      group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+      signature: 'Tolerance is great',
+      title: 'Interaction Expert',
+      group: 'Ant Financial - Business Group - Platform Dept - Tech Dept - UED',
       tags: [
-        { key: '0', label: '很有想法的' },
-        { key: '1', label: '专注设计' },
-        { key: '2', label: '辣~' },
-        { key: '3', label: '大长腿' },
-        { key: '4', label: '川妹子' },
-        { key: '5', label: '海纳百川' },
+        { key: '0', label: 'Thoughtful' },
+        { key: '1', label: 'Design Focus' },
+        { key: '2', label: 'Spicy~' },
+        { key: '3', label: 'Long Legs' },
+        { key: '4', label: 'Sichuan Girl' },
+        { key: '5', label: 'Inclusive' },
       ],
       notifyCount: 12,
       unreadCount: 11,
       country: 'China',
       access: 'admin',
       geographic: {
-        province: { label: '浙江省', key: '330000' },
-        city: { label: '杭州市', key: '330100' },
+        province: { label: 'Zhejiang Province', key: '330000' },
+        city: { label: 'Hangzhou City', key: '330100' },
       },
-      address: '西湖区工专路 77 号',
+      address: 'No. 77 Gongzhuan Road, Xihu District',
       phone: '0752-268888888',
     };
   };
-  // 如果不是登录页面，执行
+  // If it is not a login page, execute
   const { location } = history;
   if (![loginPath, '/user/register', '/user/register-result'].includes(location.pathname)) {
     const currentUser = await fetchUserInfo();
@@ -71,7 +71,7 @@ export async function getInitialState(): Promise<{
   };
 }
 
-// ProLayout 支持的api https://procomponents.ant.design/components/layout
+// ProLayout supported api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
   return {
     actionsRender: () => [<Question key="doc" />, <SelectLang key="SelectLang" />],
@@ -86,7 +86,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      // 如果没有登录，重定向到 login
+      // If not logged in, redirect to login
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
@@ -115,14 +115,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       ? [
           <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
             <LinkOutlined />
-            <span>OpenAPI 文档</span>
+            <span>OpenAPI Docs</span>
           </Link>,
         ]
       : [],
     menuHeaderRender: undefined,
-    // 自定义 403 页面
+    // Custom 403 page
     // unAccessible: <div>unAccessible</div>,
-    // 增加一个 loading 的状态
+    // Add a loading state
     childrenRender: (children) => {
       // if (initialState?.loading) return <PageLoading />;
       return (
@@ -149,9 +149,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
 };
 
 /**
- * @name request 配置，可以配置错误处理
- * 它基于 axios 和 ahooks 的 useRequest 提供了一套统一的网络请求和错误处理方案。
- * @doc https://umijs.org/docs/max/request#配置
+ * @name request configuration, can configure error handling
+ * It is based on axios and ahooks' useRequest to provide a set of unified network request and error handling schemes.
+ * @doc https://umijs.org/docs/max/request#configuration
  */
 export const request: RequestConfig = {
   baseURL: isDev ? '' : 'https://proapi.azurewebsites.net',

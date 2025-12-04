@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/registry/new-york/co
 
 export function Checkout01() {
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Shipping Address</CardTitle>
       </CardHeader>
@@ -22,12 +22,12 @@ export function Checkout01() {
             <Input placeholder="Doe" />
           </View>
         </View>
-        
+
         <View className="space-y-2">
           <Label>Address</Label>
           <Input placeholder="123 Main St" />
         </View>
-        
+
         <View className="flex-row gap-4">
           <View className="flex-1 space-y-2">
             <Label>City</Label>
@@ -42,8 +42,8 @@ export function Checkout01() {
             <Input placeholder="10001" />
           </View>
         </View>
-        
-        <Button className="w-full mt-4">Continue to Payment</Button>
+
+        <Button className="mt-4 w-full">Continue to Payment</Button>
       </CardContent>
     </Card>
   );

@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "cart-01",
-    "cart-02",
-    "cart-03",
-    "cart-04",
-    "cart-05"
-  ]
+  "pages": ["cart-01", "cart-02", "cart-03", "cart-04", "cart-05"]
 }

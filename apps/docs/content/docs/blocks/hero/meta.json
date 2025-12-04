@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "hero-01",
-    "hero-02",
-    "hero-03",
-    "hero-04",
-    "hero-05"
-  ]
+  "pages": ["hero-01", "hero-02", "hero-03", "hero-04", "hero-05"]
 }

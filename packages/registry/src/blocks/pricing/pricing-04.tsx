@@ -22,7 +22,7 @@ export function Pricing04() {
         <CardDescription>Great for personal projects</CardDescription>
       </CardHeader>
       <Separator />
-      <CardContent className="pt-6 gap-4">
+      <CardContent className="gap-4 pt-6">
         <View>
           <Text className="text-3xl font-bold">$0</Text>
           <Text className="text-muted-foreground text-sm">Free forever</Text>
@@ -30,10 +30,10 @@ export function Pricing04() {
         <View className="gap-2">
           <Text className="font-medium">Includes:</Text>
           {['1 Project', 'Community Support', '1GB Storage'].map((feature) => (
-             <View key={feature} className="flex-row items-center gap-2">
-             <Icon as={Check} size={16} className="text-muted-foreground" />
-             <Text className="text-sm text-muted-foreground">{feature}</Text>
-           </View>
+            <View key={feature} className="flex-row items-center gap-2">
+              <Icon as={Check} size={16} className="text-muted-foreground" />
+              <Text className="text-muted-foreground text-sm">{feature}</Text>
+            </View>
           ))}
         </View>
       </CardContent>

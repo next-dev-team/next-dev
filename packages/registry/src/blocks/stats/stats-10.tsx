@@ -13,20 +13,24 @@ export function Stats10() {
       <View className="flex-row gap-4">
         <Card className="flex-1">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">
+              Total Revenue
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Text className="text-2xl font-bold">$45,231.89</Text>
-            <Text className="text-xs text-muted-foreground">+20.1% from last month</Text>
+            <Text className="text-muted-foreground text-xs">+20.1% from last month</Text>
           </CardContent>
         </Card>
         <Card className="flex-1">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Active Users</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">
+              Active Users
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Text className="text-2xl font-bold">+2350</Text>
-            <Text className="text-xs text-muted-foreground">+180.1% from last month</Text>
+            <Text className="text-muted-foreground text-xs">+180.1% from last month</Text>
           </CardContent>
         </Card>
       </View>

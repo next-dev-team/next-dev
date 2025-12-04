@@ -19,12 +19,13 @@ export function Testimonials08() {
           </Avatar>
           <View>
             <Text className="font-semibold">User Name 08</Text>
-            <Text className="text-sm text-muted-foreground">@username</Text>
+            <Text className="text-muted-foreground text-sm">@username</Text>
           </View>
         </CardHeader>
         <CardContent>
           <Text>
-            "This library has saved me so much time. The components are beautiful and easy to use. Highly recommended!"
+            "This library has saved me so much time. The components are beautiful and easy to use.
+            Highly recommended!"
           </Text>
         </CardContent>
       </Card>

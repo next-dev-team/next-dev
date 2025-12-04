@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { PageContainer } from '@rnr/rnr-ui'
-import { View, Text } from 'react-native'
-import { Button } from '@docs/components/ui/button'
+import { PageContainer } from '@rnr/rnr-ui';
+import { View, Text } from 'react-native';
+import { Button } from '@docs/components/ui/button';
 
 export function PageContainerBasicPreview() {
   return (
@@ -11,11 +11,13 @@ export function PageContainerBasicPreview() {
         title="Orders"
         subTitle="Daily orders overview"
         extra={<Button>Export</Button>}
-        breadcrumb={{ routes: [
-          { path: '/', breadcrumbName: 'Home' },
-          { path: '/orders', breadcrumbName: 'Orders' },
-          { path: '/orders/today', breadcrumbName: 'Today' },
-        ]}}
+        breadcrumb={{
+          routes: [
+            { path: '/', breadcrumbName: 'Home' },
+            { path: '/orders', breadcrumbName: 'Orders' },
+            { path: '/orders/today', breadcrumbName: 'Today' },
+          ],
+        }}
         tabList={[
           { key: 'today', tab: <Text>Today</Text> },
           { key: 'week', tab: <Text>This Week</Text> },
@@ -29,5 +31,5 @@ export function PageContainerBasicPreview() {
         </View>
       </PageContainer>
     </View>
-  )
+  );
 }

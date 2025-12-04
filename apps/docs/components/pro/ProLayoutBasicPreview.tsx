@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { ProLayout, PageContainer } from '@rnr/rnr-ui'
-import type { RouteItem } from '@rnr/rnr-ui'
-import { View, Text } from 'react-native'
-import { Button } from '@docs/components/ui/button'
+import { ProLayout, PageContainer } from '@rnr/rnr-ui';
+import type { RouteItem } from '@rnr/rnr-ui';
+import { View, Text } from 'react-native';
+import { Button } from '@docs/components/ui/button';
 
 const route: RouteItem = {
   routes: [
@@ -18,7 +18,7 @@ const route: RouteItem = {
     },
     { path: '/settings', name: 'Settings' },
   ],
-}
+};
 
 export function ProLayoutBasicPreview() {
   return (
@@ -30,9 +30,7 @@ export function ProLayoutBasicPreview() {
         navTheme="dark"
         fixSiderbar
         fixedHeader
-        headerContentRender={() => (
-          <Button size="sm">New</Button>
-        )}
+        headerContentRender={() => <Button size="sm">New</Button>}
         rightContentRender={() => <Text style={{ fontSize: 12 }}>User</Text>}
         location={{ pathname: '/users/list' }}
       >
@@ -40,11 +38,13 @@ export function ProLayoutBasicPreview() {
           title="Users"
           subTitle="Manage system users"
           extra={<Button>Add User</Button>}
-          breadcrumb={{ routes: [
-            { path: '/', breadcrumbName: 'Home' },
-            { path: '/users', breadcrumbName: 'Users' },
-            { path: '/users/list', breadcrumbName: 'List' },
-          ]}}
+          breadcrumb={{
+            routes: [
+              { path: '/', breadcrumbName: 'Home' },
+              { path: '/users', breadcrumbName: 'Users' },
+              { path: '/users/list', breadcrumbName: 'List' },
+            ],
+          }}
           tabList={[
             { key: 'list', tab: <Text>List</Text> },
             { key: 'activity', tab: <Text>Activity</Text> },
@@ -58,5 +58,5 @@ export function ProLayoutBasicPreview() {
         </PageContainer>
       </ProLayout>
     </View>
-  )
+  );
 }

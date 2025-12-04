@@ -15,7 +15,7 @@ import { Icon } from '@/registry/new-york/components/ui/icon';
 
 export function Pricing03() {
   return (
-    <Card className="w-full max-w-sm bg-card">
+    <Card className="bg-card w-full max-w-sm">
       <CardHeader>
         <CardTitle>Enterprise</CardTitle>
         <CardDescription>For large-scale organizations.</CardDescription>
@@ -26,9 +26,16 @@ export function Pricing03() {
           <Text className="text-muted-foreground">/month</Text>
         </View>
         <View className="mt-4 gap-2">
-          {['Unlimited users', 'Unlimited storage', '24/7 Dedicated support', 'SSO & Advanced Security', 'Custom SLA', 'Dedicated account manager'].map((feature) => (
+          {[
+            'Unlimited users',
+            'Unlimited storage',
+            '24/7 Dedicated support',
+            'SSO & Advanced Security',
+            'Custom SLA',
+            'Dedicated account manager',
+          ].map((feature) => (
             <View key={feature} className="flex-row items-center gap-2">
-               <Icon as={Check} size={16} className="text-primary" />
+              <Icon as={Check} size={16} className="text-primary" />
               <Text className="text-sm">{feature}</Text>
             </View>
           ))}

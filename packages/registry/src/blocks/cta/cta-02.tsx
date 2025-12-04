@@ -5,14 +5,14 @@ import { Card, CardContent } from '@/registry/new-york/components/ui/card';
 
 export function Cta02() {
   return (
-    <View className="w-full max-w-4xl mx-auto p-6">
-      <Card className="bg-primary text-primary-foreground border-0 overflow-hidden">
-        <CardContent className="p-12 items-center text-center gap-8">
+    <View className="mx-auto w-full max-w-4xl p-6">
+      <Card className="bg-primary text-primary-foreground overflow-hidden border-0">
+        <CardContent className="items-center gap-8 p-12 text-center">
           <View className="gap-4">
-            <Text className="text-3xl font-bold tracking-tight text-primary-foreground sm:text-4xl">
+            <Text className="text-primary-foreground text-3xl font-bold tracking-tight sm:text-4xl">
               Boost your productivity today.
             </Text>
-            <Text className="text-primary-foreground/80 text-lg max-w-2xl mx-auto">
+            <Text className="text-primary-foreground/80 mx-auto max-w-2xl text-lg">
               Start using our tools and see the difference in your workflow immediately.
             </Text>
           </View>

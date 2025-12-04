@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/registry/new-york/components/ui/card';
 import { Check } from 'lucide-react-native';
 
 export function Features10() {

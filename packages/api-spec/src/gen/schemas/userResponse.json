@@ -1,1 +1,18 @@
-{"type":"object","properties":{"success":{"type":"boolean"},"data":{"type":"object","properties":{"id":{"type":"integer"},"email":{"type":"string","format":"email"},"name":{"type":"string","nullable":true},"createdAt":{"type":"string","format":"date-time"},"updatedAt":{"type":"string","format":"date-time"}},"x-readme-ref-name":"User"}},"x-readme-ref-name":"UserResponse"}
+{
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "integer" },
+        "email": { "type": "string", "format": "email" },
+        "name": { "type": "string", "nullable": true },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "x-readme-ref-name": "User"
+    }
+  },
+  "x-readme-ref-name": "UserResponse"
+}

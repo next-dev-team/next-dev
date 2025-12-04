@@ -6,7 +6,7 @@ import { ProductCard02 } from '../ecommerce-product-card/product-card-02';
 export function ProductList04() {
   return (
     <View className="w-full py-8">
-      <View className="px-4 mb-4 flex-row justify-between items-center">
+      <View className="mb-4 flex-row items-center justify-between px-4">
         <Text className="text-2xl font-bold">Flash Sale</Text>
         <Text className="text-primary">View All</Text>
       </View>

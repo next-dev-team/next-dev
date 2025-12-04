@@ -16,20 +16,19 @@ async function getFakeCaptcha(_req: Request, res: Response) {
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
 
 /**
- * 当前用户的权限，如果为空代表没登录
+ * Current user access, if empty means not logged in
  * current user access， if is '', user need login
- * 如果是 pro 的预览，默认是有权限的
+ * If it is a pro preview, it has permission by default
  */
-let access =
-  ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
+let access = ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION === 'site' ? 'admin' : '';
 
 const getAccess = () => {
   return access;
 };
 
-// 代码中会兼容本地 service mock 以及部署站点的静态数据
+// The code will be compatible with local service mock and static data of the deployed site
 export default {
-  // 支持值为 Object 和 Array
+  // Support values as Object and Array
   'GET /api/currentUser': (_req: Request, res: Response) => {
     if (!getAccess()) {
       res.status(401).send({
@@ -37,7 +36,7 @@ export default {
           isLogin: false,
         },
         errorCode: '401',
-        errorMessage: '请先登录！',
+        errorMessage: 'Please login first!',
         success: true,
       });
       return;
@@ -46,37 +45,36 @@ export default {
       success: true,
       data: {
         name: 'Serati Ma',
-        avatar:
-          'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+        avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
         userid: '00000001',
         email: 'antdesign@alipay.com',
-        signature: '海纳百川，有容乃大',
-        title: '交互专家',
-        group: '蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED',
+        signature: 'Be tolerant to diversity, tolerance is a virtue',
+        title: 'Interaction Expert',
+        group: 'Ant Financial - XX Business Group - XX Platform Dept - XX Tech Dept - UED',
         tags: [
           {
             key: '0',
-            label: '很有想法的',
+            label: 'Creative',
           },
           {
             key: '1',
-            label: '专注设计',
+            label: 'Focus on Design',
           },
           {
             key: '2',
-            label: '辣~',
+            label: 'Hot~',
           },
           {
             key: '3',
-            label: '大长腿',
+            label: 'Long Legs',
           },
           {
             key: '4',
-            label: '川妹子',
+            label: 'Sichuan Girl',
           },
           {
             key: '5',
-            label: '海纳百川',
+            label: 'Tolerant to Diversity',
           },
         ],
         notifyCount: 12,
@@ -85,11 +83,11 @@ export default {
         access: getAccess(),
         geographic: {
           province: {
-            label: '浙江省',
+            label: 'Zhejiang Province',
             key: '330000',
           },
           city: {
-            label: '杭州市',
+            label: 'Hangzhou City',
             key: '330100',
           },
         },

@@ -4,12 +4,18 @@ description: Contact forms and information sections.
 ---
 
 import { BlockPreviewCard } from '@docs/components/preview-card';
-import { Contact06 } from "@docs/components/blocks";
-import { CommandTabs } from "@docs/components/command-tabs";
+import { Contact06 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
 
-<BlockPreviewCard preview={<div className="w-full"><Contact06 /></div>} />
+<BlockPreviewCard
+  preview={
+    <div className="w-full">
+      <Contact06 />
+    </div>
+  }
+/>
 
 ## Installation
 
@@ -36,5 +42,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/ta
         ```
       </Step>
     </Steps>
+
   </TabsContent>
 </Tabs>

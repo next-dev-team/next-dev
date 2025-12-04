@@ -4,7 +4,13 @@ import { Text } from '@/registry/new-york/components/ui/text';
 import { Button } from '@/registry/new-york/components/ui/button';
 import { Input } from '@/registry/new-york/components/ui/input';
 import { Label } from '@/registry/new-york/components/ui/label';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/registry/new-york/components/ui/card';
 
 export function Contact04() {
   return (

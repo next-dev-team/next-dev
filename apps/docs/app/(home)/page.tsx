@@ -10,14 +10,16 @@ export default function HomePage() {
     <div className="flex flex-1 flex-col">
       <main
         id="nd-page"
-        className="max-w-fd-container mx-auto flex w-full flex-1 flex-col items-center gap-4 pt-4 md:pt-0">
+        className="max-w-fd-container mx-auto flex w-full flex-1 flex-col items-center gap-4 pt-4 md:pt-0"
+      >
         <div className="container relative z-0 flex flex-col items-center gap-2 py-8 text-center md:pt-16 lg:pt-20 xl:gap-4">
           <div className="bg-grid-print pointer-events-none absolute inset-0 -bottom-16 z-[-1] bg-white opacity-60 [mask-image:radial-gradient(ellipse_50%_100%_at_50%_100%,red,#0000)] dark:bg-neutral-800" />
           <div className="h-6">
             <Badge
               variant="outline"
               asChild
-              className="bg-card dark:bg-secondary border-border/75 gap-1 rounded-full pr-2 font-normal">
+              className="bg-card dark:bg-secondary border-border/75 gap-1 rounded-full pr-2 font-normal"
+            >
               <Link href="/docs/blocks/authentication">
                 New Authentication Blocks <ArrowRightIcon className="size-3" />
               </Link>
@@ -31,7 +33,8 @@ export default function HomePage() {
             <a
               href="https://ui.shadcn.com"
               target="_blank"
-              className="decoration-fd-muted-foreground/0 hover:decoration-fd-muted-foreground underline underline-offset-4">
+              className="decoration-fd-muted-foreground/0 hover:decoration-fd-muted-foreground underline underline-offset-4"
+            >
               shadcn/ui
             </a>{' '}
             to React Native. Beautifully crafted components with Nativewind, open source, and{' '}

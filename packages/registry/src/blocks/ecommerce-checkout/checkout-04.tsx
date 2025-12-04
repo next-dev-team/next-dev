@@ -9,31 +9,31 @@ import { Separator } from '@/registry/new-york/components/ui/separator';
 
 export function Checkout04() {
   return (
-    <View className="w-full max-w-6xl mx-auto p-4 flex-col lg:flex-row gap-8">
+    <View className="mx-auto w-full max-w-6xl flex-col gap-8 p-4 lg:flex-row">
       <View className="flex-1 space-y-8">
         <View>
-           <Text className="text-xl font-bold mb-4">1. Contact Information</Text>
-           <Input placeholder="Email Address" />
+          <Text className="mb-4 text-xl font-bold">1. Contact Information</Text>
+          <Input placeholder="Email Address" />
         </View>
-        
+
         <View>
-           <Text className="text-xl font-bold mb-4">2. Shipping Details</Text>
-           <View className="grid gap-4">
-              <View className="flex-row gap-4">
-                 <Input className="flex-1" placeholder="First Name" />
-                 <Input className="flex-1" placeholder="Last Name" />
-              </View>
-              <Input placeholder="Address" />
-              <Input placeholder="City" />
-           </View>
+          <Text className="mb-4 text-xl font-bold">2. Shipping Details</Text>
+          <View className="grid gap-4">
+            <View className="flex-row gap-4">
+              <Input className="flex-1" placeholder="First Name" />
+              <Input className="flex-1" placeholder="Last Name" />
+            </View>
+            <Input placeholder="Address" />
+            <Input placeholder="City" />
+          </View>
         </View>
-        
+
         <View>
-           <Text className="text-xl font-bold mb-4">3. Payment</Text>
-           <Input placeholder="Card Number" />
+          <Text className="mb-4 text-xl font-bold">3. Payment</Text>
+          <Input placeholder="Card Number" />
         </View>
       </View>
-      
+
       <View className="w-full lg:w-96">
         <Card className="bg-muted/20">
           <CardHeader>
@@ -41,10 +41,10 @@ export function Checkout04() {
           </CardHeader>
           <CardContent className="space-y-4">
             <View className="flex-row gap-4">
-              <View className="w-16 h-16 bg-muted rounded" />
+              <View className="bg-muted h-16 w-16 rounded" />
               <View>
-                 <Text className="font-medium">Product Name</Text>
-                 <Text className="text-sm text-muted-foreground">$99.00</Text>
+                <Text className="font-medium">Product Name</Text>
+                <Text className="text-muted-foreground text-sm">$99.00</Text>
               </View>
             </View>
             <Separator />

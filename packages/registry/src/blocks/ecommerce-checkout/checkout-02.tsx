@@ -11,23 +11,23 @@ import { Text } from '@/registry/new-york/components/ui/text';
 
 export function Checkout02() {
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="mx-auto w-full max-w-2xl">
       <CardHeader>
         <CardTitle>Payment Method</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <RadioGroup defaultValue="card" className="gap-4">
-          <View className="flex-row items-center space-x-2 border p-4 rounded-md">
+          <View className="flex-row items-center space-x-2 rounded-md border p-4">
             <RadioGroupItem value="card" id="card" />
             <Label className="flex-1 cursor-pointer">Credit Card</Label>
             <Icon as={CreditCard} size={24} />
           </View>
-          <View className="flex-row items-center space-x-2 border p-4 rounded-md">
+          <View className="flex-row items-center space-x-2 rounded-md border p-4">
             <RadioGroupItem value="paypal" id="paypal" />
             <Label className="flex-1 cursor-pointer">PayPal</Label>
           </View>
         </RadioGroup>
-        
+
         <View className="space-y-4 pt-4">
           <View className="space-y-2">
             <Label>Card Number</Label>
@@ -48,7 +48,7 @@ export function Checkout02() {
             <Input placeholder="Name on card" />
           </View>
         </View>
-        
+
         <Button className="w-full">Pay Now</Button>
       </CardContent>
     </Card>

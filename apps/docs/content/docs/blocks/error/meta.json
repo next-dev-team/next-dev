@@ -1,9 +1,3 @@
 {
-  "pages": [
-    "error-01",
-    "error-02",
-    "error-03",
-    "error-04",
-    "error-05"
-  ]
+  "pages": ["error-01", "error-02", "error-03", "error-04", "error-05"]
 }

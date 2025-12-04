@@ -29,7 +29,15 @@ export interface ProDescriptionsItem {
   /**
    * Value type
    */
-  valueType?: 'text' | 'money' | 'date' | 'dateTime' | 'dateRange' | 'percent' | 'index' | 'indexBorder';
+  valueType?:
+    | 'text'
+    | 'money'
+    | 'date'
+    | 'dateTime'
+    | 'dateRange'
+    | 'percent'
+    | 'index'
+    | 'indexBorder';
   /**
    * Value enum
    */
@@ -118,10 +126,7 @@ function ProDescriptions({
               <Text className="text-sm">{enumItem.text}</Text>
               {enumItem.status && (
                 <View
-                  className={cn(
-                    'h-2 w-2 rounded-full',
-                    enumItem.color && `bg-${enumItem.color}`,
-                  )}
+                  className={cn('h-2 w-2 rounded-full', enumItem.color && `bg-${enumItem.color}`)}
                 />
               )}
             </View>
@@ -180,9 +185,15 @@ function ProDescriptions({
   }
 
   return (
-    <View className={cn(bordered && 'border rounded-lg')}>
+    <View className={cn(bordered && 'rounded-lg border')}>
       {title && (
-        <View className={cn('flex-row items-center justify-between', paddingMap[size], bordered && 'border-b')}>
+        <View
+          className={cn(
+            'flex-row items-center justify-between',
+            paddingMap[size],
+            bordered && 'border-b',
+          )}
+        >
           <View className="flex-row items-center gap-2">
             <Text variant="h3">{title}</Text>
             {tooltip && <View>{tooltip}</View>}
@@ -191,12 +202,7 @@ function ProDescriptions({
         </View>
       )}
 
-      <View
-        className={cn(
-          'flex-row flex-wrap',
-          layout === 'vertical' && 'flex-col',
-        )}
-      >
+      <View className={cn('flex-row flex-wrap', layout === 'vertical' && 'flex-col')}>
         {items.map((item, index) => {
           const span = item.span || 1;
           const flexBasis = `${(span / column) * 100}%`;
@@ -206,11 +212,7 @@ function ProDescriptions({
             return (
               <View
                 key={index}
-                className={cn(
-                  'flex-row',
-                  bordered && 'border-b last:border-b-0',
-                  paddingMap[size],
-                )}
+                className={cn('flex-row', bordered && 'border-b last:border-b-0', paddingMap[size])}
               >
                 <View className="w-32">
                   <Text className="text-muted-foreground text-sm font-medium">{item.label}</Text>
@@ -230,10 +232,7 @@ function ProDescriptions({
             <View
               key={index}
               style={{ flexBasis }}
-              className={cn(
-                bordered && 'border-r border-b',
-                paddingMap[size],
-              )}
+              className={cn(bordered && 'border-b border-r', paddingMap[size])}
             >
               <View className="mb-1">
                 <Text className="text-muted-foreground text-sm font-medium">{item.label}</Text>
@@ -255,4 +254,3 @@ function ProDescriptions({
 
 export { ProDescriptions };
 export type { ProDescriptionsProps, ProDescriptionsItem };
-
