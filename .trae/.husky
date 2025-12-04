@@ -1,0 +1,16 @@
+ENVIRONMENT
+!/logs
+!/AGENTS.md
+!/SPEC.md
+!/app
+!~
+/gen
+/node_modules
+/turbo
+.next
+.umi
+.husky
+.vercel
+.vscode
+.github
+.figma
