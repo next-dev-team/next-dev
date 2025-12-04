@@ -1,26 +1,29 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Badge } from '@/registry/new-york/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
+import { Check } from 'lucide-react-native';
 
 export function Features07() {
   return (
-    <View className="w-full max-w-4xl gap-8 px-4 py-12">
+    <View className="w-full max-w-md gap-4">
       <View className="gap-2">
-        <Badge className="self-start">
-            <Text>New</Text>
-        </Badge>
-        <Text className="text-3xl font-bold">Advanced Capabilities</Text>
+        <Text className="text-3xl font-bold">Features 07</Text>
+        <Text className="text-muted-foreground">Discover what makes our product unique.</Text>
       </View>
-      <View className="grid gap-6 sm:grid-cols-2">
-        {[1, 2, 3, 4].map((i) => (
-          <View key={i} className="p-4 border rounded-xl gap-2">
-             <Badge variant="outline" className="self-start">
-                <Text>Pro</Text>
-             </Badge>
-             <Text className="text-lg font-semibold">Advanced Feature {i}</Text>
-             <Text className="text-muted-foreground">Unlocked for pro users only.</Text>
-          </View>
+      <View className="gap-4">
+        {[1, 2, 3].map((i) => (
+          <Card key={i}>
+            <CardHeader className="flex-row items-center gap-4 space-y-0">
+              <View className="bg-primary/10 h-10 w-10 items-center justify-center rounded-full">
+                <Check className="text-primary" size={20} />
+              </View>
+              <View className="flex-1">
+                <CardTitle>Feature {i}</CardTitle>
+                <CardDescription>Description for feature {i}</CardDescription>
+              </View>
+            </CardHeader>
+          </Card>
         ))}
       </View>
     </View>

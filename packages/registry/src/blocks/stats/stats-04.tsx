@@ -1,29 +1,34 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { TrendingUp, TrendingDown } from 'lucide-react-native';
+import { Card, CardContent, CardHeader, CardTitle } from '@/registry/new-york/components/ui/card';
 
 export function Stats04() {
   return (
-    <View className="w-full max-w-4xl px-4 py-12">
-      <View className="grid grid-cols-2 gap-8">
-        <View className="gap-2">
-            <Text className="text-muted-foreground">Sales</Text>
-            <Text className="text-3xl font-bold">$12,345</Text>
-            <View className="flex-row items-center gap-1 text-green-600">
-                <Icon as={TrendingUp} size={16} className="text-green-600" />
-                <Text className="text-sm text-green-600 font-medium">+12%</Text>
-            </View>
-        </View>
-        <View className="gap-2">
-            <Text className="text-muted-foreground">Churn</Text>
-            <Text className="text-3xl font-bold">2.1%</Text>
-             <View className="flex-row items-center gap-1 text-red-600">
-                <Icon as={TrendingDown} size={16} className="text-red-600" />
-                <Text className="text-sm text-red-600 font-medium">-1%</Text>
-            </View>
-        </View>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Platform Statistics 04</Text>
+        <Text className="text-muted-foreground">Real-time metrics from your application.</Text>
+      </View>
+      <View className="flex-row gap-4">
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">$45,231.89</Text>
+            <Text className="text-xs text-muted-foreground">+20.1% from last month</Text>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">+2350</Text>
+            <Text className="text-xs text-muted-foreground">+180.1% from last month</Text>
+          </CardContent>
+        </Card>
       </View>
     </View>
   );

@@ -1,32 +1,33 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Input } from '@/registry/new-york/components/ui/input';
 import { Button } from '@/registry/new-york/components/ui/button';
+import { Input } from '@/registry/new-york/components/ui/input';
 import { Label } from '@/registry/new-york/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
 
 export function Contact02() {
   return (
-    <View className="w-full max-w-4xl px-4 py-12 gap-8 md:flex-row">
-      <View className="flex-1 gap-6">
-        <Text className="text-3xl font-bold">Get in touch</Text>
-        <View className="gap-4">
-           <View className="gap-2">
-            <Label>Name</Label>
-            <Input placeholder="Name" />
+    <View className="w-full max-w-md">
+      <Card>
+        <CardHeader>
+          <CardTitle>Contact Us 02</CardTitle>
+          <CardDescription>Send us a message and we'll get back to you.</CardDescription>
+        </CardHeader>
+        <CardContent className="gap-4">
+          <View className="gap-2">
+            <Label nativeID="name">Name</Label>
+            <Input placeholder="Your name" />
           </View>
           <View className="gap-2">
-            <Label>Email</Label>
-            <Input placeholder="Email" />
+            <Label nativeID="email">Email</Label>
+            <Input placeholder="m@example.com" />
           </View>
-          <Button>
-            <Text>Submit</Text>
+          <Button className="w-full">
+            <Text>Send Message</Text>
           </Button>
-        </View>
-      </View>
-      <View className="flex-1 h-64 md:h-auto bg-muted rounded-xl items-center justify-center">
-        <Text className="text-muted-foreground">Map Placeholder</Text>
-      </View>
+        </CardContent>
+      </Card>
     </View>
   );
 }

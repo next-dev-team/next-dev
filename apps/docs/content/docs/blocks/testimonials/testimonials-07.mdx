@@ -1,0 +1,40 @@
+---
+title: Testimonials 07
+description: Social proof sections to build trust.
+---
+
+import { BlockPreviewCard } from '@docs/components/preview-card';
+import { Testimonials07 } from "@docs/components/blocks";
+import { CommandTabs } from "@docs/components/command-tabs";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+
+<BlockPreviewCard preview={<div className="w-full"><Testimonials07 /></div>} />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "testimonials-07"]}/>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/registry/src/blocks/testimonials/testimonials-07.tsx",
+          "codeblock": {
+            "lang": "tsx"
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+  </TabsContent>
+</Tabs>

@@ -1,21 +1,34 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
+import { Card, CardContent, CardHeader, CardTitle } from '@/registry/new-york/components/ui/card';
 
 export function Stats05() {
   return (
-    <View className="w-full bg-primary px-4 py-16 text-primary-foreground">
-      <View className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-primary-foreground/20">
-        {[
-            { label: 'Uptime', value: '99.99%' },
-            { label: 'Support', value: '24/7' },
-            { label: 'SLA', value: '1hr' }
-        ].map((stat, i) => (
-           <View key={i} className="pt-8 md:pt-0">
-             <Text className="text-5xl font-bold text-primary-foreground mb-2">{stat.value}</Text>
-             <Text className="text-primary-foreground/70 font-medium uppercase tracking-wider">{stat.label}</Text>
-           </View>
-        ))}
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Platform Statistics 05</Text>
+        <Text className="text-muted-foreground">Real-time metrics from your application.</Text>
+      </View>
+      <View className="flex-row gap-4">
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">$45,231.89</Text>
+            <Text className="text-xs text-muted-foreground">+20.1% from last month</Text>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">+2350</Text>
+            <Text className="text-xs text-muted-foreground">+180.1% from last month</Text>
+          </CardContent>
+        </Card>
       </View>
     </View>
   );

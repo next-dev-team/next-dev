@@ -1,32 +1,34 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Progress } from '@/registry/new-york/components/ui/progress';
+import { Card, CardContent, CardHeader, CardTitle } from '@/registry/new-york/components/ui/card';
 
 export function Stats07() {
-  const [progress, setProgress] = React.useState(13);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
-    <View className="w-full max-w-md px-4 py-12 gap-6">
-      <Text className="text-2xl font-bold mb-4">Goal Progress</Text>
+    <View className="w-full max-w-md gap-4">
       <View className="gap-2">
-        <View className="flex-row justify-between text-sm">
-            <Text>Monthly Target</Text>
-            <Text className="font-bold">66%</Text>
-        </View>
-        <Progress value={progress} className="w-full" />
+        <Text className="text-3xl font-bold">Platform Statistics 07</Text>
+        <Text className="text-muted-foreground">Real-time metrics from your application.</Text>
       </View>
-       <View className="gap-2">
-        <View className="flex-row justify-between text-sm">
-            <Text>Annual Target</Text>
-            <Text className="font-bold">45%</Text>
-        </View>
-        <Progress value={45} className="w-full" />
+      <View className="flex-row gap-4">
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">$45,231.89</Text>
+            <Text className="text-xs text-muted-foreground">+20.1% from last month</Text>
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Active Users</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Text className="text-2xl font-bold">+2350</Text>
+            <Text className="text-xs text-muted-foreground">+180.1% from last month</Text>
+          </CardContent>
+        </Card>
       </View>
     </View>
   );

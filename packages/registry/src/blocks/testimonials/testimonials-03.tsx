@@ -1,27 +1,33 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
+import { Card, CardContent, CardHeader } from '@/registry/new-york/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/components/ui/avatar';
 
 export function Testimonials03() {
   return (
-    <View className="w-full max-w-6xl px-4 py-12">
-      <View className="grid gap-8 md:grid-cols-3">
-        {[1, 2, 3].map((i) => (
-          <View key={i} className="gap-4">
-            <Text className="text-muted-foreground italic">
-              "The best solution for our needs. It just works."
-            </Text>
-            <View className="flex-row items-center gap-2">
-               <Avatar className="h-8 w-8">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-              <Text className="font-medium text-sm">Happy Customer</Text>
-            </View>
-          </View>
-        ))}
+    <View className="w-full max-w-md gap-6">
+      <View className="gap-2 text-center">
+        <Text className="text-3xl font-bold">What our users say</Text>
+        <Text className="text-muted-foreground">Trusted by thousands of developers.</Text>
       </View>
+      <Card>
+        <CardHeader className="flex-row items-center gap-4">
+          <Avatar alt="Avatar">
+            <AvatarImage source={{ uri: 'https://github.com/shadcn.png' }} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <View>
+            <Text className="font-semibold">User Name 03</Text>
+            <Text className="text-sm text-muted-foreground">@username</Text>
+          </View>
+        </CardHeader>
+        <CardContent>
+          <Text>
+            "This library has saved me so much time. The components are beautiful and easy to use. Highly recommended!"
+          </Text>
+        </CardContent>
+      </Card>
     </View>
   );
 }

@@ -1,29 +1,32 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/registry/new-york/components/ui/card';
 import { Button } from '@/registry/new-york/components/ui/button';
 
 export function Blog01() {
   return (
-    <View className="w-full max-w-3xl px-4 py-12 gap-8">
+    <View className="w-full max-w-md gap-4">
       <View className="gap-2">
-        <Text className="text-3xl font-bold">Latest Articles</Text>
-        <Text className="text-muted-foreground">Insights from our team.</Text>
+        <Text className="text-3xl font-bold">Latest Updates 01</Text>
+        <Text className="text-muted-foreground">Read our latest articles and news.</Text>
       </View>
-      <View className="gap-8">
-        {[1, 2, 3].map((i) => (
-          <View key={i} className="gap-2 border-b pb-8">
-            <Text className="text-sm text-muted-foreground">March 15, 2024</Text>
-            <Text className="text-xl font-bold">The Future of React Native</Text>
-            <Text className="text-muted-foreground leading-relaxed">
-              Explore the new features coming to the platform and how they will impact your development workflow.
-            </Text>
-            <Button variant="link" className="self-start px-0">
-              <Text>Read more</Text>
-            </Button>
+      <Card>
+        <CardHeader>
+          <View className="flex-row justify-between">
+            <Text className="text-sm text-muted-foreground">Dec 04, 2025</Text>
           </View>
-        ))}
-      </View>
+          <CardTitle>Blog Post Title 01</CardTitle>
+          <CardDescription>
+            A brief description of the blog post goes here. It summarizes the content to encourage reading.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button variant="ghost" className="px-0">
+            <Text>Read More</Text>
+          </Button>
+        </CardFooter>
+      </Card>
     </View>
   );
 }

@@ -1,27 +1,33 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { Star } from 'lucide-react-native';
+import { Card, CardContent, CardHeader } from '@/registry/new-york/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/components/ui/avatar';
 
 export function Testimonials07() {
   return (
-    <View className="w-full max-w-4xl px-4 py-12">
-      <View className="grid md:grid-cols-2 gap-8">
-        {[1, 2].map((i) => (
-          <View key={i} className="gap-4 p-6 bg-card border rounded-xl">
-             <View className="flex-row gap-1">
-               {[1, 2, 3, 4, 5].map((star) => (
-                 <Icon key={star} as={Star} size={16} className="text-yellow-500 fill-yellow-500" />
-               ))}
-             </View>
-             <Text className="text-lg font-medium">"Exceptional quality and support."</Text>
-             <View>
-               <Text className="font-bold">Customer {i}</Text>
-             </View>
-          </View>
-        ))}
+    <View className="w-full max-w-md gap-6">
+      <View className="gap-2 text-center">
+        <Text className="text-3xl font-bold">What our users say</Text>
+        <Text className="text-muted-foreground">Trusted by thousands of developers.</Text>
       </View>
+      <Card>
+        <CardHeader className="flex-row items-center gap-4">
+          <Avatar alt="Avatar">
+            <AvatarImage source={{ uri: 'https://github.com/shadcn.png' }} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <View>
+            <Text className="font-semibold">User Name 07</Text>
+            <Text className="text-sm text-muted-foreground">@username</Text>
+          </View>
+        </CardHeader>
+        <CardContent>
+          <Text>
+            "This library has saved me so much time. The components are beautiful and easy to use. Highly recommended!"
+          </Text>
+        </CardContent>
+      </Card>
     </View>
   );
 }

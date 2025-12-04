@@ -1,23 +1,30 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Button } from '@/registry/new-york/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
+import { Check } from 'lucide-react-native';
 
 export function Features10() {
   return (
-    <View className="w-full bg-primary px-4 py-16">
-      <View className="max-w-4xl mx-auto text-center gap-6">
-        <Text className="text-3xl md:text-5xl font-bold text-primary-foreground">
-          Ready to get started?
-        </Text>
-        <Text className="text-primary-foreground/80 text-xl">
-          Join thousands of developers building with our tools today.
-        </Text>
-        <View className="flex-row gap-4 justify-center">
-          <Button variant="secondary" size="lg">
-            <Text>Get Started Now</Text>
-          </Button>
-        </View>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Features 10</Text>
+        <Text className="text-muted-foreground">Discover what makes our product unique.</Text>
+      </View>
+      <View className="gap-4">
+        {[1, 2, 3].map((i) => (
+          <Card key={i}>
+            <CardHeader className="flex-row items-center gap-4 space-y-0">
+              <View className="bg-primary/10 h-10 w-10 items-center justify-center rounded-full">
+                <Check className="text-primary" size={20} />
+              </View>
+              <View className="flex-1">
+                <CardTitle>Feature {i}</CardTitle>
+                <CardDescription>Description for feature {i}</CardDescription>
+              </View>
+            </CardHeader>
+          </Card>
+        ))}
       </View>
     </View>
   );

@@ -1,38 +1,32 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Badge } from '@/registry/new-york/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/registry/new-york/components/ui/card';
+import { Button } from '@/registry/new-york/components/ui/button';
 
 export function Blog03() {
   return (
-    <View className="w-full max-w-5xl px-4 py-12 grid md:grid-cols-2 gap-12">
-      <View className="gap-4">
-        <View className="h-64 bg-muted rounded-xl items-center justify-center">
-            <Text className="text-muted-foreground">Featured Image</Text>
-        </View>
-        <Badge className="self-start">
-            <Text>Featured</Text>
-        </Badge>
-        <Text className="text-3xl font-bold">Understanding Server Components</Text>
-        <Text className="text-muted-foreground text-lg">
-            A deep dive into the architecture and benefits of RSC.
-        </Text>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Latest Updates 03</Text>
+        <Text className="text-muted-foreground">Read our latest articles and news.</Text>
       </View>
-      <View className="gap-6">
-        {[1, 2, 3].map((i) => (
-          <View key={i} className="flex-row gap-4">
-             <View className="w-24 h-24 bg-muted rounded-lg items-center justify-center">
-                <Text className="text-xs text-muted-foreground">Image</Text>
-             </View>
-             <View className="flex-1 gap-2">
-                <Text className="font-semibold text-lg">Quick Tip: Performance</Text>
-                <Text className="text-muted-foreground text-sm line-clamp-2">
-                    Optimize your bundle size with these simple steps.
-                </Text>
-             </View>
+      <Card>
+        <CardHeader>
+          <View className="flex-row justify-between">
+            <Text className="text-sm text-muted-foreground">Dec 04, 2025</Text>
           </View>
-        ))}
-      </View>
+          <CardTitle>Blog Post Title 03</CardTitle>
+          <CardDescription>
+            A brief description of the blog post goes here. It summarizes the content to encourage reading.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button variant="ghost" className="px-0">
+            <Text>Read More</Text>
+          </Button>
+        </CardFooter>
+      </Card>
     </View>
   );
 }

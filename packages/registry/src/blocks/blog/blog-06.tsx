@@ -1,25 +1,32 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Badge } from '@/registry/new-york/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/registry/new-york/components/ui/card';
+import { Button } from '@/registry/new-york/components/ui/button';
 
 export function Blog06() {
   return (
-    <View className="w-full max-w-4xl mx-auto px-4 py-16 text-center gap-6">
-      <View className="flex-row justify-center gap-2">
-        <Badge variant="secondary">
-            <Text>Engineering</Text>
-        </Badge>
-         <Badge variant="secondary">
-            <Text>Product</Text>
-        </Badge>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Latest Updates 06</Text>
+        <Text className="text-muted-foreground">Read our latest articles and news.</Text>
       </View>
-      <Text className="text-4xl md:text-6xl font-bold tracking-tighter">
-        The Engineering Blog
-      </Text>
-      <Text className="text-xl text-muted-foreground max-w-2xl mx-auto">
-        Stories about how we build, scale, and improve our products.
-      </Text>
+      <Card>
+        <CardHeader>
+          <View className="flex-row justify-between">
+            <Text className="text-sm text-muted-foreground">Dec 04, 2025</Text>
+          </View>
+          <CardTitle>Blog Post Title 06</CardTitle>
+          <CardDescription>
+            A brief description of the blog post goes here. It summarizes the content to encourage reading.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button variant="ghost" className="px-0">
+            <Text>Read More</Text>
+          </Button>
+        </CardFooter>
+      </Card>
     </View>
   );
 }

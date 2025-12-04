@@ -1,27 +1,29 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Icon } from '@/registry/new-york/components/ui/icon';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
 import { Check } from 'lucide-react-native';
 
 export function Features01() {
   return (
-    <View className="w-full max-w-4xl gap-6 px-4 py-12">
-      <View className="gap-2 text-center">
-        <Text className="text-3xl font-bold tracking-tighter">Key Features</Text>
-        <Text className="text-muted-foreground text-lg">
-          Everything you need to build your app.
-        </Text>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Features 01</Text>
+        <Text className="text-muted-foreground">Discover what makes our product unique.</Text>
       </View>
-      <View className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-        {[1, 2, 3, 4, 5, 6].map((i) => (
-          <View key={i} className="flex-row items-start gap-2">
-            <Icon as={Check} className="text-primary mt-1" size={20} />
-            <View>
-              <Text className="font-medium">Feature {i}</Text>
-              <Text className="text-muted-foreground text-sm">Description for feature {i}.</Text>
-            </View>
-          </View>
+      <View className="gap-4">
+        {[1, 2, 3].map((i) => (
+          <Card key={i}>
+            <CardHeader className="flex-row items-center gap-4 space-y-0">
+              <View className="bg-primary/10 h-10 w-10 items-center justify-center rounded-full">
+                <Check className="text-primary" size={20} />
+              </View>
+              <View className="flex-1">
+                <CardTitle>Feature {i}</CardTitle>
+                <CardDescription>Description for feature {i}</CardDescription>
+              </View>
+            </CardHeader>
+          </Card>
         ))}
       </View>
     </View>

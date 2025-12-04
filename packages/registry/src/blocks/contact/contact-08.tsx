@@ -1,27 +1,33 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Input } from '@/registry/new-york/components/ui/input';
 import { Button } from '@/registry/new-york/components/ui/button';
+import { Input } from '@/registry/new-york/components/ui/input';
+import { Label } from '@/registry/new-york/components/ui/label';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/registry/new-york/components/ui/card';
 
 export function Contact08() {
   return (
-    <View className="w-full bg-muted/50 px-4 py-16">
-      <View className="max-w-xl mx-auto text-center gap-6">
-        <Text className="text-2xl font-bold">Subscribe to our newsletter</Text>
-        <Text className="text-muted-foreground">
-            Get the latest news and updates delivered directly to your inbox.
-        </Text>
-        <View className="flex-row gap-2">
-            <Input placeholder="Enter your email" className="flex-1 bg-background" />
-            <Button>
-                <Text>Subscribe</Text>
-            </Button>
-        </View>
-        <Text className="text-xs text-muted-foreground">
-            We care about your data in our privacy policy.
-        </Text>
-      </View>
+    <View className="w-full max-w-md">
+      <Card>
+        <CardHeader>
+          <CardTitle>Contact Us 08</CardTitle>
+          <CardDescription>Send us a message and we'll get back to you.</CardDescription>
+        </CardHeader>
+        <CardContent className="gap-4">
+          <View className="gap-2">
+            <Label nativeID="name">Name</Label>
+            <Input placeholder="Your name" />
+          </View>
+          <View className="gap-2">
+            <Label nativeID="email">Email</Label>
+            <Input placeholder="m@example.com" />
+          </View>
+          <Button className="w-full">
+            <Text>Send Message</Text>
+          </Button>
+        </CardContent>
+      </Card>
     </View>
   );
 }

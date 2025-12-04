@@ -1,0 +1,40 @@
+---
+title: Contact 08
+description: Contact forms and information sections.
+---
+
+import { BlockPreviewCard } from '@docs/components/preview-card';
+import { Contact08 } from "@docs/components/blocks";
+import { CommandTabs } from "@docs/components/command-tabs";
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@docs/components/ui/tabs";
+
+<BlockPreviewCard preview={<div className="w-full"><Contact08 /></div>} />
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "contact-08"]}/>
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/registry/src/blocks/contact/contact-08.tsx",
+          "codeblock": {
+            "lang": "tsx"
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+  </TabsContent>
+</Tabs>

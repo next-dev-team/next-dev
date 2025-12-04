@@ -1,25 +1,32 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/registry/new-york/components/ui/card';
+import { Button } from '@/registry/new-york/components/ui/button';
 
 export function Blog10() {
   return (
-    <View className="w-full max-w-3xl px-4 py-12 gap-8">
-      <View className="border-l-2 border-primary pl-6">
-         <Text className="text-4xl font-bold mb-4">Editor's Picks</Text>
-         <Text className="text-muted-foreground text-lg">Curated articles for this week.</Text>
+    <View className="w-full max-w-md gap-4">
+      <View className="gap-2">
+        <Text className="text-3xl font-bold">Latest Updates 10</Text>
+        <Text className="text-muted-foreground">Read our latest articles and news.</Text>
       </View>
-      <View className="grid gap-6">
-        {[1, 2, 3, 4].map((i) => (
-          <View key={i} className="flex-row justify-between items-center border p-4 rounded-lg hover:bg-muted/50">
-             <View className="gap-1">
-               <Text className="font-bold">Deep Learning Basics</Text>
-               <Text className="text-sm text-muted-foreground">By Alice • 2 days ago</Text>
-             </View>
-             <Text className="text-sm font-mono text-muted-foreground">5 min</Text>
+      <Card>
+        <CardHeader>
+          <View className="flex-row justify-between">
+            <Text className="text-sm text-muted-foreground">Dec 04, 2025</Text>
           </View>
-        ))}
-      </View>
+          <CardTitle>Blog Post Title 10</CardTitle>
+          <CardDescription>
+            A brief description of the blog post goes here. It summarizes the content to encourage reading.
+          </CardDescription>
+        </CardHeader>
+        <CardFooter>
+          <Button variant="ghost" className="px-0">
+            <Text>Read More</Text>
+          </Button>
+        </CardFooter>
+      </Card>
     </View>
   );
 }

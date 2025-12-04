@@ -1,20 +1,33 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from '@/registry/new-york/components/ui/text';
-import { Icon } from '@/registry/new-york/components/ui/icon';
-import { Quote } from 'lucide-react-native';
+import { Card, CardContent, CardHeader } from '@/registry/new-york/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/components/ui/avatar';
 
 export function Testimonials04() {
   return (
-    <View className="w-full max-w-3xl px-4 py-16 mx-auto text-center">
-      <Icon as={Quote} size={48} className="text-primary/20 mx-auto mb-6" />
-      <Text className="text-3xl md:text-4xl font-bold leading-tight mb-8">
-        "We were able to launch our product in weeks instead of months. The documentation is top-notch."
-      </Text>
-      <View>
-        <Text className="text-xl font-semibold">Sarah Connor</Text>
-        <Text className="text-muted-foreground">Director of Engineering</Text>
+    <View className="w-full max-w-md gap-6">
+      <View className="gap-2 text-center">
+        <Text className="text-3xl font-bold">What our users say</Text>
+        <Text className="text-muted-foreground">Trusted by thousands of developers.</Text>
       </View>
+      <Card>
+        <CardHeader className="flex-row items-center gap-4">
+          <Avatar alt="Avatar">
+            <AvatarImage source={{ uri: 'https://github.com/shadcn.png' }} />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+          <View>
+            <Text className="font-semibold">User Name 04</Text>
+            <Text className="text-sm text-muted-foreground">@username</Text>
+          </View>
+        </CardHeader>
+        <CardContent>
+          <Text>
+            "This library has saved me so much time. The components are beautiful and easy to use. Highly recommended!"
+          </Text>
+        </CardContent>
+      </Card>
     </View>
   );
 }
