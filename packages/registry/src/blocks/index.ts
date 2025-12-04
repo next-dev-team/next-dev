@@ -15,4 +15,8 @@ export * from './ecommerce-product-list';
 export * from './ecommerce-cart';
 export * from './ecommerce-checkout';
 export * from './ecommerce-order-summary';
-
+export * from './features';
+export * from './testimonials';
+export * from './contact';
+export * from './blog';
+export * from './stats';
