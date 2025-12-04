@@ -2,6 +2,7 @@
   "name": "@rnr/monorepo",
   "private": true,
   "scripts": {
+    "push": "git push -o ci.skip",
     "gen:api": "turbo gen:api",
     "dev": "turbo dev",
     "dev:antd": "pnpm --filter @rnr/antd-pro dev",
