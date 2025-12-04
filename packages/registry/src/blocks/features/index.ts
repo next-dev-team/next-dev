@@ -3,11 +3,8 @@ export * from './features-02';
 export * from './features-03';
 export * from './features-04';
 export * from './features-05';
-<<<<<<< HEAD
 export * from './features-06';
 export * from './features-07';
 export * from './features-08';
 export * from './features-09';
 export * from './features-10';
-=======
->>>>>>> 8df7a12469da125b66dc972df5aaa58a8df9bd00
