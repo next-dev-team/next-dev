@@ -1,4 +1,4 @@
-import { ExpoConfig, ConfigContext } from 'expo/config';
+import type { ConfigContext, ExpoConfig } from 'expo/config';
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   const { NAME, SLUG } = getConfig();
@@ -88,7 +88,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         origin: false,
       },
       eas: {
-        projectId: 'ceb86f7d-1fed-4feb-98cb-2f2ba6223741',
+        projectId: 'eebdd86f-1828-4b4a-89cd-097dbde42ed8',
       },
     },
   };
@@ -97,8 +97,8 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 function getConfig() {
   const IS_DEV = process.env.ENV === 'development';
 
-  const NAME = IS_DEV ? 'Dev React Native Reusables' : 'React Native Reusables';
-  const SLUG = IS_DEV ? 'devreactnativereusablesshowcase' : 'reactnativereusablesshowcase';
+  const NAME = IS_DEV ? 'Dev Next UI' : 'Next UI';
+  const SLUG = IS_DEV ? 'next-ui' : 'next-ui';
 
   return { NAME, SLUG };
 }
