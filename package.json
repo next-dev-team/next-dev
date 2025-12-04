@@ -2,6 +2,7 @@
   "name": "@rnr/monorepo",
   "private": true,
   "scripts": {
+    "pinokio": "turbo dev --filter=pinokio",
     "gen:api": "turbo gen:api",
     "dev": "turbo dev",
     "dev:rnr-next": "turbo dev --filter=rnr-next",
@@ -61,6 +62,7 @@
       ]
     },
     "onlyBuiltDependencies": [
+      "electron",
       "esbuild"
     ]
   },
@@ -69,6 +71,7 @@
   },
   "packageManager": "pnpm@10.22.0",
   "resolutions": {
-    "lightningcss": "1.27.0"
+    "lightningcss": "1.27.0",
+    "node-gyp": "^11.5.0"
   }
 }

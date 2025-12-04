@@ -1,0 +1,27 @@
+{
+  "name": "next-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.0.7",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-native-web": "^0.21.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-native": "^0.73.0",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.7",
+    "typescript": "^5"
+  }
+}
