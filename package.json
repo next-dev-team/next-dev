@@ -30,22 +30,22 @@
     "type-check": "turbo typecheck"
   },
   "devDependencies": {
-    "@types/minimatch": "^5.1.2",
-    "@kubb/cli": "^4.5.14",
-    "@kubb/core": "^4.5.14",
-    "@kubb/plugin-client": "^4.5.14",
-    "@kubb/plugin-oas": "^4.5.14",
-    "@kubb/plugin-react-query": "^4.5.14",
-    "@kubb/plugin-ts": "^4.5.14",
+    "@kubb/cli": "^4.7.3",
+    "@kubb/core": "^4.7.3",
+    "@kubb/plugin-client": "^4.7.3",
+    "@kubb/plugin-oas": "^4.7.3",
+    "@kubb/plugin-react-query": "^4.7.3",
+    "@kubb/plugin-ts": "^4.7.3",
     "@kubb/react": "^4.3.1",
-    "@kubb/react-fabric": "^0.5.2",
-    "unplugin-kubb": "^3.2.0",
+    "@kubb/react-fabric": "^0.5.3",
     "@rnr/configs": "workspace:*",
-    "@turbo/gen": "^2.6.1",
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
-    "turbo": "^2.6.1",
-    "typescript": "^5.9.3"
+    "@turbo/gen": "^2.6.2",
+    "@types/minimatch": "^5.1.2",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "turbo": "^2.6.2",
+    "typescript": "^5.9.3",
+    "unplugin-kubb": "^4.0.0"
   },
   "pnpm": {
     "peerDependencyRules": {
@@ -54,7 +54,10 @@
         "expo-modules-*",
         "typescript"
       ]
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "engines": {
     "node": ">=20.11.0"
