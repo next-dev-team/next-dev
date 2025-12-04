@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "default",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "global.css",
+    "baseColor": "neutral",
+    "cssVariables": true
+  },
+  "aliases": {
+    "components": "@rnr-expo/components",
+    "utils": "@rnr-expo/lib/utils",
+    "ui": "@rnr-expo/components/ui",
+    "lib": "@rnr-expo/lib",
+    "hooks": "@rnr-expo/hooks"
+  }
+}
