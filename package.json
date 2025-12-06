@@ -49,7 +49,7 @@
     "@types/minimatch": "^5.1.2",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "turbo": "^2.6.2",
+    "turbo": "^2.6.3",
     "typescript": "^5.9.3",
     "unplugin-kubb": "^4.0.0"
   },

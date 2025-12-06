@@ -1,0 +1,47 @@
+---
+title: Shop Filters
+description: Sidebar with filter options like category and price range.
+---
+
+import { BlockPreviewCard } from '@docs/components/preview-card';
+import { ShopUi02 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
+
+<BlockPreviewCard
+  preview={
+    <div className="w-full flex justify-center">
+      <ShopUi02 />
+    </div>
+  }
+/>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "shop-ui-02"]} />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/registry/src/blocks/shop-ui/shop-ui-02.tsx",
+          "codeblock": {
+            "lang": "tsx"
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+
+  </TabsContent>
+</Tabs>

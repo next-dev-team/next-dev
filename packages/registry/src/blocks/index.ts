@@ -20,3 +20,6 @@ export * from './testimonials';
 export * from './contact';
 export * from './blog';
 export * from './stats';
+export * from './pos';
+export * from './shop-ui';
+

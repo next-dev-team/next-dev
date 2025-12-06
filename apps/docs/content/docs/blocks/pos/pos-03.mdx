@@ -1,0 +1,47 @@
+---
+title: POS Cart Item
+description: Cart item row with quantity controls.
+---
+
+import { BlockPreviewCard } from '@docs/components/preview-card';
+import { Pos03 } from '@docs/components/blocks';
+import { CommandTabs } from '@docs/components/command-tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@docs/components/ui/tabs';
+
+<BlockPreviewCard
+  preview={
+    <div className="w-full max-w-sm">
+      <Pos03 />
+    </div>
+  }
+/>
+
+## Installation
+
+<Tabs defaultValue="cli">
+  <TabsList>
+    <TabsTrigger id="cli" value="cli">CLI</TabsTrigger>
+    <TabsTrigger id="manual" value="manual">Manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="cli">
+    <CommandTabs args={["add", "pos-03"]} />
+  </TabsContent>
+  <TabsContent value="manual">
+    <Steps>
+      <Step>
+        **Copy and paste the following code into your project.**
+
+        ```json doc-gen:file
+        {
+          "file": "./node_modules/@rnr/registry/src/blocks/pos/pos-03.tsx",
+          "codeblock": {
+            "lang": "tsx"
+          }
+        }
+        ```
+      </Step>
+    </Steps>
+
+  </TabsContent>
+</Tabs>
