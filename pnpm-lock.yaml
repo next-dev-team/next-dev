@@ -479,7 +479,7 @@ importers:
         version: 0.73.0(@babel/core@7.28.5)(@types/react@19.2.7)(bufferutil@4.0.9)(react@19.2.0)
       '@vitejs/plugin-react':
         specifier: ^5.1.1
-        version: 5.1.1(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.27.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))
+        version: 5.1.1(vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))
       babel-plugin-react-native-web:
         specifier: ^0.21.2
         version: 0.21.2
@@ -505,8 +505,8 @@ importers:
         specifier: ^19.2.0
         version: 19.2.1(react@19.2.0)
       vite:
-        specifier: ^7.2.4
-        version: 7.2.6(@types/node@24.10.1)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.27.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
+        specifier: ^5.4.21
+        version: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
       wait-on:
         specifier: ^9.0.3
         version: 9.0.3
@@ -993,7 +993,7 @@ importers:
         version: 6.21.0(eslint@8.57.1)(typescript@5.9.3)
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.7.0(vite@5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))
+        version: 4.7.0(vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2
@@ -1016,8 +1016,8 @@ importers:
         specifier: ^5.3.3
         version: 5.9.3
       vite:
-        specifier: ^5.0.10
-        version: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+        specifier: ^5.4.21
+        version: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
       vitest:
         specifier: ^1.1.0
         version: 1.6.1(@types/node@24.10.1)(jsdom@26.1.0(bufferutil@4.0.9))(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
@@ -1045,13 +1045,13 @@ importers:
         version: 19.1.11(@types/react@19.1.17)
       '@vitejs/plugin-react':
         specifier: ^4.7.0
-        version: 4.7.0(vite@5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))
+        version: 4.7.0(vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
       vite:
-        specifier: ^5.4.20
-        version: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+        specifier: ^5.4.21
+        version: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
 
   mcp/docs:
     dependencies:
@@ -1095,19 +1095,19 @@ importers:
     devDependencies:
       '@kubb/cli':
         specifier: ^4.5.14
-        version: 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(typescript@5.9.3)
+        version: 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(typescript@5.9.3)
       '@kubb/plugin-client':
         specifier: ^4.5.14
-        version: 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
+        version: 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
       '@kubb/plugin-oas':
         specifier: ^4.5.14
-        version: 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
+        version: 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
       '@kubb/plugin-react-query':
         specifier: ^4.5.14
-        version: 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
+        version: 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
       '@kubb/plugin-ts':
         specifier: ^4.5.14
-        version: 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
+        version: 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
       axios:
         specifier: ^1.7.9
         version: 1.13.2
@@ -1116,7 +1116,7 @@ importers:
     dependencies:
       '@kubb/core':
         specifier: ^4
-        version: 4.5.9(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+        version: 4.5.9(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       '@tanstack/react-query':
         specifier: ^5
         version: 5.90.9(react@19.2.0)
@@ -1174,91 +1174,91 @@ importers:
         version: 2.16.1(@types/react@19.1.17)(bufferutil@4.0.9)(expo-auth-session@7.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(expo-web-browser@15.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)))(react-dom@19.2.1(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@19.1.0))(zod@3.25.76)
       '@rn-primitives/accordion':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/alert-dialog':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/aspect-ratio':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/avatar':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/checkbox':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/collapsible':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/context-menu':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/dialog':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/dropdown-menu':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/hover-card':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/label':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/menubar':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/navigation-menu':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/popover':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/portal':
         specifier: ~1.3.0
-        version: 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+        version: 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
       '@rn-primitives/progress':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/radio-group':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/select':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/separator':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/slider':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/slot':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/switch':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/table':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/tabs':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/toast':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/toggle':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/toggle-group':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/toolbar':
         specifier: ~1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/tooltip':
         specifier: ~1.2.0
-        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1273,7 +1273,7 @@ importers:
         version: 8.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       expo-router:
         specifier: ~6.0.10
-        version: 6.0.10(f42155132f44e09f287789de4350b3eb)
+        version: 6.0.10(9e67a25656fe20852d4b89a1cb789697)
       lucide-react-native:
         specifier: ^0.545.0
         version: 0.545.0(react-native-svg@15.12.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
@@ -1294,7 +1294,7 @@ importers:
         version: 15.12.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react-native-web:
         specifier: '*'
-        version: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+        version: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
       react-native-worklets:
         specifier: 0.5.1
         version: 0.5.1(@babel/core@7.28.5)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
@@ -1322,10 +1322,10 @@ importers:
         version: 7.1.18(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/label':
         specifier: ^1.2.0
-        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       '@rn-primitives/slot':
         specifier: ~1.2.0
-        version: 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+        version: 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.1
@@ -1340,7 +1340,7 @@ importers:
         version: 2.7.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react-native-web:
         specifier: '*'
-        version: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge:
         specifier: ^2.2.1
         version: 2.6.0
@@ -4034,11 +4034,20 @@ packages:
   '@expo/config-plugins@54.0.2':
     resolution: {integrity: sha512-jD4qxFcURQUVsUFGMcbo63a/AnviK8WUGard+yrdQE3ZrB/aurn68SlApjirQQLEizhjI5Ar2ufqflOBlNpyPg==}
 
+  '@expo/config-plugins@54.0.3':
+    resolution: {integrity: sha512-tBIUZIxLQfCu5jmqTO+UOeeDUGIB0BbK6xTMkPRObAXRQeTLPPfokZRCo818d2owd+Bcmq1wBaDz0VY3g+glfw==}
+
   '@expo/config-types@54.0.8':
     resolution: {integrity: sha512-lyIn/x/Yz0SgHL7IGWtgTLg6TJWC9vL7489++0hzCHZ4iGjVcfZmPTUfiragZ3HycFFj899qN0jlhl49IHa94A==}
 
+  '@expo/config-types@54.0.9':
+    resolution: {integrity: sha512-Llf4jwcrAnrxgE5WCdAOxtMf8FGwS4Sk0SSgI0NnIaSyCnmOCAm80GPFvsK778Oj19Ub4tSyzdqufPyeQPksWw==}
+
   '@expo/config@12.0.10':
     resolution: {integrity: sha512-lJMof5Nqakq1DxGYlghYB/ogSBjmv4Fxn1ovyDmcjlRsQdFCXgu06gEUogkhPtc9wBt9WlTTfqENln5HHyLW6w==}
+
+  '@expo/config@12.0.11':
+    resolution: {integrity: sha512-bGKNCbHirwgFlcOJHXpsAStQvM0nU3cmiobK0o07UkTfcUxl9q9lOQQh2eoMGqpm6Vs1IcwBpYye6thC3Nri/w==}
 
   '@expo/devcert@1.2.0':
     resolution: {integrity: sha512-Uilcv3xGELD5t/b0eM4cxBFEKQRIivB3v7i+VhWLV/gL98aw810unLKKJbGAxAIhY6Ipyz8ChWibFsKFXYwstA==}
@@ -4057,6 +4066,9 @@ packages:
   '@expo/env@2.0.7':
     resolution: {integrity: sha512-BNETbLEohk3HQ2LxwwezpG8pq+h7Fs7/vAMP3eAtFT1BCpprLYoBBFZH7gW4aqGfqOcVP4Lc91j014verrYNGg==}
 
+  '@expo/env@2.0.8':
+    resolution: {integrity: sha512-5VQD6GT8HIMRaSaB5JFtOXuvfDVU80YtZIuUT/GDhUF782usIXY13Tn3IdDz1Tm/lqA9qnRZQ1BF4t7LlvdJPA==}
+
   '@expo/fingerprint@0.15.1':
     resolution: {integrity: sha512-U1S9DwiapCHQjHdHDDyO/oXsl/1oEHSHZRRkWDDrHgXRUDiAVIySw9Unvvcr118Ee6/x4NmKSZY1X0VagrqmFg==}
     hasBin: true
@@ -4066,6 +4078,9 @@ packages:
 
   '@expo/json-file@10.0.7':
     resolution: {integrity: sha512-z2OTC0XNO6riZu98EjdNHC05l51ySeTto6GP7oSQrCvQgG9ARBwD1YvMQaVZ9wU7p/4LzSf1O7tckL3B45fPpw==}
+
+  '@expo/json-file@10.0.8':
+    resolution: {integrity: sha512-9LOTh1PgKizD1VXfGQ88LtDH0lRwq9lsTb4aichWTWSWqy3Ugfkhfm3BhzBIkJJfQQ5iJu3m/BoRlEIjoCGcnQ==}
 
   '@expo/mcp-tunnel@0.0.8':
     resolution: {integrity: sha512-6261obzt6h9TQb6clET7Fw4Ig4AY2hfTNKI3gBt0gcTNxZipwMg8wER7ssDYieA9feD/FfPTuCPYFcR280aaWA==}
@@ -4106,6 +4121,9 @@ packages:
 
   '@expo/plist@0.4.7':
     resolution: {integrity: sha512-dGxqHPvCZKeRKDU1sJZMmuyVtcASuSYh1LPFVaM1DuffqPL36n6FMEL0iUqq2Tx3xhWk8wCnWl34IKplUjJDdA==}
+
+  '@expo/plist@0.4.8':
+    resolution: {integrity: sha512-pfNtErGGzzRwHP+5+RqswzPDKkZrx+Cli0mzjQaus1ZWFsog5ibL+nVT3NcporW51o8ggnt7x813vtRbPiyOrQ==}
 
   '@expo/prebuild-config@54.0.4':
     resolution: {integrity: sha512-X+oTbmclWf2kfWIEkjagOzPZNg2SkiWW+JoRX6CWxKpDTQKfsi/bf22Ymv5Zxe1Q/aGjOuFL5useStm3iNi+PA==}
@@ -4724,6 +4742,10 @@ packages:
     resolution: {integrity: sha512-+UfOwTO3kOPdvex5od5ru2maKjjSZYt9cVLvMQLK34/C4ouxZuajpTVTb5WlAeJBJzqTpX8Qpv3kfnYUQaCfog==}
     engines: {node: '>=20'}
 
+  '@kubb/fabric-core@0.5.4':
+    resolution: {integrity: sha512-pc2uRu2ddMB7z5Ix882E9yP7+Rx26/do15HFeZEkbunXv2sTgZ9leKl0+tlhZVC+iVTCR9wd7uoTYUIkCiP9Tw==}
+    engines: {node: '>=20'}
+
   '@kubb/oas@4.5.14':
     resolution: {integrity: sha512-WQJ6SiW3lVH4LyatOISiCQBuQ714dY12U0S+WMkOvx3uH8pqQTHM1VrFpGlJCF8ufygFvswvIZB4+a5J++Ej3Q==}
     engines: {node: '>=20'}
@@ -4806,6 +4828,10 @@ packages:
 
   '@kubb/react-fabric@0.5.3':
     resolution: {integrity: sha512-cRT65S9Vniwo6Oda9WUd1aKk1qCXseJowEEceeb3lFgBwZah+QKB6mB2uT+ZDzqDW7SBwln6+6Cxr0U8u969Gw==}
+    engines: {node: '>=20'}
+
+  '@kubb/react-fabric@0.5.4':
+    resolution: {integrity: sha512-EyVdKXBZoOEH7knqOzu3iA+qgpgYHsDcYzfuSTPYSiJBi72y08Jfr4nu4YsSS+KmdA4d9YT0BgxRRXyTODVMTw==}
     engines: {node: '>=20'}
 
   '@kubb/react@4.3.1':
@@ -6922,8 +6948,18 @@ packages:
     cpu: [arm]
     os: [android]
 
+  '@rollup/rollup-android-arm-eabi@4.53.3':
+    resolution: {integrity: sha512-mRSi+4cBjrRLoaal2PnqH82Wqyb+d3HsPUN/W+WslCXsZsyHa9ZeQQX/pQsZaVIWDkPcpV6jJ+3KLbTbgnwv8w==}
+    cpu: [arm]
+    os: [android]
+
   '@rollup/rollup-android-arm64@4.52.4':
     resolution: {integrity: sha512-P9LDQiC5vpgGFgz7GSM6dKPCiqR3XYN1WwJKA4/BUVDjHpYsf3iBEmVz62uyq20NGYbiGPR5cNHI7T1HqxNs2w==}
+    cpu: [arm64]
+    os: [android]
+
+  '@rollup/rollup-android-arm64@4.53.3':
+    resolution: {integrity: sha512-CbDGaMpdE9sh7sCmTrTUyllhrg65t6SwhjlMJsLr+J8YjFuPmCEjbBSx4Z/e4SmDyH3aB5hGaJUP2ltV/vcs4w==}
     cpu: [arm64]
     os: [android]
 
@@ -6932,8 +6968,18 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  '@rollup/rollup-darwin-arm64@4.53.3':
+    resolution: {integrity: sha512-Nr7SlQeqIBpOV6BHHGZgYBuSdanCXuw09hon14MGOLGmXAFYjx1wNvquVPmpZnl0tLjg25dEdr4IQ6GgyToCUA==}
+    cpu: [arm64]
+    os: [darwin]
+
   '@rollup/rollup-darwin-x64@4.52.4':
     resolution: {integrity: sha512-hZgP05pResAkRJxL1b+7yxCnXPGsXU0fG9Yfd6dUaoGk+FhdPKCJ5L1Sumyxn8kvw8Qi5PvQ8ulenUbRjzeCTw==}
+    cpu: [x64]
+    os: [darwin]
+
+  '@rollup/rollup-darwin-x64@4.53.3':
+    resolution: {integrity: sha512-DZ8N4CSNfl965CmPktJ8oBnfYr3F8dTTNBQkRlffnUarJ2ohudQD17sZBa097J8xhQ26AwhHJ5mvUyQW8ddTsQ==}
     cpu: [x64]
     os: [darwin]
 
@@ -6942,8 +6988,18 @@ packages:
     cpu: [arm64]
     os: [freebsd]
 
+  '@rollup/rollup-freebsd-arm64@4.53.3':
+    resolution: {integrity: sha512-yMTrCrK92aGyi7GuDNtGn2sNW+Gdb4vErx4t3Gv/Tr+1zRb8ax4z8GWVRfr3Jw8zJWvpGHNpss3vVlbF58DZ4w==}
+    cpu: [arm64]
+    os: [freebsd]
+
   '@rollup/rollup-freebsd-x64@4.52.4':
     resolution: {integrity: sha512-WdSLpZFjOEqNZGmHflxyifolwAiZmDQzuOzIq9L27ButpCVpD7KzTRtEG1I0wMPFyiyUdOO+4t8GvrnBLQSwpw==}
+    cpu: [x64]
+    os: [freebsd]
+
+  '@rollup/rollup-freebsd-x64@4.53.3':
+    resolution: {integrity: sha512-lMfF8X7QhdQzseM6XaX0vbno2m3hlyZFhwcndRMw8fbAGUGL3WFMBdK0hbUBIUYcEcMhVLr1SIamDeuLBnXS+Q==}
     cpu: [x64]
     os: [freebsd]
 
@@ -6952,8 +7008,18 @@ packages:
     cpu: [arm]
     os: [linux]
 
+  '@rollup/rollup-linux-arm-gnueabihf@4.53.3':
+    resolution: {integrity: sha512-k9oD15soC/Ln6d2Wv/JOFPzZXIAIFLp6B+i14KhxAfnq76ajt0EhYc5YPeX6W1xJkAdItcVT+JhKl1QZh44/qw==}
+    cpu: [arm]
+    os: [linux]
+
   '@rollup/rollup-linux-arm-musleabihf@4.52.4':
     resolution: {integrity: sha512-FbhM2p9TJAmEIEhIgzR4soUcsW49e9veAQCziwbR+XWB2zqJ12b4i/+hel9yLiD8pLncDH4fKIPIbt5238341Q==}
+    cpu: [arm]
+    os: [linux]
+
+  '@rollup/rollup-linux-arm-musleabihf@4.53.3':
+    resolution: {integrity: sha512-vTNlKq+N6CK/8UktsrFuc+/7NlEYVxgaEgRXVUVK258Z5ymho29skzW1sutgYjqNnquGwVUObAaxae8rZ6YMhg==}
     cpu: [arm]
     os: [linux]
 
@@ -6962,8 +7028,18 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  '@rollup/rollup-linux-arm64-gnu@4.53.3':
+    resolution: {integrity: sha512-RGrFLWgMhSxRs/EWJMIFM1O5Mzuz3Xy3/mnxJp/5cVhZ2XoCAxJnmNsEyeMJtpK+wu0FJFWz+QF4mjCA7AUQ3w==}
+    cpu: [arm64]
+    os: [linux]
+
   '@rollup/rollup-linux-arm64-musl@4.52.4':
     resolution: {integrity: sha512-u0n17nGA0nvi/11gcZKsjkLj1QIpAuPFQbR48Subo7SmZJnGxDpspyw2kbpuoQnyK+9pwf3pAoEXerJs/8Mi9g==}
+    cpu: [arm64]
+    os: [linux]
+
+  '@rollup/rollup-linux-arm64-musl@4.53.3':
+    resolution: {integrity: sha512-kASyvfBEWYPEwe0Qv4nfu6pNkITLTb32p4yTgzFCocHnJLAHs+9LjUu9ONIhvfT/5lv4YS5muBHyuV84epBo/A==}
     cpu: [arm64]
     os: [linux]
 
@@ -6972,8 +7048,18 @@ packages:
     cpu: [loong64]
     os: [linux]
 
+  '@rollup/rollup-linux-loong64-gnu@4.53.3':
+    resolution: {integrity: sha512-JiuKcp2teLJwQ7vkJ95EwESWkNRFJD7TQgYmCnrPtlu50b4XvT5MOmurWNrCj3IFdyjBQ5p9vnrX4JM6I8OE7g==}
+    cpu: [loong64]
+    os: [linux]
+
   '@rollup/rollup-linux-ppc64-gnu@4.52.4':
     resolution: {integrity: sha512-teSACug1GyZHmPDv14VNbvZFX779UqWTsd7KtTM9JIZRDI5NUwYSIS30kzI8m06gOPB//jtpqlhmraQ68b5X2g==}
+    cpu: [ppc64]
+    os: [linux]
+
+  '@rollup/rollup-linux-ppc64-gnu@4.53.3':
+    resolution: {integrity: sha512-EoGSa8nd6d3T7zLuqdojxC20oBfNT8nexBbB/rkxgKj5T5vhpAQKKnD+h3UkoMuTyXkP5jTjK/ccNRmQrPNDuw==}
     cpu: [ppc64]
     os: [linux]
 
@@ -6982,8 +7068,18 @@ packages:
     cpu: [riscv64]
     os: [linux]
 
+  '@rollup/rollup-linux-riscv64-gnu@4.53.3':
+    resolution: {integrity: sha512-4s+Wped2IHXHPnAEbIB0YWBv7SDohqxobiiPA1FIWZpX+w9o2i4LezzH/NkFUl8LRci/8udci6cLq+jJQlh+0g==}
+    cpu: [riscv64]
+    os: [linux]
+
   '@rollup/rollup-linux-riscv64-musl@4.52.4':
     resolution: {integrity: sha512-1HHmsRyh845QDpEWzOFtMCph5Ts+9+yllCrREuBR/vg2RogAQGGBRC8lDPrPOMnrdOJ+mt1WLMOC2Kao/UwcvA==}
+    cpu: [riscv64]
+    os: [linux]
+
+  '@rollup/rollup-linux-riscv64-musl@4.53.3':
+    resolution: {integrity: sha512-68k2g7+0vs2u9CxDt5ktXTngsxOQkSEV/xBbwlqYcUrAVh6P9EgMZvFsnHy4SEiUl46Xf0IObWVbMvPrr2gw8A==}
     cpu: [riscv64]
     os: [linux]
 
@@ -6992,8 +7088,18 @@ packages:
     cpu: [s390x]
     os: [linux]
 
+  '@rollup/rollup-linux-s390x-gnu@4.53.3':
+    resolution: {integrity: sha512-VYsFMpULAz87ZW6BVYw3I6sWesGpsP9OPcyKe8ofdg9LHxSbRMd7zrVrr5xi/3kMZtpWL/wC+UIJWJYVX5uTKg==}
+    cpu: [s390x]
+    os: [linux]
+
   '@rollup/rollup-linux-x64-gnu@4.52.4':
     resolution: {integrity: sha512-Wi6AXf0k0L7E2gteNsNHUs7UMwCIhsCTs6+tqQ5GPwVRWMaflqGec4Sd8n6+FNFDw9vGcReqk2KzBDhCa1DLYg==}
+    cpu: [x64]
+    os: [linux]
+
+  '@rollup/rollup-linux-x64-gnu@4.53.3':
+    resolution: {integrity: sha512-3EhFi1FU6YL8HTUJZ51imGJWEX//ajQPfqWLI3BQq4TlvHy4X0MOr5q3D2Zof/ka0d5FNdPwZXm3Yyib/UEd+w==}
     cpu: [x64]
     os: [linux]
 
@@ -7002,8 +7108,18 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  '@rollup/rollup-linux-x64-musl@4.53.3':
+    resolution: {integrity: sha512-eoROhjcc6HbZCJr+tvVT8X4fW3/5g/WkGvvmwz/88sDtSJzO7r/blvoBDgISDiCjDRZmHpwud7h+6Q9JxFwq1Q==}
+    cpu: [x64]
+    os: [linux]
+
   '@rollup/rollup-openharmony-arm64@4.52.4':
     resolution: {integrity: sha512-1ox+GqgRWqaB1RnyZXL8PD6E5f7YyRUJYnCqKpNzxzP0TkaUh112NDrR9Tt+C8rJ4x5G9Mk8PQR3o7Ku2RKqKA==}
+    cpu: [arm64]
+    os: [openharmony]
+
+  '@rollup/rollup-openharmony-arm64@4.53.3':
+    resolution: {integrity: sha512-OueLAWgrNSPGAdUdIjSWXw+u/02BRTcnfw9PN41D2vq/JSEPnJnVuBgw18VkN8wcd4fjUs+jFHVM4t9+kBSNLw==}
     cpu: [arm64]
     os: [openharmony]
 
@@ -7012,8 +7128,18 @@ packages:
     cpu: [arm64]
     os: [win32]
 
+  '@rollup/rollup-win32-arm64-msvc@4.53.3':
+    resolution: {integrity: sha512-GOFuKpsxR/whszbF/bzydebLiXIHSgsEUp6M0JI8dWvi+fFa1TD6YQa4aSZHtpmh2/uAlj/Dy+nmby3TJ3pkTw==}
+    cpu: [arm64]
+    os: [win32]
+
   '@rollup/rollup-win32-ia32-msvc@4.52.4':
     resolution: {integrity: sha512-AIy/jdJ7WtJ/F6EcfOb2GjR9UweO0n43jNObQMb6oGxkYTfLcnN7vYYpG+CN3lLxrQkzWnMOoNSHTW54pgbVxw==}
+    cpu: [ia32]
+    os: [win32]
+
+  '@rollup/rollup-win32-ia32-msvc@4.53.3':
+    resolution: {integrity: sha512-iah+THLcBJdpfZ1TstDFbKNznlzoxa8fmnFYK4V67HvmuNYkVdAywJSoteUszvBQ9/HqN2+9AZghbajMsFT+oA==}
     cpu: [ia32]
     os: [win32]
 
@@ -7022,8 +7148,18 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@rollup/rollup-win32-x64-gnu@4.53.3':
+    resolution: {integrity: sha512-J9QDiOIZlZLdcot5NXEepDkstocktoVjkaKUtqzgzpt2yWjGlbYiKyp05rWwk4nypbYUNoFAztEgixoLaSETkg==}
+    cpu: [x64]
+    os: [win32]
+
   '@rollup/rollup-win32-x64-msvc@4.52.4':
     resolution: {integrity: sha512-bf9PtUa0u8IXDVxzRToFQKsNCRz9qLYfR/MpECxl4mRoWYjAeFjgxj1XdZr2M/GNVpT05p+LgQOHopYDlUu6/w==}
+    cpu: [x64]
+    os: [win32]
+
+  '@rollup/rollup-win32-x64-msvc@4.53.3':
+    resolution: {integrity: sha512-UhTd8u31dXadv0MopwGgNOBpUVROFKWVQgAg5N1ESyCz8AuBcMqm4AuTjrwgQKGDfoFuz02EuMRHQIw/frmYKQ==}
     cpu: [x64]
     os: [win32]
 
@@ -9215,6 +9351,10 @@ packages:
     resolution: {integrity: sha512-gYjt7OIqdM0PcttNYP2aVrr2G0bMALkBaoehD4BuRGjAOtipg0b6wHg1yNL+s5zSnLZZrGHOw4IrND8CD+3oIQ==}
     hasBin: true
 
+  baseline-browser-mapping@2.9.3:
+    resolution: {integrity: sha512-8QdH6czo+G7uBsNo0GiUfouPN1lRzKdJTGnKXwe12gkFbnnOUaUKGN55dMkfy+mnxmvjwl9zcI4VncczcVXDhA==}
+    hasBin: true
+
   basic-ftp@5.0.5:
     resolution: {integrity: sha512-4Bcg1P8xhUuqcii/S0Z9wiHIrQVPMermM1any+MX5GeGD7faD3/msQUDGLol9wOcz4/jbg/WJnGqoJF6LiBdtg==}
     engines: {node: '>=10.0.0'}
@@ -9369,6 +9509,11 @@ packages:
 
   browserslist@4.28.0:
     resolution: {integrity: sha512-tbydkR/CxfMwelN0vwdP/pLkDwyAASZ+VfWm4EOwlB6SWhx1sYnWLqo8N5j0rAzPfzfRaxt0mM/4wPU/Su84RQ==}
+    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
+    hasBin: true
+
+  browserslist@4.28.1:
+    resolution: {integrity: sha512-ZC5Bd0LgJXgwGqUknZY/vkUQ04r8NXnJZ3yYi4vDmSiZmC/pdSN0NbNRPxZpbtO4uAfDUAFffO8IZoM3Gj8IkA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -9567,6 +9712,9 @@ packages:
 
   caniuse-lite@1.0.30001755:
     resolution: {integrity: sha512-44V+Jm6ctPj7R52Na4TLi3Zri4dWUljJd+RDm+j8LtNCc/ihLCT+X1TzoOAkRETEWqjuLnh9581Tl80FvK7jVA==}
+
+  caniuse-lite@1.0.30001759:
+    resolution: {integrity: sha512-Pzfx9fOKoKvevQf8oCXoyNRQ5QyxJj+3O0Rqx2V5oxT61KGx8+n6hV/IUyJeifUci2clnmmKVpvtiqRzgiWjSw==}
 
   cardinal@2.1.1:
     resolution: {integrity: sha512-JSr5eOgoEymtYHBjNWyjrMqet9Am2miJhlfKNdqLp6zoeAh0KN5dRAcxlecj5mAJrmQomgiOBj35xHLrFjqBpw==}
@@ -10916,6 +11064,9 @@ packages:
   electron-to-chromium@1.5.254:
     resolution: {integrity: sha512-DcUsWpVhv9svsKRxnSCZ86SjD+sp32SGidNB37KpqXJncp1mfUgKbHvBomE89WJDbfVKw1mdv5+ikrvd43r+Bg==}
 
+  electron-to-chromium@1.5.266:
+    resolution: {integrity: sha512-kgWEglXvkEfMH7rxP5OSZZwnaDWT7J9EoZCujhnpLbfi0bbNtRkgdX2E3gt0Uer11c61qCYktB3hwkAS325sJg==}
+
   electron-updater@6.6.2:
     resolution: {integrity: sha512-Cr4GDOkbAUqRHP5/oeOmH/L2Bn6+FQPxVLZtPbcmKZC63a1F3uu5EefYOssgZXG3u/zBlubbJ5PJdITdMVggbw==}
 
@@ -11557,6 +11708,10 @@ packages:
     resolution: {integrity: sha512-jpWzZ1ZhwUmeWRhS7Qv3mhpOhLfwI+uAX4e5fOcXqwMR7EcJ0pj2kV1CVzHVMX/LphnKWD3LObjZCoJ71lKpHw==}
     engines: {node: ^18.19.0 || >=20.5.0}
 
+  execa@9.6.1:
+    resolution: {integrity: sha512-9Be3ZoN4LmYR90tUoVu2te2BsbzHfhJyfEiAVfz7N5/zv+jduIfLrV2xdQXOHbaD6KgpGdO9PRPM1Y4Q9QkPkA==}
+    engines: {node: ^18.19.0 || >=20.5.0}
+
   execall@2.0.0:
     resolution: {integrity: sha512-0FU2hZ5Hh6iQnarpRtQurM/aAvp3RIbfvgLHrcqJYzhXyV2KFruhuChf9NC6waAhiUR7FFtlugkI4p7f2Fqlow==}
     engines: {node: '>=8'}
@@ -11584,8 +11739,8 @@ packages:
     resolution: {integrity: sha512-u/feCi0GPsI+988gU2FLcsHyAHTU0MX1Wg68NhAnN7z/+C5wqG+CY8J53N9ioe8RXgaoz0nBR/TYMf3AycUuPw==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  expo-application@7.0.7:
-    resolution: {integrity: sha512-Jt1/qqnoDUbZ+bK91+dHaZ1vrPDtRBOltRa681EeedkisqguuEeUx4UHqwVyDK2oHWsK6lO3ojetoA4h8OmNcg==}
+  expo-application@7.0.8:
+    resolution: {integrity: sha512-qFGyxk7VJbrNOQWBbE09XUuGuvkOgFS9QfToaK2FdagM2aQ+x3CvGV2DuVgl/l4ZxPgIf3b/MNh9xHpwSwn74Q==}
     peerDependencies:
       expo: '*'
 
@@ -11615,14 +11770,20 @@ packages:
       expo: '*'
       react-native: '*'
 
+  expo-constants@18.0.11:
+    resolution: {integrity: sha512-xnfrfZ7lHjb+03skhmDSYeFF7OU2K3Xn/lAeP+7RhkV2xp2f5RCKtOUYajCnYeZesvMrsUxOsbGOP2JXSOH3NA==}
+    peerDependencies:
+      expo: '*'
+      react-native: '*'
+
   expo-constants@18.0.9:
     resolution: {integrity: sha512-sqoXHAOGDcr+M9NlXzj1tGoZyd3zxYDy215W6E0Z0n8fgBaqce9FAYQE2bu5X4G629AYig5go7U6sQz7Pjcm8A==}
     peerDependencies:
       expo: '*'
       react-native: '*'
 
-  expo-crypto@15.0.7:
-    resolution: {integrity: sha512-FUo41TwwGT2e5rA45PsjezI868Ch3M6wbCZsmqTWdF/hr+HyPcrp1L//dsh/hsrsyrQdpY/U96Lu71/wXePJeg==}
+  expo-crypto@15.0.8:
+    resolution: {integrity: sha512-aF7A914TB66WIlTJvl5J6/itejfY78O7dq3ibvFltL9vnTALJ/7LYHvLT4fwmx9yUNS6ekLBtDGWivFWnj2Fcw==}
     peerDependencies:
       expo: '*'
 
@@ -11660,6 +11821,12 @@ packages:
     resolution: {integrity: sha512-yF+y+9Shpr/OQFfy/wglB/0bykFMbwHBTuMRa5Of/r2P1wbkcacx8rg0JsUWkXH/rn2i2iWdubyqlxSJa3ggZA==}
     peerDependencies:
       expo: '*'
+      react: '*'
+      react-native: '*'
+
+  expo-linking@8.0.10:
+    resolution: {integrity: sha512-0EKtn4Sk6OYmb/5ZqK8riO0k1Ic+wyT3xExbmDvUYhT7p/cKqlVUExMuOIAt3Cx3KUUU1WCgGmdd493W/D5XjA==}
+    peerDependencies:
       react: '*'
       react-native: '*'
 
@@ -12413,6 +12580,10 @@ packages:
   glob@10.4.5:
     resolution: {integrity: sha512-7Bv8RF0k6xjo7d4A/PxYLbUCfb6c+Vpd2/mB2yRDlew7Jb5hEXiCD9ibfO7wpk8i4sevK6DFny9h7EYbM3/sHg==}
     hasBin: true
+
+  glob@13.0.0:
+    resolution: {integrity: sha512-tvZgpqk6fz4BaNZ66ZsRaZnbHvP/jG3uKJvAZOwEVUL4RTA5nJeeLYfyN9/VA8NX/V3IBG+hkeuGpKjvELkVhA==}
+    engines: {node: 20 || >=22}
 
   glob@7.1.4:
     resolution: {integrity: sha512-hkLPepehmnKk41pUGm3sYxoFs/umurYfYJCerbXEyFIWcAzvpipAgVkBqqT9RBKMGjnq6kMuyYwha6csxbiM1A==}
@@ -14302,6 +14473,10 @@ packages:
   lru-cache@10.4.3:
     resolution: {integrity: sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==}
 
+  lru-cache@11.2.4:
+    resolution: {integrity: sha512-B5Y16Jr9LB9dHVkh6ZevG+vAbOsNOYCX+sXvFWFu7B3Iz5mijW3zdbMyhsh8ANd2mSWBYdJgnqi+mL7/LrOPYg==}
+    engines: {node: 20 || >=22}
+
   lru-cache@4.1.5:
     resolution: {integrity: sha512-sWZlbEP2OsHNkXrMl5GYk/jKk70MBng6UU4YI/qGDYbgf6YbP4EvmqISbXCoJiRKs+1bSpFHVgQxvJ17F2li5g==}
 
@@ -14887,6 +15062,10 @@ packages:
 
   minimatch@10.0.3:
     resolution: {integrity: sha512-IPZ167aShDZZUMdRk66cyQAW3qr0WzbHkPdMYa8bzZhlHhO3jALbKdxcaak7W9FfT2rZNpQuUu4Od7ILEpXSaw==}
+    engines: {node: 20 || >=22}
+
+  minimatch@10.1.1:
+    resolution: {integrity: sha512-enIvLvRAFZYXJzkCYG5RKmPfrFArdLv+R+lbQ53BmIMLIry74bjKzX6iHAm8WYamJkhSSEabrWN5D97XnKObjQ==}
     engines: {node: 20 || >=22}
 
   minimatch@3.1.2:
@@ -15917,6 +16096,10 @@ packages:
   path-scurry@1.11.1:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
+
+  path-scurry@2.0.1:
+    resolution: {integrity: sha512-oWyT4gICAu+kaA7QWk/jvCHWarMKNs6pXOGWKDTr7cw4IGcUbW+PeTfbaQiLGheFRpjo6O9J0PmyMfQPjH71oA==}
+    engines: {node: 20 || >=22}
 
   path-to-regexp@0.1.12:
     resolution: {integrity: sha512-RA1GjUVMnvYFxuqovrEqZoxxW5NUZqbwKtYz/Tt7nXerk0LbLblQmrsgdeOxV5SFHf0UDggjS/bSeOZwt1pmEQ==}
@@ -18123,6 +18306,11 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
+  rollup@4.53.3:
+    resolution: {integrity: sha512-w8GmOxZfBmKknvdXU1sdM9NHcoQejwF/4mNgj2JuEEdRaHwwF12K7e9eXn1nLZ07ad+du76mkVsyeb2rKGllsA==}
+    engines: {node: '>=18.0.0', npm: '>=8.0.0'}
+    hasBin: true
+
   router@2.2.0:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
     engines: {node: '>= 18'}
@@ -19052,6 +19240,11 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
+  sucrase@3.35.1:
+    resolution: {integrity: sha512-DhuTmvZWux4H1UOnWMB3sk0sbaCVOoQZjv8u1rDoTV0HTdGem9hkAZtl4JZy8P2z4Bg0nT+YMeOFyVr4zcG5Tw==}
+    engines: {node: '>=16 || 14 >=14.17'}
+    hasBin: true
+
   sudo-prompt-programfiles-x86@9.2.10:
     resolution: {integrity: sha512-BUxEoxPMOTMwsqPLYmfiKhD5TWQZm9BtGv3YEKT9HOsOfK4aCGDwb0NklUnFauBdOIuLEZJymXrHMJIPfGMOdw==}
 
@@ -19210,8 +19403,8 @@ packages:
     resolution: {integrity: sha512-un0FmiRUQNr5PJqy9kP7c40F5BOfpGlYTrxonDChEZB7pzZxRNp/bt+ymiy9/npwXya9KH99nJ/GXFIiUkYGFQ==}
     engines: {node: '>=8'}
 
-  terser-webpack-plugin@5.3.14:
-    resolution: {integrity: sha512-vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==}
+  terser-webpack-plugin@5.3.15:
+    resolution: {integrity: sha512-PGkOdpRFK+rb1TzVz+msVhw4YMRT9txLF4kRqvJhGhCM324xuR3REBSHALN+l+sAhKUmz0aotnjp5D+P83mLhQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -19963,6 +20156,12 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
+  update-browserslist-db@1.2.2:
+    resolution: {integrity: sha512-E85pfNzMQ9jpKkA7+TJAi4TJN+tBCuWh5rUcS/sv6cFi+1q9LYDwDI5dpUL0u/73EElyQ8d3TEaeW4sPedBqYA==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+
   update-check@1.5.4:
     resolution: {integrity: sha512-5YHsflzHP4t1G+8WGPlvKbJEbAJGCgw+Em+dGR1KmBUbr1J36SJBqlHLjR7oob7sco5hWHGQVcr9B2poIVDDTQ==}
 
@@ -20233,6 +20432,37 @@ packages:
 
   vite@5.4.20:
     resolution: {integrity: sha512-j3lYzGC3P+B5Yfy/pfKNgVEg4+UtcIJcVRt2cDjIOmhLourAqPqf8P7acgxeiSgUB7E3p2P8/3gNIgDLpwzs4g==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': ^18.0.0 || >=20.0.0
+      less: '*'
+      lightningcss: 1.27.0
+      sass: '*'
+      sass-embedded: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      lightningcss:
+        optional: true
+      sass:
+        optional: true
+      sass-embedded:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+
+  vite@5.4.21:
+    resolution: {integrity: sha512-o5a9xKjbtuhY6Bi5S3+HvbRERmouabWbyUcpXXUA1u+GNUKoROi9byOJ8M0nHbHYHkYICiMlqxkg1KkYmm25Sw==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -25098,7 +25328,7 @@ snapshots:
       wrap-ansi: 7.0.0
       ws: 8.18.3(bufferutil@4.0.9)
     optionalDependencies:
-      expo-router: 6.0.10(f42155132f44e09f287789de4350b3eb)
+      expo-router: 6.0.10(9e67a25656fe20852d4b89a1cb789697)
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
     transitivePeerDependencies:
       - '@modelcontextprotocol/sdk'
@@ -25131,7 +25361,28 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@expo/config-plugins@54.0.3':
+    dependencies:
+      '@expo/config-types': 54.0.9
+      '@expo/json-file': 10.0.8
+      '@expo/plist': 0.4.8
+      '@expo/sdk-runtime-versions': 1.0.0
+      chalk: 4.1.2
+      debug: 4.4.3
+      getenv: 2.0.0
+      glob: 13.0.0
+      resolve-from: 5.0.0
+      semver: 7.7.3
+      slash: 3.0.0
+      slugify: 1.6.6
+      xcode: 3.0.1
+      xml2js: 0.6.0
+    transitivePeerDependencies:
+      - supports-color
+
   '@expo/config-types@54.0.8': {}
+
+  '@expo/config-types@54.0.9': {}
 
   '@expo/config@12.0.10':
     dependencies:
@@ -25148,6 +25399,24 @@ snapshots:
       semver: 7.7.3
       slugify: 1.6.6
       sucrase: 3.35.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@expo/config@12.0.11':
+    dependencies:
+      '@babel/code-frame': 7.10.4
+      '@expo/config-plugins': 54.0.3
+      '@expo/config-types': 54.0.9
+      '@expo/json-file': 10.0.8
+      deepmerge: 4.3.1
+      getenv: 2.0.0
+      glob: 13.0.0
+      require-from-string: 2.0.2
+      resolve-from: 5.0.0
+      resolve-workspace-root: 2.0.0
+      semver: 7.7.3
+      slugify: 1.6.6
+      sucrase: 3.35.1
     transitivePeerDependencies:
       - supports-color
 
@@ -25174,6 +25443,16 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
 
   '@expo/env@2.0.7':
+    dependencies:
+      chalk: 4.1.2
+      debug: 4.4.3
+      dotenv: 16.4.7
+      dotenv-expand: 11.0.7
+      getenv: 2.0.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@expo/env@2.0.8':
     dependencies:
       chalk: 4.1.2
       debug: 4.4.3
@@ -25213,6 +25492,11 @@ snapshots:
       unique-string: 2.0.0
 
   '@expo/json-file@10.0.7':
+    dependencies:
+      '@babel/code-frame': 7.10.4
+      json5: 2.2.3
+
+  '@expo/json-file@10.0.8':
     dependencies:
       '@babel/code-frame': 7.10.4
       json5: 2.2.3
@@ -25316,6 +25600,12 @@ snapshots:
       resolve-workspace-root: 2.0.0
 
   '@expo/plist@0.4.7':
+    dependencies:
+      '@xmldom/xmldom': 0.8.11
+      base64-js: 1.5.1
+      xmlbuilder: 15.1.1
+
+  '@expo/plist@0.4.8':
     dependencies:
       '@xmldom/xmldom': 0.8.11
       base64-js: 1.5.1
@@ -26078,9 +26368,9 @@ snapshots:
     dependencies:
       jsep: 1.4.0
 
-  '@kubb/cli@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(typescript@5.9.3)':
+  '@kubb/cli@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(typescript@5.9.3)':
     dependencies:
-      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       chokidar: 4.0.3
       citty: 0.1.6
       cli-progress: 3.12.0
@@ -26132,9 +26422,9 @@ snapshots:
       seedrandom: 3.0.5
       semver: 7.7.3
 
-  '@kubb/core@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))':
+  '@kubb/core@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))':
     dependencies:
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       camelcase: 8.0.0
       find-up: 7.0.0
       fs-extra: 11.3.2
@@ -26148,9 +26438,9 @@ snapshots:
       seedrandom: 3.0.5
       semver: 7.7.3
 
-  '@kubb/core@4.5.9(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))':
+  '@kubb/core@4.5.9(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))':
     dependencies:
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       camelcase: 8.0.0
       find-up: 7.0.0
       fs-extra: 11.3.2
@@ -26233,6 +26523,20 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
+  '@kubb/fabric-core@0.5.4(bufferutil@4.0.9)':
+    dependencies:
+      cli-progress: 3.12.0
+      consola: 3.4.2
+      fs-extra: 11.3.2
+      natural-orderby: 5.0.0
+      p-limit: 7.2.0
+      serve-handler: 6.1.6
+      typescript: 5.9.3
+      ws: 8.18.3(bufferutil@4.0.9)
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@kubb/oas@4.5.14(ajv@8.17.1)(encoding@0.1.13)':
     dependencies:
       '@redocly/openapi-core': 2.11.1(ajv@8.17.1)
@@ -26265,14 +26569,14 @@ snapshots:
       - ajv
       - encoding
 
-  '@kubb/plugin-client@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)':
+  '@kubb/plugin-client@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)':
     dependencies:
-      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       '@kubb/oas': 4.5.14(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/plugin-ts': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
+      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
+      '@kubb/plugin-ts': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
       '@kubb/plugin-zod': 4.5.14(ajv@8.17.1)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       jiti: 2.6.1
     optionalDependencies:
       axios: 1.13.2
@@ -26313,11 +26617,11 @@ snapshots:
       - ajv
       - encoding
 
-  '@kubb/plugin-oas@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)':
+  '@kubb/plugin-oas@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)':
     dependencies:
-      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       '@kubb/oas': 4.5.14(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       '@stoplight/yaml': 4.3.0
       p-limit: 7.2.0
       remeda: 2.32.0
@@ -26349,15 +26653,15 @@ snapshots:
       - ajv
       - encoding
 
-  '@kubb/plugin-react-query@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)':
+  '@kubb/plugin-react-query@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)':
     dependencies:
-      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       '@kubb/oas': 4.5.14(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/plugin-client': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
-      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/plugin-ts': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
+      '@kubb/plugin-client': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(axios@1.13.2)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
+      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
+      '@kubb/plugin-ts': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)
       '@kubb/plugin-zod': 4.5.14(ajv@8.17.1)(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)(encoding@0.1.13)
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       remeda: 2.32.0
     transitivePeerDependencies:
       - ajv
@@ -26400,13 +26704,13 @@ snapshots:
       - encoding
       - utf-8-validate
 
-  '@kubb/plugin-ts@4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)':
+  '@kubb/plugin-ts@4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(bufferutil@4.0.9)(encoding@0.1.13)':
     dependencies:
-      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
+      '@kubb/core': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))
       '@kubb/fabric-core': 0.5.2(bufferutil@4.0.9)
       '@kubb/oas': 4.5.14(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
-      '@kubb/react-fabric': 0.5.3(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
+      '@kubb/plugin-oas': 4.5.14(@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9))(ajv@8.17.1)(encoding@0.1.13)
+      '@kubb/react-fabric': 0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)
       remeda: 2.32.0
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -26510,6 +26814,21 @@ snapshots:
       '@kubb/fabric-core': 0.5.3(bufferutil@4.0.9)
       dedent: 1.7.0(babel-plugin-macros@3.1.0)
       execa: 9.6.0
+      indent-string: 5.0.0
+      natural-orderby: 5.0.0
+      react-devtools-core: 6.1.2(bufferutil@4.0.9)
+      signal-exit: 4.1.0
+      ws: 8.18.0(bufferutil@4.0.9)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - bufferutil
+      - utf-8-validate
+
+  '@kubb/react-fabric@0.5.4(babel-plugin-macros@3.1.0)(bufferutil@4.0.9)':
+    dependencies:
+      '@kubb/fabric-core': 0.5.4(bufferutil@4.0.9)
+      dedent: 1.7.0(babel-plugin-macros@3.1.0)
+      execa: 9.6.1
       indent-string: 5.0.0
       natural-orderby: 5.0.0
       react-devtools-core: 6.1.2(bufferutil@4.0.9)
@@ -29027,32 +29346,32 @@ snapshots:
 
   '@remix-run/router@1.23.1': {}
 
-  '@rn-primitives/accordion@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/accordion@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-accordion': 1.2.12(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/alert-dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/alert-dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-alert-dialog': 1.1.15(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29067,35 +29386,35 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/aspect-ratio@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/aspect-ratio@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/avatar@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/avatar@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/checkbox@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/checkbox@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.3(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29116,66 +29435,66 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/collapsible@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/collapsible@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-collapsible': 1.1.12(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/context-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/context-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-context-menu': 2.2.16(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/dialog@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-dialog': 1.1.15(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/dropdown-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/dropdown-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-dropdown-menu': 2.1.16(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29189,26 +29508,26 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/hooks@1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/hooks@1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/hover-card@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/hover-card@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-hover-card': 1.1.15(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/popover': 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/popover': 1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29228,79 +29547,79 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/label@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/label@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-label': 2.1.7(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/label@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/label@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-label': 2.1.7(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/menubar@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/menubar@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-menubar': 1.1.16(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/navigation-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/navigation-menu@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-navigation-menu': 1.2.14(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/popover@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/popover@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-popover': 1.1.15(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29318,71 +29637,71 @@ snapshots:
       - immer
       - use-sync-external-store
 
-  '@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))':
+  '@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))':
     dependencies:
       react: 19.1.0
       zustand: 5.0.8(@types/react@19.1.17)(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - immer
       - use-sync-external-store
 
-  '@rn-primitives/progress@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/progress@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-progress': 1.1.7(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/radio-group@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/radio-group@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-radio-group': 1.3.8(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/select@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/select@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-select': 2.2.6(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/separator@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/separator@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-separator': 1.1.7(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29402,15 +29721,15 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/slider@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/slider@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-slider': 1.3.6(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29423,52 +29742,52 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/slot@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/slot@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/slot@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/slot@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/switch@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/switch@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-switch': 1.2.6(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/table@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/table@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/tabs@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/tabs@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29483,39 +29802,39 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/toast@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/toast@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/toggle-group@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/toggle-group@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-toggle-group': 1.1.11(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/toggle@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/toggle@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-toggle': 1.1.10(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29536,32 +29855,32 @@ snapshots:
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/toolbar@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/toolbar@1.2.0(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-toolbar': 1.1.11(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/utils': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
       - react-dom
 
-  '@rn-primitives/tooltip@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/tooltip@1.2.0(@rn-primitives/portal@1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0)))(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@radix-ui/react-tooltip': 1.2.8(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
-      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@rn-primitives/types': 1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/hooks': 1.3.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/portal': 1.3.0(@types/react@19.1.17)(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)(use-sync-external-store@1.6.0(react@19.1.0))
+      '@rn-primitives/slot': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@rn-primitives/types': 1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
@@ -29574,19 +29893,19 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/types@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/types@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/types@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/types@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
   '@rn-primitives/utils@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
@@ -29595,12 +29914,12 @@ snapshots:
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
-  '@rn-primitives/utils@1.2.0(react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
+  '@rn-primitives/utils@1.2.0(react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)':
     dependencies:
       react: 19.1.0
     optionalDependencies:
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
@@ -29609,67 +29928,133 @@ snapshots:
   '@rollup/rollup-android-arm-eabi@4.52.4':
     optional: true
 
+  '@rollup/rollup-android-arm-eabi@4.53.3':
+    optional: true
+
   '@rollup/rollup-android-arm64@4.52.4':
+    optional: true
+
+  '@rollup/rollup-android-arm64@4.53.3':
     optional: true
 
   '@rollup/rollup-darwin-arm64@4.52.4':
     optional: true
 
+  '@rollup/rollup-darwin-arm64@4.53.3':
+    optional: true
+
   '@rollup/rollup-darwin-x64@4.52.4':
+    optional: true
+
+  '@rollup/rollup-darwin-x64@4.53.3':
     optional: true
 
   '@rollup/rollup-freebsd-arm64@4.52.4':
     optional: true
 
+  '@rollup/rollup-freebsd-arm64@4.53.3':
+    optional: true
+
   '@rollup/rollup-freebsd-x64@4.52.4':
+    optional: true
+
+  '@rollup/rollup-freebsd-x64@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-arm-gnueabihf@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-arm-gnueabihf@4.53.3':
+    optional: true
+
   '@rollup/rollup-linux-arm-musleabihf@4.52.4':
+    optional: true
+
+  '@rollup/rollup-linux-arm-musleabihf@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-arm64-gnu@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-arm64-gnu@4.53.3':
+    optional: true
+
   '@rollup/rollup-linux-arm64-musl@4.52.4':
+    optional: true
+
+  '@rollup/rollup-linux-arm64-musl@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-loong64-gnu@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-loong64-gnu@4.53.3':
+    optional: true
+
   '@rollup/rollup-linux-ppc64-gnu@4.52.4':
+    optional: true
+
+  '@rollup/rollup-linux-ppc64-gnu@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-riscv64-gnu@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-riscv64-gnu@4.53.3':
+    optional: true
+
   '@rollup/rollup-linux-riscv64-musl@4.52.4':
+    optional: true
+
+  '@rollup/rollup-linux-riscv64-musl@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-s390x-gnu@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-s390x-gnu@4.53.3':
+    optional: true
+
   '@rollup/rollup-linux-x64-gnu@4.52.4':
+    optional: true
+
+  '@rollup/rollup-linux-x64-gnu@4.53.3':
     optional: true
 
   '@rollup/rollup-linux-x64-musl@4.52.4':
     optional: true
 
+  '@rollup/rollup-linux-x64-musl@4.53.3':
+    optional: true
+
   '@rollup/rollup-openharmony-arm64@4.52.4':
+    optional: true
+
+  '@rollup/rollup-openharmony-arm64@4.53.3':
     optional: true
 
   '@rollup/rollup-win32-arm64-msvc@4.52.4':
     optional: true
 
+  '@rollup/rollup-win32-arm64-msvc@4.53.3':
+    optional: true
+
   '@rollup/rollup-win32-ia32-msvc@4.52.4':
+    optional: true
+
+  '@rollup/rollup-win32-ia32-msvc@4.53.3':
     optional: true
 
   '@rollup/rollup-win32-x64-gnu@4.52.4':
     optional: true
 
+  '@rollup/rollup-win32-x64-gnu@4.53.3':
+    optional: true
+
   '@rollup/rollup-win32-x64-msvc@4.52.4':
+    optional: true
+
+  '@rollup/rollup-win32-x64-msvc@4.53.3':
     optional: true
 
   '@rtsao/scc@1.1.0': {}
@@ -31874,7 +32259,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.7.0(vite@5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))':
+  '@vitejs/plugin-react@4.7.0(vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -31882,11 +32267,11 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+      vite: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@5.1.1(vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.27.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1))':
+  '@vitejs/plugin-react@5.1.1(vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1))':
     dependencies:
       '@babel/core': 7.28.5
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.5)
@@ -31894,7 +32279,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.47
       '@types/babel__core': 7.20.5
       react-refresh: 0.18.0
-      vite: 7.2.6(@types/node@24.10.1)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.27.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1)
+      vite: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -33232,6 +33617,8 @@ snapshots:
 
   baseline-browser-mapping@2.8.28: {}
 
+  baseline-browser-mapping@2.9.3: {}
+
   basic-ftp@5.0.5: {}
 
   batch@0.6.1: {}
@@ -33473,6 +33860,14 @@ snapshots:
       electron-to-chromium: 1.5.254
       node-releases: 2.0.27
       update-browserslist-db: 1.1.4(browserslist@4.28.0)
+
+  browserslist@4.28.1:
+    dependencies:
+      baseline-browser-mapping: 2.9.3
+      caniuse-lite: 1.0.30001759
+      electron-to-chromium: 1.5.266
+      node-releases: 2.0.27
+      update-browserslist-db: 1.2.2(browserslist@4.28.1)
 
   bser@2.1.1:
     dependencies:
@@ -33775,6 +34170,8 @@ snapshots:
   caniuse-lite@1.0.30001749: {}
 
   caniuse-lite@1.0.30001755: {}
+
+  caniuse-lite@1.0.30001759: {}
 
   cardinal@2.1.1:
     dependencies:
@@ -35328,6 +35725,8 @@ snapshots:
 
   electron-to-chromium@1.5.254: {}
 
+  electron-to-chromium@1.5.266: {}
+
   electron-updater@6.6.2:
     dependencies:
       builder-util-runtime: 9.3.1
@@ -36636,6 +37035,21 @@ snapshots:
       strip-final-newline: 4.0.0
       yoctocolors: 2.1.2
 
+  execa@9.6.1:
+    dependencies:
+      '@sindresorhus/merge-streams': 4.0.0
+      cross-spawn: 7.0.6
+      figures: 6.1.0
+      get-stream: 9.0.1
+      human-signals: 8.0.1
+      is-plain-obj: 4.1.0
+      is-stream: 4.0.1
+      npm-run-path: 6.0.0
+      pretty-ms: 9.3.0
+      signal-exit: 4.1.0
+      strip-final-newline: 4.0.0
+      yoctocolors: 2.1.2
+
   execall@2.0.0:
     dependencies:
       clone-regexp: 2.2.0
@@ -36665,7 +37079,7 @@ snapshots:
       jest-mock: 30.2.0
       jest-util: 30.2.0
 
-  expo-application@7.0.7(expo@54.0.12):
+  expo-application@7.0.8(expo@54.0.12):
     dependencies:
       expo: 54.0.12(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
 
@@ -36691,10 +37105,10 @@ snapshots:
 
   expo-auth-session@7.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0):
     dependencies:
-      expo-application: 7.0.7(expo@54.0.12)
-      expo-constants: 18.0.10(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
-      expo-crypto: 15.0.7(expo@54.0.12)
-      expo-linking: 8.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      expo-application: 7.0.8(expo@54.0.12)
+      expo-constants: 18.0.11(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
+      expo-crypto: 15.0.8(expo@54.0.12)
+      expo-linking: 8.0.10(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       expo-web-browser: 15.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
       invariant: 2.2.4
       react: 19.1.0
@@ -36727,6 +37141,15 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  expo-constants@18.0.11(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)):
+    dependencies:
+      '@expo/config': 12.0.11
+      '@expo/env': 2.0.8
+      expo: 54.0.12(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
+    transitivePeerDependencies:
+      - supports-color
+
   expo-constants@18.0.9(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)):
     dependencies:
       '@expo/config': 12.0.10
@@ -36745,7 +37168,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  expo-crypto@15.0.7(expo@54.0.12):
+  expo-crypto@15.0.8(expo@54.0.12):
     dependencies:
       base64-js: 1.5.1
       expo: 54.0.12(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
@@ -36792,6 +37215,16 @@ snapshots:
       expo: 54.0.12(@babel/core@7.28.4)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-native: 0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
+
+  expo-linking@8.0.10(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0):
+    dependencies:
+      expo-constants: 18.0.11(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
+      invariant: 2.2.4
+      react: 19.1.0
+      react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
+    transitivePeerDependencies:
+      - expo
+      - supports-color
 
   expo-linking@8.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0):
     dependencies:
@@ -36841,6 +37274,49 @@ snapshots:
       invariant: 2.2.4
       react: 19.1.0
       react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
+
+  expo-router@6.0.10(9e67a25656fe20852d4b89a1cb789697):
+    dependencies:
+      '@expo/metro-runtime': 6.1.2(expo@54.0.12)(react-dom@19.2.1(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@expo/schema-utils': 0.1.7
+      '@radix-ui/react-slot': 1.2.0(@types/react@19.1.17)(react@19.1.0)
+      '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+      '@react-navigation/bottom-tabs': 7.4.8(@react-navigation/native@7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@react-navigation/native': 7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      '@react-navigation/native-stack': 7.3.27(@react-navigation/native@7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      client-only: 0.0.1
+      debug: 4.4.3
+      escape-string-regexp: 4.0.0
+      expo: 54.0.12(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      expo-constants: 18.0.9(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
+      expo-linking: 8.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      expo-server: 1.0.0
+      fast-deep-equal: 3.1.3
+      invariant: 2.2.4
+      nanoid: 3.3.11
+      query-string: 7.1.3
+      react: 19.1.0
+      react-fast-compare: 3.2.2
+      react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
+      react-native-is-edge-to-edge: 1.2.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      react-native-safe-area-context: 5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      react-native-screens: 4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      semver: 7.6.3
+      server-only: 0.0.1
+      sf-symbols-typescript: 2.1.0
+      shallowequal: 1.1.0
+      use-latest-callback: 0.2.5(react@19.1.0)
+      vaul: 1.1.2(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+    optionalDependencies:
+      react-dom: 19.2.1(react@19.1.0)
+      react-native-gesture-handler: 2.28.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      react-native-reanimated: 4.1.2(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
+      react-native-web: 0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
+    transitivePeerDependencies:
+      - '@react-native-masked-view/masked-view'
+      - '@types/react'
+      - '@types/react-dom'
+      - supports-color
 
   expo-router@6.0.10(cc836208be1820885bc30b8f603382c9):
     dependencies:
@@ -36922,49 +37398,6 @@ snapshots:
       react-native-gesture-handler: 2.28.0(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react-native-reanimated: 4.1.2(@babel/core@7.28.4)(react-native-worklets@0.5.1(@babel/core@7.28.4)(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.4)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
       react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-    transitivePeerDependencies:
-      - '@react-native-masked-view/masked-view'
-      - '@types/react'
-      - '@types/react-dom'
-      - supports-color
-
-  expo-router@6.0.10(f42155132f44e09f287789de4350b3eb):
-    dependencies:
-      '@expo/metro-runtime': 6.1.2(expo@54.0.12)(react-dom@19.2.1(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@expo/schema-utils': 0.1.7
-      '@radix-ui/react-slot': 1.2.0(@types/react@19.1.17)(react@19.1.0)
-      '@radix-ui/react-tabs': 1.1.13(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-      '@react-navigation/bottom-tabs': 7.4.8(@react-navigation/native@7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@react-navigation/native': 7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      '@react-navigation/native-stack': 7.3.27(@react-navigation/native@7.1.18(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native-screens@4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      client-only: 0.0.1
-      debug: 4.4.3
-      escape-string-regexp: 4.0.0
-      expo: 54.0.12(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(@modelcontextprotocol/sdk@1.22.0)(bufferutil@4.0.9)(expo-router@6.0.10)(graphql@16.11.0)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      expo-constants: 18.0.9(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))
-      expo-linking: 8.0.8(expo@54.0.12)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      expo-server: 1.0.0
-      fast-deep-equal: 3.1.3
-      invariant: 2.2.4
-      nanoid: 3.3.11
-      query-string: 7.1.3
-      react: 19.1.0
-      react-fast-compare: 3.2.2
-      react-native: 0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0)
-      react-native-is-edge-to-edge: 1.2.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      react-native-safe-area-context: 5.6.1(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      react-native-screens: 4.16.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      semver: 7.6.3
-      server-only: 0.0.1
-      sf-symbols-typescript: 2.1.0
-      shallowequal: 1.1.0
-      use-latest-callback: 0.2.5(react@19.1.0)
-      vaul: 1.1.2(@types/react-dom@19.1.11(@types/react@19.1.17))(@types/react@19.1.17)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
-    optionalDependencies:
-      react-dom: 19.2.1(react@19.1.0)
-      react-native-gesture-handler: 2.28.0(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      react-native-reanimated: 4.1.2(@babel/core@7.28.5)(react-native-worklets@0.5.1(@babel/core@7.28.5)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0))(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(bufferutil@4.0.9)(react@19.1.0))(react@19.1.0)
-      react-native-web: 0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - '@react-native-masked-view/masked-view'
       - '@types/react'
@@ -37977,6 +38410,12 @@ snapshots:
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
       path-scurry: 1.11.1
+
+  glob@13.0.0:
+    dependencies:
+      minimatch: 10.1.1
+      minipass: 7.1.2
+      path-scurry: 2.0.1
 
   glob@7.1.4:
     dependencies:
@@ -40252,6 +40691,8 @@ snapshots:
 
   lru-cache@10.4.3: {}
 
+  lru-cache@11.2.4: {}
+
   lru-cache@4.1.5:
     dependencies:
       pseudomap: 1.0.2
@@ -41383,6 +41824,10 @@ snapshots:
   minimalistic-crypto-utils@1.0.1: {}
 
   minimatch@10.0.3:
+    dependencies:
+      '@isaacs/brace-expansion': 5.0.0
+
+  minimatch@10.1.1:
     dependencies:
       '@isaacs/brace-expansion': 5.0.0
 
@@ -42748,6 +43193,11 @@ snapshots:
   path-scurry@1.11.1:
     dependencies:
       lru-cache: 10.4.3
+      minipass: 7.1.2
+
+  path-scurry@2.0.1:
+    dependencies:
+      lru-cache: 11.2.4
       minipass: 7.1.2
 
   path-to-regexp@0.1.12: {}
@@ -44585,7 +45035,22 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  react-native-web@0.21.1(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0):
+  react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      '@babel/runtime': 7.28.4
+      '@react-native/normalize-colors': 0.74.89
+      fbjs: 3.0.5(encoding@0.1.13)
+      inline-style-prefixer: 7.0.1
+      memoize-one: 6.0.0
+      nullthrows: 1.1.1
+      postcss-value-parser: 4.2.0
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+      styleq: 0.1.3
+    transitivePeerDependencies:
+      - encoding
+
+  react-native-web@0.21.2(encoding@0.1.13)(react-dom@19.2.1(react@19.1.0))(react@19.1.0):
     dependencies:
       '@babel/runtime': 7.28.4
       '@react-native/normalize-colors': 0.74.89
@@ -45782,6 +46247,34 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.52.4
       fsevents: 2.3.3
 
+  rollup@4.53.3:
+    dependencies:
+      '@types/estree': 1.0.8
+    optionalDependencies:
+      '@rollup/rollup-android-arm-eabi': 4.53.3
+      '@rollup/rollup-android-arm64': 4.53.3
+      '@rollup/rollup-darwin-arm64': 4.53.3
+      '@rollup/rollup-darwin-x64': 4.53.3
+      '@rollup/rollup-freebsd-arm64': 4.53.3
+      '@rollup/rollup-freebsd-x64': 4.53.3
+      '@rollup/rollup-linux-arm-gnueabihf': 4.53.3
+      '@rollup/rollup-linux-arm-musleabihf': 4.53.3
+      '@rollup/rollup-linux-arm64-gnu': 4.53.3
+      '@rollup/rollup-linux-arm64-musl': 4.53.3
+      '@rollup/rollup-linux-loong64-gnu': 4.53.3
+      '@rollup/rollup-linux-ppc64-gnu': 4.53.3
+      '@rollup/rollup-linux-riscv64-gnu': 4.53.3
+      '@rollup/rollup-linux-riscv64-musl': 4.53.3
+      '@rollup/rollup-linux-s390x-gnu': 4.53.3
+      '@rollup/rollup-linux-x64-gnu': 4.53.3
+      '@rollup/rollup-linux-x64-musl': 4.53.3
+      '@rollup/rollup-openharmony-arm64': 4.53.3
+      '@rollup/rollup-win32-arm64-msvc': 4.53.3
+      '@rollup/rollup-win32-ia32-msvc': 4.53.3
+      '@rollup/rollup-win32-x64-gnu': 4.53.3
+      '@rollup/rollup-win32-x64-msvc': 4.53.3
+      fsevents: 2.3.3
+
   router@2.2.0:
     dependencies:
       debug: 4.4.3
@@ -46969,6 +47462,16 @@ snapshots:
       pirates: 4.0.7
       ts-interface-checker: 0.1.13
 
+  sucrase@3.35.1:
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.13
+      commander: 4.1.1
+      lines-and-columns: 1.2.4
+      mz: 2.7.0
+      pirates: 4.0.7
+      tinyglobby: 0.2.15
+      ts-interface-checker: 0.1.13
+
   sudo-prompt-programfiles-x86@9.2.10: {}
 
   sugarss@2.0.0:
@@ -47182,7 +47685,7 @@ snapshots:
       ansi-escapes: 4.3.2
       supports-hyperlinks: 2.3.0
 
-  terser-webpack-plugin@5.3.14(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10)):
+  terser-webpack-plugin@5.3.15(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
@@ -48027,6 +48530,12 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
+  update-browserslist-db@1.2.2(browserslist@4.28.1):
+    dependencies:
+      browserslist: 4.28.1
+      escalade: 3.2.0
+      picocolors: 1.1.1
+
   update-check@1.5.4:
     dependencies:
       registry-auth-token: 3.3.2
@@ -48294,7 +48803,7 @@ snapshots:
       debug: 4.4.3
       pathe: 1.1.2
       picocolors: 1.1.1
-      vite: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+      vite: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -48312,7 +48821,7 @@ snapshots:
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 1.1.2
-      vite: 5.4.20(@types/node@22.10.5)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+      vite: 5.4.21(@types/node@22.10.5)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -48330,7 +48839,7 @@ snapshots:
       debug: 4.4.3
       es-module-lexer: 1.7.0
       pathe: 1.1.2
-      vite: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+      vite: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -48398,13 +48907,41 @@ snapshots:
       sugarss: 2.0.0
       terser: 5.44.1
 
+  vite@5.4.21(@types/node@22.10.5)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1):
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.5.6
+      rollup: 4.53.3
+    optionalDependencies:
+      '@types/node': 22.10.5
+      fsevents: 2.3.3
+      less: 4.4.2
+      lightningcss: 1.27.0
+      sass: 1.54.0
+      sugarss: 2.0.0
+      terser: 5.44.1
+
+  vite@5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1):
+    dependencies:
+      esbuild: 0.21.5
+      postcss: 8.5.6
+      rollup: 4.53.3
+    optionalDependencies:
+      '@types/node': 24.10.1
+      fsevents: 2.3.3
+      less: 4.4.2
+      lightningcss: 1.27.0
+      sass: 1.54.0
+      sugarss: 2.0.0
+      terser: 5.44.1
+
   vite@7.2.6(@types/node@24.10.1)(jiti@2.6.1)(less@4.4.2)(lightningcss@1.27.0)(terser@5.44.1)(tsx@4.20.6)(yaml@2.8.1):
     dependencies:
       esbuild: 0.25.10
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
-      rollup: 4.52.4
+      rollup: 4.53.3
       tinyglobby: 0.2.15
     optionalDependencies:
       '@types/node': 24.10.1
@@ -48415,6 +48952,7 @@ snapshots:
       terser: 5.44.1
       tsx: 4.20.6
       yaml: 2.8.1
+    optional: true
 
   vitest@1.6.1(@types/node@24.10.1)(jsdom@26.1.0(bufferutil@4.0.9))(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1):
     dependencies:
@@ -48435,7 +48973,7 @@ snapshots:
       strip-literal: 2.1.1
       tinybench: 2.9.0
       tinypool: 0.8.4
-      vite: 5.4.20(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
+      vite: 5.4.21(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
       vite-node: 1.6.1(@types/node@24.10.1)(less@4.4.2)(lightningcss@1.27.0)(sass@1.54.0)(sugarss@2.0.0)(terser@5.44.1)
       why-is-node-running: 2.3.0
     optionalDependencies:
@@ -48609,7 +49147,7 @@ snapshots:
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
       acorn-import-phases: 1.0.4(acorn@8.15.0)
-      browserslist: 4.28.0
+      browserslist: 4.28.1
       chrome-trace-event: 1.0.4
       enhanced-resolve: 5.18.3
       es-module-lexer: 1.7.0
@@ -48623,7 +49161,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10))
+      terser-webpack-plugin: 5.3.15(esbuild@0.25.10)(webpack@5.102.1(esbuild@0.25.10))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     transitivePeerDependencies:
