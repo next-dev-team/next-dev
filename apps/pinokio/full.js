@@ -2451,6 +2451,12 @@ document.querySelector("form").addEventListener("submit", (e) => {
       if (typeof config.headerHeight === 'number' && config.headerHeight > 0) {
         activeHeaderHeight = config.headerHeight;
       }
+
+      if (config.reload && dashboardView) {
+        mainWindow.setBrowserView(null);
+        dashboardView = null;
+      }
+
       if (!dashboardView) {
         dashboardView = new BrowserView({
           webPreferences: {
