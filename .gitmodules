@@ -1,0 +1,4 @@
+[submodule "libs/next-gen"]
+	path = libs/next-gen
+	url = https://github.com/next-dev-team/next-gen
+	branch = main
