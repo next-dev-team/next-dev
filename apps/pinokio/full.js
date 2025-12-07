@@ -9,14 +9,14 @@ const {
   clipboard,
   session,
   desktopCapturer,
-} = require("electron");
-const windowStateKeeper = require("electron-window-state");
-const fs = require("fs");
-const path = require("path");
-const Pinokiod = require("pinokiod");
-const os = require("os");
-const Updater = require("./updater");
-const is_mac = process.platform.startsWith("darwin");
+} = require('electron');
+const windowStateKeeper = require('electron-window-state');
+const fs = require('fs');
+const path = require('path');
+const Pinokiod = require('pinokiod');
+const os = require('os');
+const Updater = require('./updater');
+const is_mac = process.platform.startsWith('darwin');
 const platform = os.platform();
 var mainWindow;
 var root_url;
@@ -34,7 +34,7 @@ const setWindowTitleBarOverlay = (win, overlay) => {
   try {
     win.setTitleBarOverlay(overlay);
   } catch (e) {
-    console.log("ERROR", e);
+    console.log('ERROR', e);
   }
 };
 const applyTitleBarOverlayToAllWindows = () => {
@@ -48,7 +48,7 @@ const applyTitleBarOverlayToAllWindows = () => {
   }
 };
 const updateThemeColors = (payload = {}) => {
-  console.log("updateThemeColors", payload);
+  console.log('updateThemeColors', payload);
   const nextTheme = payload.theme;
   const nextColors = payload.colors;
   if (nextTheme) {
@@ -63,18 +63,16 @@ let PORT;
 //let PORT = 42000
 //let PORT = (platform === 'linux' ? 42000 : 80)
 
-let config = require("./config");
+const config = require('./config');
 
-const filter = function (item) {
-  return item.browserName === "Chrome";
-};
+const filter = (item) => item.browserName === 'Chrome';
 
 const updater = new Updater();
 const pinokiod = new Pinokiod(config);
-const ENABLE_BROWSER_CONSOLE_LOG = process.env.PINOKIO_BROWSER_LOG === "1";
+const ENABLE_BROWSER_CONSOLE_LOG = process.env.PINOKIO_BROWSER_LOG === '1';
 const browserConsoleState = new WeakMap();
 const attachedConsoleListeners = new WeakSet();
-const consoleLevelLabels = ["log", "info", "warn", "error", "debug"];
+const consoleLevelLabels = ['log', 'info', 'warn', 'error', 'debug'];
 let browserLogFilePath;
 let browserLogFileReady = false;
 let browserLogBuffer = [];
@@ -97,9 +95,7 @@ const resolveConsoleSourceUrl = (sourceId, pageUrl) => {
   const source = safeParseUrl(sourceId, page ? page.href : undefined);
   if (
     source &&
-    (source.protocol === "http:" ||
-      source.protocol === "https:" ||
-      source.protocol === "file:")
+    (source.protocol === 'http:' || source.protocol === 'https:' || source.protocol === 'file:')
   ) {
     return source.href;
   }
@@ -124,13 +120,13 @@ const shouldLogUrl = (url) => {
     if (target.origin !== rootParsed.origin) {
       return false;
     }
-    const normalizedTargetPath = (target.pathname || "").replace(/\/+$/, "");
-    const normalizedRootPath = (rootParsed.pathname || "").replace(/\/+$/, "");
+    const normalizedTargetPath = (target.pathname || '').replace(/\/+$/, '');
+    const normalizedRootPath = (rootParsed.pathname || '').replace(/\/+$/, '');
     if (normalizedTargetPath === normalizedRootPath) {
       return false;
     }
   } else {
-    const normalizedTargetPath = (target.pathname || "").replace(/\/+$/, "");
+    const normalizedTargetPath = (target.pathname || '').replace(/\/+$/, '');
     if (!normalizedTargetPath) {
       return false;
     }
@@ -146,12 +142,9 @@ const getBrowserLogFile = () => {
       return null;
     }
     try {
-      browserLogFilePath = pinokiod.kernel.path("logs/browser.log");
+      browserLogFilePath = pinokiod.kernel.path('logs/browser.log');
     } catch (err) {
-      console.error(
-        "[BROWSER LOG] Failed to resolve browser log file path",
-        err
-      );
+      console.error('[BROWSER LOG] Failed to resolve browser log file path', err);
       return null;
     }
   }
@@ -172,13 +165,11 @@ const ensureBrowserLogFile = () => {
     fs.mkdirSync(path.dirname(filePath), { recursive: true });
     if (fs.existsSync(filePath)) {
       try {
-        const existingContent = fs.readFileSync(filePath, "utf8");
-        const existingLines = existingContent
-          .split(/\r?\n/)
-          .filter((line) => line.length > 0);
+        const existingContent = fs.readFileSync(filePath, 'utf8');
+        const existingLines = existingContent.split(/\r?\n/).filter((line) => line.length > 0);
         const filteredLines = [];
         for (const line of existingLines) {
-          const parts = line.split("\t");
+          const parts = line.split('\t');
           if (parts.length >= 2) {
             const urlPart = parts[1];
             if (!shouldLogUrl(urlPart)) {
@@ -191,19 +182,16 @@ const ensureBrowserLogFile = () => {
           }
         }
         browserLogBuffer = filteredLines;
-        fs.writeFileSync(filePath, browserLogBuffer.join(""));
+        fs.writeFileSync(filePath, browserLogBuffer.join(''));
       } catch (err) {
-        console.error(
-          "[BROWSER LOG] Failed to prime existing browser log",
-          err
-        );
+        console.error('[BROWSER LOG] Failed to prime existing browser log', err);
         browserLogBuffer = [];
       }
     }
     browserLogFileReady = true;
     return filePath;
   } catch (err) {
-    console.error("[BROWSER LOG] Failed to prepare browser log file", err);
+    console.error('[BROWSER LOG] Failed to prepare browser log file', err);
     return null;
   }
 };
@@ -217,29 +205,29 @@ const titleBarOverlay = (colors) => {
 const getLogFileHint = () => {
   try {
     if (pinokiod && pinokiod.kernel && pinokiod.kernel.homedir) {
-      return path.resolve(pinokiod.kernel.homedir, "logs", "stdout.txt");
+      return path.resolve(pinokiod.kernel.homedir, 'logs', 'stdout.txt');
     }
   } catch (err) {}
-  return path.resolve(os.homedir(), ".pinokio", "logs", "stdout.txt");
+  return path.resolve(os.homedir(), '.pinokio', 'logs', 'stdout.txt');
 };
 const getSplashIcon = () => {
   if (splashIcon) {
     return splashIcon;
   }
   const candidates = [
-    path.join("assets", "icon.png"),
-    path.join("assets", "icon_small@2x.png"),
-    path.join("assets", "icon_small.png"),
-    "icon2.png",
+    path.join('assets', 'icon.png'),
+    path.join('assets', 'icon_small@2x.png'),
+    path.join('assets', 'icon_small.png'),
+    'icon2.png',
   ];
   for (const relative of candidates) {
     const absolute = path.join(__dirname, relative);
     if (fs.existsSync(absolute)) {
-      splashIcon = relative.split(path.sep).join("/");
+      splashIcon = relative.split(path.sep).join('/');
       return splashIcon;
     }
   }
-  splashIcon = path.join("assets", "icon_small.png").split(path.sep).join("/");
+  splashIcon = path.join('assets', 'icon_small.png').split(path.sep).join('/');
   return splashIcon;
 };
 const ensureSplashWindow = () => {
@@ -260,18 +248,12 @@ const ensureSplashWindow = () => {
       backgroundThrottling: false,
     },
   });
-  splashWindow.on("closed", () => {
+  splashWindow.on('closed', () => {
     splashWindow = null;
   });
   return splashWindow;
 };
-const updateSplashWindow = ({
-  state = "loading",
-  message,
-  detail,
-  logPath,
-  icon,
-} = {}) => {
+const updateSplashWindow = ({ state = 'loading', message, detail, logPath, icon } = {}) => {
   const win = ensureSplashWindow();
   const query = { state };
   if (message) {
@@ -287,7 +269,7 @@ const updateSplashWindow = ({
   if (icon) {
     query.icon = icon;
   }
-  win.loadFile(path.join(__dirname, "splash.html"), { query }).finally(() => {
+  win.loadFile(path.join(__dirname, 'splash.html'), { query }).finally(() => {
     if (!win.isDestroyed()) {
       win.show();
     }
@@ -301,8 +283,8 @@ const closeSplashWindow = () => {
 const showStartupError = ({ message, detail, error } = {}) => {
   const formatted = detail || formatStartupError(error);
   updateSplashWindow({
-    state: "error",
-    message: message || "Pinokio could not start",
+    state: 'error',
+    message: message || 'Pinokio could not start',
     detail: formatted,
     logPath: getLogFileHint(),
     icon: getSplashIcon(),
@@ -310,15 +292,15 @@ const showStartupError = ({ message, detail, error } = {}) => {
 };
 const formatStartupError = (error) => {
   if (!error) {
-    return "";
+    return '';
   }
   if (error.stack) {
-    return `${error.message || "Unknown error"}\n\n${error.stack}`;
+    return `${error.message || 'Unknown error'}\n\n${error.stack}`;
   }
   if (error.message) {
     return error.message;
   }
-  if (typeof error === "string") {
+  if (typeof error === 'string') {
     return error;
   }
   try {
@@ -376,12 +358,11 @@ const updateBrowserConsoleTarget = (webContents, url) => {
 const inspectorSessions = new Map();
 let inspectorHandlersInstalled = false;
 
-const inspectorLogFile = path.join(os.tmpdir(), "pinokio-inspector.log");
+const inspectorLogFile = path.join(os.tmpdir(), 'pinokio-inspector.log');
 
 const inspectorMainLog = (label, payload) => {
   try {
-    const serialized =
-      payload === undefined ? "" : " " + JSON.stringify(payload);
+    const serialized = payload === undefined ? '' : ' ' + JSON.stringify(payload);
     const line = `[InspectorMain] ${label}${serialized}\n`;
     try {
       fs.appendFileSync(inspectorLogFile, line);
@@ -425,15 +406,14 @@ const flattenFrameTree = (frame, acc = [], depth = 0) => {
   }
   let frameName = null;
   try {
-    frameName =
-      typeof frame.name === "string" && frame.name.length ? frame.name : null;
+    frameName = typeof frame.name === 'string' && frame.name.length ? frame.name : null;
   } catch (_) {
     frameName = null;
   }
   acc.push({
     frame,
     depth,
-    url: normalizeInspectorUrl(frame.url || ""),
+    url: normalizeInspectorUrl(frame.url || ''),
     name: frameName,
   });
   const children = Array.isArray(frame.frames) ? frame.frames : [];
@@ -455,7 +435,7 @@ const findDescendantByUrl = (frame, targetUrl) => {
   while (stack.length) {
     const current = stack.pop();
     try {
-      const currentUrl = normalizeInspectorUrl(current.url || "");
+      const currentUrl = normalizeInspectorUrl(current.url || '');
       if (currentUrl && urlsRoughlyMatch(normalizedTarget, currentUrl)) {
         return current;
       }
@@ -472,15 +452,15 @@ const findDescendantByUrl = (frame, targetUrl) => {
 
 const selectTargetFrame = (webContents, payload = {}) => {
   if (!webContents || !webContents.mainFrame) {
-    inspectorMainLog("no-webcontents", {});
+    inspectorMainLog('no-webcontents', {});
     return null;
   }
   const frames = flattenFrameTree(webContents.mainFrame, []);
   if (!frames.length) {
-    inspectorMainLog("no-frames", { webContentsId: webContents.id });
+    inspectorMainLog('no-frames', { webContentsId: webContents.id });
     return null;
   }
-  inspectorMainLog("incoming", {
+  inspectorMainLog('incoming', {
     frameUrl: payload.frameUrl || null,
     frameName: payload.frameName || null,
     frameNodeId: payload.frameNodeId || null,
@@ -489,22 +469,19 @@ const selectTargetFrame = (webContents, payload = {}) => {
 
   const canonicalUrl = normalizeInspectorUrl(payload.frameUrl);
   const relativeOrdinal =
-    typeof payload.candidateRelativeOrdinal === "number"
-      ? payload.candidateRelativeOrdinal
-      : null;
-  const globalOrdinal =
-    typeof payload.frameIndex === "number" ? payload.frameIndex : null;
+    typeof payload.candidateRelativeOrdinal === 'number' ? payload.candidateRelativeOrdinal : null;
+  const globalOrdinal = typeof payload.frameIndex === 'number' ? payload.frameIndex : null;
   const canonicalFrameName =
-    typeof payload.frameName === "string" && payload.frameName.trim()
+    typeof payload.frameName === 'string' && payload.frameName.trim()
       ? payload.frameName.trim()
       : null;
   const canonicalFrameNodeId =
-    typeof payload.frameNodeId === "string" && payload.frameNodeId.trim()
+    typeof payload.frameNodeId === 'string' && payload.frameNodeId.trim()
       ? payload.frameNodeId.trim()
       : null;
 
   if (canonicalFrameName || canonicalFrameNodeId) {
-    inspectorMainLog("identifier-search", {
+    inspectorMainLog('identifier-search', {
       frameName: canonicalFrameName || null,
       frameNodeId: canonicalFrameNodeId || null,
       names: frames.map((entry) => entry.name || null).slice(0, 12),
@@ -513,29 +490,22 @@ const selectTargetFrame = (webContents, payload = {}) => {
     let identifierMatch = null;
     if (canonicalFrameNodeId) {
       identifierMatch =
-        frames.find((entry) => entry && entry.name === canonicalFrameNodeId) ||
-        null;
+        frames.find((entry) => entry && entry.name === canonicalFrameNodeId) || null;
       if (identifierMatch) {
-        const normalizedUrl = normalizeInspectorUrl(identifierMatch.url || "");
-        if (
-          canonicalUrl &&
-          (!normalizedUrl || !urlsRoughlyMatch(canonicalUrl, normalizedUrl))
-        ) {
-          const descendant = findDescendantByUrl(
-            identifierMatch.frame,
-            canonicalUrl
-          );
+        const normalizedUrl = normalizeInspectorUrl(identifierMatch.url || '');
+        if (canonicalUrl && (!normalizedUrl || !urlsRoughlyMatch(canonicalUrl, normalizedUrl))) {
+          const descendant = findDescendantByUrl(identifierMatch.frame, canonicalUrl);
           if (descendant) {
-            inspectorMainLog("identifier-match-node-descendant", {
+            inspectorMainLog('identifier-match-node-descendant', {
               index: frames.indexOf(identifierMatch),
               name: identifierMatch.name || null,
               url: identifierMatch.url || null,
-              descendantUrl: normalizeInspectorUrl(descendant.url || ""),
+              descendantUrl: normalizeInspectorUrl(descendant.url || ''),
             });
             return descendant;
           }
         }
-        inspectorMainLog("identifier-match-node", {
+        inspectorMainLog('identifier-match-node', {
           index: frames.indexOf(identifierMatch),
           name: identifierMatch.name || null,
           url: identifierMatch.url || null,
@@ -545,30 +515,22 @@ const selectTargetFrame = (webContents, payload = {}) => {
     }
 
     if (canonicalFrameName) {
-      identifierMatch =
-        frames.find((entry) => entry && entry.name === canonicalFrameName) ||
-        null;
+      identifierMatch = frames.find((entry) => entry && entry.name === canonicalFrameName) || null;
       if (identifierMatch) {
-        const normalizedUrl = normalizeInspectorUrl(identifierMatch.url || "");
-        if (
-          canonicalUrl &&
-          (!normalizedUrl || !urlsRoughlyMatch(canonicalUrl, normalizedUrl))
-        ) {
-          const descendant = findDescendantByUrl(
-            identifierMatch.frame,
-            canonicalUrl
-          );
+        const normalizedUrl = normalizeInspectorUrl(identifierMatch.url || '');
+        if (canonicalUrl && (!normalizedUrl || !urlsRoughlyMatch(canonicalUrl, normalizedUrl))) {
+          const descendant = findDescendantByUrl(identifierMatch.frame, canonicalUrl);
           if (descendant) {
-            inspectorMainLog("identifier-match-name-descendant", {
+            inspectorMainLog('identifier-match-name-descendant', {
               index: frames.indexOf(identifierMatch),
               name: identifierMatch.name || null,
               url: identifierMatch.url || null,
-              descendantUrl: normalizeInspectorUrl(descendant.url || ""),
+              descendantUrl: normalizeInspectorUrl(descendant.url || ''),
             });
             return descendant;
           }
         }
-        inspectorMainLog("identifier-match-name", {
+        inspectorMainLog('identifier-match-name', {
           index: frames.indexOf(identifierMatch),
           name: identifierMatch.name || null,
           url: identifierMatch.url || null,
@@ -577,7 +539,7 @@ const selectTargetFrame = (webContents, payload = {}) => {
       }
     }
 
-    inspectorMainLog("identifier-miss", {});
+    inspectorMainLog('identifier-miss', {});
   }
 
   let matches = frames;
@@ -589,13 +551,10 @@ const selectTargetFrame = (webContents, payload = {}) => {
     if (relativeOrdinal !== null) {
       const filtered = matches
         .slice()
-        .sort(
-          (a, b) => a.depth - b.depth || frames.indexOf(a) - frames.indexOf(b)
-        );
-      const targetEntry =
-        filtered[Math.min(Math.max(relativeOrdinal, 0), filtered.length - 1)];
+        .sort((a, b) => a.depth - b.depth || frames.indexOf(a) - frames.indexOf(b));
+      const targetEntry = filtered[Math.min(Math.max(relativeOrdinal, 0), filtered.length - 1)];
       if (targetEntry) {
-        inspectorMainLog("relative-ordinal-match", {
+        inspectorMainLog('relative-ordinal-match', {
           index: frames.indexOf(targetEntry),
           name: targetEntry.name || null,
           url: targetEntry.url || null,
@@ -605,7 +564,7 @@ const selectTargetFrame = (webContents, payload = {}) => {
     }
     const fallbackEntry = matches[0];
     if (fallbackEntry) {
-      inspectorMainLog("fallback-match", {
+      inspectorMainLog('fallback-match', {
         index: frames.indexOf(fallbackEntry),
         name: fallbackEntry.name || null,
         url: fallbackEntry.url || null,
@@ -615,7 +574,7 @@ const selectTargetFrame = (webContents, payload = {}) => {
   }
 
   if (globalOrdinal !== null && frames[globalOrdinal]) {
-    inspectorMainLog("global-ordinal-match", {
+    inspectorMainLog('global-ordinal-match', {
       index: globalOrdinal,
       name: frames[globalOrdinal].name || null,
       url: frames[globalOrdinal].url || null,
@@ -623,7 +582,7 @@ const selectTargetFrame = (webContents, payload = {}) => {
     return frames[globalOrdinal].frame;
   }
 
-  inspectorMainLog("default-match", {
+  inspectorMainLog('default-match', {
     name: frames[0]?.name || null,
     url: frames[0]?.url || null,
   });
@@ -632,23 +591,20 @@ const selectTargetFrame = (webContents, payload = {}) => {
 };
 
 const buildInspectorInjection = () => {
-  const source = function () {
+  const source = () => {
     try {
-      if (
-        window.__PINOKIO_INSPECTOR__ &&
-        typeof window.__PINOKIO_INSPECTOR__.stop === "function"
-      ) {
+      if (window.__PINOKIO_INSPECTOR__ && typeof window.__PINOKIO_INSPECTOR__.stop === 'function') {
         window.__PINOKIO_INSPECTOR__.stop();
       }
 
-      const overlay = document.createElement("div");
-      overlay.style.position = "fixed";
-      overlay.style.pointerEvents = "none";
-      overlay.style.border = "2px solid rgba(77,163,255,0.9)";
-      overlay.style.background = "rgba(77,163,255,0.2)";
-      overlay.style.boxShadow = "0 0 0 1px rgba(23,52,92,0.45)";
-      overlay.style.zIndex = "2147483647";
-      overlay.style.display = "none";
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.pointerEvents = 'none';
+      overlay.style.border = '2px solid rgba(77,163,255,0.9)';
+      overlay.style.background = 'rgba(77,163,255,0.2)';
+      overlay.style.boxShadow = '0 0 0 1px rgba(23,52,92,0.45)';
+      overlay.style.zIndex = '2147483647';
+      overlay.style.display = 'none';
       document.documentElement.appendChild(overlay);
 
       let active = true;
@@ -663,7 +619,7 @@ const buildInspectorInjection = () => {
                 ...payload,
               },
             },
-            "*"
+            '*',
           );
         } catch (err) {
           // ignore
@@ -672,15 +628,15 @@ const buildInspectorInjection = () => {
 
       const updateBox = (target) => {
         if (!active || !target) {
-          overlay.style.display = "none";
+          overlay.style.display = 'none';
           return;
         }
         const rect = target.getBoundingClientRect();
         if (!rect || rect.width <= 0 || rect.height <= 0) {
-          overlay.style.display = "none";
+          overlay.style.display = 'none';
           return;
         }
-        overlay.style.display = "block";
+        overlay.style.display = 'block';
         overlay.style.left = `${rect.left}px`;
         overlay.style.top = `${rect.top}px`;
         overlay.style.width = `${rect.width}px`;
@@ -695,16 +651,12 @@ const buildInspectorInjection = () => {
         let current = node;
         let depth = 0;
         while (current && current.nodeType === Node.ELEMENT_NODE && depth < 8) {
-          const tag = current.tagName
-            ? current.tagName.toLowerCase()
-            : "element";
+          const tag = current.tagName ? current.tagName.toLowerCase() : 'element';
           let descriptor = tag;
           if (current.id) {
             descriptor += `#${current.id}`;
           } else if (current.classList && current.classList.length) {
-            descriptor += `.${Array.from(current.classList)
-              .slice(0, 2)
-              .join(".")}`;
+            descriptor += `.${Array.from(current.classList).slice(0, 2).join('.')}`;
           }
           keys.push(descriptor);
           current = current.parentElement;
@@ -719,9 +671,8 @@ const buildInspectorInjection = () => {
         }
         const target = event.target;
         updateBox(target);
-        post("update", {
-          nodeName:
-            target && target.tagName ? target.tagName.toLowerCase() : "",
+        post('update', {
+          nodeName: target && target.tagName ? target.tagName.toLowerCase() : '',
           pathKeys: buildPathKeys(target),
         });
       };
@@ -742,12 +693,12 @@ const buildInspectorInjection = () => {
         event.stopPropagation();
 
         const target = event.target;
-        const html = target && target.outerHTML ? target.outerHTML : "";
+        const html = target && target.outerHTML ? target.outerHTML : '';
         let screenshot = null;
 
         // Hide the overlay before taking screenshot to avoid capturing it
         if (overlay && overlay.style) {
-          overlay.style.display = "none";
+          overlay.style.display = 'none';
         }
 
         // Small delay to ensure overlay is hidden before screenshot
@@ -759,7 +710,7 @@ const buildInspectorInjection = () => {
 
           // Send element bounds for screenshot capture
           const screenshotRequest = {
-            type: "screenshot",
+            type: 'screenshot',
             bounds: {
               x: Math.round(rect.left),
               y: Math.round(rect.top),
@@ -774,20 +725,14 @@ const buildInspectorInjection = () => {
 
           // Post screenshot request via postMessage to main page
           try {
-            console.log("Attempting screenshot capture...");
-            console.log(
-              "electronAPI available in iframe:",
-              !!window.electronAPI
-            );
-            console.log("Screenshot request:", screenshotRequest);
+            console.log('Attempting screenshot capture...');
+            console.log('electronAPI available in iframe:', !!window.electronAPI);
+            console.log('Screenshot request:', screenshotRequest);
 
             // Send screenshot request to parent page via postMessage
             const response = await new Promise((resolve, reject) => {
               const messageId =
-                "screenshot_" +
-                Date.now() +
-                "_" +
-                Math.random().toString(36).substr(2, 9);
+                'screenshot_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
               const handleResponse = (event) => {
                 if (
@@ -795,16 +740,16 @@ const buildInspectorInjection = () => {
                   event.data.pinokioScreenshotResponse &&
                   event.data.messageId === messageId
                 ) {
-                  window.removeEventListener("message", handleResponse);
+                  window.removeEventListener('message', handleResponse);
                   if (event.data.success) {
                     resolve(event.data.screenshot);
                   } else {
-                    reject(new Error(event.data.error || "Screenshot failed"));
+                    reject(new Error(event.data.error || 'Screenshot failed'));
                   }
                 }
               };
 
-              window.addEventListener("message", handleResponse);
+              window.addEventListener('message', handleResponse);
 
               // Send request to parent page
               window.parent.postMessage(
@@ -812,28 +757,28 @@ const buildInspectorInjection = () => {
                   pinokioScreenshotRequest: screenshotRequest,
                   messageId: messageId,
                 },
-                "*"
+                '*',
               );
 
               // Timeout after 3 seconds
               setTimeout(() => {
-                window.removeEventListener("message", handleResponse);
-                reject(new Error("Screenshot timeout"));
+                window.removeEventListener('message', handleResponse);
+                reject(new Error('Screenshot timeout'));
               }, 3000);
             });
 
             screenshot = response;
-            console.log("Screenshot captured successfully via parent page");
+            console.log('Screenshot captured successfully via parent page');
           } catch (screenshotError) {
-            console.error("Screenshot capture failed:", screenshotError);
+            console.error('Screenshot capture failed:', screenshotError);
             screenshot = null;
           }
         } catch (error) {
-          console.warn("Screenshot capture failed:", error);
+          console.warn('Screenshot capture failed:', error);
           screenshot = null;
         }
 
-        post("complete", {
+        post('complete', {
           outerHTML: html,
           pathKeys: buildPathKeys(target),
           screenshot: screenshot,
@@ -845,8 +790,8 @@ const buildInspectorInjection = () => {
         if (!active) {
           return;
         }
-        if (event.key === "Escape") {
-          post("cancelled", {});
+        if (event.key === 'Escape') {
+          post('cancelled', {});
           stop();
         }
       };
@@ -856,39 +801,39 @@ const buildInspectorInjection = () => {
           return;
         }
         active = false;
-        document.removeEventListener("mousemove", handleMove, true);
-        document.removeEventListener("mouseover", handleMove, true);
-        document.removeEventListener("mousedown", preventClick, true);
-        document.removeEventListener("click", handleClick, true);
-        window.removeEventListener("keydown", handleKey, true);
+        document.removeEventListener('mousemove', handleMove, true);
+        document.removeEventListener('mouseover', handleMove, true);
+        document.removeEventListener('mousedown', preventClick, true);
+        document.removeEventListener('click', handleClick, true);
+        window.removeEventListener('keydown', handleKey, true);
         if (overlay.parentNode) {
           overlay.parentNode.removeChild(overlay);
         }
         window.__PINOKIO_INSPECTOR__ = null;
       };
 
-      document.addEventListener("mousemove", handleMove, true);
-      document.addEventListener("mouseover", handleMove, true);
-      document.addEventListener("mousedown", preventClick, true);
-      document.addEventListener("click", handleClick, true);
-      window.addEventListener("keydown", handleKey, true);
+      document.addEventListener('mousemove', handleMove, true);
+      document.addEventListener('mouseover', handleMove, true);
+      document.addEventListener('mousedown', preventClick, true);
+      document.addEventListener('click', handleClick, true);
+      window.addEventListener('keydown', handleKey, true);
 
       window.__PINOKIO_INSPECTOR__ = {
         stop,
       };
 
-      post("started", {});
+      post('started', {});
     } catch (error) {
       try {
         window.parent.postMessage(
           {
             pinokioInspector: {
-              type: "error",
+              type: 'error',
               frameUrl: window.location.href,
               message: error && error.message ? error.message : String(error),
             },
           },
-          "*"
+          '*',
         );
       } catch (_) {}
     }
@@ -897,7 +842,7 @@ const buildInspectorInjection = () => {
 };
 
 const buildScreenshotRelayInjection = () => {
-  const source = function () {
+  const source = () => {
     try {
       if (window.__PINOKIO_SCREENSHOT_RELAY__) {
         return;
@@ -927,21 +872,19 @@ const buildScreenshotRelayInjection = () => {
 
       const log = (label, payload) => {
         try {
-          console.log(
-            "[Pinokio Screenshot Relay] " + label + " " + safeStringify(payload)
-          );
+          console.log('[Pinokio Screenshot Relay] ' + label + ' ' + safeStringify(payload));
         } catch (_) {
           // ignore logging failures
         }
       };
 
-      log("relay-installed", { href: window.location.href });
+      log('relay-installed', { href: window.location.href });
 
       window.addEventListener(
-        "message",
+        'message',
         (event) => {
           const data = event && event.data;
-          log("message-event", {
+          log('message-event', {
             href: window.location.href,
             hasData: Boolean(data),
             messageId: data && data.messageId ? data.messageId : null,
@@ -954,7 +897,7 @@ const buildScreenshotRelayInjection = () => {
 
           if (data.pinokioScreenshotRequest) {
             if (!event.source || event.source === window) {
-              log("request-ignored-no-source", {
+              log('request-ignored-no-source', {
                 href: window.location.href,
                 messageId: data.messageId || null,
               });
@@ -962,12 +905,11 @@ const buildScreenshotRelayInjection = () => {
             }
 
             rememberSource(data.messageId, event.source);
-            log("request-processing", {
+            log('request-processing', {
               href: window.location.href,
               messageId: data.messageId || null,
               originalBounds:
-                data.pinokioScreenshotRequest &&
-                data.pinokioScreenshotRequest.bounds
+                data.pinokioScreenshotRequest && data.pinokioScreenshotRequest.bounds
                   ? data.pinokioScreenshotRequest.bounds
                   : null,
               originalDevicePixelRatio: data.pinokioScreenshotRequest
@@ -982,7 +924,7 @@ const buildScreenshotRelayInjection = () => {
               for (let index = 0; index < window.frames.length; index += 1) {
                 const childWindow = window.frames[index];
                 if (childWindow === event.source) {
-                  log("matching-window-frames", {
+                  log('matching-window-frames', {
                     href: window.location.href,
                     messageId: data.messageId || null,
                     frameIndex: index,
@@ -994,7 +936,7 @@ const buildScreenshotRelayInjection = () => {
                       offsetX = rect ? rect.left || 0 : 0;
                       offsetY = rect ? rect.top || 0 : 0;
                       matchedFrame = true;
-                      log("matched-window-frames", {
+                      log('matched-window-frames', {
                         href: window.location.href,
                         messageId: data.messageId || null,
                         frameIndex: index,
@@ -1010,23 +952,22 @@ const buildScreenshotRelayInjection = () => {
                       break;
                     }
                   } catch (error) {
-                    log("frame-element-access-error", {
+                    log('frame-element-access-error', {
                       href: window.location.href,
                       messageId: data.messageId || null,
                       frameIndex: index,
-                      error:
-                        error && error.message ? error.message : String(error),
+                      error: error && error.message ? error.message : String(error),
                     });
                   }
                 }
               }
 
               if (!matchedFrame) {
-                const FRAME_SELECTOR = "iframe, frame";
+                const FRAME_SELECTOR = 'iframe, frame';
                 const frames = document.querySelectorAll
                   ? document.querySelectorAll(FRAME_SELECTOR)
                   : [];
-                log("matching-query-selector", {
+                log('matching-query-selector', {
                   href: window.location.href,
                   messageId: data.messageId || null,
                   selector: FRAME_SELECTOR,
@@ -1042,7 +983,7 @@ const buildScreenshotRelayInjection = () => {
                       offsetX = rect ? rect.left || 0 : 0;
                       offsetY = rect ? rect.top || 0 : 0;
                       matchedFrame = true;
-                      log("matched-query-selector", {
+                      log('matched-query-selector', {
                         href: window.location.href,
                         messageId: data.messageId || null,
                         selector: FRAME_SELECTOR,
@@ -1058,18 +999,17 @@ const buildScreenshotRelayInjection = () => {
                       break;
                     }
                   } catch (error) {
-                    log("query-selector-access-error", {
+                    log('query-selector-access-error', {
                       href: window.location.href,
                       messageId: data.messageId || null,
                       selector: FRAME_SELECTOR,
-                      error:
-                        error && error.message ? error.message : String(error),
+                      error: error && error.message ? error.message : String(error),
                     });
                   }
                 }
               }
             } catch (error) {
-              log("frame-enumeration-error", {
+              log('frame-enumeration-error', {
                 href: window.location.href,
                 messageId: data.messageId || null,
                 error: error && error.message ? error.message : String(error),
@@ -1077,7 +1017,7 @@ const buildScreenshotRelayInjection = () => {
             }
 
             if (!matchedFrame) {
-              log("frame-match-failed", {
+              log('frame-match-failed', {
                 href: window.location.href,
                 messageId: data.messageId || null,
                 offsetX,
@@ -1093,9 +1033,8 @@ const buildScreenshotRelayInjection = () => {
                 ? request.devicePixelRatio
                 : 1;
             const nextStage =
-              (typeof request.__pinokioRelayStage === "number"
-                ? request.__pinokioRelayStage
-                : 0) + 1;
+              (typeof request.__pinokioRelayStage === 'number' ? request.__pinokioRelayStage : 0) +
+              1;
             request.__pinokioRelayStage = nextStage;
             request.__pinokioRelayComplete = window.parent === window;
 
@@ -1111,7 +1050,7 @@ const buildScreenshotRelayInjection = () => {
               request.devicePixelRatio = Math.max(currentDpr, parentDpr);
               request.__pinokioAdjusted = true;
 
-              log("request-adjusted", {
+              log('request-adjusted', {
                 href: window.location.href,
                 messageId: data.messageId || null,
                 offsetX,
@@ -1124,7 +1063,7 @@ const buildScreenshotRelayInjection = () => {
                 relayComplete: request.__pinokioRelayComplete,
               });
             } else {
-              log("request-forward-unadjusted", {
+              log('request-forward-unadjusted', {
                 href: window.location.href,
                 messageId: data.messageId || null,
                 relayStage: request.__pinokioRelayStage,
@@ -1134,7 +1073,7 @@ const buildScreenshotRelayInjection = () => {
 
             data.pinokioScreenshotRequest = request;
 
-            log("request-forward", {
+            log('request-forward', {
               href: window.location.href,
               messageId: data.messageId || null,
               matchedFrame,
@@ -1142,11 +1081,8 @@ const buildScreenshotRelayInjection = () => {
             });
 
             if (window.parent && window.parent !== window) {
-              window.parent.postMessage(data, "*");
-              if (
-                event &&
-                typeof event.stopImmediatePropagation === "function"
-              ) {
+              window.parent.postMessage(data, '*');
+              if (event && typeof event.stopImmediatePropagation === 'function') {
                 event.stopImmediatePropagation();
               }
               return;
@@ -1155,7 +1091,7 @@ const buildScreenshotRelayInjection = () => {
             const targetSource = event.source;
             const messageId = data.messageId;
             const captureRequest = data.pinokioScreenshotRequest;
-            log("top-level-capture", {
+            log('top-level-capture', {
               href: window.location.href,
               messageId,
               relayStage: captureRequest.__pinokioRelayStage,
@@ -1165,13 +1101,12 @@ const buildScreenshotRelayInjection = () => {
             });
 
             const captureApi =
-              window.electronAPI &&
-              typeof window.electronAPI.captureScreenshot === "function"
+              window.electronAPI && typeof window.electronAPI.captureScreenshot === 'function'
                 ? window.electronAPI.captureScreenshot
                 : null;
 
             if (!captureApi) {
-              log("top-level-capture-missing-api", {
+              log('top-level-capture-missing-api', {
                 href: window.location.href,
               });
               return;
@@ -1180,7 +1115,7 @@ const buildScreenshotRelayInjection = () => {
             Promise.resolve()
               .then(() => captureApi(captureRequest))
               .then((screenshot) => {
-                log("top-level-capture-success", {
+                log('top-level-capture-success', {
                   href: window.location.href,
                   messageId,
                 });
@@ -1192,19 +1127,18 @@ const buildScreenshotRelayInjection = () => {
                       success: true,
                       screenshot,
                     },
-                    "*"
+                    '*',
                   );
                 } catch (error) {
-                  log("top-level-response-error", {
+                  log('top-level-response-error', {
                     href: window.location.href,
                     messageId,
-                    error:
-                      error && error.message ? error.message : String(error),
+                    error: error && error.message ? error.message : String(error),
                   });
                 }
               })
               .catch((error) => {
-                log("top-level-capture-error", {
+                log('top-level-capture-error', {
                   href: window.location.href,
                   messageId,
                   error: error && error.message ? error.message : String(error),
@@ -1215,13 +1149,12 @@ const buildScreenshotRelayInjection = () => {
                       pinokioScreenshotResponse: true,
                       messageId,
                       success: false,
-                      error:
-                        error && error.message ? error.message : String(error),
+                      error: error && error.message ? error.message : String(error),
                     },
-                    "*"
+                    '*',
                   );
                 } catch (responseError) {
-                  log("top-level-response-error", {
+                  log('top-level-response-error', {
                     href: window.location.href,
                     messageId,
                     error:
@@ -1235,7 +1168,7 @@ const buildScreenshotRelayInjection = () => {
           }
 
           if (data.pinokioScreenshotResponse && data.messageId) {
-            log("response-processing", {
+            log('response-processing', {
               href: window.location.href,
               messageId: data.messageId,
             });
@@ -1243,14 +1176,14 @@ const buildScreenshotRelayInjection = () => {
             if (target && target !== event.source) {
               pending.delete(data.messageId);
               try {
-                log("response-forwarding-down", {
+                log('response-forwarding-down', {
                   href: window.location.href,
                   messageId: data.messageId,
                 });
-                target.postMessage(data, "*");
+                target.postMessage(data, '*');
                 return;
               } catch (error) {
-                log("response-forwarding-error", {
+                log('response-forwarding-error', {
                   href: window.location.href,
                   messageId: data.messageId,
                   error: error && error.message ? error.message : String(error),
@@ -1258,23 +1191,23 @@ const buildScreenshotRelayInjection = () => {
               }
             }
 
-            log("response-forwarding-up", {
+            log('response-forwarding-up', {
               href: window.location.href,
               messageId: data.messageId,
               hasParent: Boolean(window.parent && window.parent !== window),
             });
             if (window.parent && window.parent !== window) {
-              window.parent.postMessage(data, "*");
+              window.parent.postMessage(data, '*');
             }
           }
         },
-        true
+        true,
       );
     } catch (error) {
       try {
         console.warn(
-          "[Pinokio Screenshot Relay] relay-install-error " +
-            (error && error.message ? error.message : String(error))
+          '[Pinokio Screenshot Relay] relay-install-error ' +
+            (error && error.message ? error.message : String(error)),
         );
       } catch (_) {
         // ignore logging failures
@@ -1300,8 +1233,8 @@ const installScreenshotRelays = async (frame) => {
       await candidate.executeJavaScript(buildScreenshotRelayInjection(), true);
     } catch (error) {
       console.warn(
-        "Screenshot relay injection failed:",
-        error && error.message ? error.message : error
+        'Screenshot relay injection failed:',
+        error && error.message ? error.message : error,
       );
     }
   }
@@ -1315,7 +1248,7 @@ const startInspectorSession = async (webContents, payload = {}) => {
 
   const targetFrame = selectTargetFrame(webContents, payload);
   if (!targetFrame) {
-    throw new Error("Unable to locate iframe to inspect.");
+    throw new Error('Unable to locate iframe to inspect.');
   }
 
   await installScreenshotRelays(targetFrame);
@@ -1325,20 +1258,16 @@ const startInspectorSession = async (webContents, payload = {}) => {
     const resultPromise = stopInspectorSession(webContents);
     Promise.resolve(resultPromise).then((outcome) => {
       if (!webContents.isDestroyed()) {
-        webContents.send("pinokio:inspector-cancelled", {
-          frameUrl:
-            (outcome && outcome.frameUrl) ||
-            targetFrame.url ||
-            payload.frameUrl ||
-            "",
+        webContents.send('pinokio:inspector-cancelled', {
+          frameUrl: (outcome && outcome.frameUrl) || targetFrame.url || payload.frameUrl || '',
         });
       }
     });
   };
 
   if (!webContents.isDestroyed()) {
-    webContents.on("did-navigate", navigationHandler);
-    webContents.on("did-navigate-in-page", navigationHandler);
+    webContents.on('did-navigate', navigationHandler);
+    webContents.on('did-navigate-in-page', navigationHandler);
   }
 
   inspectorSessions.set(webContents.id, {
@@ -1347,28 +1276,25 @@ const startInspectorSession = async (webContents, payload = {}) => {
   });
 
   return {
-    frameUrl: targetFrame.url || payload.frameUrl || "",
+    frameUrl: targetFrame.url || payload.frameUrl || '',
   };
 };
 
 const stopInspectorSession = async (webContents) => {
   const session = inspectorSessions.get(webContents.id);
   if (!session) {
-    return { frameUrl: "" };
+    return { frameUrl: '' };
   }
   inspectorSessions.delete(webContents.id);
   if (session.navigationHandler && !webContents.isDestroyed()) {
-    webContents.removeListener("did-navigate", session.navigationHandler);
-    webContents.removeListener(
-      "did-navigate-in-page",
-      session.navigationHandler
-    );
+    webContents.removeListener('did-navigate', session.navigationHandler);
+    webContents.removeListener('did-navigate-in-page', session.navigationHandler);
   }
-  const frameUrl = session.frame && session.frame.url ? session.frame.url : "";
+  const frameUrl = session.frame && session.frame.url ? session.frame.url : '';
   try {
     await session.frame.executeJavaScript(
-      "window.__PINOKIO_INSPECTOR__ && window.__PINOKIO_INSPECTOR__.stop()",
-      true
+      'window.__PINOKIO_INSPECTOR__ && window.__PINOKIO_INSPECTOR__.stop()',
+      true,
     );
   } catch (_) {}
   return { frameUrl };
@@ -1384,62 +1310,56 @@ const safeCaptureStringify = (value) => {
 
 const captureLog = (label, payload) => {
   try {
-    console.log(
-      "[Pinokio Capture] " + label + " " + safeCaptureStringify(payload)
-    );
+    console.log('[Pinokio Capture] ' + label + ' ' + safeCaptureStringify(payload));
   } catch (_) {
-    console.log("[Pinokio Capture] " + label);
+    console.log('[Pinokio Capture] ' + label);
   }
 };
 
 const installInspectorHandlers = () => {
-  console.log("Installing inspector handlers...");
+  console.log('Installing inspector handlers...');
   if (inspectorHandlersInstalled) {
-    console.log("Inspector handlers already installed, skipping");
+    console.log('Inspector handlers already installed, skipping');
     return;
   }
   inspectorHandlersInstalled = true;
-  console.log("Installing pinokio:capture-screenshot handler");
+  console.log('Installing pinokio:capture-screenshot handler');
 
-  ipcMain.handle("pinokio:start-inspector", async (event, payload = {}) => {
+  ipcMain.handle('pinokio:start-inspector', async (event, payload = {}) => {
     try {
       const result = await startInspectorSession(event.sender, payload);
-      event.sender.send("pinokio:inspector-started", {
+      event.sender.send('pinokio:inspector-started', {
         frameUrl: result.frameUrl,
       });
       return { ok: true };
     } catch (error) {
-      const message =
-        error && error.message
-          ? error.message
-          : "Unable to start inspect mode.";
-      event.sender.send("pinokio:inspector-error", { message });
+      const message = error && error.message ? error.message : 'Unable to start inspect mode.';
+      event.sender.send('pinokio:inspector-error', { message });
       throw new Error(message);
     }
   });
 
-  ipcMain.handle("pinokio:stop-inspector", async (event) => {
+  ipcMain.handle('pinokio:stop-inspector', async (event) => {
     try {
       const result = await stopInspectorSession(event.sender);
-      event.sender.send("pinokio:inspector-cancelled", {
-        frameUrl: result.frameUrl || "",
+      event.sender.send('pinokio:inspector-cancelled', {
+        frameUrl: result.frameUrl || '',
       });
       return { ok: true };
     } catch (error) {
-      const message =
-        error && error.message ? error.message : "Unable to stop inspect mode.";
-      event.sender.send("pinokio:inspector-error", { message });
+      const message = error && error.message ? error.message : 'Unable to stop inspect mode.';
+      event.sender.send('pinokio:inspector-error', { message });
       throw new Error(message);
     }
   });
 
-  ipcMain.handle("pinokio:capture-screenshot-debug", async (event, payload) => {
+  ipcMain.handle('pinokio:capture-screenshot-debug', async (event, payload) => {
     const { screenshotRequest } = payload;
 
     const emitDebug = (label, data) => {
       captureLog(label, data);
       try {
-        event.sender.send("pinokio:capture-debug-log", {
+        event.sender.send('pinokio:capture-debug-log', {
           label,
           payload: data,
         });
@@ -1448,7 +1368,7 @@ const installInspectorHandlers = () => {
       }
     };
 
-    emitDebug("handler-invoked", {
+    emitDebug('handler-invoked', {
       senderId: event && event.sender ? event.sender.id : null,
       hasRequest: Boolean(screenshotRequest),
       bounds:
@@ -1460,20 +1380,14 @@ const installInspectorHandlers = () => {
               height: screenshotRequest.bounds.height,
             }
           : null,
-      devicePixelRatio: screenshotRequest
-        ? screenshotRequest.devicePixelRatio
-        : null,
-      adjustedFlag: Boolean(
-        screenshotRequest && screenshotRequest.__pinokioAdjusted
-      ),
+      devicePixelRatio: screenshotRequest ? screenshotRequest.devicePixelRatio : null,
+      adjustedFlag: Boolean(screenshotRequest && screenshotRequest.__pinokioAdjusted),
       relayStage:
-        screenshotRequest &&
-        typeof screenshotRequest.__pinokioRelayStage !== "undefined"
+        screenshotRequest && typeof screenshotRequest.__pinokioRelayStage !== 'undefined'
           ? screenshotRequest.__pinokioRelayStage
           : null,
       relayComplete:
-        screenshotRequest &&
-        typeof screenshotRequest.__pinokioRelayComplete !== "undefined"
+        screenshotRequest && typeof screenshotRequest.__pinokioRelayComplete !== 'undefined'
           ? screenshotRequest.__pinokioRelayComplete
           : null,
       frameOffset:
@@ -1485,13 +1399,13 @@ const installInspectorHandlers = () => {
           : null,
     });
     if (!screenshotRequest || !screenshotRequest.bounds) {
-      throw new Error("Invalid screenshot request");
+      throw new Error('Invalid screenshot request');
     }
 
     // Get the inspector session to access the target frame
     const session = inspectorSessions.get(event.sender.id);
     if (!session || !session.frame) {
-      throw new Error("No inspector session or frame found");
+      throw new Error('No inspector session or frame found');
     }
 
     try {
@@ -1499,19 +1413,17 @@ const installInspectorHandlers = () => {
       const dpr = screenshotRequest.devicePixelRatio || 1;
       const alreadyAdjusted = Boolean(screenshotRequest.__pinokioAdjusted);
 
-      emitDebug("incoming-bounds", {
+      emitDebug('incoming-bounds', {
         senderId: event && event.sender ? event.sender.id : null,
         bounds,
         devicePixelRatio: dpr,
         alreadyAdjusted,
         relayStage:
-          screenshotRequest &&
-          typeof screenshotRequest.__pinokioRelayStage !== "undefined"
+          screenshotRequest && typeof screenshotRequest.__pinokioRelayStage !== 'undefined'
             ? screenshotRequest.__pinokioRelayStage
             : null,
         relayComplete:
-          screenshotRequest &&
-          typeof screenshotRequest.__pinokioRelayComplete !== "undefined"
+          screenshotRequest && typeof screenshotRequest.__pinokioRelayComplete !== 'undefined'
             ? screenshotRequest.__pinokioRelayComplete
             : null,
       });
@@ -1549,32 +1461,27 @@ const installInspectorHandlers = () => {
             };
           }
         } catch (error) {
-          console.warn(
-            "Unable to determine frame offset via DOM script:",
-            error
-          );
+          console.warn('Unable to determine frame offset via DOM script:', error);
           framePosition = { x: 0, y: 0 };
-          emitDebug("frame-position-fallback", {
+          emitDebug('frame-position-fallback', {
             senderId: event && event.sender ? event.sender.id : null,
             error: error && error.message ? error.message : String(error),
           });
         }
       }
 
-      emitDebug("frame-position-computed", {
+      emitDebug('frame-position-computed', {
         senderId: event && event.sender ? event.sender.id : null,
         alreadyAdjusted,
         framePosition,
         bounds,
         devicePixelRatio: dpr,
         relayStage:
-          screenshotRequest &&
-          typeof screenshotRequest.__pinokioRelayStage !== "undefined"
+          screenshotRequest && typeof screenshotRequest.__pinokioRelayStage !== 'undefined'
             ? screenshotRequest.__pinokioRelayStage
             : null,
         relayComplete:
-          screenshotRequest &&
-          typeof screenshotRequest.__pinokioRelayComplete !== "undefined"
+          screenshotRequest && typeof screenshotRequest.__pinokioRelayComplete !== 'undefined'
             ? screenshotRequest.__pinokioRelayComplete
             : null,
       });
@@ -1582,7 +1489,7 @@ const installInspectorHandlers = () => {
       // Capture full page and crop to element bounds
       const fullImage = await event.sender.capturePage();
       const fullSize = fullImage.getSize();
-      emitDebug("capture-page-size", {
+      emitDebug('capture-page-size', {
         senderId: event && event.sender ? event.sender.id : null,
         fullSize,
       });
@@ -1598,15 +1505,9 @@ const installInspectorHandlers = () => {
       // Validate crop bounds
       cropBounds.x = Math.max(0, Math.min(cropBounds.x, fullSize.width - 1));
       cropBounds.y = Math.max(0, Math.min(cropBounds.y, fullSize.height - 1));
-      cropBounds.width = Math.min(
-        cropBounds.width,
-        fullSize.width - cropBounds.x
-      );
-      cropBounds.height = Math.min(
-        cropBounds.height,
-        fullSize.height - cropBounds.y
-      );
-      emitDebug("crop-bounds", {
+      cropBounds.width = Math.min(cropBounds.width, fullSize.width - cropBounds.x);
+      cropBounds.height = Math.min(cropBounds.height, fullSize.height - cropBounds.y);
+      emitDebug('crop-bounds', {
         senderId: event && event.sender ? event.sender.id : null,
         framePosition,
         dpr,
@@ -1616,16 +1517,16 @@ const installInspectorHandlers = () => {
 
       const croppedImage = fullImage.crop(cropBounds);
       const buffer = croppedImage.toPNG();
-      emitDebug("capture-success", {
+      emitDebug('capture-success', {
         senderId: event && event.sender ? event.sender.id : null,
         cropWidth: cropBounds.width,
         cropHeight: cropBounds.height,
       });
 
-      return "data:image/png;base64," + buffer.toString("base64");
+      return 'data:image/png;base64,' + buffer.toString('base64');
     } catch (error) {
-      console.error("Screenshot capture failed:", error);
-      emitDebug("capture-error", {
+      console.error('Screenshot capture failed:', error);
+      emitDebug('capture-error', {
         senderId: event && event.sender ? event.sender.id : null,
         error: error && error.message ? error.message : String(error),
       });
@@ -1637,7 +1538,7 @@ const installInspectorHandlers = () => {
 // Screenshot capture function for inspect mode
 const captureScreenshotRegion = async (bounds) => {
   try {
-    const { nativeImage } = require("electron");
+    const { nativeImage } = require('electron');
 
     // Get all displays to find the correct one
     const displays = screen.getAllDisplays();
@@ -1645,7 +1546,7 @@ const captureScreenshotRegion = async (bounds) => {
 
     // Get desktop capturer sources with full resolution
     const sources = await desktopCapturer.getSources({
-      types: ["screen"],
+      types: ['screen'],
       thumbnailSize: {
         width: primaryDisplay.bounds.width * primaryDisplay.scaleFactor,
         height: primaryDisplay.bounds.height * primaryDisplay.scaleFactor,
@@ -1653,7 +1554,7 @@ const captureScreenshotRegion = async (bounds) => {
     });
 
     if (sources.length === 0) {
-      throw new Error("No screen sources available");
+      throw new Error('No screen sources available');
     }
 
     // Find the screen source that matches our primary display
@@ -1661,10 +1562,7 @@ const captureScreenshotRegion = async (bounds) => {
 
     // Try to find the exact screen source by name or use the first one
     for (const source of sources) {
-      if (
-        source.name.includes("Entire Screen") ||
-        source.name.includes("Screen 1")
-      ) {
+      if (source.name.includes('Entire Screen') || source.name.includes('Screen 1')) {
         screenSource = source;
         break;
       }
@@ -1682,11 +1580,11 @@ const captureScreenshotRegion = async (bounds) => {
       y: Math.max(0, Math.round(bounds.y * scaleFactor)),
       width: Math.min(
         Math.round(bounds.width * scaleFactor),
-        fullScreenshot.getSize().width - Math.round(bounds.x * scaleFactor)
+        fullScreenshot.getSize().width - Math.round(bounds.x * scaleFactor),
       ),
       height: Math.min(
         Math.round(bounds.height * scaleFactor),
-        fullScreenshot.getSize().height - Math.round(bounds.y * scaleFactor)
+        fullScreenshot.getSize().height - Math.round(bounds.y * scaleFactor),
       ),
     };
 
@@ -1699,15 +1597,15 @@ const captureScreenshotRegion = async (bounds) => {
 
     // Convert to PNG buffer and then to data URL
     const croppedBuffer = croppedImage.toPNG();
-    const dataUrl = "data:image/png;base64," + croppedBuffer.toString("base64");
+    const dataUrl = 'data:image/png;base64,' + croppedBuffer.toString('base64');
 
     console.log(
-      `Screenshot captured: ${actualBounds.width}x${actualBounds.height} at (${actualBounds.x},${actualBounds.y})`
+      `Screenshot captured: ${actualBounds.width}x${actualBounds.height} at (${actualBounds.x},${actualBounds.y})`,
     );
 
     return dataUrl;
   } catch (error) {
-    console.warn("Screenshot capture failed:", error);
+    console.warn('Screenshot capture failed:', error);
     throw error;
   }
 };
@@ -1737,83 +1635,73 @@ const captureScreenshotRegion = async (bounds) => {
 //}
 
 const attach = (event, webContents) => {
-  let wc = webContents;
+  if (process.env.PINOKIO_DEV === 'true') {
+    webContents.openDevTools();
+  }
+  const wc = webContents;
 
-  if (
-    ENABLE_BROWSER_CONSOLE_LOG &&
-    !attachedConsoleListeners.has(webContents)
-  ) {
+  if (ENABLE_BROWSER_CONSOLE_LOG && !attachedConsoleListeners.has(webContents)) {
     attachedConsoleListeners.add(webContents);
-    webContents.on(
-      "console-message",
-      (event, level, message, line, sourceId) => {
-        if (!root_url) {
-          return;
-        }
-        const state = browserConsoleState.get(webContents);
-        let pageUrl = state && state.url ? state.url : "";
-        if (!pageUrl) {
-          try {
-            pageUrl = webContents.getURL();
-          } catch (err) {
-            pageUrl = "";
-          }
-        }
-        if (!pageUrl || !pageUrl.startsWith(root_url)) {
-          return;
-        }
-        const targetFile = ensureBrowserLogFile();
-        if (!targetFile) {
-          return;
-        }
-        const logUrl = resolveConsoleSourceUrl(sourceId, pageUrl);
-        if (!logUrl || !shouldLogUrl(logUrl)) {
-          return;
-        }
-        const timestamp = new Date().toISOString();
-        const levelLabel = consoleLevelLabels[level] || "log";
-        let location = "";
-        if (sourceId) {
-          location = ` (${sourceId}${line ? `:${line}` : ""})`;
-        } else if (line) {
-          location = ` (:${line})`;
-        }
-        const entry = `[${timestamp}]\t${logUrl}\t[${levelLabel}] ${message}${location}\n`;
-        browserLogBuffer.push(entry);
-        if (browserLogBuffer.length > 100) {
-          browserLogBuffer.shift();
-        }
-        browserLogWritePromise = browserLogWritePromise
-          .then(() =>
-            fs.promises.writeFile(targetFile, browserLogBuffer.join(""))
-          )
-          .catch((err) => {
-            console.error(
-              "[BROWSER LOG] Failed to persist console output",
-              err
-            );
-          });
+    webContents.on('console-message', (event, level, message, line, sourceId) => {
+      if (!root_url) {
+        return;
       }
-    );
-    webContents.once("destroyed", () => {
+      const state = browserConsoleState.get(webContents);
+      let pageUrl = state && state.url ? state.url : '';
+      if (!pageUrl) {
+        try {
+          pageUrl = webContents.getURL();
+        } catch (err) {
+          pageUrl = '';
+        }
+      }
+      if (!pageUrl || !pageUrl.startsWith(root_url)) {
+        return;
+      }
+      const targetFile = ensureBrowserLogFile();
+      if (!targetFile) {
+        return;
+      }
+      const logUrl = resolveConsoleSourceUrl(sourceId, pageUrl);
+      if (!logUrl || !shouldLogUrl(logUrl)) {
+        return;
+      }
+      const timestamp = new Date().toISOString();
+      const levelLabel = consoleLevelLabels[level] || 'log';
+      let location = '';
+      if (sourceId) {
+        location = ` (${sourceId}${line ? `:${line}` : ''})`;
+      } else if (line) {
+        location = ` (:${line})`;
+      }
+      const entry = `[${timestamp}]\t${logUrl}\t[${levelLabel}] ${message}${location}\n`;
+      browserLogBuffer.push(entry);
+      if (browserLogBuffer.length > 100) {
+        browserLogBuffer.shift();
+      }
+      browserLogWritePromise = browserLogWritePromise
+        .then(() => fs.promises.writeFile(targetFile, browserLogBuffer.join('')))
+        .catch((err) => {
+          console.error('[BROWSER LOG] Failed to persist console output', err);
+        });
+    });
+    webContents.once('destroyed', () => {
       clearBrowserConsoleState(webContents);
     });
   }
 
   // Enable screen capture permissions for all webContents
-  webContents.session.setPermissionRequestHandler(
-    (webContents, permission, callback) => {
-      callback(true);
-      //console.log(`[PERMISSION DEBUG] Permission requested: "${permission}" from webContents`)
-      //if (permission === 'media' || permission === 'display-capture' || permission === 'desktopCapture') {
-      //  console.log(`[PERMISSION DEBUG] Granting permission: "${permission}"`)
-      //  callback(true)
-      //} else {
-      //  console.log(`[PERMISSION DEBUG] Denying permission: "${permission}"`)
-      //  callback(false)
-      //}
-    }
-  );
+  webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+    callback(true);
+    //console.log(`[PERMISSION DEBUG] Permission requested: "${permission}" from webContents`)
+    //if (permission === 'media' || permission === 'display-capture' || permission === 'desktopCapture') {
+    //  console.log(`[PERMISSION DEBUG] Granting permission: "${permission}"`)
+    //  callback(true)
+    //} else {
+    //  console.log(`[PERMISSION DEBUG] Denying permission: "${permission}"`)
+    //  callback(false)
+    //}
+  });
 
   webContents.session.setPermissionCheckHandler((webContents, permission) => {
     return true;
@@ -1822,24 +1710,24 @@ const attach = (event, webContents) => {
   });
 
   webContents.session.setDisplayMediaRequestHandler((request, callback) => {
-    console.log("[DISPLAY MEDIA DEBUG] Display media request received");
+    console.log('[DISPLAY MEDIA DEBUG] Display media request received');
     desktopCapturer
-      .getSources({ types: ["screen", "window"] })
+      .getSources({ types: ['screen', 'window'] })
       .then((sources) => {
-        console.log("[DISPLAY MEDIA DEBUG] Available sources:", sources.length);
+        console.log('[DISPLAY MEDIA DEBUG] Available sources:', sources.length);
         if (sources.length > 0) {
-          callback({ video: sources[0], audio: "loopback" });
+          callback({ video: sources[0], audio: 'loopback' });
         } else {
           callback({});
         }
       })
       .catch((err) => {
-        console.error("[DISPLAY MEDIA DEBUG] Error getting sources:", err);
+        console.error('[DISPLAY MEDIA DEBUG] Error getting sources:', err);
         callback({});
       });
   });
 
-  webContents.on("will-navigate", (event, url) => {
+  webContents.on('will-navigate', (event, url) => {
     if (!webContents.opened) {
       // The first time this view is being used, set the "opened" to true, and don't do anything
       // The next time the view navigates, "the "opened" is already true, so trigger the URL open logic
@@ -1848,11 +1736,11 @@ const attach = (event, webContents) => {
       webContents.opened = true;
     } else {
       //      console.log("will-navigate", { event, url })
-      let host = new URL(url).host;
-      let localhost = new URL(root_url).host;
+      const host = new URL(url).host;
+      const localhost = new URL(root_url).host;
       if (host !== localhost) {
-        event.preventDefault();
-        shell.openExternal(url);
+        // event.preventDefault();
+        // shell.openExternal(url);
       }
     }
   });
@@ -1864,36 +1752,34 @@ const attach = (event, webContents) => {
     //    console.log("responseHeaders", JSON.stringify(details.responseHeaders, null, 2))
 
     // 1. Remove X-Frame-Options
-    if (details.responseHeaders["X-Frame-Options"]) {
-      delete details.responseHeaders["X-Frame-Options"];
-    } else if (details.responseHeaders["x-frame-options"]) {
-      delete details.responseHeaders["x-frame-options"];
+    if (details.responseHeaders['X-Frame-Options']) {
+      delete details.responseHeaders['X-Frame-Options'];
+    } else if (details.responseHeaders['x-frame-options']) {
+      delete details.responseHeaders['x-frame-options'];
     }
 
     // 2. Remove Content-Security-Policy "frame-ancestors" attribute
     let csp;
     let csp_type;
-    if (details.responseHeaders["Content-Security-Policy"]) {
-      csp = details.responseHeaders["Content-Security-Policy"];
+    if (details.responseHeaders['Content-Security-Policy']) {
+      csp = details.responseHeaders['Content-Security-Policy'];
       csp_type = 0;
-    } else if (details.responseHeaders["content-security-policy"]) {
-      csp = details.responseHeaders["content-security-policy"];
+    } else if (details.responseHeaders['content-security-policy']) {
+      csp = details.responseHeaders['content-security-policy'];
       csp_type = 1;
     }
 
-    if (details.responseHeaders["cross-origin-opener-policy-report-only"]) {
-      delete details.responseHeaders["cross-origin-opener-policy-report-only"];
-    } else if (
-      details.responseHeaders["Cross-Origin-Opener-Policy-Report-Only"]
-    ) {
-      delete details.responseHeaders["Cross-Origin-Opener-Policy-Report-Only"];
+    if (details.responseHeaders['cross-origin-opener-policy-report-only']) {
+      delete details.responseHeaders['cross-origin-opener-policy-report-only'];
+    } else if (details.responseHeaders['Cross-Origin-Opener-Policy-Report-Only']) {
+      delete details.responseHeaders['Cross-Origin-Opener-Policy-Report-Only'];
     }
 
     if (csp) {
       //      console.log("CSP", csp)
       // find /frame-ancestors ;$/
-      let new_csp = csp.map((c) => {
-        return c.replaceAll(/frame-ancestors[^;]+;?/gi, "");
+      const new_csp = csp.map((c) => {
+        return c.replaceAll(/frame-ancestors[^;]+;?/gi, '');
       });
 
       //      console.log("new_csp = ", new_csp)
@@ -1902,9 +1788,9 @@ const attach = (event, webContents) => {
         responseHeaders: details.responseHeaders,
       };
       if (csp_type === 0) {
-        r.responseHeaders["Content-Security-Policy"] = new_csp;
+        r.responseHeaders['Content-Security-Policy'] = new_csp;
       } else if (csp_type === 1) {
-        r.responseHeaders["content-security-policy"] = new_csp;
+        r.responseHeaders['content-security-policy'] = new_csp;
       }
       //      console.log("R", JSON.stringify(r, null, 2))
 
@@ -1918,13 +1804,13 @@ const attach = (event, webContents) => {
   });
 
   webContents.session.webRequest.onBeforeSendHeaders((details, callback) => {
-    let ua = details.requestHeaders["User-Agent"];
+    let ua = details.requestHeaders['User-Agent'];
     //    console.log("User Agent Before", ua)
     if (ua) {
-      ua = ua.replace(/ pinokio\/[0-9.]+/i, "");
-      ua = ua.replace(/Electron\/.+ /i, "");
+      ua = ua.replace(/ pinokio\/[0-9.]+/i, '');
+      ua = ua.replace(/Electron\/.+ /i, '');
       //      console.log("User Agent After", ua)
-      details.requestHeaders["User-Agent"] = ua;
+      details.requestHeaders['User-Agent'] = ua;
     }
 
     //    console.log("REQ", details)
@@ -1977,9 +1863,9 @@ const attach = (event, webContents) => {
   //    view.setAutoResize({ width: true, height: true });
   //    view.webContents.loadURL(details.url);
   //  })
-  webContents.on("did-navigate", (event, url) => {
-    let win = webContents.getOwnerBrowserWindow();
-    if (win && typeof win.setTitleBarOverlay === "function") {
+  webContents.on('did-navigate', (event, url) => {
+    const win = webContents.getOwnerBrowserWindow();
+    if (win && typeof win.setTitleBarOverlay === 'function') {
       const overlay = titleBarOverlay(colors);
       setWindowTitleBarOverlay(win, overlay);
     }
@@ -1987,19 +1873,19 @@ const attach = (event, webContents) => {
 
     updateBrowserConsoleTarget(webContents, url);
   });
-  webContents.on("did-navigate-in-page", (event, url) => {
+  webContents.on('did-navigate-in-page', (event, url) => {
     updateBrowserConsoleTarget(webContents, url);
   });
   webContents.setWindowOpenHandler((config) => {
-    let url = config.url;
-    let features = config.features;
-    let params = new URLSearchParams(features.split(",").join("&"));
-    let win = wc.getOwnerBrowserWindow();
-    let [width, height] = win.getSize();
-    let [x, y] = win.getPosition();
+    const url = config.url;
+    const features = config.features;
+    const params = new URLSearchParams(features.split(',').join('&'));
+    const win = wc.getOwnerBrowserWindow();
+    const [width, height] = win.getSize();
+    const [x, y] = win.getPosition();
 
-    let origin = new URL(url).origin;
-    console.log("config", { config, root_url, origin });
+    const origin = new URL(url).origin;
+    console.log('config', { config, root_url, origin });
 
     // if the origin is the same as the pinokio host,
     // always open in new window
@@ -2008,80 +1894,77 @@ const attach = (event, webContents) => {
     // if features exists and it's app or self, open in pinokio
     // otherwise if it's file,
 
-    if (features === "browser") {
-      shell.openExternal(url);
-      return { action: "deny" };
+    if (features === 'browser') {
+      // shell.openExternal(url);
+      webContents.loadURL(url);
+      return { action: 'deny' };
     } else if (origin === root_url) {
       return {
-        action: "allow",
+        action: 'allow',
         outlivesOpener: true,
         overrideBrowserWindowOptions: {
-          width: params.get("width") ? parseInt(params.get("width")) : width,
-          height: params.get("height")
-            ? parseInt(params.get("height"))
-            : height,
+          width: params.get('width') ? parseInt(params.get('width')) : width,
+          height: params.get('height') ? parseInt(params.get('height')) : height,
           x: x + 30,
           y: y + 30,
 
           parent: null,
-          titleBarStyle: "hidden",
+          titleBarStyle: 'hidden',
           titleBarOverlay: titleBarOverlay(colors),
           webPreferences: {
-            session: session.fromPartition("temp-window-" + Date.now()),
+            session: session.fromPartition('temp-window-' + Date.now()),
             webSecurity: false,
             nativeWindowOpen: true,
             contextIsolation: false,
             nodeIntegrationInSubFrames: true,
-            preload: path.join(__dirname, "preload.js"),
+            preload: path.join(__dirname, 'preload.js'),
           },
         },
       };
     } else {
       console.log({ features, url });
       if (features) {
-        if (features.startsWith("app") || features.startsWith("self")) {
+        if (features.startsWith('app') || features.startsWith('self')) {
           return {
-            action: "allow",
+            action: 'allow',
             outlivesOpener: true,
             overrideBrowserWindowOptions: {
-              width: params.get("width")
-                ? parseInt(params.get("width"))
-                : width,
-              height: params.get("height")
-                ? parseInt(params.get("height"))
-                : height,
+              width: params.get('width') ? parseInt(params.get('width')) : width,
+              height: params.get('height') ? parseInt(params.get('height')) : height,
               x: x + 30,
               y: y + 30,
 
               parent: null,
-              titleBarStyle: "hidden",
+              titleBarStyle: 'hidden',
               titleBarOverlay: titleBarOverlay(colors),
               webPreferences: {
-                session: session.fromPartition("temp-window-" + Date.now()),
+                session: session.fromPartition('temp-window-' + Date.now()),
                 webSecurity: false,
                 nativeWindowOpen: true,
                 contextIsolation: false,
                 nodeIntegrationInSubFrames: true,
-                preload: path.join(__dirname, "preload.js"),
+                preload: path.join(__dirname, 'preload.js'),
               },
             },
           };
-        } else if (features.startsWith("file")) {
-          let u = features.replace("file://", "");
+        } else if (features.startsWith('file')) {
+          const u = features.replace('file://', '');
           shell.showItemInFolder(u);
-          return { action: "deny" };
+          return { action: 'deny' };
         } else {
-          shell.openExternal(url);
-          return { action: "deny" };
+          // shell.openExternal(url);
+          webContents.loadURL(url);
+          return { action: 'deny' };
         }
       } else {
-        if (features.startsWith("file")) {
-          let u = features.replace("file://", "");
+        if (features.startsWith('file')) {
+          const u = features.replace('file://', '');
           shell.showItemInFolder(u);
-          return { action: "deny" };
+          return { action: 'deny' };
         } else {
-          shell.openExternal(url);
-          return { action: "deny" };
+          // shell.openExternal(url);
+          webContents.loadURL(url);
+          return { action: 'deny' };
         }
       }
     }
@@ -2137,26 +2020,26 @@ const attach = (event, webContents) => {
 const getWinState = (url, options) => {
   let filename;
   try {
-    let pathname = new URL(url).pathname.slice(1);
-    filename = pathname.slice("/").join("-");
+    const pathname = new URL(url).pathname.slice(1);
+    filename = pathname.slice('/').join('-');
   } catch {
-    filename = "index.json";
+    filename = 'index.json';
   }
-  let state = windowStateKeeper({
+  const state = windowStateKeeper({
     file: filename,
     ...options,
   });
   return state;
 };
 const createWindow = (port) => {
-  let mainWindowState = windowStateKeeper({
+  const mainWindowState = windowStateKeeper({
     //    file: "index.json",
     defaultWidth: 1000,
     defaultHeight: 800,
   });
 
   mainWindow = new BrowserWindow({
-    titleBarStyle: "hidden",
+    titleBarStyle: 'hidden',
     titleBarOverlay: titleBarOverlay(colors),
     x: mainWindowState.x,
     y: mainWindowState.y,
@@ -2164,26 +2047,28 @@ const createWindow = (port) => {
     height: mainWindowState.height,
     minWidth: 190,
     webPreferences: {
-      session: session.fromPartition("temp-window-" + Date.now()),
+      session: session.fromPartition('temp-window-' + Date.now()),
       webSecurity: false,
       nativeWindowOpen: true,
       contextIsolation: false,
       nodeIntegrationInSubFrames: true,
       enableRemoteModule: false,
       experimentalFeatures: true,
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
+
+  if (process.env.PINOKIO_DEV === 'true') {
+    mainWindow.webContents.openDevTools();
+  }
 
   //   mainWindow.on('closed', () => {
   //   mainWindow = null
   // })
 
   // Debug media device availability
-  mainWindow.webContents.once("did-finish-load", () => {
-    console.log(
-      "[MEDIA DEBUG] Main window loaded, checking media devices availability..."
-    );
+  mainWindow.webContents.once('did-finish-load', () => {
+    console.log('[MEDIA DEBUG] Main window loaded, checking media devices availability...');
     mainWindow.webContents
       .executeJavaScript(
         `
@@ -2193,11 +2078,9 @@ const createWindow = (port) => {
       if (navigator.mediaDevices && navigator.mediaDevices.getSupportedConstraints) {
         console.log('[MEDIA DEBUG] Supported constraints:', navigator.mediaDevices.getSupportedConstraints());
       }
-    `
+    `,
       )
-      .catch((err) =>
-        console.error("[MEDIA DEBUG] Error checking media devices:", err)
-      );
+      .catch((err) => console.error('[MEDIA DEBUG] Error checking media devices:', err));
   });
 
   // Enable screen capture permissions
@@ -2212,12 +2095,12 @@ const createWindow = (port) => {
       //  console.log(`[PERMISSION DEBUG] MainWindow denying permission: "${permission}"`)
       //  callback(false)
       //}
-    }
+    },
   );
   //  enable_cors(mainWindow)
   if (process.env.PINOKIO_DEV) {
-    root_url = "http://localhost:3000";
-  } else if ("" + port === "80") {
+    root_url = 'http://localhost:3000';
+  } else if ('' + port === '80') {
     root_url = `http://localhost`;
   } else {
     root_url = `http://localhost:${port}`;
@@ -2227,14 +2110,14 @@ const createWindow = (port) => {
   mainWindowState.manage(mainWindow);
 };
 const loadNewWindow = (url, port) => {
-  let winState = windowStateKeeper({
+  const winState = windowStateKeeper({
     //    file: "index.json",
     defaultWidth: 1000,
     defaultHeight: 800,
   });
 
-  let win = new BrowserWindow({
-    titleBarStyle: "hidden",
+  const win = new BrowserWindow({
+    titleBarStyle: 'hidden',
     titleBarOverlay: titleBarOverlay(colors),
     x: winState.x,
     y: winState.y,
@@ -2242,31 +2125,29 @@ const loadNewWindow = (url, port) => {
     height: winState.height,
     minWidth: 190,
     webPreferences: {
-      session: session.fromPartition("temp-window-" + Date.now()),
+      session: session.fromPartition('temp-window-' + Date.now()),
       webSecurity: false,
       nativeWindowOpen: true,
       contextIsolation: false,
       nodeIntegrationInSubFrames: true,
       enableRemoteModule: false,
       experimentalFeatures: true,
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
 
   // Enable screen capture permissions
-  win.webContents.session.setPermissionRequestHandler(
-    (webContents, permission, callback) => {
-      callback(true);
-      //console.log(`[PERMISSION DEBUG] New window permission requested: "${permission}"`)
-      //if (permission === 'media' || permission === 'display-capture' || permission === 'desktopCapture') {
-      //  console.log(`[PERMISSION DEBUG] New window granting permission: "${permission}"`)
-      //  callback(true)
-      //} else {
-      //  console.log(`[PERMISSION DEBUG] New window denying permission: "${permission}"`)
-      //  callback(false)
-      //}
-    }
-  );
+  win.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+    callback(true);
+    //console.log(`[PERMISSION DEBUG] New window permission requested: "${permission}"`)
+    //if (permission === 'media' || permission === 'display-capture' || permission === 'desktopCapture') {
+    //  console.log(`[PERMISSION DEBUG] New window granting permission: "${permission}"`)
+    //  callback(true)
+    //} else {
+    //  console.log(`[PERMISSION DEBUG] New window denying permission: "${permission}"`)
+    //  callback(false)
+    //}
+  });
 
   //  enable_cors(win)
   win.focus();
@@ -2276,12 +2157,10 @@ const loadNewWindow = (url, port) => {
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient("pinokio", process.execPath, [
-      path.resolve(process.argv[1]),
-    ]);
+    app.setAsDefaultProtocolClient('pinokio', process.execPath, [path.resolve(process.argv[1])]);
   }
 } else {
-  app.setAsDefaultProtocolClient("pinokio");
+  app.setAsDefaultProtocolClient('pinokio');
 }
 
 const gotTheLock = app.requestSingleInstanceLock();
@@ -2289,29 +2168,26 @@ const gotTheLock = app.requestSingleInstanceLock();
 if (!gotTheLock) {
   app.quit();
 } else {
-  app.on(
-    "certificate-error",
-    (event, webContents, url, error, certificate, callback) => {
-      // Prevent having error
-      event.preventDefault();
-      // and continue
-      callback(true);
-    }
-  );
+  app.on('certificate-error', (event, webContents, url, error, certificate, callback) => {
+    // Prevent having error
+    event.preventDefault();
+    // and continue
+    callback(true);
+  });
 
-  app.on("second-instance", (event, argv) => {
+  app.on('second-instance', (event, argv) => {
     if (mainWindow) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       mainWindow.focus();
     }
     const url = [...argv]
       .reverse()
-      .find((arg) => typeof arg === "string" && arg.startsWith("pinokio:"));
+      .find((arg) => typeof arg === 'string' && arg.startsWith('pinokio:'));
     if (!url) {
       return;
     }
     //let u = new URL(url).search
-    let u = url.replace(/pinokio:[\/]+/, "");
+    const u = url.replace(/pinokio:[/]+/, '');
     loadNewWindow(`${root_url}/pinokio/${u}`, PORT);
     //    if (BrowserWindow.getAllWindows().length === 0 || !mainWindow) createWindow(PORT)
     //    mainWindow.focus()
@@ -2320,22 +2196,22 @@ if (!gotTheLock) {
 
   // Create mainWindow, load the rest of the app, etc...
   // Enable desktop capture for getDisplayMedia support (must be before app ready)
-  app.commandLine.appendSwitch("disable-features", "LazyImageLoading");
-  app.commandLine.appendSwitch("enable-experimental-web-platform-features");
+  app.commandLine.appendSwitch('disable-features', 'LazyImageLoading');
+  app.commandLine.appendSwitch('enable-experimental-web-platform-features');
   app.commandLine.appendSwitch(
-    "enable-features",
-    "GetDisplayMediaSet,GetDisplayMediaSetAutoSelectAllScreens"
+    'enable-features',
+    'GetDisplayMediaSet,GetDisplayMediaSetAutoSelectAllScreens',
   );
 
   app.whenReady().then(async () => {
-    console.log("App is ready, about to install inspector handlers...");
-    app.userAgentFallback = "Pinokio";
+    console.log('App is ready, about to install inspector handlers...');
+    app.userAgentFallback = 'Pinokio';
 
     installInspectorHandlers();
 
     // PROMPT
     let promptResponse;
-    ipcMain.on("prompt", function (eventRet, arg) {
+    ipcMain.on('prompt', (eventRet, arg) => {
       promptResponse = null;
       const point = screen.getCursorScreenPoint();
       const display = screen.getDisplayNearestPoint(point);
@@ -2355,15 +2231,15 @@ if (!gotTheLock) {
         //        alwaysOnTop: true,
         frame: false,
         webPreferences: {
-          session: session.fromPartition("temp-window-" + Date.now()),
+          session: session.fromPartition('temp-window-' + Date.now()),
           webSecurity: false,
           nativeWindowOpen: true,
           contextIsolation: false,
           nodeIntegrationInSubFrames: true,
-          preload: path.join(__dirname, "preload.js"),
+          preload: path.join(__dirname, 'preload.js'),
         },
       });
-      arg.val = arg.val || "";
+      arg.val = arg.val || '';
       const promptHtml = `<html><body><form><label for="val">${arg.title}</label>
 <input id="val" value="${arg.val}" autofocus />
 <button id='ok'>OK</button>
@@ -2386,26 +2262,26 @@ document.querySelector("form").addEventListener("submit", (e) => {
 </script></body></html>`;
 
       //      promptWindow.loadFile("prompt.html")
-      promptWindow.loadURL("data:text/html," + encodeURIComponent(promptHtml));
+      promptWindow.loadURL('data:text/html,' + encodeURIComponent(promptHtml));
       promptWindow.show();
-      promptWindow.on("closed", function () {
+      promptWindow.on('closed', () => {
         console.log({ promptResponse });
-        debugger;
+        // debugger;
         eventRet.returnValue = promptResponse;
         promptWindow = null;
       });
     });
-    ipcMain.on("prompt-response", function (event, arg) {
-      if (arg === "") {
+    ipcMain.on('prompt-response', (event, arg) => {
+      if (arg === '') {
         arg = null;
       }
-      console.log("prompt-response", { arg });
+      console.log('prompt-response', { arg });
       promptResponse = arg;
     });
 
     updateSplashWindow({
-      state: "loading",
-      message: "Starting Pinokio…",
+      state: 'loading',
+      message: 'Starting Pinokio…',
       icon: getSplashIcon(),
     });
     try {
@@ -2413,13 +2289,13 @@ document.querySelector("form").addEventListener("submit", (e) => {
         const portInUse = await pinokiod.running(pinokiod.port);
         if (portInUse) {
           showStartupError({
-            message: "Pinokio is already running",
+            message: 'Pinokio is already running',
             detail: `Pinokio detected another instance listening on port ${pinokiod.port}. Please close the other instance before launching a new one.`,
           });
           return;
         }
       } catch (checkError) {
-        console.warn("Failed to verify pinokio port availability", checkError);
+        console.warn('Failed to verify pinokio port availability', checkError);
       }
       await pinokiod.start({
         onquit: () => {
@@ -2431,16 +2307,14 @@ document.querySelector("form").addEventListener("submit", (e) => {
         },
         onrefresh: (payload) => {
           try {
-            updateThemeColors(
-              payload || { theme: pinokiod.theme, colors: pinokiod.colors }
-            );
+            updateThemeColors(payload || { theme: pinokiod.theme, colors: pinokiod.colors });
           } catch (err) {
-            console.error("Failed to sync title bar theme", err);
+            console.error('Failed to sync title bar theme', err);
           }
         },
         browser: {
           clearCache: async () => {
-            console.log("clear cache from all sessions");
+            console.log('clear cache from all sessions');
 
             // Clear default session
             await session.defaultSession.clearStorageData();
@@ -2453,51 +2327,51 @@ document.querySelector("form").addEventListener("submit", (e) => {
               }
             }
 
-            console.log("cleared all sessions");
+            console.log('cleared all sessions');
           },
         },
       });
     } catch (error) {
-      console.error("Failed to start pinokiod", error);
+      console.error('Failed to start pinokiod', error);
       showStartupError({ error });
       return;
     }
     closeSplashWindow();
     PORT = pinokiod.port;
-    app.on("web-contents-created", attach);
-    app.on("activate", function () {
+    app.on('web-contents-created', attach);
+    app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow(PORT);
     });
-    app.on("before-quit", function (e) {
+    app.on('before-quit', (e) => {
       if (pinokiod.kernel.kill) {
         e.preventDefault();
-        console.log("Cleaning up before quit", process.pid);
+        console.log('Cleaning up before quit', process.pid);
         pinokiod.kernel.kill();
       }
     });
-    app.on("window-all-closed", function () {
-      console.log("window-all-closed");
-      if (process.platform !== "darwin") {
+    app.on('window-all-closed', () => {
+      console.log('window-all-closed');
+      if (process.platform !== 'darwin') {
         // Reset all shells before quitting
         pinokiod.kernel.shell.reset();
         // wait 1 second before quitting the app
         // otherwise the app.quit() fails because the subprocesses are running
         setTimeout(() => {
-          console.log("app.quit()");
+          console.log('app.quit()');
           app.quit();
         }, 1000);
       }
     });
-    app.on("browser-window-created", (event, win) => {
-      if (win.type !== "splash") {
-        if (win && typeof win.setTitleBarOverlay === "function") {
+    app.on('browser-window-created', (event, win) => {
+      if (win.type !== 'splash') {
+        if (win && typeof win.setTitleBarOverlay === 'function') {
           const overlay = titleBarOverlay(colors);
           setWindowTitleBarOverlay(win, overlay);
         }
       }
     });
-    app.on("open-url", (event, url) => {
-      let u = url.replace(/pinokio:[\/]+/, "");
+    app.on('open-url', (event, url) => {
+      const u = url.replace(/pinokio:[/]+/, '');
       //    let u = new URL(url).search
       //    console.log("u", u)
       loadNewWindow(`${root_url}/pinokio/${u}`, PORT);
@@ -2512,10 +2386,10 @@ document.querySelector("form").addEventListener("submit", (e) => {
     });
     //    app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
 
-    let all = BrowserWindow.getAllWindows();
+    const all = BrowserWindow.getAllWindows();
     for (win of all) {
       try {
-        if (win && typeof win.setTitleBarOverlay === "function") {
+        if (win && typeof win.setTitleBarOverlay === 'function') {
           const overlay = titleBarOverlay(colors);
           setWindowTitleBarOverlay(win, overlay);
         }
@@ -2537,7 +2411,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
       if (!mainWindow || !dashboardView) return;
       const contentBounds = mainWindow.getContentBounds();
       const header =
-        typeof activeHeaderHeight === "number" && activeHeaderHeight > 0
+        typeof activeHeaderHeight === 'number' && activeHeaderHeight > 0
           ? activeHeaderHeight
           : TAB_BAR_HEIGHT;
       dashboardView.setBounds({
@@ -2551,29 +2425,29 @@ document.querySelector("form").addEventListener("submit", (e) => {
 
   const attachDashboardResizeHandlers = () => {
     if (!mainWindow || dashboardResizeHandlersAttached) return;
-    mainWindow.on("resize", adjustDashboardViewBounds);
-    mainWindow.on("maximize", adjustDashboardViewBounds);
-    mainWindow.on("unmaximize", adjustDashboardViewBounds);
-    mainWindow.on("enter-full-screen", adjustDashboardViewBounds);
-    mainWindow.on("leave-full-screen", adjustDashboardViewBounds);
+    mainWindow.on('resize', adjustDashboardViewBounds);
+    mainWindow.on('maximize', adjustDashboardViewBounds);
+    mainWindow.on('unmaximize', adjustDashboardViewBounds);
+    mainWindow.on('enter-full-screen', adjustDashboardViewBounds);
+    mainWindow.on('leave-full-screen', adjustDashboardViewBounds);
     dashboardResizeHandlersAttached = true;
   };
 
   const detachDashboardResizeHandlers = () => {
     if (!mainWindow || !dashboardResizeHandlersAttached) return;
-    mainWindow.removeListener("resize", adjustDashboardViewBounds);
-    mainWindow.removeListener("maximize", adjustDashboardViewBounds);
-    mainWindow.removeListener("unmaximize", adjustDashboardViewBounds);
-    mainWindow.removeListener("enter-full-screen", adjustDashboardViewBounds);
-    mainWindow.removeListener("leave-full-screen", adjustDashboardViewBounds);
+    mainWindow.removeListener('resize', adjustDashboardViewBounds);
+    mainWindow.removeListener('maximize', adjustDashboardViewBounds);
+    mainWindow.removeListener('unmaximize', adjustDashboardViewBounds);
+    mainWindow.removeListener('enter-full-screen', adjustDashboardViewBounds);
+    mainWindow.removeListener('leave-full-screen', adjustDashboardViewBounds);
     dashboardResizeHandlersAttached = false;
   };
 
-  ipcMain.handle("pinokio:set-view", async (event, config) => {
+  ipcMain.handle('pinokio:set-view', async (event, config) => {
     if (!mainWindow) return;
 
-    if (config.view === "dashboard") {
-      if (typeof config.headerHeight === "number" && config.headerHeight > 0) {
+    if (config.view === 'dashboard') {
+      if (typeof config.headerHeight === 'number' && config.headerHeight > 0) {
         activeHeaderHeight = config.headerHeight;
       }
       if (!dashboardView) {
@@ -2592,7 +2466,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
       adjustDashboardViewBounds();
       attachDashboardResizeHandlers();
     } else {
-      if (typeof config.headerHeight === "number" && config.headerHeight > 0) {
+      if (typeof config.headerHeight === 'number' && config.headerHeight > 0) {
         activeHeaderHeight = config.headerHeight;
       }
       // Switch to home
@@ -2602,7 +2476,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
     }
   });
 
-  ipcMain.handle("pinokio:start", async () => {
+  ipcMain.handle('pinokio:start', async () => {
     return { started: true, port: PORT };
   });
 }
