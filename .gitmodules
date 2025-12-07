@@ -6,3 +6,7 @@
 	path = next-gen
 	url = https://github.com/next-dev-team/next-gen
 	branch = main
+[submodule "next-gen/turbo/generators"]
+	path = next-gen/turbo/generators
+	url = https://github.com/next-dev-team/next-gen
+	branch = main
