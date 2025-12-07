@@ -1,12 +1,9 @@
-[submodule "libs/next-gen"]
-	path = libs/next-gen
-	url = https://github.com/next-dev-team/next-gen
-	branch = main
+
 [submodule "next-gen"]
-	path = next-gen
+	path = turbo
 	url = https://github.com/next-dev-team/next-gen
-	branch = main
-[submodule "next-gen/turbo/generators"]
-	path = next-gen/turbo/generators
+	branch = turbo
+[submodule "turbo"]
+	path = turbo
 	url = https://github.com/next-dev-team/next-gen
-	branch = main
+	branch = turbo
