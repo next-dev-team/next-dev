@@ -1,0 +1,25 @@
+{
+  "name": "@rnr/api-counter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/gen/index.ts",
+  "scripts": {
+    "gen:api": "kubb --config kubb.config.ts",
+    "gen:watch": "kubb --config kubb.config.ts --watch"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "@kubb/plugin-client": "^4.5.14"
+  },
+  "devDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "@kubb/cli": "^4.5.14",
+    "@kubb/plugin-oas": "^4.5.14",
+    "@kubb/plugin-react-query": "^4.5.14",
+    "@kubb/plugin-ts": "^4.5.14"
+  }
+}

@@ -1,6 +1,7 @@
 declare global {
   interface Window {
-    electronAPI?: {
+    electronAPI: {
+      pterm: (args: string[]) => Promise<string>;
       startPinokio: () => Promise<{ started: boolean; port?: number }>;
       setDashboardView: (config: {
         view: "home" | "dashboard";

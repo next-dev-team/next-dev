@@ -1,5 +1,1 @@
-{
-  "type": "object",
-  "properties": { "email": { "type": "string", "format": "email" }, "name": { "type": "string" } },
-  "x-readme-ref-name": "UpdateUserInput"
-}
+{"type":"object","properties":{"email":{"type":"string","format":"email"},"name":{"type":"string"}},"x-readme-ref-name":"UpdateUserInput"}

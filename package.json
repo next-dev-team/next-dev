@@ -74,5 +74,8 @@
   "resolutions": {
     "lightningcss": "1.27.0",
     "node-gyp": "^11.5.0"
+  },
+  "dependencies": {
+    "pterm": "^0.0.14"
   }
 }

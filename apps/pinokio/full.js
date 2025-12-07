@@ -10,6 +10,7 @@ const {
   session,
   desktopCapturer,
 } = require('electron');
+const { spawn } = require('child_process');
 const windowStateKeeper = require('electron-window-state');
 const fs = require('fs');
 const path = require('path');
@@ -1636,7 +1637,7 @@ const captureScreenshotRegion = async (bounds) => {
 
 const attach = (event, webContents) => {
   if (process.env.PINOKIO_DEV === 'true') {
-    webContents.openDevTools();
+    // webContents.openDevTools();
   }
   const wc = webContents;
 
@@ -2474,6 +2475,59 @@ document.querySelector("form").addEventListener("submit", (e) => {
       // We don't destroy dashboardView so state is preserved
       detachDashboardResizeHandlers();
     }
+  });
+
+  ipcMain.handle('run-pterm', async (_, args) => {
+    const isMac = process.platform === 'darwin';
+
+    // Find the project and workspace directories
+    const projectRoot = __dirname;
+    // This can be replaced with `find-yarn-workspace-root`
+    const monorepoRoot = path.resolve(projectRoot, '../..');
+    const ptermPath = path.join(
+      monorepoRoot,
+      'node_modules',
+      '.bin',
+      'pterm' + (isMac ? '' : '.cmd'),
+    );
+    return new Promise((resolve, reject) => {
+      const child = spawn(ptermPath, args || [], {
+        shell: true,
+      });
+
+      let output = '';
+      let errorOutput = '';
+
+      child.stdout.on('data', (data) => {
+        output += data.toString();
+        console.log('stdout:', data.toString());
+        setTimeout(() => {
+          resolve(output.trim());
+        }, 5000); // 5 second timeout
+      });
+
+      child.stderr.on('data', (data) => {
+        errorOutput += data.toString();
+        console.log('stderr:', data.toString());
+      });
+
+      child.on('error', (error) => {
+        console.error('Spawn error:', error);
+        reject(error);
+      });
+
+      child.on('close', (code) => {
+        console.log(`pterm exited with code ${code}`);
+        console.log('stdout:', output);
+        console.log('stderr:', errorOutput);
+
+        if (code === 0) {
+          resolve(output.trim());
+        } else {
+          reject(new Error(`pterm exited with code ${code}: ${errorOutput}`));
+        }
+      });
+    });
   });
 
   ipcMain.handle('pinokio:start', async () => {

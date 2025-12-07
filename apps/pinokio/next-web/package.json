@@ -9,6 +9,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@rnr/api-counter": "workspace:*",
+    "@tanstack/react-query": "^5.0.0",
+    "axios": "^1.7.9",
     "next": "16.0.7",
     "react": "19.2.0",
     "react-dom": "19.2.0",
