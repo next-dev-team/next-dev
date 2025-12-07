@@ -2,3 +2,7 @@
 	path = libs/next-gen
 	url = https://github.com/next-dev-team/next-gen
 	branch = main
+[submodule "next-gen"]
+	path = next-gen
+	url = https://github.com/next-dev-team/next-gen
+	branch = main
