@@ -2,10 +2,11 @@
   "name": "@rnr/monorepo",
   "private": true,
   "scripts": {
-    "pinokio": "turbo dev --filter=pinokio",
+    "pinokio": "concurrently \"pnpm dev:pino-app\" \"wait-on tcp:8000 && turbo dev --filter=pinokio\"",
     "gen:api": "turbo gen:api",
     "dev": "turbo dev",
     "dev:rnr-next": "turbo dev --filter=rnr-next",
+    "dev:pino-app": "turbo dev --filter=@rnr/pino-app",
     "dev:antd": "pnpm --filter @rnr/antd-pro dev",
     "dev:api": "pnpm --filter @rnr/api dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",

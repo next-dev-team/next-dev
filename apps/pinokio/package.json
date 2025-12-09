@@ -8,7 +8,7 @@
   "email": "cocktailpeanuts@proton.me",
   "author": "https://twitter.com/cocktailpeanut",
   "scripts": {
-    "dev": "concurrently \"pnpm -C next-web dev\" \"wait-on tcp:3000 && cross-env PINOKIO_DEV=true electron .\"",
+    "dev": "cross-env PINOKIO_DEV=true electron .",
     "start": "electron .",
     "pack": "./node_modules/.bin/electron-builder --dir",
     "eject": "hdiutil info | grep '/dev/disk' | awk '{print $1}' | xargs -I {} hdiutil detach {}",

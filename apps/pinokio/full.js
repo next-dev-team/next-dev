@@ -2100,7 +2100,7 @@ const createWindow = (port) => {
   );
   //  enable_cors(mainWindow)
   if (process.env.PINOKIO_DEV) {
-    root_url = 'http://localhost:3000';
+    root_url = 'http://localhost:8000';
   } else if ('' + port === '80') {
     root_url = `http://localhost`;
   } else {

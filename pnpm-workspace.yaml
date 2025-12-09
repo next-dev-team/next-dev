@@ -1,5 +1,4 @@
 packages:
   - apps/*
-  - apps/pinokio/next-web
   - packages/**/*
   - mcp/*

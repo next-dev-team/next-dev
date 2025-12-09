@@ -37,6 +37,10 @@
     },
     "clean": {
       "cache": false
+    },
+    "dev:pino-app": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
