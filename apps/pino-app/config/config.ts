@@ -2,9 +2,9 @@
 
 import { join } from 'node:path';
 import { defineConfig } from '@umijs/max';
+import { codeInspectorPlugin } from 'code-inspector-plugin';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
-
 import routes from './routes';
 
 const { UMI_ENV = 'dev' } = process.env;
@@ -155,7 +155,13 @@ export default defineConfig({
    * @description 使用 mako 极速研发
    * @doc https://umijs.org/docs/api/config#mako
    */
-  mako: {},
+  mako: {
+    plugins: [
+      codeInspectorPlugin({
+        bundler: 'mako',
+      }),
+    ],
+  },
   requestRecord: {},
   exportStatic: {},
   define: {
