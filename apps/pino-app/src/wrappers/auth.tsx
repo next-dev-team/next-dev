@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react';
 import { useModel, useNavigate } from 'umi';
 
 export default function AuthWrapper(props: any) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
-  const { setInitialState } = useModel('@@initialState');
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const { loading, setInitialState } = useModel('@@initialState');
 
   // useEffect(() => {
   //   const checkAuth = async () => {

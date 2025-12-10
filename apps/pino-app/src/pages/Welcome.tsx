@@ -1,5 +1,5 @@
 import { PageContainer } from '@ant-design/pro-components';
-import { Card, theme } from 'antd';
+import { Button, Card, theme } from 'antd';
 import type React from 'react';
 
 const Welcome: React.FC = () => {
@@ -10,24 +10,10 @@ const Welcome: React.FC = () => {
         style={{
           borderRadius: 8,
           marginTop: 16,
+          background: 'red',
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
-        >
-          <div
-            style={{
-              fontSize: '16px',
-              color: token.colorTextHeading,
-            }}
-          >
-            Posts
-          </div>
-        </div>
+        <Button>test</Button>
       </Card>
     </PageContainer>
   );

@@ -16,7 +16,12 @@ export default [
     name: 'welcome',
     icon: 'smile',
     component: './Welcome',
-    wrappers: ['@/wrappers/auth'],
+  },
+  {
+    path: '/todo',
+    name: 'todo',
+    icon: 'checkSquare',
+    component: './Todo',
   },
   {
     path: '/',

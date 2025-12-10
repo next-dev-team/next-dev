@@ -2,14 +2,14 @@ import { LinkOutlined } from '@ant-design/icons';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import { SettingDrawer } from '@ant-design/pro-components';
 import type { RequestConfig, RunTimeLayoutConfig } from '@umijs/max';
-import { history, Link } from '@umijs/max';
-import { AvatarDropdown, AvatarName, Footer, Question, SelectLang } from '@/components';
+import { history } from '@umijs/max';
+import { AvatarDropdown, AvatarName, SelectLang } from '@/components';
 import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 import '@ant-design/v5-patch-for-react-19';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const isDev = process.env.NODE_ENV === 'development';
 const isDevOrTest = isDev || process.env.CI;
@@ -25,7 +25,6 @@ export async function getInitialState(): Promise<{
   currentUser?: any;
   loading?: boolean;
   fetchUserInfo?: () => Promise<any>;
-  view?: 'home' | 'dashboard';
 }> {
   const fetchUserInfo = async () => {
     // Mock user info for development
@@ -35,24 +34,10 @@ export async function getInitialState(): Promise<{
       userid: '00000001',
       email: 'admin@example.com',
       signature: 'Tolerance is great',
-      title: 'Interaction Expert',
-      group: 'Ant Financial - Business Group - Platform Dept - Tech Dept - UED',
-      tags: [
-        { key: '0', label: 'Thoughtful' },
-        { key: '1', label: 'Design Focus' },
-        { key: '2', label: 'Spicy~' },
-        { key: '3', label: 'Long Legs' },
-        { key: '4', label: 'Sichuan Girl' },
-        { key: '5', label: 'Inclusive' },
-      ],
       notifyCount: 12,
       unreadCount: 11,
       country: 'China',
       access: 'admin',
-      geographic: {
-        province: { label: 'Zhejiang Province', key: '330000' },
-        city: { label: 'Hangzhou City', key: '330100' },
-      },
       address: 'No. 77 Gongzhuan Road, Xihu District',
       phone: '0752-268888888',
     };
@@ -65,13 +50,11 @@ export async function getInitialState(): Promise<{
       fetchUserInfo,
       currentUser,
       settings: defaultSettings as Partial<LayoutSettings>,
-      view: 'home',
     };
   }
   return {
     fetchUserInfo,
     settings: defaultSettings as Partial<LayoutSettings>,
-    view: 'home',
   };
 }
 
@@ -191,17 +174,11 @@ const ViewMenu = ({ setView, view }: any) => {
 
 // ProLayout supported api https://procomponents.ant.design/components/layout
 export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) => {
-  const isDashboardView = (initialState?.view || 'home') === 'dashboard';
+  const [view, setView] = useState<'home' | 'dashboard'>('home');
+  const isDashboardView = view === 'dashboard';
   return {
     actionsRender: () => [
-      <ViewMenu
-        key="view-menu"
-        setView={(v: 'home' | 'dashboard') =>
-          setInitialState((prev: any) => ({ ...prev, view: v }))
-        }
-        view={initialState?.view || 'home'}
-      />,
-      <Question key="doc" />,
+      <ViewMenu key="view-menu" view={view} setView={setView} />,
       <SelectLang key="SelectLang" />,
     ],
     menuRender: isDashboardView ? false : undefined,
@@ -210,10 +187,10 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       title: <AvatarName />,
       render: (_, avatarChildren) => <AvatarDropdown>{avatarChildren}</AvatarDropdown>,
     },
-    waterMarkProps: {
-      content: initialState?.currentUser?.name,
-    },
-    footerRender: isDashboardView ? undefined : () => <Footer />,
+    // waterMarkProps: {
+    //   content: initialState?.currentUser?.name,
+    // },
+    // footerRender: isDashboardView ? undefined : () => <Footer />,
     onPageChange: () => {
       const { location } = history;
       // If not logged in, redirect to login
@@ -243,14 +220,14 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
             width: '331px',
           },
         ],
-    links: isDevOrTest
-      ? [
-          <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI Docs</span>
-          </Link>,
-        ]
-      : [],
+    // links: isDevOrTest
+    //   ? [
+    //       <Link key="openapi" to="/umi/plugin/openapi" target="_blank">
+    //         <LinkOutlined />
+    //         <span>OpenAPI Docs</span>
+    //       </Link>,
+    //     ]
+    //   : [],
     menuHeaderRender: undefined,
     // Custom 403 page
     // unAccessible: <div>unAccessible</div>,

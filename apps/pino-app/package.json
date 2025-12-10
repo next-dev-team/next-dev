@@ -44,7 +44,8 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "@tanstack/react-query": "^5.90.12",
-    "@rnr/api-spec": "workspace:*"
+    "@rnr/api-spec": "workspace:*",
+    "@rnr/api-counter": "workspace:*"
   },
   "devDependencies": {
     "@ant-design/pro-cli": "^3.3.0",
