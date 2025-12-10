@@ -38,6 +38,13 @@ export default [
     wrappers: ['@/wrappers/auth'],
   },
   {
+    path: '/ffmpeg',
+    name: 'FFmpeg',
+    icon: 'videoCamera',
+    component: './FFmpeg',
+    wrappers: ['@/wrappers/auth'],
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

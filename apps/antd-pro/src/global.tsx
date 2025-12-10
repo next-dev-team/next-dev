@@ -66,6 +66,7 @@ if (pwa) {
       </Button>
     );
     notification.open({
+      title: useIntl().formatMessage({ id: 'app.pwa.serviceworker.updated' }),
       message: useIntl().formatMessage({ id: 'app.pwa.serviceworker.updated' }),
       description: useIntl().formatMessage({
         id: 'app.pwa.serviceworker.updated.hint',

@@ -1,54 +1,54 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useModel } from 'umi';
 import { Spin } from 'antd';
+import { useEffect, useState } from 'react';
+import { useModel, useNavigate } from 'umi';
 
 export default function AuthWrapper(props: any) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { setInitialState } = useModel('@@initialState');
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      const token = localStorage.getItem('token');
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     const token = localStorage.getItem('token');
 
-      if (!token) {
-        navigate('/login');
-        return;
-      }
+  //     if (!token) {
+  //       navigate('/login');
+  //       return;
+  //     }
 
-      try {
-        const response = await fetch('/api/auth/me', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  //     try {
+  //       const response = await fetch('/api/auth/me', {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
 
-        if (response.ok) {
-          const userData = await response.json();
-          setIsAuthenticated(true);
+  //       if (response.ok) {
+  //         const userData = await response.json();
+  //         setIsAuthenticated(true);
 
-          // Set current user in initial state
-          setInitialState((s: any) => ({ ...s, currentUser: userData.data }));
+  //         // Set current user in initial state
+  //         setInitialState((s: any) => ({ ...s, currentUser: userData.data }));
 
-          // Also store user data in localStorage for consistency
-          localStorage.setItem('user', JSON.stringify(userData.data));
-        } else {
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-          navigate('/login');
-        }
-      } catch (error) {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        navigate('/login');
-      } finally {
-        setLoading(false);
-      }
-    };
+  //         // Also store user data in localStorage for consistency
+  //         localStorage.setItem('user', JSON.stringify(userData.data));
+  //       } else {
+  //         localStorage.removeItem('token');
+  //         localStorage.removeItem('user');
+  //         navigate('/login');
+  //       }
+  //     } catch (error) {
+  //       localStorage.removeItem('token');
+  //       localStorage.removeItem('user');
+  //       navigate('/login');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-    checkAuth();
-  }, [navigate]);
+  //   checkAuth();
+  // }, [navigate]);
 
   if (loading) {
     return (

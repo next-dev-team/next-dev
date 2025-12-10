@@ -24,6 +24,12 @@ export default [
     component: './Todo',
   },
   {
+    path: '/ffmpeg',
+    name: 'FFmpeg',
+    icon: 'videoCamera',
+    component: './FFmpeg',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },
