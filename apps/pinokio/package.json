@@ -19,8 +19,8 @@
     "dist2": "npm run monkeypatch && export USE_SYSTEM_FPM=true && ./node_modules/.bin/electron-builder install-app-deps && export SNAPCRAFT_BUILD_ENVIRONMENT=host && export SNAP_DESTRUCTIVE_MODE='true' && ./node_modules/.bin/electron-builder -mwl && npm run zip",
     "zip": "node script/zip",
     "monkeypatch": "echo 'Skipping monkeypatch'",
-    "postinstall2": "npm run monkeypatch && npm run rebuild:pty && ./node_modules/.bin/electron-builder install-app-deps",
-    "rebuild:pty": "cd ../../node_modules/@homebridge/node-pty-prebuilt-multiarch && node ../../../node_modules/node-gyp/bin/node-gyp.js rebuild --target=39.2.3 --arch=arm64 --dist-url=https://electronjs.org/headers",
+    "postinstall2": "npm run monkeypatch && npm run rebuild:pty && electron-builder install-app-deps",
+    "rebuild:pty": "cd ../../node_modules/@homebridge/node-pty-prebuilt-multiarch && node ../../../node_modules/node-gyp/bin/node-gyp.js rebuild --target=39.2.3 --arch=x64 --dist-url=https://electronjs.org/headers",
     "fix": "brew install fpm"
   },
   "build": {
