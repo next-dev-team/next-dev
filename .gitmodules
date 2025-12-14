@@ -1,0 +1,4 @@
+[submodule "turbo"]
+	path = turbo
+	url = https://github.com/next-dev-team/next-gen
+	branch = turbo
