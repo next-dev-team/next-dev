@@ -68,3 +68,4 @@ CLAUDE.md
 .mcp.json
 # <<< agent-cli
 .cursor
+dist
