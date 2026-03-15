@@ -19,11 +19,13 @@
     "cli:mcp": "tsx src/index.ts mcp list",
     "cli:skill:list": "tsx src/index.ts skill list",
     "cli:skill:list:anthropic": "tsx src/index.ts skill list -p anthropic",
-    "cli:skill:pull": "tsx src/index.ts skill pull"
+    "cli:skill:pull": "tsx src/index.ts skill pull",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
-    "citty": "^0.1.6",
     "chalk": "^5.4.1",
+    "citty": "^0.1.6",
     "fast-glob": "^3.3.3",
     "gray-matter": "^4.0.3"
   },
@@ -31,6 +33,7 @@
     "@types/node": "^22.15.0",
     "tsup": "^8.4.0",
     "tsx": "^4.19.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.0"
   }
 }

@@ -7,6 +7,7 @@ import status from './commands/status';
 import convert from './commands/convert';
 import mcp from './commands/mcp';
 import skill from './commands/skill';
+import create from './commands/create';
 
 const main = defineCommand({
   meta: {
@@ -21,6 +22,7 @@ const main = defineCommand({
     convert: () => convert,
     mcp: () => mcp,
     skill: () => skill,
+    create: () => create,
   },
 });
 
