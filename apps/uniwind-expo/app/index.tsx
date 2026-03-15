@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { FancyButton } from '@next-dev/ui';
+import { FancyButton } from '@next-dev/rn-uniwind';
 import { Link, Stack } from 'expo-router';
 import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
 import { Alert, Image, type ImageStyle, ScrollView, View } from 'react-native';

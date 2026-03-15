@@ -36,9 +36,9 @@ importers:
       '@radix-ui/react-tabs':
         specifier: ^1.1.12
         version: 1.1.13(@types/react-dom@19.1.5(@types/react@19.0.14))(@types/react@19.0.14)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      '@rnr/rn-ui':
+      '@rnr/rn-nativewind':
         specifier: workspace:*
-        version: link:../../packages/rn-ui
+        version: link:../../packages/rn-nativewind
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -145,9 +145,9 @@ importers:
       '@rn-primitives/slot':
         specifier: ~1.2.0
         version: 1.2.0(react-native-web@0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.0.14)(react@19.1.0))(react@19.1.0)
-      '@rnr/rn-ui':
+      '@rnr/rn-nativewind':
         specifier: workspace:*
-        version: link:../../packages/rn-ui
+        version: link:../../packages/rn-nativewind
       '@shopify/flash-list':
         specifier: 1.7.6
         version: 1.7.6(@babel/runtime@7.28.6)(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.0.14)(react@19.1.0))(react@19.1.0)
@@ -239,9 +239,9 @@ importers:
 
   apps/uniwind-expo:
     dependencies:
-      '@next-dev/ui':
+      '@next-dev/rn-uniwind':
         specifier: workspace:*
-        version: link:../../websites/reactnativereusables
+        version: link:../../packages/rn-uniwind
       '@react-navigation/native':
         specifier: ^7.0.0
         version: 7.1.33(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -415,7 +415,7 @@ importers:
         specifier: ~5.9.2
         version: 5.9.3
 
-  packages/rn-ui:
+  packages/rn-nativewind:
     dependencies:
       '@react-navigation/native':
         specifier: ^7.0.0
@@ -461,7 +461,7 @@ importers:
         specifier: ^3.4.14
         version: 3.4.19(yaml@2.8.2)
 
-  websites/reactnativereusables:
+  packages/rn-uniwind:
     dependencies:
       '@rn-primitives/slot':
         specifier: ~1.2.0
