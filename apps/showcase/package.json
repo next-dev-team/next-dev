@@ -1,0 +1,53 @@
+{
+  "name": "@rnr/showcase",
+  "main": "index.js",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "ENV=development expo start --clear",
+    "start": "ENV=development expo start --clear",
+    "testflight": "eas build -p ios --submit",
+    "build:web": "npx expo export -p web",
+    "serve:web": "npx serve dist --single",
+    "clean": "rm -rf .expo node_modules",
+    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css",
+    "registry": "shadcn build --output ./public/r"
+  },
+  "dependencies": {
+    "@expo-google-fonts/geist": "^0.4.0",
+    "@react-navigation/native": "^7.0.0",
+    "@rn-primitives/slot": "~1.2.0",
+    "@rnr/example-library": "workspace:*",
+    "@shopify/flash-list": "1.7.6",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "expo": "^53.0.20",
+    "expo-font": "~13.3.2",
+    "expo-haptics": "~14.1.4",
+    "expo-linking": "~7.1.7",
+    "expo-router": "~5.1.4",
+    "expo-splash-screen": "~0.30.10",
+    "expo-status-bar": "~2.2.3",
+    "expo-updates": "~0.28.17",
+    "lucide-react-native": "^0.511.0",
+    "nativewind": "^4.1.23",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-native": "0.79.5",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.5",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-screens": "^4.11.1",
+    "react-native-svg": "15.11.2",
+    "react-native-web": "~0.21.0",
+    "shadcn": "2.9.2",
+    "tailwind-merge": "^2.2.1",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@types/react": "~19.0.14",
+    "tailwindcss": "^3.4.14",
+    "typescript": "^5.8.3"
+  },
+  "private": true
+}

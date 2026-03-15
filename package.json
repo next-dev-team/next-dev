@@ -1,0 +1,39 @@
+{
+  "name": "@rnr/monorepo",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:docs": "turbo dev --filter=@rnr/docs",
+    "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "build": "turbo build",
+    "registry": "turbo registry",
+    "format": "prettier --write .",
+    "build:showcase": "turbo build --filter=@rnr/showcase",
+    "build:docs": "turbo build --filter=@rnr/docs",
+    "clean": "turbo clean && rm -rf .turbo node_modules"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "turbo": "^2.5.5",
+    "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@babel/*",
+        "expo-modules-*",
+        "typescript"
+      ]
+    }
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "packageManager": "pnpm@10.14.0",
+  "resolutions": {
+    "lightningcss": "1.27.0"
+  }
+}

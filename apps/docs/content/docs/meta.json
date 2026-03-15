@@ -1,0 +1,26 @@
+{
+  "title": "React Native Reusables",
+  "description": "",
+  "icon": "Building2",
+  "root": true,
+  "pages": [
+    "---Getting started---",
+    "!index",
+    "!installation",
+    "!usage",
+    "!changelog",
+    "[BookOpen][Introduction](/docs)",
+    "[FolderDown][Installation](/docs/installation)",
+    "[Wrench][Usage](/docs/usage)",
+    "[GitMerge][Changelog](/docs/changelog)",
+    "------",
+    "!/blocks",
+    "---Blocks---",
+    ".../blocks",
+    "------",
+    "---Components---",
+    "!/components",
+    ".../components",
+    "..."
+  ]
+}
