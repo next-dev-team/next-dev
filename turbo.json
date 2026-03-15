@@ -5,6 +5,14 @@
     "lint": {
       "outputs": []
     },
+    "format": {
+      "outputs": [],
+      "cache": false
+    },
+    "check": {
+      "outputs": [],
+      "cache": false
+    },
     "test": {
       "dependsOn": ["build"],
       "inputs": ["**/*.{ts,tsx,js,jsx}"]

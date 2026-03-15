@@ -1,22 +1,22 @@
 {
-  "name": "@rnr/monorepo",
+  "name": "@next-dev/monorepo",
   "private": true,
   "scripts": {
     "dev": "turbo dev",
     "dev:docs": "turbo dev --filter=@rnr/docs",
     "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
-    "lint": "turbo lint",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check --write .",
     "test": "turbo test",
     "build": "turbo build",
     "registry": "turbo registry",
-    "format": "prettier --write .",
     "build:showcase": "turbo build --filter=@rnr/showcase",
     "build:docs": "turbo build --filter=@rnr/docs",
     "clean": "turbo clean && rm -rf .turbo node_modules"
   },
   "devDependencies": {
-    "prettier": "^3.6.2",
-    "prettier-plugin-tailwindcss": "^0.6.14",
+    "@biomejs/biome": "^1.9.4",
     "turbo": "^2.5.5",
     "typescript": "^5.8.3"
   },
@@ -27,6 +27,12 @@
         "expo-modules-*",
         "typescript"
       ]
+    },
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "react-native": "0.81.5",
+      "react-native-safe-area-context": "5.6.2"
     }
   },
   "engines": {
