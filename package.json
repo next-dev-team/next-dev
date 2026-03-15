@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "turbo dev",
-    "dev:docs": "turbo dev --filter=@rnr/docs",
+    "dev:docs": "turbo dev --filter=@next-dev/uniwind-docs",
     "dev:showcase": "turbo dev --filter=@rnr/showcase --concurrency 32",
     "lint": "biome lint .",
     "format": "biome format --write .",
@@ -12,7 +12,7 @@
     "build": "turbo build",
     "registry": "turbo registry",
     "build:showcase": "turbo build --filter=@rnr/showcase",
-    "build:docs": "turbo build --filter=@rnr/docs",
+    "build:docs": "turbo build --filter=@next-dev/uniwind-docs",
     "clean": "turbo clean && rm -rf .turbo node_modules",
     "init:cursor": "agent-cli sync --target cursor",
     "convert:cursor": "agent-cli convert --from cursor",
