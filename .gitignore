@@ -62,3 +62,9 @@ xcuserdata
 
 # VSCode
 .history/
+
+# >>> agent-cli (auto-generated, do not edit)
+CLAUDE.md
+.mcp.json
+# <<< agent-cli
+.cursor

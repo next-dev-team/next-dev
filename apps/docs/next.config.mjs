@@ -7,7 +7,7 @@ const config = {
   reactStrictMode: true,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   transpilePackages: [
-    '@rnr/rn-ui',
+    '@rnr/rn-nativewind',
     'react-native',
     'react-native-web',
     'expo',

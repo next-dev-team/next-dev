@@ -18,8 +18,8 @@
     "incremental": true,
     "paths": {
       "@docs/*": ["./*"],
-      "~/*": ["../../packages/rn-ui/reusables/*"],
-      "@/rn-ui/*": ["../../packages/rn-ui/src/*"]
+      "~/*": ["../../packages/rn-nativewind/reusables/*"],
+      "@/rn-ui/*": ["../../packages/rn-nativewind/src/*"]
     },
     "plugins": [
       {

@@ -1,0 +1,8 @@
+{
+  "$schema": "./apps/agent-cli/schema.json",
+  "targets": ["cursor", "claude"],
+  "scope": "workspace",
+  "gitignore": true,
+  "mcp": true,
+  "rootFiles": ["AGENTS.md", "SKILLS.md"]
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# agent-cli — runs TypeScript source directly via tsx
+# Resolves symlinks to find the actual install location
+
+SOURCE="${BASH_SOURCE[0]}"
+# Resolve symlinks
+while [ -L "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
+
+exec npx tsx "$DIR/src/index.ts" "$@"

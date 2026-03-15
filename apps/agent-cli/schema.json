@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "agent-cli configuration",
+  "description": "Configuration for @next-dev/agent-cli — universal AI agent config sync",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path to the JSON schema for validation"
+    },
+    "targets": {
+      "type": "array",
+      "description": "IDE targets to sync to. Empty array = auto-detect installed tools.",
+      "items": {
+        "type": "string",
+        "enum": ["cursor", "copilot", "windsurf", "gemini", "claude"]
+      },
+      "default": [],
+      "uniqueItems": true
+    },
+    "scope": {
+      "type": "string",
+      "description": "Default scope for sync operations",
+      "enum": ["workspace", "global"],
+      "default": "workspace"
+    },
+    "gitignore": {
+      "type": "boolean",
+      "description": "Auto-manage .gitignore with generated file entries",
+      "default": true
+    },
+    "mcp": {
+      "type": "boolean",
+      "description": "Sync MCP server configurations to IDE targets",
+      "default": true
+    },
+    "rootFiles": {
+      "type": "array",
+      "description": "Files to copy from .agents/ to project root",
+      "items": {
+        "type": "string",
+        "enum": ["AGENTS.md", "SKILLS.md"]
+      },
+      "default": ["AGENTS.md", "SKILLS.md"],
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false
+}

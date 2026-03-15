@@ -1,0 +1,14 @@
+{
+  "title": "UniWind Docs",
+  "root": true,
+  "pages": [
+    "---Getting started---",
+    "!index",
+    "[BookOpen][Introduction](/docs)",
+    "------",
+    "---Components---",
+    "!/components",
+    ".../components",
+    "..."
+  ]
+}

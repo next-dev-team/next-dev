@@ -1,0 +1,7 @@
+{
+  "targets": [],
+  "scope": "workspace",
+  "gitignore": true,
+  "mcp": true,
+  "rootFiles": ["AGENTS.md", "SKILLS.md"]
+}

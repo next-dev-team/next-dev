@@ -1,0 +1,66 @@
+---
+title: FancyButton
+description: A premium UniWind-styled button with gradient, animation, and multiple variants.
+---
+
+## FancyButton
+
+A premium button component built with UniWind powered by `class-variance-authority`.
+
+### Features
+
+- 🎨 Vibrant gradient background (purple → magenta → pink)
+- ✨ Smooth press scale animation
+- ♿ Accessible focus ring
+- 🎛️ Multiple variants: `default`, `destructive`, `outline`, `ghost`, `gradient`
+- 📐 Multiple sizes: `sm`, `default`, `lg`, `icon`
+
+### Usage
+
+```tsx
+import { FancyButton } from '@next-dev/rn-uniwind';
+
+<FancyButton
+  variant="gradient"
+  size="lg"
+  label="🚀 Launch"
+  onPress={() => console.log('Pressed!')}
+/>
+```
+
+### Variants
+
+```tsx
+// Default
+<FancyButton variant="default" label="Default" />
+
+// Destructive
+<FancyButton variant="destructive" label="Delete" />
+
+// Outline
+<FancyButton variant="outline" label="Outline" />
+
+// Ghost
+<FancyButton variant="ghost" label="Ghost" />
+
+// Gradient (default)
+<FancyButton variant="gradient" label="Gradient" />
+```
+
+### Sizes
+
+```tsx
+<FancyButton size="sm" label="Small" />
+<FancyButton size="default" label="Default" />
+<FancyButton size="lg" label="Large" />
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'destructive' \| 'outline' \| 'ghost' \| 'gradient'` | `'gradient'` | Visual style |
+| `size` | `'sm' \| 'default' \| 'lg' \| 'icon'` | `'default'` | Button size |
+| `label` | `string` | `'Button'` | Button text |
+| `shimmer` | `boolean` | `true` | Show shimmer on gradient |
+| `disabled` | `boolean` | `false` | Disable interactions |

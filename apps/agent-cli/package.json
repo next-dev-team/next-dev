@@ -1,0 +1,36 @@
+{
+  "name": "@next-dev/agent-cli",
+  "version": "0.2.0",
+  "description": "Universal AI agent config — sync .agents to any IDE (Cursor, Copilot, Windsurf, Gemini, etc.)",
+  "type": "module",
+  "bin": {
+    "agent-cli": "./bin/agent-cli"
+  },
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "start": "node dist/index.js",
+    "link:global": "pnpm build && pnpm link --global",
+    "cli": "tsx src/index.ts",
+    "cli:init": "tsx src/index.ts init",
+    "cli:sync": "tsx src/index.ts sync",
+    "cli:status": "tsx src/index.ts status",
+    "cli:convert": "tsx src/index.ts convert",
+    "cli:mcp": "tsx src/index.ts mcp list",
+    "cli:skill:list": "tsx src/index.ts skill list",
+    "cli:skill:list:anthropic": "tsx src/index.ts skill list -p anthropic",
+    "cli:skill:pull": "tsx src/index.ts skill pull"
+  },
+  "dependencies": {
+    "citty": "^0.1.6",
+    "chalk": "^5.4.1",
+    "fast-glob": "^3.3.3",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.3"
+  }
+}
