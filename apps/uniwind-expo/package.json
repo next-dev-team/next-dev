@@ -1,5 +1,5 @@
 {
-  "name": "@next-dev/uniwind-todo-expo",
+  "name": "@next-dev/uniwind-expo",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
