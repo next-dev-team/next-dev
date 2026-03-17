@@ -1,8 +1,10 @@
 {
   "extends": "@tsconfig/recommended/tsconfig.json",
-  "include": ["src", "reusables"],
+  "include": ["src", "reusables", "*.d.ts"],
   "compilerOptions": {
     "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "baseUrl": ".",
     "paths": {
       "~/*": ["reusables/*"],

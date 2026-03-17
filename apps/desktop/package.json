@@ -1,0 +1,60 @@
+{
+  "name": "@next-dev/desktop",
+  "description": "DesignForge Desktop — Electron shell for the visual builder",
+  "license": "MIT",
+  "version": "0.0.1",
+  "private": true,
+  "main": "out/main/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@electron-toolkit/utils": "^4.0.0",
+    "@next-dev/catalog": "workspace:*",
+    "@next-dev/editor-core": "workspace:*",
+    "@next-dev/json-render": "workspace:*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/react": "~19.1.10",
+    "@types/react-dom": "~19.1.5",
+    "@vitejs/plugin-react": "^4.7.0",
+    "electron": "^36.4.0",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^5.0.0",
+    "lucide-react": "^0.513.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "~5.9.2",
+    "vite-tsconfig-paths": "^4.3.0",
+    "zustand": "^5.0.5",
+    "zod": "^3.25.67"
+  },
+  "build": {
+    "appId": "com.nextdev.designforge",
+    "productName": "DesignForge",
+    "directories": {
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*"
+    ],
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage",
+      "category": "Development"
+    }
+  }
+}

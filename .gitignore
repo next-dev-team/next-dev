@@ -69,3 +69,5 @@ CLAUDE.md
 # <<< agent-cli
 .cursor
 dist
+/out
+.playwright-mcp

@@ -1,0 +1,48 @@
+{
+  "name": "@next-dev/catalog",
+  "description": "DesignForge component catalog — maps component types to UniWind components with Zod schemas",
+  "license": "MIT",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./registry": {
+      "types": "./src/registry.ts",
+      "import": "./src/registry.ts"
+    },
+    "./definitions": {
+      "types": "./src/definitions.ts",
+      "import": "./src/definitions.ts"
+    }
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsup src/index.ts src/registry.ts src/definitions.ts --format esm --dts",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@next-dev/editor-core": "workspace:*",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "@next-dev/rn-uniwind": "workspace:*",
+    "react": "*"
+  },
+  "peerDependenciesMeta": {
+    "@next-dev/rn-uniwind": {
+      "optional": true
+    }
+  }
+}

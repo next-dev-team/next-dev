@@ -1,0 +1,30 @@
+{
+  "name": "@next-dev/mcp-server",
+  "description": "DesignForge MCP server — AI-driven design tools via Model Context Protocol",
+  "license": "MIT",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "bin": {
+    "designforge-mcp": "src/index.ts"
+  },
+  "scripts": {
+    "start": "tsx src/index.ts --stdio",
+    "dev": "tsx watch src/index.ts --stdio",
+    "build": "tsup src/index.ts --format esm --dts",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@next-dev/catalog": "workspace:*",
+    "@next-dev/editor-core": "workspace:*",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

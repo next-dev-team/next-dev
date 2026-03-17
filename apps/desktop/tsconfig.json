@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/renderer/src/*"]
+    },
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "module": "ESNext",
+    "target": "ES2022",
+    "outDir": "out",
+    "declaration": true,
+    "composite": true
+  },
+  "include": ["src/**/*", "electron.vite.config.ts"],
+  "exclude": ["node_modules", "out", "dist"]
+}

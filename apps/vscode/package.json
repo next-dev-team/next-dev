@@ -1,0 +1,68 @@
+{
+  "name": "designforge",
+  "displayName": "DesignForge",
+  "description": "Visual UI builder for React Native Reusables (UniWind)",
+  "version": "0.0.1",
+  "publisher": "next-dev",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "designforge.editor",
+        "displayName": "DesignForge Editor",
+        "selector": [
+          {
+            "filenamePattern": "*.dfg"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "designforge.newDesign",
+        "title": "DesignForge: New Design"
+      },
+      {
+        "command": "designforge.exportCode",
+        "title": "DesignForge: Export Code"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "designforge",
+          "title": "DesignForge",
+          "icon": "$(layers)"
+        }
+      ]
+    },
+    "views": {
+      "designforge": [
+        {
+          "type": "webview",
+          "id": "designforge.componentList",
+          "name": "Components"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}

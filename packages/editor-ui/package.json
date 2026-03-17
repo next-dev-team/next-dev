@@ -1,0 +1,40 @@
+{
+  "name": "@next-dev/editor-ui",
+  "description": "DesignForge visual builder — React webview, portable across Electron/VS Code/browser",
+  "license": "MIT",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --port 4200",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "rm -rf dist node_modules"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@next-dev/catalog": "workspace:*",
+    "@next-dev/editor-core": "workspace:*",
+    "@next-dev/rn-uniwind": "workspace:*",
+    "lucide-react": "^0.513.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-native-web": "^0.21.0",
+    "zustand": "^5.0.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@types/react": "~19.1.10",
+    "@types/react-dom": "~19.1.5",
+    "@vitejs/plugin-react": "^4.7.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "~5.9.2",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^4.3.0",
+    "vitest": "^3.2.4"
+  }
+}
