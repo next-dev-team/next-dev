@@ -11,7 +11,8 @@
  * - nanoid generates collision-resistant 21-char IDs
  */
 
-import { compare } from 'fast-json-patch';
+import jsonpatch from 'fast-json-patch';
+const { compare } = jsonpatch;
 import { nanoid } from 'nanoid';
 import type { DesignSpec, Element, PatchOperation } from './types.js';
 

@@ -12,6 +12,7 @@
   "scripts": {
     "start": "tsx src/index.ts --stdio",
     "dev": "tsx watch src/index.ts --stdio",
+    "example:join-channel": "tsx join-channel.mts",
     "build": "tsup src/index.ts --format esm --dts",
     "clean": "rm -rf dist node_modules"
   },

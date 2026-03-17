@@ -370,50 +370,197 @@ export class OpenAIProvider implements AIProvider {
   }
 }
 
-// ─── MCP Provider (stdio bridge to packages/mcp-server) ─────────────────────
+// ─── MCP Provider (LLM understands + MCP tools execute) ─────────────────────
+//
+// Architecture:
+//   User prompt → LLM (OpenAI/Ollama) → tool_calls → MCP server → design ops
+//
+// The LLM receives the MCP tool catalog as context, then:
+//   1. Decides which MCP tools to call
+//   2. Generates the arguments
+//   3. We execute them via the Electron IPC bridge
+//
+// External agents (Claude Code, Cursor) can also connect to the same
+// MCP server directly — they don't need the LLM layer.
+
+interface MCPBridge {
+  connect(): Promise<{ success: boolean; error?: string; tools?: MCPToolDef[] }>;
+  disconnect(): Promise<{ success: boolean }>;
+  status(): Promise<{ connected: boolean; serverPath: string; tools: MCPToolDef[] }>;
+  listTools(): Promise<MCPToolDef[]>;
+  call(toolName: string, args: Record<string, unknown>): Promise<{ success: boolean; result?: unknown; error?: string }>;
+}
+
+interface MCPToolDef {
+  name: string;
+  description: string;
+  inputSchema?: Record<string, unknown>;
+}
+
+function getMCPBridge(): MCPBridge | null {
+  const w = window as unknown as { designforge?: { mcp?: MCPBridge } };
+  return w.designforge?.mcp ?? null;
+}
 
 export class MCPProvider implements AIProvider {
   readonly type: ProviderType = 'mcp';
+  private baseUrl: string;
+  private apiKey: string;
+  private model: string;
 
-  /**
-   * MCP provider works by invoking the MCP server tools via the Electron
-   * main process IPC bridge. The main process spawns the MCP server as a
-   * child process and communicates over stdio JSON-RPC.
-   */
+  constructor(config?: ProviderConfig) {
+    this.baseUrl = (config?.baseUrl ?? 'http://localhost:11434/v1').replace(/\/$/, '');
+    this.apiKey = config?.apiKey ?? '';
+    this.model = config?.model ?? 'llama3';
+  }
+
+  /** Get MCP connection status */
+  async getStatus(): Promise<{ connected: boolean; tools: MCPToolDef[]; serverPath: string }> {
+    const mcp = getMCPBridge();
+    if (!mcp) return { connected: false, tools: [], serverPath: '' };
+    return mcp.status();
+  }
+
+  /** Connect to the DesignForge MCP server */
+  async connect(): Promise<{ success: boolean; error?: string }> {
+    const mcp = getMCPBridge();
+    if (!mcp) return { success: false, error: 'Electron bridge not available' };
+    return mcp.connect();
+  }
+
+  /** Disconnect from the MCP server */
+  async disconnect(): Promise<void> {
+    const mcp = getMCPBridge();
+    if (mcp) await mcp.disconnect();
+  }
+
+  /** Build the system prompt that includes MCP tool definitions */
+  private async buildToolAwarePrompt(spec: DesignSpec): Promise<{
+    systemPrompt: string;
+    tools: MCPToolDef[];
+    openaiTools: Array<{
+      type: 'function';
+      function: { name: string; description: string; parameters: Record<string, unknown> };
+    }>;
+  }> {
+    const mcp = getMCPBridge();
+    const tools = mcp ? await mcp.listTools() : [];
+
+    // Build OpenAI function-calling tools from MCP tool definitions
+    const openaiTools = tools.map((t) => ({
+      type: 'function' as const,
+      function: {
+        name: t.name,
+        description: t.description,
+        parameters: t.inputSchema ?? { type: 'object', properties: {} },
+      },
+    }));
+
+    const systemPrompt = `You are DesignForge AI, a UI design assistant. You help users create and modify UI designs by calling design tools.
+
+Current design spec:
+${JSON.stringify(spec, null, 2)}
+
+Available component types:
+${catalogToPrompt()}
+
+You have access to design tools. When the user asks to create or modify a design, call the appropriate tools.
+Key tools:
+- designforge_add_element: Add a component to the design
+- designforge_update_props: Update props on an existing element
+- designforge_remove_element: Remove an element
+- designforge_generate: Load a complete design spec
+- designforge_read_spec: Read the current design
+- designforge_list_components: Get the full component catalog
+
+Always call tools to make changes. Do NOT just describe what you would do — actually call the tools.
+For text responses (explanations, questions), respond normally without tool calls.`;
+
+    return { systemPrompt, tools, openaiTools };
+  }
+
   async generate(prompt: string, spec: DesignSpec): Promise<AIResponse> {
-    // Use the preload bridge to call MCP tools
-    const api = (window as any).designforge;
-    if (!api?.mcp?.call) {
-      throw new Error('MCP bridge not available. Ensure Electron main process is running the MCP server.');
+    const mcp = getMCPBridge();
+    const { systemPrompt, openaiTools } = await this.buildToolAwarePrompt(spec);
+
+    // If no LLM configured, fall back to mock + MCP
+    if (!this.baseUrl || this.baseUrl.includes('localhost:11434') && !this.model) {
+      // Use mock parser, then sync through MCP
+      const mock = new MockProvider();
+      const result = await mock.generate(prompt, spec);
+      if (mcp) {
+        for (const op of result.operations) {
+          if (op.type === 'add') {
+            await mcp.call('designforge_add_element', {
+              parentId: op.parentId ?? spec.root,
+              type: op.elementType ?? 'Text',
+              props: JSON.stringify(op.props ?? {}),
+            });
+          }
+        }
+      }
+      return result;
     }
 
-    // First, send the current spec to MCP
-    await api.mcp.call('designforge_generate', { spec: JSON.stringify(spec) });
+    // Call LLM with tool definitions
+    const res = await fetch(`${this.baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {}),
+      },
+      body: JSON.stringify({
+        model: this.model,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: prompt },
+        ],
+        tools: openaiTools.length > 0 ? openaiTools : undefined,
+        temperature: 0.3,
+        stream: false,
+      }),
+    });
 
-    // Then ask for an edit — but MCP doesn't do NLP parsing by default,
-    // so we use the mock parser as a fallback and apply through MCP tools
-    const mock = new MockProvider();
-    const result = await mock.generate(prompt, spec);
+    if (!res.ok) {
+      throw new Error(`LLM API error ${res.status}: ${await res.text()}`);
+    }
 
-    // Apply operations through MCP for state consistency
-    for (const op of result.operations) {
-      if (op.type === 'add') {
-        await api.mcp.call('designforge_add_element', {
-          parentId: op.parentId ?? spec.root,
-          type: op.elementType ?? 'Text',
-          props: JSON.stringify(op.props ?? {}),
-        });
-      } else if (op.type === 'remove' && op.elementId) {
-        await api.mcp.call('designforge_remove_element', { elementId: op.elementId });
-      } else if (op.type === 'updateProps' && op.elementId) {
-        await api.mcp.call('designforge_update_props', {
-          elementId: op.elementId,
-          props: JSON.stringify(op.updatedProps ?? {}),
-        });
+    const data = await res.json();
+    const message = data.choices?.[0]?.message;
+    const operations: AIOperation[] = [];
+    let description = message?.content ?? '';
+
+    // Execute tool calls if the LLM made any
+    if (message?.tool_calls && mcp) {
+      for (const tc of message.tool_calls) {
+        const toolName = tc.function.name;
+        const toolArgs = JSON.parse(tc.function.arguments ?? '{}');
+
+        const result = await mcp.call(toolName, toolArgs);
+        if (result.success) {
+          // Parse MCP result into operations
+          const parsed = parseMCPResult(result.result);
+          operations.push(...parsed.operations);
+          if (parsed.description) {
+            description += `\n${parsed.description}`;
+          }
+        } else {
+          description += `\n⚠️ Tool ${toolName} failed: ${result.error}`;
+        }
       }
     }
 
-    return result;
+    // If no tool calls but LLM returned JSON operations, parse them
+    if (operations.length === 0 && description) {
+      try {
+        const parsed = parseAIJSON(description);
+        return parsed;
+      } catch {
+        // Not JSON — that's fine, it's a text response
+      }
+    }
+
+    return { operations, description: description.trim() || 'Done.' };
   }
 
   async stream(
@@ -421,17 +568,74 @@ export class MCPProvider implements AIProvider {
     spec: DesignSpec,
     onChunk: (chunk: AIStreamChunk) => void,
   ): Promise<void> {
-    onChunk({ type: 'text', content: 'Executing through MCP server...\n' });
+    const mcp = getMCPBridge();
+
+    // Show MCP status
+    if (mcp) {
+      const status = await mcp.status();
+      if (status.connected) {
+        onChunk({
+          type: 'text',
+          content: `🔌 MCP connected (${status.tools.length} tools)\n`,
+        });
+      } else {
+        onChunk({ type: 'text', content: '⚠️ MCP server not connected. Connecting...\n' });
+        const connectResult = await mcp.connect();
+        if (connectResult.success) {
+          onChunk({ type: 'text', content: '✅ MCP connected!\n' });
+        } else {
+          onChunk({ type: 'text', content: `❌ MCP failed: ${connectResult.error}\n` });
+        }
+      }
+    } else {
+      onChunk({ type: 'text', content: '⚠️ Electron bridge not available\n' });
+    }
+
+    onChunk({ type: 'text', content: '\n' });
+
     try {
       const result = await this.generate(prompt, spec);
-      onChunk({ type: 'text', content: result.description + '\n' });
-      onChunk({ type: 'operations', operations: result.operations });
+      if (result.description) {
+        onChunk({ type: 'text', content: `${result.description}\n` });
+      }
+      if (result.operations.length > 0) {
+        onChunk({ type: 'operations', operations: result.operations });
+      }
       onChunk({ type: 'done' });
     } catch (err) {
       onChunk({ type: 'error', error: (err as Error).message });
     }
   }
 }
+
+/** Parse an MCP tool result into operations */
+function parseMCPResult(result: unknown): AIResponse {
+  if (typeof result === 'object' && result !== null) {
+    const obj = result as Record<string, unknown>;
+
+    // Standard MCP response: { content: [{ type: 'text', text: '...' }] }
+    if (Array.isArray(obj.content)) {
+      const textContent = (obj.content as Array<{ type: string; text?: string }>)
+        .filter((c) => c.type === 'text')
+        .map((c) => c.text ?? '')
+        .join('\n');
+      try {
+        return parseAIJSON(textContent);
+      } catch {
+        return { operations: [], description: textContent };
+      }
+    }
+
+    if (Array.isArray(obj.operations)) {
+      return {
+        operations: obj.operations as AIOperation[],
+        description: (obj.description as string) ?? '',
+      };
+    }
+  }
+  return { operations: [], description: '' };
+}
+
 
 // ─── Factory ────────────────────────────────────────────────────────────────
 
@@ -440,8 +644,7 @@ export function createProvider(config: ProviderConfig): AIProvider {
     case 'openai':
       return new OpenAIProvider(config);
     case 'mcp':
-      return new MCPProvider();
-    case 'mock':
+      return new MCPProvider(config);
     default:
       return new MockProvider();
   }

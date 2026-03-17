@@ -9,9 +9,11 @@
  */
 
 import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme } from 'electron';
-import { join } from 'path';
-import { readFile, writeFile, watch } from 'fs/promises';
+import { join } from 'node:path';
+import { readFile, writeFile } from 'node:fs/promises';
+import { watch, type FSWatcher } from 'node:fs';
 import { is } from '@electron-toolkit/utils';
+import { setupMCPIPC } from './mcp-client';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -26,7 +28,7 @@ function createWindow(): void {
     titleBarStyle: process.platform === 'darwin' ? 'hiddenInset' : 'default',
     trafficLightPosition: { x: 16, y: 16 },
     webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
+      preload: join(__dirname, '../preload/index.mjs'),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -47,8 +49,8 @@ function createWindow(): void {
   });
 
   // Load renderer
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
+  if (is.dev && process.env.ELECTRON_RENDERER_URL) {
+    mainWindow.loadURL(process.env.ELECTRON_RENDERER_URL);
   } else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
@@ -114,12 +116,69 @@ function setupIPC(): void {
   // App info
   ipcMain.handle('app:version', () => app.getVersion());
   ipcMain.handle('app:name', () => app.getName());
+
+  // ─── Live File Watcher ───────────────────────────────────────────────
+  //
+  // Watches a .dfg file for changes (written by MCP server with --file flag).
+  // When the file changes, reads it and pushes the new spec to the renderer.
+
+  let fileWatcher: FSWatcher | null = null;
+  let watchedPath: string | null = null;
+
+  ipcMain.handle('watch:start', async (_event, filePath: string) => {
+    // Stop any existing watcher
+    if (fileWatcher) {
+      fileWatcher.close();
+      fileWatcher = null;
+    }
+
+    watchedPath = filePath;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    try {
+      fileWatcher = watch(filePath, (_eventType) => {
+        // Debounce rapid writes (MCP may write multiple times quickly)
+        if (debounceTimer) clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+          try {
+            const content = await readFile(filePath, 'utf-8');
+            const parsed = JSON.parse(content);
+            if (parsed.spec) {
+              mainWindow?.webContents.send('watch:spec-changed', parsed.spec);
+            }
+          } catch {
+            // File may be mid-write, ignore
+          }
+        }, 100);
+      });
+
+      console.log(`[Watch] Watching ${filePath} for live MCP changes`);
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: (err as Error).message };
+    }
+  });
+
+  ipcMain.handle('watch:stop', () => {
+    if (fileWatcher) {
+      fileWatcher.close();
+      fileWatcher = null;
+      console.log(`[Watch] Stopped watching ${watchedPath}`);
+      watchedPath = null;
+    }
+    return { success: true };
+  });
+
+  ipcMain.handle('watch:status', () => {
+    return { watching: !!fileWatcher, path: watchedPath };
+  });
 }
 
 // ─── App Lifecycle ────────────────────────────────────────────────────────
 
 app.whenReady().then(() => {
   setupIPC();
+  setupMCPIPC();
   createWindow();
 
   app.on('activate', () => {

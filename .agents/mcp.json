@@ -9,7 +9,7 @@
     },
     "designforge": {
       "command": "npx",
-      "args": ["tsx", "packages/mcp-server/src/index.ts", "--stdio"]
+      "args": ["tsx", "packages/mcp-server/src/index.ts", "--file", "temp/live.dfg"]
     }
   }
 }

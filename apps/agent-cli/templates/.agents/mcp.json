@@ -1,5 +1,11 @@
 {
   "mcpServers": {
+    "designforge": {
+      "command": "npx",
+      "args": ["tsx", "packages/mcp-server/src/index.ts"],
+      "cwd": ".",
+      "env": {}
+    },
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"

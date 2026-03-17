@@ -14,6 +14,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useChatStore, type ChatMessage, type ChatMode } from '@/chat-store';
+import { useSettingsStore } from '@/settings-store';
 import type { AIOperation, ProviderType } from '@/ai-providers';
 import { renderOperations } from '@next-dev/json-render';
 import {
@@ -304,15 +305,14 @@ export function ChatPanel() {
   const messages = useChatStore((s) => s.messages);
   const isStreaming = useChatStore((s) => s.isStreaming);
   const mode = useChatStore((s) => s.mode);
-  const showSettings = useChatStore((s) => s.showSettings);
   const inputValue = useChatStore((s) => s.inputValue);
   const providerConfig = useChatStore((s) => s.providerConfig);
   const sendMessage = useChatStore((s) => s.sendMessage);
   const cancelStream = useChatStore((s) => s.cancelStream);
   const clearChat = useChatStore((s) => s.clearChat);
   const setMode = useChatStore((s) => s.setMode);
-  const setShowSettings = useChatStore((s) => s.setShowSettings);
   const setInputValue = useChatStore((s) => s.setInputValue);
+  const openSettings = useSettingsStore((s) => s.openSettings);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -369,9 +369,8 @@ export function ChatPanel() {
           <button
             type="button"
             className="chat-action-btn"
-            onClick={() => setShowSettings(!showSettings)}
-            title="Settings"
-            data-active={showSettings}
+            onClick={() => openSettings('ai')}
+            title="AI Settings"
           >
             <Settings size={14} />
           </button>
@@ -385,9 +384,6 @@ export function ChatPanel() {
           </button>
         </div>
       </div>
-
-      {/* Settings */}
-      {showSettings && <SettingsPanel />}
 
       {/* Mode Selector */}
       <div className="chat-modes">

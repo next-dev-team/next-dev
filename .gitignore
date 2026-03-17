@@ -71,3 +71,5 @@ CLAUDE.md
 dist
 /out
 .playwright-mcp
+temp
+apps/desktop/out/

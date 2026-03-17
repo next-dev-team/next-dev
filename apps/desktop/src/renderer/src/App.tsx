@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '@/store';
 import { ChatPanel } from '@/ChatPanel';
 import { catalog, getCategorizedComponents, type ComponentType } from '@next-dev/catalog';
 import type { DesignSpec } from '@next-dev/editor-core';
 import { renderers } from '@next-dev/json-render';
+import { SettingsPage } from '@/SettingsPage';
+import { useSettingsStore } from '@/settings-store';
 import * as Icons from 'lucide-react';
 import {
   Undo2,
@@ -24,8 +26,165 @@ import {
   EyeOff,
   MousePointer,
   Box,
+  Settings,
 } from 'lucide-react';
 import { z } from 'zod';
+
+// ─── Drag & Drop Context ──────────────────────────────────────────────────
+
+interface DragState {
+  isDragging: boolean;
+  dragType: ComponentType | null;
+}
+
+const DragContext = createContext<{
+  state: DragState;
+  setDragging: (type: ComponentType | null) => void;
+}>({
+  state: { isDragging: false, dragType: null },
+  setDragging: () => {},
+});
+
+function DragProvider({ children }: { children: React.ReactNode }) {
+  const [state, setState] = useState<DragState>({ isDragging: false, dragType: null });
+
+  const setDragging = useCallback((type: ComponentType | null) => {
+    setState(type ? { isDragging: true, dragType: type } : { isDragging: false, dragType: null });
+  }, []);
+
+  return (
+    <DragContext.Provider value={{ state, setDragging }}>
+      {children}
+    </DragContext.Provider>
+  );
+}
+
+const DRAG_DATA_KEY = 'application/x-designforge-component';
+
+interface LiveMutationOperation {
+  type: 'add' | 'remove' | 'move' | 'updateProps' | 'duplicate' | 'group' | 'ungroup';
+  parentId?: string;
+  elementType?: string;
+  props?: Record<string, unknown>;
+  index?: number;
+  elementId?: string;
+  newParentId?: string;
+  elementIds?: string[];
+}
+
+type LiveMutation =
+  | { kind: 'applyOperations'; operations: LiveMutationOperation[] }
+  | { kind: 'replaceSpec'; spec: DesignSpec }
+  | { kind: 'undo' }
+  | { kind: 'redo' }
+  | { kind: 'setSelection'; selectedIds: string[] };
+
+interface LiveMutationRequest {
+  requestId: string;
+  channelId: string;
+  mutation: LiveMutation;
+}
+
+function getLiveContextSnapshot() {
+  const state = useEditorStore.getState();
+  return {
+    filePath: state.filePath,
+    spec: state.spec,
+    selectedIds: state.selectedIds,
+    hoveredId: state.hoveredId,
+    zoom: state.zoom,
+    pan: [0, 0] as [number, number],
+  };
+}
+
+function applyLiveMutationRequest(request: LiveMutationRequest): {
+  success: boolean;
+  error?: string;
+  context?: ReturnType<typeof getLiveContextSnapshot>;
+} {
+  try {
+    const editor = useEditorStore.getState();
+    const resolveLiveNodeId = (id: string | undefined) => (id === '_root' ? editor.spec.root : id);
+
+    switch (request.mutation.kind) {
+      case 'applyOperations':
+        for (const operation of request.mutation.operations) {
+          switch (operation.type) {
+            case 'add':
+              editor.addElement(
+                resolveLiveNodeId(operation.parentId) ?? editor.spec.root,
+                {
+                  type: operation.elementType ?? 'Text',
+                  props: operation.props ?? {},
+                },
+                operation.index,
+              );
+              break;
+            case 'remove':
+              if (resolveLiveNodeId(operation.elementId)) {
+                editor.removeElement(resolveLiveNodeId(operation.elementId)!);
+              }
+              break;
+            case 'move':
+              if (resolveLiveNodeId(operation.elementId) && resolveLiveNodeId(operation.newParentId) !== undefined) {
+                editor.moveElement(
+                  resolveLiveNodeId(operation.elementId)!,
+                  resolveLiveNodeId(operation.newParentId)!,
+                  operation.index ?? 0,
+                );
+              }
+              break;
+            case 'updateProps':
+              if (resolveLiveNodeId(operation.elementId) && operation.props) {
+                editor.setProps(resolveLiveNodeId(operation.elementId)!, operation.props);
+              }
+              break;
+            case 'duplicate':
+              if (resolveLiveNodeId(operation.elementId)) {
+                editor.duplicateElement(resolveLiveNodeId(operation.elementId)!);
+              }
+              break;
+            case 'group':
+              if (operation.elementIds && operation.elementIds.length > 1) {
+                editor.groupElements(operation.elementIds.map((id) => resolveLiveNodeId(id) ?? id));
+              }
+              break;
+            case 'ungroup':
+              if (resolveLiveNodeId(operation.elementId)) {
+                editor.ungroupElement(resolveLiveNodeId(operation.elementId)!);
+              }
+              break;
+          }
+        }
+        break;
+      case 'replaceSpec':
+        editor.loadSpec(request.mutation.spec);
+        break;
+      case 'undo':
+        editor.undo();
+        break;
+      case 'redo':
+        editor.redo();
+        break;
+      case 'setSelection': {
+        const nextState = useEditorStore.getState();
+        const selectedIds = request.mutation.selectedIds.filter((id) => id in nextState.spec.elements);
+        nextState.document.selection.selectAll(selectedIds);
+        break;
+      }
+    }
+
+    return {
+      success: true,
+      context: getLiveContextSnapshot(),
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
 
 // ─── Titlebar ─────────────────────────────────────────────────────────────
 
@@ -62,6 +221,7 @@ function Toolbar() {
   const newFile = useEditorStore((s) => s.newFile);
   const openFile = useEditorStore((s) => s.openFile);
   const saveFile = useEditorStore((s) => s.saveFile);
+  const openSettings = useSettingsStore((s) => s.openSettings);
 
   const hasSelection = selectedIds.length > 0;
   const hasMultiSelection = selectedIds.length > 1;
@@ -85,6 +245,13 @@ function Toolbar() {
           <Save size={14} /> Save
         </button>
       </div>
+
+      <div className="toolbar-separator" />
+
+      {/* Settings */}
+      <button type="button" className="toolbar-btn" onClick={() => openSettings()} title="Settings (Ctrl+,)">
+        <Settings size={16} />
+      </button>
 
       <div className="toolbar-separator" />
 
@@ -168,6 +335,8 @@ function ComponentPalette() {
   const selectedIds = useEditorStore((s) => s.selectedIds);
   const spec = useEditorStore((s) => s.spec);
   const categories = getCategorizedComponents();
+  const { setDragging } = useContext(DragContext);
+  const ghostRef = useRef<HTMLDivElement>(null);
 
   const handleAdd = (type: ComponentType) => {
     const entry = catalog[type];
@@ -183,32 +352,76 @@ function ComponentPalette() {
     });
   };
 
+  const handleDragStart = (e: React.DragEvent, type: ComponentType) => {
+    e.dataTransfer.setData(DRAG_DATA_KEY, type);
+    e.dataTransfer.effectAllowed = 'copy';
+    setDragging(type);
+
+    // Create a custom drag ghost
+    if (ghostRef.current) {
+      const ghost = ghostRef.current;
+      ghost.textContent = '';
+
+      // Render a mini preview into the ghost
+      const icon = document.createElement('span');
+      icon.textContent = '⊕';
+      icon.style.cssText = 'font-size: 16px; margin-right: 6px;';
+      const label = document.createElement('span');
+      label.textContent = type;
+      ghost.appendChild(icon);
+      ghost.appendChild(label);
+      ghost.style.display = 'flex';
+
+      e.dataTransfer.setDragImage(ghost, 24, 18);
+
+      // Hide ghost after the browser captures it
+      requestAnimationFrame(() => {
+        ghost.style.display = 'none';
+      });
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDragging(null);
+  };
+
   return (
-    <div className="palette-grid">
-      {Object.entries(categories).map(([category, components]) => {
-        if (components.length === 0) return null;
-        return (
-          <div key={category} style={{ display: 'contents' }}>
-            <div className="palette-category">{category}</div>
-            {components.map(([type, entry]) => {
-              const IconComp = getIcon(entry.meta.icon);
-              return (
-                <button
-                  type="button"
-                  key={type}
-                  className="palette-item"
-                  onClick={() => handleAdd(type)}
-                  title={entry.description}
-                >
-                  <IconComp size={20} className="palette-item-icon" />
-                  <span className="palette-item-label">{type}</span>
-                </button>
-              );
-            })}
-          </div>
-        );
-      })}
-    </div>
+    <>
+      {/* Off-screen drag ghost element */}
+      <div
+        ref={ghostRef}
+        className="drag-ghost"
+        style={{ display: 'none' }}
+      />
+      <div className="palette-grid">
+        {Object.entries(categories).map(([category, components]) => {
+          if (components.length === 0) return null;
+          return (
+            <div key={category} style={{ display: 'contents' }}>
+              <div className="palette-category">{category}</div>
+              {components.map(([type, entry]) => {
+                const IconComp = getIcon(entry.meta.icon);
+                return (
+                  <button
+                    type="button"
+                    key={type}
+                    className="palette-item"
+                    draggable
+                    onClick={() => handleAdd(type)}
+                    onDragStart={(e) => handleDragStart(e, type)}
+                    onDragEnd={handleDragEnd}
+                    title={`${entry.description}\nDrag to canvas or click to add`}
+                  >
+                    <IconComp size={20} className="palette-item-icon" />
+                    <span className="palette-item-label">{type}</span>
+                  </button>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
@@ -286,6 +499,9 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
   const hoveredId = useEditorStore((s) => s.hoveredId);
   const select = useEditorStore((s) => s.select);
   const hover = useEditorStore((s) => s.hover);
+  const addElement = useEditorStore((s) => s.addElement);
+  const { state: dragState } = useContext(DragContext);
+  const [isDropTarget, setIsDropTarget] = useState(false);
 
   if (!element || element.__editor?.hidden) return null;
 
@@ -303,17 +519,50 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
     return <div style={{ padding: '12px', border: '1px dashed var(--color-border-default)', borderRadius: '6px', fontSize: '12px', color: 'var(--color-text-muted)', textAlign: 'center' }}>{element.type}{children}</div>;
   };
 
+  const handleDragOver = (e: React.DragEvent) => {
+    if (!e.dataTransfer.types.includes(DRAG_DATA_KEY)) return;
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'copy';
+    setIsDropTarget(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.stopPropagation();
+    setIsDropTarget(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropTarget(false);
+    const componentType = e.dataTransfer.getData(DRAG_DATA_KEY) as ComponentType;
+    if (!componentType) return;
+    const entry = catalog[componentType];
+    if (!entry) return;
+    addElement(elementId, {
+      type: componentType,
+      props: { ...entry.meta.defaultProps },
+      __editor: { name: componentType },
+    });
+  };
+
   return (
     <div
       className="canvas-element"
       data-selected={isSelected}
       data-hovered={isHovered && !isSelected}
+      data-drop-target={isDropTarget}
+      data-drag-active={dragState.isDragging}
       onClick={(e) => { e.stopPropagation(); select(elementId, e.shiftKey); }}
       onKeyDown={() => {}}
       role="treeitem"
       tabIndex={0}
       onMouseEnter={(e) => { e.stopPropagation(); hover(elementId); }}
       onMouseLeave={(e) => { e.stopPropagation(); hover(null); }}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
     >
       {renderElement()}
     </div>
@@ -323,10 +572,49 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
 function Canvas() {
   const spec = useEditorStore((s) => s.spec);
   const clearSelection = useEditorStore((s) => s.clearSelection);
+  const addElement = useEditorStore((s) => s.addElement);
   const zoom = useEditorStore((s) => s.zoom);
+  const { state: dragState } = useContext(DragContext);
+  const [isDropTarget, setIsDropTarget] = useState(false);
+
+  const handleDragOver = (e: React.DragEvent) => {
+    if (!e.dataTransfer.types.includes(DRAG_DATA_KEY)) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    setIsDropTarget(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDropTarget(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDropTarget(false);
+    const componentType = e.dataTransfer.getData(DRAG_DATA_KEY) as ComponentType;
+    if (!componentType) return;
+    const entry = catalog[componentType];
+    if (!entry) return;
+    addElement(spec.root, {
+      type: componentType,
+      props: { ...entry.meta.defaultProps },
+      __editor: { name: componentType },
+    });
+  };
 
   return (
-    <div className="editor-canvas" onClick={() => clearSelection()} onKeyDown={() => {}} role="presentation" tabIndex={-1}>
+    <div
+      className="editor-canvas"
+      data-drop-target={isDropTarget}
+      data-drag-active={dragState.isDragging}
+      onClick={() => clearSelection()}
+      onKeyDown={() => {}}
+      role="presentation"
+      tabIndex={-1}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <div className="canvas-frame" style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}>
         <CanvasNode elementId={spec.root} spec={spec} />
       </div>
@@ -429,6 +717,111 @@ export function App() {
   const setActivePanel = useEditorStore((s) => s.setActivePanel);
   const [rightTab, setRightTab] = useState<'properties' | 'chat'>('chat');
 
+  // ─── Live MCP File Watcher ───────────────────────────────────────────
+  // Listens for spec changes pushed from the main process file watcher.
+  // When an external MCP agent edits via --file mode, the canvas updates live.
+  useEffect(() => {
+    const api = (window as unknown as { designforge?: { watch?: { onSpecChanged: (cb: (spec: DesignSpec) => void) => () => void } } }).designforge;
+    if (!api?.watch?.onSpecChanged) return;
+
+    const unsubscribe = api.watch.onSpecChanged((spec: DesignSpec) => {
+      useEditorStore.getState().loadSpec(spec);
+    });
+    return unsubscribe;
+  }, []);
+
+  // Publish the live editor context so external MCP clients can join the desktop channel.
+  useEffect(() => {
+    const api = (window as unknown as {
+      designforge?: {
+        mcp?: {
+          publishContext: (snapshot: {
+            filePath: string | null;
+            spec: DesignSpec;
+            selectedIds: string[];
+            hoveredId: string | null;
+            zoom: number;
+            pan: [number, number];
+          }) => Promise<unknown>;
+        };
+      };
+    }).designforge;
+
+    if (!api?.mcp?.publishContext) return;
+
+    let timer: ReturnType<typeof setTimeout> | null = null;
+
+    const publish = () => {
+      const state = useEditorStore.getState();
+      void api.mcp!.publishContext({
+        filePath: state.filePath,
+        spec: state.spec,
+        selectedIds: state.selectedIds,
+        hoveredId: state.hoveredId,
+        zoom: state.zoom,
+        pan: [0, 0],
+      }).catch((error) => {
+        console.warn('[MCP] Failed to publish live context', error);
+      });
+    };
+
+    const schedulePublish = () => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(() => {
+        timer = null;
+        publish();
+      }, 50);
+    };
+
+    const unsubscribe = useEditorStore.subscribe(
+      (state) => ({
+        spec: state.spec,
+        selectedIds: state.selectedIds,
+        hoveredId: state.hoveredId,
+        zoom: state.zoom,
+        filePath: state.filePath,
+      }),
+      schedulePublish,
+    );
+
+    schedulePublish();
+
+    return () => {
+      if (timer) clearTimeout(timer);
+      unsubscribe();
+    };
+  }, []);
+
+  // Apply live mutation requests coming from the spawned MCP server.
+  useEffect(() => {
+    const api = (window as unknown as {
+      designforge?: {
+        mcp?: {
+          onApplyLiveMutation: (cb: (request: LiveMutationRequest) => void) => () => void;
+          respondMutationResult: (
+            requestId: string,
+            result: {
+              success: boolean;
+              error?: string;
+              context?: ReturnType<typeof getLiveContextSnapshot>;
+            },
+          ) => Promise<unknown>;
+        };
+      };
+    }).designforge;
+
+    if (!api?.mcp?.onApplyLiveMutation || !api?.mcp?.respondMutationResult) return;
+
+    const unsubscribe = api.mcp.onApplyLiveMutation((request) => {
+      const result = applyLiveMutationRequest(request);
+      void api.mcp!.respondMutationResult(request.requestId, result).catch((error) => {
+        console.warn('[MCP] Failed to acknowledge live mutation', error);
+      });
+    });
+
+    return unsubscribe;
+  }, []);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -447,6 +840,7 @@ export function App() {
       if (ctrl && e.key === 'g' && !e.shiftKey) { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length > 1) s.groupElements(s.selectedIds); }
       if (ctrl && e.key === 'g' && e.shiftKey) { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.ungroupElement(s.selectedIds[0]); }
       if (e.key === 'Escape') { useEditorStore.getState().clearSelection(); }
+      if (ctrl && e.key === ',') { e.preventDefault(); useSettingsStore.getState().toggleSettings(); }
       if ((e.key === 'Delete' || e.key === 'Backspace') && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
         e.preventDefault(); const s = useEditorStore.getState(); for (const id of [...s.selectedIds]) s.removeElement(id);
       }
@@ -457,7 +851,7 @@ export function App() {
   }, []);
 
   return (
-    <>
+    <DragProvider>
       <Titlebar />
       <div className="editor-layout">
         <Toolbar />
@@ -480,6 +874,7 @@ export function App() {
           {rightTab === 'properties' ? <PropsPanel /> : <ChatPanel />}
         </div>
       </div>
-    </>
+      <SettingsPage />
+    </DragProvider>
   );
 }

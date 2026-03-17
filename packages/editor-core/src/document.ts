@@ -10,7 +10,9 @@
  * - agent-cli uses for headless operations
  */
 
-import { applyPatch, type Operation } from 'fast-json-patch';
+import jsonpatch from 'fast-json-patch';
+const { applyPatch } = jsonpatch;
+import type { Operation } from 'fast-json-patch';
 import { Clipboard } from './clipboard.js';
 import { History, type HistoryOptions } from './history.js';
 import {
