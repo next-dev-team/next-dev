@@ -15,8 +15,8 @@
 
 import { spawn, type ChildProcess } from 'node:child_process';
 import { ipcMain, app, BrowserWindow } from 'electron';
-import { existsSync } from 'node:fs';
-import { mkdir, unlink, writeFile } from 'node:fs/promises';
+import { existsSync, watch as watchFs, type FSWatcher } from 'node:fs';
+import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -90,9 +90,19 @@ interface ChildRpcResponse {
 
 const DEFAULT_DESKTOP_CHANNEL_ID = 'designforge-desktop-main';
 const CHANNEL_ROOT_DIR = join(tmpdir(), 'designforge-mcp', 'channels');
+const CHANNEL_REQUESTS_ROOT_DIR = join(CHANNEL_ROOT_DIR, 'requests');
+const CHANNEL_RESPONSES_ROOT_DIR = join(CHANNEL_ROOT_DIR, 'responses');
 
 function getChannelFilePath(channelId: string): string {
   return join(CHANNEL_ROOT_DIR, `${encodeURIComponent(channelId)}.json`);
+}
+
+function getChannelRequestsDir(channelId: string): string {
+  return join(CHANNEL_REQUESTS_ROOT_DIR, encodeURIComponent(channelId));
+}
+
+function getChannelResponsesDir(channelId: string): string {
+  return join(CHANNEL_RESPONSES_ROOT_DIR, encodeURIComponent(channelId));
 }
 
 // ─── MCP Connection ─────────────────────────────────────────────────────────
@@ -110,6 +120,8 @@ class MCPConnection {
   private _connected = false;
   private _serverPath: string;
   private _channelId = DEFAULT_DESKTOP_CHANNEL_ID;
+  private externalMutationWatcher: FSWatcher | null = null;
+  private externalMutationProcessing = new Set<string>();
   private pendingMutationResults = new Map<string, {
     resolve: (value: LiveMutationResult) => void;
     reject: (error: Error) => void;
@@ -212,8 +224,10 @@ class MCPConnection {
       // Initialize the connection with MCP protocol handshake
       this.initialize().then(() => {
         this._connected = true;
-        console.log('[MCP] DesignForge MCP server connected!');
-        resolve();
+        this.ensureExternalMutationBridge().then(() => {
+          console.log('[MCP] DesignForge MCP server connected!');
+          resolve();
+        }).catch(reject);
       }).catch(reject);
     });
   }
@@ -282,6 +296,74 @@ class MCPConnection {
   async clearPublishedContext(): Promise<void> {
     if (!existsSync(this.channelFilePath)) return;
     await unlink(this.channelFilePath);
+  }
+
+  private async ensureExternalMutationBridge(): Promise<void> {
+    const requestsDir = getChannelRequestsDir(this._channelId);
+    const responsesDir = getChannelResponsesDir(this._channelId);
+    await mkdir(requestsDir, { recursive: true });
+    await mkdir(responsesDir, { recursive: true });
+
+    if (!this.externalMutationWatcher) {
+      this.externalMutationWatcher = watchFs(requestsDir, (_eventType, filename) => {
+        if (!filename || !filename.toString().endsWith('.json')) return;
+        void this.processExternalMutationRequests();
+      });
+    }
+
+    await this.processExternalMutationRequests();
+  }
+
+  private async processExternalMutationRequests(): Promise<void> {
+    const requestsDir = getChannelRequestsDir(this._channelId);
+    const responsesDir = getChannelResponsesDir(this._channelId);
+
+    let entries: string[] = [];
+    try {
+      entries = await readdir(requestsDir);
+    } catch {
+      return;
+    }
+
+    for (const entry of entries) {
+      if (!entry.endsWith('.json') || this.externalMutationProcessing.has(entry)) continue;
+
+      this.externalMutationProcessing.add(entry);
+      void this.processExternalMutationRequest(
+        join(requestsDir, entry),
+        join(responsesDir, entry),
+        entry,
+      );
+    }
+  }
+
+  private async processExternalMutationRequest(
+    requestPath: string,
+    responsePath: string,
+    entry: string,
+  ): Promise<void> {
+    try {
+      const content = await readFile(requestPath, 'utf-8');
+      const request = JSON.parse(content) as LiveMutationRequest;
+      const result = await this.requestRendererMutation(request);
+      await writeFile(responsePath, JSON.stringify(result, null, 2), 'utf-8');
+    } catch (error) {
+      await writeFile(responsePath, JSON.stringify({
+        success: false,
+        error: error instanceof Error ? error.message : String(error),
+      }, null, 2), 'utf-8').catch(() => {});
+    } finally {
+      await unlink(requestPath).catch(() => {});
+      this.externalMutationProcessing.delete(entry);
+    }
+  }
+
+  private closeExternalMutationBridge(): void {
+    if (this.externalMutationWatcher) {
+      this.externalMutationWatcher.close();
+      this.externalMutationWatcher = null;
+    }
+    this.externalMutationProcessing.clear();
   }
 
   async requestRendererMutation(request: LiveMutationRequest): Promise<LiveMutationResult> {
@@ -422,6 +504,7 @@ class MCPConnection {
   async disconnect(): Promise<void> {
     this._connected = false;
     this.cleanup();
+    this.closeExternalMutationBridge();
 
     if (this.process) {
       this.process.kill();

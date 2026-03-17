@@ -23,6 +23,7 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { catalogToPrompt, getComponentTypes } from '@next-dev/catalog';
 import { Document, type DesignSpec } from '@next-dev/editor-core';
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { mkdir, readFile as readFileAsync, unlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { z } from 'zod';
@@ -131,9 +132,26 @@ const pendingParentRpc = new Map<number, {
 }>();
 let nextParentRpcId = 1;
 let nextLiveMutationRequestId = 1;
+const LIVE_MUTATION_TIMEOUT_MS = 30000;
 
 function getChannelFilePath(channelId: string): string {
   return resolve(channelRootDir, `${encodeURIComponent(channelId)}.json`);
+}
+
+function getChannelRequestsDir(channelId: string): string {
+  return resolve(channelRootDir, 'requests', encodeURIComponent(channelId));
+}
+
+function getChannelResponsesDir(channelId: string): string {
+  return resolve(channelRootDir, 'responses', encodeURIComponent(channelId));
+}
+
+function getMutationRequestPath(channelId: string, requestId: string): string {
+  return resolve(getChannelRequestsDir(channelId), `${encodeURIComponent(requestId)}.json`);
+}
+
+function getMutationResponsePath(channelId: string, requestId: string): string {
+  return resolve(getChannelResponsesDir(channelId), `${encodeURIComponent(requestId)}.json`);
 }
 
 function readJoinedChannelContext(): LiveChannelContext | null {
@@ -153,6 +171,68 @@ function readJoinedChannelContext(): LiveChannelContext | null {
 
 function hasParentRpc(): boolean {
   return typeof process.send === 'function';
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function createLiveMutationRequestId(): string {
+  return `live-${process.pid}-${Date.now()}-${nextLiveMutationRequestId++}`;
+}
+
+function normalizeLiveMutationContext(context: unknown): LiveContextSnapshot | null {
+  if (typeof context !== 'object' || context === null) return null;
+
+  const snapshot = context as Partial<LiveContextSnapshot & LiveChannelContext>;
+  if (typeof snapshot.spec !== 'object' || snapshot.spec === null) return null;
+
+  const selectedIds = Array.isArray(snapshot.selectedIds)
+    ? snapshot.selectedIds.filter((id): id is string => typeof id === 'string')
+    : [];
+  const hoveredId = typeof snapshot.hoveredId === 'string' ? snapshot.hoveredId : null;
+  const zoom = typeof snapshot.zoom === 'number' ? snapshot.zoom : 1;
+  const pan: [number, number] = Array.isArray(snapshot.pan)
+    && snapshot.pan.length >= 2
+    && typeof snapshot.pan[0] === 'number'
+    && typeof snapshot.pan[1] === 'number'
+    ? [snapshot.pan[0], snapshot.pan[1]]
+    : [0, 0];
+
+  return {
+    source: 'channel',
+    liveAvailable: true,
+    joinedChannelId: activeChannelId,
+    updatedAt: typeof snapshot.updatedAt === 'string' ? snapshot.updatedAt : new Date().toISOString(),
+    filePath: typeof snapshot.filePath === 'string' ? snapshot.filePath : null,
+    spec: cloneSpec(snapshot.spec as DesignSpec),
+    selectedIds,
+    hoveredId,
+    zoom,
+    pan,
+  };
+}
+
+async function persistJoinedChannelContext(liveContext: LiveContextSnapshot): Promise<void> {
+  if (!liveContext.joinedChannelId) return;
+
+  const payload: LiveChannelContext = {
+    channelId: liveContext.joinedChannelId,
+    updatedAt: liveContext.updatedAt ?? new Date().toISOString(),
+    filePath: liveContext.filePath,
+    spec: cloneSpec(liveContext.spec),
+    selectedIds: [...liveContext.selectedIds],
+    hoveredId: liveContext.hoveredId,
+    zoom: liveContext.zoom,
+    pan: [...liveContext.pan] as [number, number],
+  };
+
+  await mkdir(channelRootDir, { recursive: true });
+  await writeFile(
+    getChannelFilePath(liveContext.joinedChannelId),
+    JSON.stringify(payload, null, 2),
+    'utf-8',
+  );
 }
 
 function handleParentRpcResponse(message: unknown): void {
@@ -201,6 +281,46 @@ function callParentRpc(
       params,
     } satisfies ParentRpcRequest);
   });
+}
+
+async function callFileMutationBridge(
+  params: LiveMutationRequest,
+): Promise<unknown> {
+  const requestsDir = getChannelRequestsDir(params.channelId);
+  const responsesDir = getChannelResponsesDir(params.channelId);
+  const requestPath = getMutationRequestPath(params.channelId, params.requestId);
+  const responsePath = getMutationResponsePath(params.channelId, params.requestId);
+
+  await mkdir(requestsDir, { recursive: true });
+  await mkdir(responsesDir, { recursive: true });
+  await unlink(responsePath).catch(() => {});
+  await writeFile(requestPath, JSON.stringify(params, null, 2), 'utf-8');
+
+  const deadline = Date.now() + LIVE_MUTATION_TIMEOUT_MS;
+  while (Date.now() < deadline) {
+    if (!existsSync(responsePath)) {
+      await wait(100);
+      continue;
+    }
+
+    try {
+      const content = await readFileAsync(responsePath, 'utf-8');
+      if (!content.trim()) {
+        await wait(50);
+        continue;
+      }
+
+      const response = JSON.parse(content) as unknown;
+      await unlink(responsePath).catch(() => {});
+      return response;
+    } catch {
+      await wait(50);
+    }
+  }
+
+  await unlink(requestPath).catch(() => {});
+  await unlink(responsePath).catch(() => {});
+  throw new Error(`External live mutation timed out (${LIVE_MUTATION_TIMEOUT_MS / 1000}s)`);
 }
 
 /** Persist the current document to the sync file (if configured). */
@@ -267,25 +387,50 @@ function getLiveContext(): LiveContextSnapshot {
 async function applyLiveMutation(
   mutation: LiveMutation,
 ): Promise<LiveContextSnapshot | null> {
-  if (!activeChannelId || !hasParentRpc()) return null;
+  if (!activeChannelId) return null;
+
+  const joinedChannelContext = readJoinedChannelContext();
+  if (!hasParentRpc() && !joinedChannelContext) return null;
 
   const request: LiveMutationRequest = {
-    requestId: `live-${nextLiveMutationRequestId++}`,
+    requestId: createLiveMutationRequestId(),
     channelId: activeChannelId,
     mutation,
   };
 
-  const response = await callParentRpc('apply_live_mutation', request) as {
+  const response = await (hasParentRpc()
+    ? callParentRpc('apply_live_mutation', request)
+    : callFileMutationBridge(request)) as {
     success?: boolean;
     error?: string;
-    context?: LiveContextSnapshot;
+    context?: unknown;
   };
 
   if (!response?.success) {
     throw new Error(response?.error ?? 'The live desktop mutation failed.');
   }
 
-  return response.context ?? null;
+  const liveContext = normalizeLiveMutationContext(response.context)
+    ?? (joinedChannelContext
+      ? {
+          source: 'channel',
+          liveAvailable: true,
+          joinedChannelId: activeChannelId,
+          updatedAt: joinedChannelContext.updatedAt,
+          filePath: joinedChannelContext.filePath,
+          spec: cloneSpec(joinedChannelContext.spec),
+          selectedIds: [...joinedChannelContext.selectedIds],
+          hoveredId: joinedChannelContext.hoveredId,
+          zoom: joinedChannelContext.zoom,
+          pan: [...joinedChannelContext.pan] as [number, number],
+        }
+      : null);
+
+  if (liveContext) {
+    await persistJoinedChannelContext(liveContext);
+  }
+
+  return liveContext;
 }
 
 function specResult(text: string) {
