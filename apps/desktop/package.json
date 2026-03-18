@@ -11,15 +11,20 @@
     "build": "electron-vite build",
     "preview": "electron-vite preview",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder",
+    "test:e2e": "electron-vite build && npx playwright test",
+    "test:e2e:ui": "electron-vite build && npx playwright test --ui"
   },
   "dependencies": {
     "@electron-toolkit/utils": "^4.0.0",
+    "@monaco-editor/react": "^4.7.0",
     "@next-dev/catalog": "workspace:*",
     "@next-dev/editor-core": "workspace:*",
-    "@next-dev/json-render": "workspace:*"
+    "@next-dev/json-render": "workspace:*",
+    "monaco-editor": "^0.55.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.51.0",
     "@tailwindcss/vite": "^4.1.0",
     "@types/react": "~19.1.10",
     "@types/react-dom": "~19.1.5",
@@ -28,13 +33,14 @@
     "electron-builder": "^25.1.8",
     "electron-vite": "^5.0.0",
     "lucide-react": "^0.513.0",
+    "playwright": "^1.51.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "tailwindcss": "^4.1.0",
     "typescript": "~5.9.2",
     "vite-tsconfig-paths": "^4.3.0",
-    "zustand": "^5.0.5",
-    "zod": "^4.3.6"
+    "zod": "^4.3.6",
+    "zustand": "^5.0.5"
   },
   "build": {
     "appId": "com.nextdev.designforge",

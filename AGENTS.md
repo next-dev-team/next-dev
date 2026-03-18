@@ -27,24 +27,29 @@ This is a monorepo for React Native projects using UniWind (Tailwind v4 CSS-firs
 
 ## Testing
 
-> **⚠️ MANDATORY**: The desktop app (`apps/desktop`) is an **Electron.js** application. All E2E and UI testing MUST go through MCP Playwright — **never open a browser**.
+> **⚠️ MANDATORY**: The desktop app (`apps/desktop`) is an **Electron.js** application. E2E tests use **Playwright's Electron support** (`_electron.launch()`) — **never open a standalone browser**.
 
-### ✅ DO
+### E2E Tests (Playwright + Electron)
 
-- Use **MCP Playwright** tools for all UI testing and interaction:
-  - `mcp_playwright_browser_navigate` — navigate to pages
-  - `mcp_playwright_browser_snapshot` — inspect DOM and find element refs (preferred over screenshots)
-  - `mcp_playwright_browser_click`, `mcp_playwright_browser_type`, `mcp_playwright_browser_fill_form` — interact with elements
-  - `mcp_playwright_browser_console_messages`, `mcp_playwright_browser_network_requests` — debug issues
-- Navigate to `http://localhost:5173/` (Electron renderer process) for UI testing
-- Run `pnpm run dev` from the monorepo root before testing
-- **Save all screenshots to `.playwright-tmp/`** — this directory is gitignored. Use the `filename` parameter with a path prefix:
-  - Example: `filename: '.playwright-tmp/my_screenshot.png'`
-  - Or use `mcp_playwright_browser_run_code` with `path: '.playwright-tmp/screenshot.png'`
+Tests live in `apps/desktop/e2e/` and use custom fixtures from `e2e/fixtures.ts` that launch the real Electron app.
 
-### ❌ DON'T
+```bash
+# Run all E2E tests (builds first, then launches Electron)
+pnpm --filter @next-dev/desktop test:e2e
 
-- **Never use `browser_subagent`** — it opens a separate browser and cannot attach to the Electron app
-- **Never open a standalone browser window** for testing — always test through MCP Playwright against localhost:5173
-- **Never use screenshots as the primary inspection method** — use `mcp_playwright_browser_snapshot` instead for DOM/accessibility tree
-- **Never save screenshots to the project root** — always use `.playwright-tmp/` directory to avoid polluting the repo with test artifacts
+# Interactive Playwright UI mode
+pnpm --filter @next-dev/desktop test:e2e:ui
+```
+
+- **Config**: `apps/desktop/playwright.config.ts`
+- **Fixtures**: `apps/desktop/e2e/fixtures.ts` — provides `electronApp` and `window`
+- Tests get a real `Page` from the Electron `BrowserWindow` — no `baseURL` or browser projects needed
+- Build the app first (`electron-vite build`) before running tests
+
+### Agent Ad-Hoc Testing (MCP Playwright)
+
+For interactive AI-agent testing during development, use **MCP Playwright** tools against the dev server:
+
+#### ✅ DO
+
+- Use **MCP Playwright** for electronjs not browser

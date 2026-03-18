@@ -323,6 +323,23 @@ function AIProviderSection() {
               onChange={(e) => updateConfig({ apiKey: e.target.value })}
             />
           </div>
+          <div className="settings-row">
+            <div className="settings-row-info">
+              <div>
+                <div className="settings-row-label">Stream Responses</div>
+                <div className="settings-row-desc">Use SSE streaming for real-time token display. Disable if responses are empty.</div>
+              </div>
+            </div>
+            <label className="settings-toggle" htmlFor="toggle-stream">
+              <input
+                id="toggle-stream"
+                type="checkbox"
+                checked={config.stream ?? false}
+                onChange={(e) => updateConfig({ stream: e.target.checked })}
+              />
+              <span className="settings-toggle-slider" />
+            </label>
+          </div>
         </div>
       )}
 

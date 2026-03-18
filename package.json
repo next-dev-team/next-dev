@@ -13,6 +13,7 @@
     "check": "biome check --write .",
     "test": "turbo test",
     "test:core": "turbo test --filter=@next-dev/editor-core",
+    "test:e2e": "pnpm --filter @next-dev/desktop test:e2e",
     "build": "turbo build",
     "registry": "turbo registry",
     "build:showcase": "turbo build --filter=@rnr/showcase",

@@ -2,8 +2,6 @@
 
 @theme {
   /* ─── Sizing (theme-invariant) ─── */
-  --spacing-panel-width: 20%;
-  --spacing-panel-right-width: 20%;
   --spacing-toolbar-height: 44px;
   --spacing-titlebar-height: 32px;
 
@@ -255,14 +253,8 @@ body,
 
 .editor-layout {
   display: grid;
-  grid-template-columns: minmax(0, var(--spacing-panel-width)) minmax(0, 1fr) minmax(
-      0,
-      var(--spacing-panel-right-width)
-    );
+  /* grid-template-columns and grid-template-areas set inline by React */
   grid-template-rows: var(--spacing-toolbar-height) 1fr;
-  grid-template-areas:
-    "toolbar toolbar toolbar"
-    "left canvas right";
   height: calc(100% - var(--spacing-titlebar-height));
   width: 100%;
 }
@@ -308,6 +300,51 @@ body,
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+/* ─── Resize Handles ───────────────────────────────────────────────── */
+
+.resize-handle {
+  width: 5px;
+  cursor: col-resize;
+  position: relative;
+  z-index: 5;
+  flex-shrink: 0;
+  background: transparent;
+  transition: background 0.15s var(--ease-smooth);
+}
+
+.resize-handle--left {
+  grid-area: handle-left;
+}
+
+.resize-handle--right {
+  grid-area: handle-right;
+}
+
+/* Visible gutter line in the center */
+.resize-handle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  transform: translateX(-50%);
+  background: var(--color-border-dim);
+  transition: background 0.15s var(--ease-smooth), width 0.15s var(--ease-smooth);
+}
+
+.resize-handle:hover::after {
+  width: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+.resize-handle:active::after {
+  width: 3px;
+  background: var(--color-accent-hover);
+  border-radius: 2px;
 }
 
 /* ─── Panel Tabs ───────────────────────────────────────────────────── */
@@ -2533,4 +2570,353 @@ body,
   --color-json-string: oklch(0.7 0.16 145);
   --color-json-number: oklch(0.72 0.18 50);
   --color-json-null: oklch(0.5 0.1 260);
+}
+
+/* ─── IDE Preview Panel ────────────────────────────────────────────── */
+
+.ide-preview {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--color-panel-bg);
+}
+
+/* ── Empty State ───────────────────────────────────────────────────── */
+
+.ide-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.ide-empty-icon-wrap {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-dim);
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.ide-empty-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.ide-empty-subtitle {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  max-width: 220px;
+  line-height: 1.6;
+}
+
+/* ── Tab Bar ───────────────────────────────────────────────────────── */
+
+.ide-tab-bar {
+  display: flex;
+  align-items: stretch;
+  background: var(--color-deep-bg);
+  border-bottom: 1px solid var(--color-border-dim);
+  flex-shrink: 0;
+  min-height: 33px;
+}
+
+.ide-tab-scroll {
+  display: flex;
+  overflow-x: auto;
+  flex: 1;
+  min-width: 0;
+  scrollbar-width: none;
+}
+
+.ide-tab-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.ide-tab {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 11px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  border-right: 1px solid var(--color-border-dim);
+  transition: color 0.12s var(--ease-smooth), background 0.12s var(--ease-smooth);
+  flex-shrink: 0;
+}
+
+.ide-tab:hover {
+  color: var(--color-text-secondary);
+  background: var(--color-hover-overlay);
+}
+
+.ide-tab[data-active="true"] {
+  color: var(--color-text-primary);
+  background: var(--color-panel-bg);
+}
+
+/* Active tab bottom accent line */
+.ide-tab[data-active="true"]::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 2px 2px 0 0;
+}
+
+.ide-tab-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.ide-tab-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ide-tab-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  flex-shrink: 0;
+  border: none;
+  background: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color 0.12s var(--ease-smooth), background 0.12s var(--ease-smooth);
+  border-left: 1px solid var(--color-border-dim);
+}
+
+.ide-tab-action:hover {
+  color: var(--color-text-primary);
+  background: var(--color-hover-overlay);
+}
+
+.ide-tab-action[data-active="true"] {
+  color: var(--color-accent);
+  background: var(--color-accent-muted);
+}
+
+/* ── Action Bar (breadcrumb + buttons) ─────────────────────────────── */
+
+.ide-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--color-panel-header);
+  border-bottom: 1px solid var(--color-border-dim);
+  flex-shrink: 0;
+  min-height: 28px;
+}
+
+.ide-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ide-breadcrumb-segment {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.ide-breadcrumb-sep {
+  opacity: 0.4;
+  flex-shrink: 0;
+}
+
+.ide-breadcrumb-segment span[data-last="true"] {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.ide-action-btns {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.ide-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  border-radius: 5px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.12s var(--ease-smooth);
+}
+
+.ide-action-btn:hover {
+  color: var(--color-text-primary);
+  background: var(--color-hover-overlay);
+}
+
+.ide-action-btn[data-active="true"] {
+  color: var(--color-accent);
+}
+
+/* ── File Tree Panel ───────────────────────────────────────────────── */
+
+.ide-tree-panel {
+  max-height: 0;
+  overflow: hidden;
+  border-bottom: 0 solid var(--color-border-dim);
+  background: var(--color-deep-bg);
+  transition: max-height 0.25s var(--ease-smooth), border-bottom-width 0.25s var(--ease-smooth);
+}
+
+.ide-tree-panel[data-open="true"] {
+  max-height: 240px;
+  overflow-y: auto;
+  border-bottom-width: 1px;
+}
+
+.ide-tree-inner {
+  padding: 6px 0;
+}
+
+.ide-tree-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  padding: 3px 8px;
+  border: none;
+  background: none;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.1s var(--ease-smooth), color 0.1s var(--ease-smooth);
+  text-align: left;
+}
+
+.ide-tree-item:hover {
+  background: var(--color-hover-overlay);
+  color: var(--color-text-primary);
+}
+
+.ide-tree-folder-icon {
+  color: var(--color-accent);
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+.ide-tree-spacer {
+  width: 11px;
+  flex-shrink: 0;
+}
+
+.ide-tree-file[data-active="true"] {
+  background: var(--color-selection-bg);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ── Monaco Editor ─────────────────────────────────────────────────── */
+
+.ide-editor {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  animation: ide-editor-fadein 0.18s ease;
+}
+
+@keyframes ide-editor-fadein {
+  from { opacity: 0.4; }
+  to   { opacity: 1; }
+}
+
+.ide-editor .monaco-editor {
+  padding: 0 !important;
+}
+
+/* ── Status Bar ────────────────────────────────────────────────────── */
+
+.ide-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 10px;
+  background: var(--color-deep-bg);
+  border-top: 1px solid var(--color-border-dim);
+  flex-shrink: 0;
+  min-height: 24px;
+  gap: 8px;
+}
+
+.ide-status-left,
+.ide-status-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ide-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.ide-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ide-status-item {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.ide-status-sep {
+  width: 1px;
+  height: 10px;
+  background: var(--color-border-dim);
+  flex-shrink: 0;
 }

@@ -12,13 +12,13 @@
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 import {
-  createProvider,
   type AIProvider,
   type AIOperation,
   type AIStreamChunk,
   type ProviderConfig,
 } from '@/ai-providers';
 import { useEditorStore } from '@/store';
+import { useSettingsStore } from '@/settings-store';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -75,28 +75,25 @@ function makeId(): string {
   return `msg-${Date.now()}-${++idCounter}`;
 }
 
-function loadProviderConfig(): ProviderConfig {
-  try {
-    const stored = localStorage.getItem('designforge:ai-provider');
-    if (stored) return JSON.parse(stored);
-  } catch { /* ignore */ }
-  return { type: 'mock' };
-}
-
-function saveProviderConfig(config: ProviderConfig): void {
-  try {
-    localStorage.setItem('designforge:ai-provider', JSON.stringify(config));
-  } catch { /* ignore */ }
-}
-
 // ─── Store ──────────────────────────────────────────────────────────────────
 
 let abortController: AbortController | null = null;
 
 export const useChatStore = create<ChatState>()(
   subscribeWithSelector((set, get) => {
-    const initialConfig = loadProviderConfig();
-    const initialProvider = createProvider(initialConfig);
+    // Read initial provider config from the canonical settings-store
+    const settingsState = useSettingsStore.getState();
+    const initialConfig = settingsState.providerConfig;
+    const initialProvider = settingsState.provider;
+
+    // Keep chat-store in sync when settings-store changes provider
+    useSettingsStore.subscribe(
+      (s) => s.providerConfig,
+      (providerConfig) => {
+        const provider = useSettingsStore.getState().provider;
+        set({ providerConfig, provider });
+      },
+    );
 
     return {
       messages: [
@@ -241,11 +238,8 @@ export const useChatStore = create<ChatState>()(
       setInputValue: (value) => set({ inputValue: value }),
 
       updateProviderConfig: (partial) => {
-        const current = get().providerConfig;
-        const next = { ...current, ...partial };
-        const provider = createProvider(next);
-        saveProviderConfig(next);
-        set({ providerConfig: next, provider });
+        // Delegate to settings-store — it will sync back to us via subscribe
+        useSettingsStore.getState().updateProviderConfig(partial);
       },
 
       acceptOperations: (messageId: string) => {

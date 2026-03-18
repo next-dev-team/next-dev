@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useEditorStore } from '@/store';
 import { ChatPanel } from '@/ChatPanel';
+import { CodePreview } from '@/CodePreview';
 import { catalog, getCategorizedComponents, type ComponentType } from '@next-dev/catalog';
 import type { DesignSpec } from '@next-dev/editor-core';
 import { renderers } from '@next-dev/json-render';
@@ -988,12 +989,99 @@ function SchemaField({
   );
 }
 
+// ─── Resize Handle ────────────────────────────────────────────────────────
+
+const MIN_PANEL_WIDTH = 160;
+const MAX_PANEL_RATIO = 0.4; // 40% of window width
+const DEFAULT_LEFT_WIDTH = 280;
+const DEFAULT_RIGHT_WIDTH = 320;
+
+function ResizeHandle({
+  side,
+  onResize,
+}: {
+  side: 'left' | 'right';
+  onResize: (delta: number) => void;
+}) {
+  const handleRef = useRef<HTMLDivElement>(null);
+
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      const startX = e.clientX;
+
+      const handleMouseMove = (moveEvent: MouseEvent) => {
+        const delta = moveEvent.clientX - startX;
+        onResize(side === 'left' ? delta : -delta);
+      };
+
+      const handleMouseUp = () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+      };
+
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+    },
+    [side, onResize],
+  );
+
+  return (
+    <div
+      ref={handleRef}
+      className={`resize-handle resize-handle--${side}`}
+      onMouseDown={handleMouseDown}
+      role="separator"
+      aria-orientation="vertical"
+      tabIndex={0}
+    />
+  );
+}
+
 // ─── App ──────────────────────────────────────────────────────────────────
 
 export function App() {
   const activePanel = useEditorStore((s) => s.activePanel);
   const setActivePanel = useEditorStore((s) => s.setActivePanel);
-  const [rightTab, setRightTab] = useState<'properties' | 'chat'>('chat');
+  const [rightTab, setRightTab] = useState<'properties' | 'chat' | 'code'>('chat');
+
+  // Resizable panel widths — persisted to localStorage
+  const [leftWidth, setLeftWidth] = useState(() => {
+    const saved = localStorage.getItem('df:leftPanelWidth');
+    return saved ? Number(saved) || DEFAULT_LEFT_WIDTH : DEFAULT_LEFT_WIDTH;
+  });
+  const [rightWidth, setRightWidth] = useState(() => {
+    const saved = localStorage.getItem('df:rightPanelWidth');
+    return saved ? Number(saved) || DEFAULT_RIGHT_WIDTH : DEFAULT_RIGHT_WIDTH;
+  });
+  const leftBaseRef = useRef(leftWidth);
+  const rightBaseRef = useRef(rightWidth);
+
+  const handleLeftResize = useCallback((delta: number) => {
+    const max = window.innerWidth * MAX_PANEL_RATIO;
+    setLeftWidth(Math.max(MIN_PANEL_WIDTH, Math.min(max, leftBaseRef.current + delta)));
+  }, []);
+
+  const handleRightResize = useCallback((delta: number) => {
+    const max = window.innerWidth * MAX_PANEL_RATIO;
+    setRightWidth(Math.max(MIN_PANEL_WIDTH, Math.min(max, rightBaseRef.current + delta)));
+  }, []);
+
+  // Sync base refs + persist to localStorage on mouseup
+  useEffect(() => {
+    const handler = () => {
+      leftBaseRef.current = leftWidth;
+      rightBaseRef.current = rightWidth;
+      localStorage.setItem('df:leftPanelWidth', String(leftWidth));
+      localStorage.setItem('df:rightPanelWidth', String(rightWidth));
+    };
+    window.addEventListener('mouseup', handler);
+    return () => window.removeEventListener('mouseup', handler);
+  }, [leftWidth, rightWidth]);
 
   // ─── Live MCP File Watcher ───────────────────────────────────────────
   // Listens for spec changes pushed from the main process file watcher.
@@ -1217,7 +1305,13 @@ export function App() {
   return (
     <DragProvider>
       <Titlebar />
-      <div className="editor-layout">
+      <div
+        className="editor-layout"
+        style={{
+          gridTemplateColumns: `${leftWidth}px auto 1fr auto ${rightWidth}px`,
+          gridTemplateAreas: `"toolbar toolbar toolbar toolbar toolbar" "left handle-left canvas handle-right right"`,
+        }}
+      >
         <Toolbar />
 
         <div className="editor-left-panel">
@@ -1242,7 +1336,11 @@ export function App() {
           {activePanel === 'palette' ? <ComponentPalette /> : <LayerTree />}
         </div>
 
+        <ResizeHandle side="left" onResize={handleLeftResize} />
+
         <Canvas />
+
+        <ResizeHandle side="right" onResize={handleRightResize} />
 
         <div className="editor-right-panel">
           <div className="panel-tabs">
@@ -1257,13 +1355,23 @@ export function App() {
             <button
               type="button"
               className="panel-tab"
+              data-active={rightTab === 'code'}
+              onClick={() => setRightTab('code')}
+            >
+              Code
+            </button>
+            <button
+              type="button"
+              className="panel-tab"
               data-active={rightTab === 'chat'}
               onClick={() => setRightTab('chat')}
             >
               AI Chat
             </button>
           </div>
-          {rightTab === 'properties' ? <PropsPanel /> : <ChatPanel />}
+          {rightTab === 'properties' && <PropsPanel />}
+          {rightTab === 'code' && <CodePreview />}
+          {rightTab === 'chat' && <ChatPanel />}
         </div>
       </div>
       <SettingsPage />

@@ -11,6 +11,7 @@ import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
 const SESSION_STORAGE_KEY = 'designforge:editor-session';
+const DEFAULT_EXPORT_PROJECT_NAME = 'untitled-project';
 
 interface PersistedEditorSession {
   version: 1;
@@ -61,7 +62,12 @@ function loadPersistedSession(): PersistedEditorSession | null {
   }
 }
 
-function persistSession(state: Pick<DesktopEditorState, 'spec' | 'filePath' | 'isDirty' | 'activePanel' | 'zoom' | 'isPreviewMode'>): void {
+function persistSession(
+  state: Pick<
+    DesktopEditorState,
+    'spec' | 'filePath' | 'isDirty' | 'activePanel' | 'zoom' | 'isPreviewMode'
+  >,
+): void {
   const storage = getSessionStorage();
   if (!storage) return;
 
@@ -99,14 +105,24 @@ function attachDocumentListeners(
   });
 }
 
-function getProjectNameFromFilePath(filePath: string | null): string {
+function getProjectNameFromFilePath(filePath: string | null): string | null {
   const filename = filePath?.split(/[\\/]/).pop() ?? '';
   const stem = filename.replace(/\.[^.]+$/, '').trim();
-  return stem.length > 0 ? stem : 'designforge-export';
+  return stem.length > 0 ? stem : null;
+}
+
+function promptForProjectName(defaultName = DEFAULT_EXPORT_PROJECT_NAME): string {
+  // window.prompt() is not available in Electron — return the default name.
+  // The project name is already derived from the file path when one exists.
+  return defaultName;
 }
 
 function buildExportOutputPath(baseDirectory: string, packageName: string): string {
-  return `${baseDirectory.replace(/[\\/]+$/, '')}/${packageName}-export`;
+  const normalizedBaseDirectory = baseDirectory.replace(/[\\/]+$/, '');
+  const outputDirectoryName = packageName.endsWith('-export')
+    ? packageName
+    : `${packageName}-export`;
+  return `${normalizedBaseDirectory}/${outputDirectoryName}`;
 }
 
 function notifyUser(message: string): void {
@@ -327,19 +343,23 @@ export const useEditorStore = create<DesktopEditorState>()(
       exportCode: async () => {
         try {
           const api = window.designforge;
+          const state = get();
+          const projectName = getProjectNameFromFilePath(state.filePath) ?? promptForProjectName();
+          if (!projectName) return null;
+
           const outputRoot = await api.fs.pickDirectory();
           if (!outputRoot) return null;
 
-          const state = get();
           const project = generateReactViteProject(state.spec, {
-            projectName: getProjectNameFromFilePath(state.filePath),
+            projectName,
           });
           const outputPath = buildExportOutputPath(outputRoot, project.packageName);
           await api.fs.writeBatch(outputPath, project.files);
 
-          const placeholderNote = project.unsupportedComponents.length > 0
-            ? ` ${project.unsupportedComponents.length} component types were exported as placeholders.`
-            : '';
+          const placeholderNote =
+            project.unsupportedComponents.length > 0
+              ? ` ${project.unsupportedComponents.length} component types were exported as placeholders.`
+              : '';
           notifyUser(`Code exported to ${outputPath}.${placeholderNote}`);
           return outputPath;
         } catch (error) {

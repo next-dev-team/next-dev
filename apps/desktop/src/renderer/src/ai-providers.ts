@@ -49,6 +49,8 @@ export interface ProviderConfig {
   apiKey?: string;
   /** For openai: model name */
   model?: string;
+  /** For openai: whether to use SSE streaming (default: false for Electron compatibility) */
+  stream?: boolean;
   /** For mcp: path to MCP server binary / script */
   mcpCommand?: string;
   mcpArgs?: string[];
@@ -75,33 +77,39 @@ export interface AIProvider {
 // ─── System Prompt ──────────────────────────────────────────────────────────
 
 function buildSystemPrompt(spec: DesignSpec): string {
-  const catalogText = catalogToPrompt();
-  return `You are DesignForge AI — a design assistant that generates structured UI operations.
+  // Build a compact component list (just names grouped by category)
+  const byCategory: Record<string, string[]> = {};
+  for (const [name, def] of Object.entries(catalog)) {
+    const cat = (def as { meta?: { category?: string } }).meta?.category ?? 'other';
+    if (!byCategory[cat]) byCategory[cat] = [];
+    byCategory[cat].push(name);
+  }
+  const compactCatalog = Object.entries(byCategory)
+    .map(([cat, names]) => `${cat}: ${names.join(', ')}`)
+    .join('\n');
 
-## Component Catalog
-${catalogText}
+  // Compact spec: just root and element count
+  const elementCount = Object.keys(spec.elements).length;
+  const existingIds = elementCount > 1
+    ? `\nExisting elements: ${Object.entries(spec.elements).map(([id, el]) => `${id}(${(el as Element).type})`).join(', ')}`
+    : '';
 
-## Current Design Spec
-\`\`\`json
-${JSON.stringify(spec, null, 2)}
-\`\`\`
+  return `You are DesignForge AI. Respond with ONLY valid JSON, no other text.
 
-## Rules
-1. Return ONLY valid JSON matching this shape:
-   {
-     "description": "Human-readable summary of changes",
-     "operations": [
-       { "type": "add|remove|updateProps|move", ... }
-     ]
-   }
-2. For "add" operations include: parentId, elementType, props
-   - Use the root element ID "${spec.root}" as parentId to add top-level elements
-3. For "remove" operations include: elementId
-4. For "updateProps" operations include: elementId, updatedProps
-5. For "move" operations include: elementId, newParentId, index
-6. Use ONLY component types from the catalog above.
-7. Do NOT wrap your response in markdown code fences.
-8. Do NOT include any text outside the JSON object.`;
+Components:
+${compactCatalog}
+
+Root ID: "${spec.root}"${existingIds}
+
+Respond with this JSON format:
+{"description":"what you did","operations":[{"type":"add","parentId":"${spec.root}","elementType":"Button","props":{"children":"Click me"}}]}
+
+Operation types: add (parentId, elementType, props), remove (elementId), updateProps (elementId, updatedProps), move (elementId, newParentId, index)
+
+Example - "Add a button that says Submit":
+{"description":"Added Submit button","operations":[{"type":"add","parentId":"${spec.root}","elementType":"Button","props":{"children":"Submit","variant":"default"}}]}
+
+Rules: Use ONLY listed components. Return ONLY JSON. No markdown fences.`;
 }
 
 // ─── Mock Provider ──────────────────────────────────────────────────────────
@@ -255,11 +263,13 @@ export class OpenAIProvider implements AIProvider {
   private baseUrl: string;
   private apiKey: string;
   private model: string;
+  private useStream: boolean;
 
   constructor(config: ProviderConfig) {
     this.baseUrl = (config.baseUrl ?? 'http://localhost:11434/v1').replace(/\/$/, '');
     this.apiKey = config.apiKey ?? '';
     this.model = config.model ?? 'llama3';
+    this.useStream = config.stream ?? false;
   }
 
   async generate(prompt: string, spec: DesignSpec): Promise<AIResponse> {
@@ -296,6 +306,75 @@ export class OpenAIProvider implements AIProvider {
     onChunk: (chunk: AIStreamChunk) => void,
     signal?: AbortSignal,
   ): Promise<void> {
+    if (this.useStream) {
+      return this.streamSSE(prompt, spec, onChunk, signal);
+    }
+    return this.streamNonSSE(prompt, spec, onChunk, signal);
+  }
+
+  /** Non-streaming mode: single request, reliable in Electron */
+  private async streamNonSSE(
+    prompt: string,
+    spec: DesignSpec,
+    onChunk: (chunk: AIStreamChunk) => void,
+    signal?: AbortSignal,
+  ): Promise<void> {
+    const systemPrompt = buildSystemPrompt(spec);
+
+    try {
+      onChunk({ type: 'text', content: '⏳ Thinking...' });
+
+      const res = await fetch(`${this.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(this.apiKey ? { Authorization: `Bearer ${this.apiKey}` } : {}),
+        },
+        body: JSON.stringify({
+          model: this.model,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: prompt },
+          ],
+          temperature: 0.3,
+          stream: false,
+          max_tokens: 2048,
+        }),
+        signal,
+      });
+
+      if (!res.ok) {
+        const errText = await res.text().catch(() => '');
+        onChunk({ type: 'error', error: `API error ${res.status}: ${errText}` });
+        return;
+      }
+
+      const json = await res.json();
+      const content = json.choices?.[0]?.message?.content ?? '';
+
+      console.debug('[AI] Response length:', content.length);
+
+      onChunk({ type: 'text', content: `\n${content}` });
+
+      const result = parseAIJSON(content);
+      onChunk({ type: 'operations', operations: result.operations });
+      onChunk({ type: 'done' });
+    } catch (err) {
+      if ((err as Error).name === 'AbortError') {
+        onChunk({ type: 'done' });
+      } else {
+        onChunk({ type: 'error', error: (err as Error).message });
+      }
+    }
+  }
+
+  /** SSE streaming mode: real-time token display */
+  private async streamSSE(
+    prompt: string,
+    spec: DesignSpec,
+    onChunk: (chunk: AIStreamChunk) => void,
+    signal?: AbortSignal,
+  ): Promise<void> {
     const systemPrompt = buildSystemPrompt(spec);
 
     const res = await fetch(`${this.baseUrl}/chat/completions`, {
@@ -312,6 +391,7 @@ export class OpenAIProvider implements AIProvider {
         ],
         temperature: 0.3,
         stream: true,
+        max_tokens: 2048,
       }),
       signal,
     });
@@ -329,6 +409,7 @@ export class OpenAIProvider implements AIProvider {
 
     const decoder = new TextDecoder();
     let accumulated = '';
+    let lineBuf = '';
 
     try {
       while (true) {
@@ -336,11 +417,16 @@ export class OpenAIProvider implements AIProvider {
         if (done) break;
 
         const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split('\n');
+        lineBuf += chunk;
 
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue;
-          const payload = line.slice(6).trim();
+        const segments = lineBuf.split('\n');
+        lineBuf = segments.pop() ?? '';
+
+        for (const line of segments) {
+          const trimmed = line.trim();
+          if (!trimmed || !trimmed.startsWith('data:')) continue;
+
+          const payload = trimmed.slice(5).trim();
           if (payload === '[DONE]') continue;
 
           try {
@@ -350,13 +436,12 @@ export class OpenAIProvider implements AIProvider {
               accumulated += delta;
               onChunk({ type: 'text', content: delta });
             }
-          } catch {
-            // skip malformed SSE chunks
-          }
+          } catch { /* skip malformed */ }
         }
       }
 
-      // Parse the final accumulated text as JSON operations
+      console.debug('[AI] Stream complete. Accumulated length:', accumulated.length);
+
       const result = parseAIJSON(accumulated);
       onChunk({ type: 'operations', operations: result.operations });
       onChunk({ type: 'done' });
@@ -683,20 +768,72 @@ function findByType(spec: DesignSpec, type: string): [string, Element][] {
 }
 
 function parseAIJSON(text: string): AIResponse {
-  // Strip markdown code fences if present
-  let cleaned = text.trim();
-  cleaned = cleaned.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '');
+  const raw = text.trim();
+  if (!raw) return { operations: [], description: 'Empty response from AI.' };
 
+  // Strategy 1: Direct parse (ideal case — LLM returned pure JSON)
+  const direct = tryParseOps(raw);
+  if (direct) return direct;
+
+  // Strategy 2: Extract from markdown code fences (```json ... ```)
+  const fenceMatch = raw.match(/```(?:json)?\s*\n?([\s\S]*?)\n?```/i);
+  if (fenceMatch) {
+    const inner = tryParseOps(fenceMatch[1].trim());
+    if (inner) return inner;
+  }
+
+  // Strategy 3: Find the outermost { ... } brace pair
+  const firstBrace = raw.indexOf('{');
+  const lastBrace = raw.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace > firstBrace) {
+    const extracted = raw.slice(firstBrace, lastBrace + 1);
+    const parsed = tryParseOps(extracted);
+    if (parsed) return parsed;
+  }
+
+  // Strategy 4: Look for a JSON array of operations (some LLMs skip the wrapper)
+  const firstBracket = raw.indexOf('[');
+  const lastBracket = raw.lastIndexOf(']');
+  if (firstBracket !== -1 && lastBracket > firstBracket) {
+    try {
+      const arr = JSON.parse(raw.slice(firstBracket, lastBracket + 1));
+      if (Array.isArray(arr) && arr.length > 0 && arr[0].type) {
+        return { operations: arr, description: 'Applied changes.' };
+      }
+    } catch { /* continue */ }
+  }
+
+  // Fallback: return the raw text as description with no operations
+  return {
+    operations: [],
+    description: raw || 'Could not parse AI response as JSON.',
+  };
+}
+
+/** Try to parse a string as an AIResponse with operations */
+function tryParseOps(text: string): AIResponse | null {
   try {
-    const parsed = JSON.parse(cleaned);
-    return {
-      operations: Array.isArray(parsed.operations) ? parsed.operations : [],
-      description: parsed.description ?? parsed.summary ?? 'Applied changes.',
-    };
+    const parsed = JSON.parse(text);
+    if (typeof parsed !== 'object' || parsed === null) return null;
+
+    // Standard shape: { operations: [...], description: "..." }
+    if (Array.isArray(parsed.operations)) {
+      return {
+        operations: parsed.operations,
+        description: parsed.description ?? parsed.summary ?? 'Applied changes.',
+      };
+    }
+
+    // Some LLMs return { type: "add", ... } as a single operation
+    if (parsed.type && ['add', 'remove', 'updateProps', 'move'].includes(parsed.type)) {
+      return {
+        operations: [parsed],
+        description: 'Applied single operation.',
+      };
+    }
+
+    return null;
   } catch {
-    return {
-      operations: [],
-      description: cleaned || 'Could not parse AI response as JSON.',
-    };
+    return null;
   }
 }

@@ -1,0 +1,7 @@
+# Electron build output
+out/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright-tmp/

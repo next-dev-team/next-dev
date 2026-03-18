@@ -8,7 +8,7 @@
  * 4. Spawn MCP server as child process
  */
 
-import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme, Menu } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme, Menu, session } from 'electron';
 import { dirname, join } from 'node:path';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { watch, type FSWatcher } from 'node:fs';
@@ -16,6 +16,32 @@ import { is } from '@electron-toolkit/utils';
 import { setupMCPIPC } from './mcp-client';
 
 let mainWindow: BrowserWindow | null = null;
+
+/**
+ * Override Content-Security-Policy headers at the session level so that
+ * renderer fetch() calls can reach local LLM APIs (Ollama, PocketPaw, LM Studio)
+ * and remote endpoints (OpenAI, etc.).
+ *
+ * electron-vite injects a restrictive CSP header by default that blocks
+ * connections to localhost origins other than the dev-server port.
+ */
+function setupCSP(): void {
+  session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
+    callback({
+      responseHeaders: {
+        ...details.responseHeaders,
+        'Content-Security-Policy': [
+          "default-src 'self';" +
+          " script-src 'self' 'unsafe-inline';" +
+          " style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;" +
+          " font-src 'self' https://fonts.gstatic.com;" +
+          " img-src 'self' data:;" +
+          " connect-src 'self' http://localhost:* http://127.0.0.1:* https://* ws://localhost:* ws://127.0.0.1:*",
+        ],
+      },
+    });
+  });
+}
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({
@@ -225,6 +251,7 @@ app.whenReady().then(() => {
   ];
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
 
+  setupCSP();
   setupIPC();
   setupMCPIPC();
   createWindow();
