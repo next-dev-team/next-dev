@@ -27,6 +27,13 @@ import {
   MousePointer,
   Box,
   Settings,
+  Eye,
+  Pencil,
+  Globe,
+  ArrowLeft,
+  ArrowRight,
+  RotateCw,
+  Shield,
 } from 'lucide-react';
 import { z } from 'zod';
 
@@ -222,6 +229,8 @@ function Toolbar() {
   const openFile = useEditorStore((s) => s.openFile);
   const saveFile = useEditorStore((s) => s.saveFile);
   const openSettings = useSettingsStore((s) => s.openSettings);
+  const isPreviewMode = useEditorStore((s) => s.isPreviewMode);
+  const togglePreview = useEditorStore((s) => s.togglePreviewMode);
 
   const hasSelection = selectedIds.length > 0;
   const hasMultiSelection = selectedIds.length > 1;
@@ -248,6 +257,18 @@ function Toolbar() {
 
       <div className="toolbar-separator" />
 
+      {/* Preview / Editor mode toggle */}
+      <button
+        type="button"
+        className={`toolbar-btn preview-mode-toggle ${isPreviewMode ? 'preview-mode-active' : ''}`}
+        onClick={togglePreview}
+        title={isPreviewMode ? 'Switch to Editor (Ctrl+P)' : 'Switch to Preview (Ctrl+P)'}
+      >
+        {isPreviewMode ? <Pencil size={16} /> : <Eye size={16} />}
+      </button>
+
+      <div className="toolbar-separator" />
+
       {/* Settings */}
       <button type="button" className="toolbar-btn" onClick={() => openSettings()} title="Settings (Ctrl+,)">
         <Settings size={16} />
@@ -256,20 +277,20 @@ function Toolbar() {
       <div className="toolbar-separator" />
 
       {/* History */}
-      <button type="button" className="toolbar-btn" disabled={!canUndo} onClick={undo} title="Undo (Ctrl+Z)">
+      <button type="button" className="toolbar-btn" disabled={!canUndo || isPreviewMode} onClick={undo} title="Undo (Ctrl+Z)">
         <Undo2 size={16} />
       </button>
-      <button type="button" className="toolbar-btn" disabled={!canRedo} onClick={redo} title="Redo (Ctrl+Shift+Z)">
+      <button type="button" className="toolbar-btn" disabled={!canRedo || isPreviewMode} onClick={redo} title="Redo (Ctrl+Shift+Z)">
         <Redo2 size={16} />
       </button>
 
       <div className="toolbar-separator" />
 
       {/* Clipboard */}
-      <button type="button" className="toolbar-btn" disabled={!hasSelection} onClick={copy} title="Copy">
+      <button type="button" className="toolbar-btn" disabled={!hasSelection || isPreviewMode} onClick={copy} title="Copy">
         <Copy size={16} />
       </button>
-      <button type="button" className="toolbar-btn" disabled={!hasSelection} onClick={cut} title="Cut">
+      <button type="button" className="toolbar-btn" disabled={!hasSelection || isPreviewMode} onClick={cut} title="Cut">
         <Scissors size={16} />
       </button>
 
@@ -279,7 +300,7 @@ function Toolbar() {
       <button
         type="button"
         className="toolbar-btn"
-        disabled={!hasSelection}
+        disabled={!hasSelection || isPreviewMode}
         onClick={() => {
           if (selectedIds.length === 1) duplicateElement(selectedIds[0]);
         }}
@@ -290,7 +311,7 @@ function Toolbar() {
       <button
         type="button"
         className="toolbar-btn"
-        disabled={!hasMultiSelection}
+        disabled={!hasMultiSelection || isPreviewMode}
         onClick={() => groupElements(selectedIds)}
         title="Group"
       >
@@ -299,7 +320,7 @@ function Toolbar() {
       <button
         type="button"
         className="toolbar-btn"
-        disabled={!hasSelection}
+        disabled={!hasSelection || isPreviewMode}
         onClick={() => {
           if (selectedIds.length === 1) ungroupElement(selectedIds[0]);
         }}
@@ -310,7 +331,7 @@ function Toolbar() {
       <button
         type="button"
         className="toolbar-btn"
-        disabled={!hasSelection}
+        disabled={!hasSelection || isPreviewMode}
         onClick={() => {
           for (const id of selectedIds) removeElement(id);
         }}
@@ -493,7 +514,7 @@ function LayerTree() {
 
 // ─── Canvas ───────────────────────────────────────────────────────────────
 
-function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }) {
+function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: DesignSpec; isPreview?: boolean }) {
   const element = spec.elements[elementId];
   const selectedIds = useEditorStore((s) => s.selectedIds);
   const hoveredId = useEditorStore((s) => s.hoveredId);
@@ -505,13 +526,13 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
 
   if (!element || element.__editor?.hidden) return null;
 
-  const isSelected = selectedIds.includes(elementId);
-  const isHovered = hoveredId === elementId;
-  const children = element.children.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} />);
+  const isSelected = !isPreview && selectedIds.includes(elementId);
+  const isHovered = !isPreview && hoveredId === elementId;
+  const children = element.children.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />);
 
   const renderElement = () => {
     const props = element.props ?? {};
-    const ctx = { scale: 1, interactive: true };
+    const ctx = { scale: 1, interactive: !isPreview };
     const renderer = renderers[element.type];
     if (renderer) {
       return renderer(props, children, ctx);
@@ -520,6 +541,7 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
+    if (isPreview) return;
     if (!e.dataTransfer.types.includes(DRAG_DATA_KEY)) return;
     e.preventDefault();
     e.stopPropagation();
@@ -528,11 +550,13 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
   };
 
   const handleDragLeave = (e: React.DragEvent) => {
+    if (isPreview) return;
     e.stopPropagation();
     setIsDropTarget(false);
   };
 
   const handleDrop = (e: React.DragEvent) => {
+    if (isPreview) return;
     e.preventDefault();
     e.stopPropagation();
     setIsDropTarget(false);
@@ -552,17 +576,18 @@ function CanvasNode({ elementId, spec }: { elementId: string; spec: DesignSpec }
       className="canvas-element"
       data-selected={isSelected}
       data-hovered={isHovered && !isSelected}
-      data-drop-target={isDropTarget}
-      data-drag-active={dragState.isDragging}
-      onClick={(e) => { e.stopPropagation(); select(elementId, e.shiftKey); }}
-      onKeyDown={() => {}}
-      role="treeitem"
-      tabIndex={0}
-      onMouseEnter={(e) => { e.stopPropagation(); hover(elementId); }}
-      onMouseLeave={(e) => { e.stopPropagation(); hover(null); }}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
+      data-drop-target={!isPreview && isDropTarget}
+      data-drag-active={!isPreview && dragState.isDragging}
+      data-preview={isPreview}
+      onClick={isPreview ? undefined : (e) => { e.stopPropagation(); select(elementId, e.shiftKey); }}
+      onKeyDown={isPreview ? undefined : () => {}}
+      role={isPreview ? undefined : 'treeitem'}
+      tabIndex={isPreview ? undefined : 0}
+      onMouseEnter={isPreview ? undefined : (e) => { e.stopPropagation(); hover(elementId); }}
+      onMouseLeave={isPreview ? undefined : (e) => { e.stopPropagation(); hover(null); }}
+      onDragOver={isPreview ? undefined : handleDragOver}
+      onDragLeave={isPreview ? undefined : handleDragLeave}
+      onDrop={isPreview ? undefined : handleDrop}
     >
       {renderElement()}
     </div>
@@ -574,10 +599,13 @@ function Canvas() {
   const clearSelection = useEditorStore((s) => s.clearSelection);
   const addElement = useEditorStore((s) => s.addElement);
   const zoom = useEditorStore((s) => s.zoom);
+  const isPreviewMode = useEditorStore((s) => s.isPreviewMode);
+  const filePath = useEditorStore((s) => s.filePath);
   const { state: dragState } = useContext(DragContext);
   const [isDropTarget, setIsDropTarget] = useState(false);
 
   const handleDragOver = (e: React.DragEvent) => {
+    if (isPreviewMode) return;
     if (!e.dataTransfer.types.includes(DRAG_DATA_KEY)) return;
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
@@ -585,10 +613,12 @@ function Canvas() {
   };
 
   const handleDragLeave = () => {
+    if (isPreviewMode) return;
     setIsDropTarget(false);
   };
 
   const handleDrop = (e: React.DragEvent) => {
+    if (isPreviewMode) return;
     e.preventDefault();
     setIsDropTarget(false);
     const componentType = e.dataTransfer.getData(DRAG_DATA_KEY) as ComponentType;
@@ -602,21 +632,50 @@ function Canvas() {
     });
   };
 
+  const displayUrl = filePath
+    ? `designforge://localhost/${filePath.split(/[\\/]/).pop()}`
+    : 'designforge://localhost/untitled';
+
   return (
     <div
       className="editor-canvas"
-      data-drop-target={isDropTarget}
-      data-drag-active={dragState.isDragging}
-      onClick={() => clearSelection()}
-      onKeyDown={() => {}}
+      data-drop-target={!isPreviewMode && isDropTarget}
+      data-drag-active={!isPreviewMode && dragState.isDragging}
+      data-preview-mode={isPreviewMode}
+      onClick={isPreviewMode ? undefined : () => clearSelection()}
+      onKeyDown={isPreviewMode ? undefined : () => {}}
       role="presentation"
       tabIndex={-1}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
+      onDragOver={isPreviewMode ? undefined : handleDragOver}
+      onDragLeave={isPreviewMode ? undefined : handleDragLeave}
+      onDrop={isPreviewMode ? undefined : handleDrop}
     >
-      <div className="canvas-frame" style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}>
-        <CanvasNode elementId={spec.root} spec={spec} />
+      <div
+        className={`canvas-frame ${isPreviewMode ? 'canvas-frame--preview' : ''}`}
+        style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
+      >
+        {/* Browser-like chrome in preview mode */}
+        {isPreviewMode && (
+          <div className="browser-chrome">
+            <div className="browser-chrome-dots">
+              <span className="browser-dot browser-dot--close" />
+              <span className="browser-dot browser-dot--minimize" />
+              <span className="browser-dot browser-dot--maximize" />
+            </div>
+            <div className="browser-chrome-nav">
+              <button type="button" className="browser-nav-btn" disabled><ArrowLeft size={13} /></button>
+              <button type="button" className="browser-nav-btn" disabled><ArrowRight size={13} /></button>
+              <button type="button" className="browser-nav-btn" disabled><RotateCw size={13} /></button>
+            </div>
+            <div className="browser-address-bar">
+              <Shield size={12} className="browser-address-icon" />
+              <span className="browser-address-text">{displayUrl}</span>
+            </div>
+          </div>
+        )}
+        <div className="canvas-frame-content">
+          <CanvasNode elementId={spec.root} spec={spec} isPreview={isPreviewMode} />
+        </div>
       </div>
     </div>
   );
@@ -841,6 +900,7 @@ export function App() {
       if (ctrl && e.key === 'g' && e.shiftKey) { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.ungroupElement(s.selectedIds[0]); }
       if (e.key === 'Escape') { useEditorStore.getState().clearSelection(); }
       if (ctrl && e.key === ',') { e.preventDefault(); useSettingsStore.getState().toggleSettings(); }
+      if (ctrl && e.key === 'p') { e.preventDefault(); useEditorStore.getState().togglePreviewMode(); }
       if ((e.key === 'Delete' || e.key === 'Backspace') && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
         e.preventDefault(); const s = useEditorStore.getState(); for (const id of [...s.selectedIds]) s.removeElement(id);
       }

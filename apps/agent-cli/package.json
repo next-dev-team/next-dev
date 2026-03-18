@@ -7,7 +7,7 @@
     "agent-cli": "./bin/agent-cli"
   },
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "tsup src/index.ts --format esm --dts --clean --watch",
     "build": "tsup src/index.ts --format esm --dts --clean",
     "start": "node dist/index.js",
     "link:global": "pnpm build && pnpm link --global",

@@ -27,11 +27,24 @@ This is a monorepo for React Native projects using UniWind (Tailwind v4 CSS-firs
 
 ## Testing
 
-> **IMPORTANT**: The desktop app (`apps/desktop`) is an **Electron.js** application.
+> **⚠️ MANDATORY**: The desktop app (`apps/desktop`) is an **Electron.js** application. All E2E and UI testing MUST go through MCP Playwright — **never open a browser**.
 
-- **Always use MCP Playwright** tools (`mcp_playwright_browser_navigate`, `mcp_playwright_browser_snapshot`, `mcp_playwright_browser_click`, etc.) for testing and interacting with the running app.
-- **Never use `browser_subagent`** — it cannot attach to Electron windows.
-- The dev server runs at `http://localhost:5173/` (renderer process). Use MCP Playwright to navigate to this URL for UI testing.
-- Use `mcp_playwright_browser_snapshot` (not screenshots) as the primary way to inspect the page DOM and find interactive element refs.
-- Use `mcp_playwright_browser_console_messages` and `mcp_playwright_browser_network_requests` for debugging.
-- Start the app with `pnpm run dev:desktop` from the monorepo root before testing.
+### ✅ DO
+
+- Use **MCP Playwright** tools for all UI testing and interaction:
+  - `mcp_playwright_browser_navigate` — navigate to pages
+  - `mcp_playwright_browser_snapshot` — inspect DOM and find element refs (preferred over screenshots)
+  - `mcp_playwright_browser_click`, `mcp_playwright_browser_type`, `mcp_playwright_browser_fill_form` — interact with elements
+  - `mcp_playwright_browser_console_messages`, `mcp_playwright_browser_network_requests` — debug issues
+- Navigate to `http://localhost:5173/` (Electron renderer process) for UI testing
+- Run `pnpm run dev` from the monorepo root before testing
+- **Save all screenshots to `.playwright-tmp/`** — this directory is gitignored. Use the `filename` parameter with a path prefix:
+  - Example: `filename: '.playwright-tmp/my_screenshot.png'`
+  - Or use `mcp_playwright_browser_run_code` with `path: '.playwright-tmp/screenshot.png'`
+
+### ❌ DON'T
+
+- **Never use `browser_subagent`** — it opens a separate browser and cannot attach to the Electron app
+- **Never open a standalone browser window** for testing — always test through MCP Playwright against localhost:5173
+- **Never use screenshots as the primary inspection method** — use `mcp_playwright_browser_snapshot` instead for DOM/accessibility tree
+- **Never save screenshots to the project root** — always use `.playwright-tmp/` directory to avoid polluting the repo with test artifacts

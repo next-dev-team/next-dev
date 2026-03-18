@@ -2,8 +2,8 @@
 
 @theme {
   /* ─── Sizing (theme-invariant) ─── */
-  --spacing-panel-width: 260px;
-  --spacing-panel-right-width: 300px;
+  --spacing-panel-width: 220px;
+  --spacing-panel-right-width: 240px;
   --spacing-toolbar-height: 44px;
   --spacing-titlebar-height: 32px;
 
@@ -290,9 +290,9 @@ body,
   overflow: auto;
   position: relative;
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
-  padding: 40px;
+  padding: 20px;
 }
 
 .editor-right-panel {
@@ -451,15 +451,152 @@ body,
   border: 1px solid var(--color-border-dim);
   border-radius: 12px;
   box-shadow: 0 8px 32px var(--color-shadow);
-  min-width: 375px;
-  min-height: 400px;
+  width: 100%;
+  min-height: 780px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   position: relative;
+}
+
+.canvas-frame-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+/* ─── Preview Mode Toggle ──────────────────────────────────────────── */
+
+.preview-mode-toggle {
+  transition: all 0.2s var(--ease-smooth);
+}
+
+.preview-mode-toggle.preview-mode-active {
+  color: var(--color-accent) !important;
+  background: var(--color-accent-muted) !important;
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+/* ─── Browser Chrome (Preview Mode) ────────────────────────────────── */
+
+.canvas-frame--preview {
+  border-color: var(--color-border-default);
+  box-shadow: 0 12px 48px var(--color-shadow), 0 0 0 1px var(--color-border-dim);
+}
+
+.browser-chrome {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--color-panel-header);
+  border-bottom: 1px solid var(--color-border-dim);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.browser-chrome-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-right: 4px;
+}
+
+.browser-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.browser-dot--close {
+  background: oklch(0.63 0.24 27);
+}
+
+.browser-dot--minimize {
+  background: oklch(0.78 0.18 85);
+}
+
+.browser-dot--maximize {
+  background: oklch(0.65 0.19 145);
+}
+
+.browser-chrome-nav {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.browser-nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: none;
+  background: none;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  cursor: default;
+  opacity: 0.5;
+}
+
+.browser-address-bar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-dim);
+  min-width: 0;
+}
+
+.browser-address-icon {
+  flex-shrink: 0;
+  color: var(--color-success);
+  opacity: 0.7;
+}
+
+.browser-address-text {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, monospace;
+}
+
+/* Preview mode: disable pointer interactions on canvas elements */
+.canvas-element[data-preview='true'] {
+  cursor: default;
+  pointer-events: none;
+}
+
+.canvas-frame--preview .canvas-frame-content {
+  pointer-events: none;
+}
+
+/* Preview mode: subtle background change for canvas area */
+.editor-canvas[data-preview-mode='true'] {
+  background: var(--color-editor-bg);
 }
 
 .canvas-element {
   position: relative;
   transition: outline-color 0.1s var(--ease-smooth);
+}
+
+.canvas-frame-content > .canvas-element {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.canvas-frame-content > .canvas-element > div {
+  flex: 1;
 }
 
 .canvas-element[data-hovered='true'] {

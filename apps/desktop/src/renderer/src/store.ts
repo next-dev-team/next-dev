@@ -27,6 +27,7 @@ export interface DesktopEditorState {
   zoom: number;
   canUndo: boolean;
   canRedo: boolean;
+  isPreviewMode: boolean;
 
   // ─── Element Actions ────────────────────────────────────────────────
   addElement: (
@@ -58,6 +59,7 @@ export interface DesktopEditorState {
   // ─── UI ─────────────────────────────────────────────────────────────
   setActivePanel: (panel: 'palette' | 'layers') => void;
   setZoom: (zoom: number) => void;
+  togglePreviewMode: () => void;
 
   // ─── File Operations ────────────────────────────────────────────────
   newFile: () => void;
@@ -98,6 +100,7 @@ export const useEditorStore = create<DesktopEditorState>()(
       zoom: 1,
       canUndo: false,
       canRedo: false,
+      isPreviewMode: false,
 
       // Element operations
       addElement: (parentId, element, index) => {
@@ -139,6 +142,11 @@ export const useEditorStore = create<DesktopEditorState>()(
       // UI
       setActivePanel: (panel) => set({ activePanel: panel }),
       setZoom: (zoom) => set({ zoom: Math.max(0.1, Math.min(5, zoom)) }),
+      togglePreviewMode: () => {
+        const current = get().isPreviewMode;
+        if (!current) get().clearSelection();
+        set({ isPreviewMode: !current });
+      },
 
       // ─── File Operations ────────────────────────────────────────────
       newFile: () => {
