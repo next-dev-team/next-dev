@@ -479,6 +479,9 @@ importers:
 
   packages/catalog:
     dependencies:
+      '@json-render/codegen':
+        specifier: ^0.14.1
+        version: 0.14.1(zod@4.3.6)
       '@json-render/core':
         specifier: ^0.14.1
         version: 0.14.1(zod@4.3.6)
@@ -2154,6 +2157,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@json-render/codegen@0.14.1':
+    resolution: {integrity: sha512-v5Bqsd+e9cN0DvCSzw0sSaCMgtigYoisrG75mw5hDfBK8SXcdBlgsbTic/Lbo+Xzn47CBuc9DHovPJiOFauQTg==}
 
   '@json-render/core@0.14.1':
     resolution: {integrity: sha512-Z1lctUILswRS9xvQbLgsLGRXY4M31CtG0H6wCouGlk9lxXpB5hkuoIoAJ4bJ/HXDVoBgYzI18XI/O8luE3CuzA==}
@@ -11626,6 +11632,12 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@json-render/codegen@0.14.1(zod@4.3.6)':
+    dependencies:
+      '@json-render/core': 0.14.1(zod@4.3.6)
+    transitivePeerDependencies:
+      - zod
 
   '@json-render/core@0.14.1(zod@4.3.6)':
     dependencies:

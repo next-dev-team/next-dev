@@ -19,6 +19,7 @@ import {
   Layers,
   FolderOpen,
   Save,
+  Code2,
   FilePlus,
   ChevronRight,
   ChevronDown,
@@ -59,11 +60,7 @@ function DragProvider({ children }: { children: React.ReactNode }) {
     setState(type ? { isDragging: true, dragType: type } : { isDragging: false, dragType: null });
   }, []);
 
-  return (
-    <DragContext.Provider value={{ state, setDragging }}>
-      {children}
-    </DragContext.Provider>
-  );
+  return <DragContext.Provider value={{ state, setDragging }}>{children}</DragContext.Provider>;
 }
 
 const DRAG_DATA_KEY = 'application/x-designforge-component';
@@ -81,7 +78,7 @@ interface LiveMutationOperation {
 
 type LiveMutation =
   | { kind: 'applyOperations'; operations: LiveMutationOperation[] }
-  | { kind: 'replaceSpec'; spec: DesignSpec }
+  | { kind: 'replaceSpec'; spec: DesignSpec; filePath?: string | null }
   | { kind: 'undo' }
   | { kind: 'redo' }
   | { kind: 'setSelection'; selectedIds: string[] };
@@ -133,7 +130,10 @@ function applyLiveMutationRequest(request: LiveMutationRequest): {
               }
               break;
             case 'move':
-              if (resolveLiveNodeId(operation.elementId) && resolveLiveNodeId(operation.newParentId) !== undefined) {
+              if (
+                resolveLiveNodeId(operation.elementId) &&
+                resolveLiveNodeId(operation.newParentId) !== undefined
+              ) {
                 editor.moveElement(
                   resolveLiveNodeId(operation.elementId)!,
                   resolveLiveNodeId(operation.newParentId)!,
@@ -165,7 +165,9 @@ function applyLiveMutationRequest(request: LiveMutationRequest): {
         }
         break;
       case 'replaceSpec':
-        editor.loadSpec(request.mutation.spec);
+        editor.loadSpec(request.mutation.spec, {
+          filePath: request.mutation.filePath,
+        });
         break;
       case 'undo':
         editor.undo();
@@ -175,7 +177,9 @@ function applyLiveMutationRequest(request: LiveMutationRequest): {
         break;
       case 'setSelection': {
         const nextState = useEditorStore.getState();
-        const selectedIds = request.mutation.selectedIds.filter((id) => id in nextState.spec.elements);
+        const selectedIds = request.mutation.selectedIds.filter(
+          (id) => id in nextState.spec.elements,
+        );
         nextState.document.selection.selectAll(selectedIds);
         break;
       }
@@ -205,7 +209,8 @@ function Titlebar() {
     <div className="titlebar">
       DesignForge
       <span className="titlebar-file">
-        — {filename}{isDirty ? ' •' : ''}
+        — {filename}
+        {isDirty ? ' •' : ''}
       </span>
     </div>
   );
@@ -228,6 +233,7 @@ function Toolbar() {
   const newFile = useEditorStore((s) => s.newFile);
   const openFile = useEditorStore((s) => s.openFile);
   const saveFile = useEditorStore((s) => s.saveFile);
+  const exportCode = useEditorStore((s) => s.exportCode);
   const openSettings = useSettingsStore((s) => s.openSettings);
   const isPreviewMode = useEditorStore((s) => s.isPreviewMode);
   const togglePreview = useEditorStore((s) => s.togglePreviewMode);
@@ -253,6 +259,16 @@ function Toolbar() {
         <button type="button" className="file-btn" onClick={saveFile} title="Save (Ctrl+S)">
           <Save size={14} /> Save
         </button>
+        <button
+          type="button"
+          className="file-btn"
+          onClick={() => {
+            void exportCode();
+          }}
+          title="Export Code (Ctrl+Shift+E)"
+        >
+          <Code2 size={14} /> Export Code
+        </button>
       </div>
 
       <div className="toolbar-separator" />
@@ -270,27 +286,56 @@ function Toolbar() {
       <div className="toolbar-separator" />
 
       {/* Settings */}
-      <button type="button" className="toolbar-btn" onClick={() => openSettings()} title="Settings (Ctrl+,)">
+      <button
+        type="button"
+        className="toolbar-btn"
+        onClick={() => openSettings()}
+        title="Settings (Ctrl+,)"
+      >
         <Settings size={16} />
       </button>
 
       <div className="toolbar-separator" />
 
       {/* History */}
-      <button type="button" className="toolbar-btn" disabled={!canUndo || isPreviewMode} onClick={undo} title="Undo (Ctrl+Z)">
+      <button
+        type="button"
+        className="toolbar-btn"
+        disabled={!canUndo || isPreviewMode}
+        onClick={undo}
+        title="Undo (Ctrl+Z)"
+      >
         <Undo2 size={16} />
       </button>
-      <button type="button" className="toolbar-btn" disabled={!canRedo || isPreviewMode} onClick={redo} title="Redo (Ctrl+Shift+Z)">
+      <button
+        type="button"
+        className="toolbar-btn"
+        disabled={!canRedo || isPreviewMode}
+        onClick={redo}
+        title="Redo (Ctrl+Shift+Z)"
+      >
         <Redo2 size={16} />
       </button>
 
       <div className="toolbar-separator" />
 
       {/* Clipboard */}
-      <button type="button" className="toolbar-btn" disabled={!hasSelection || isPreviewMode} onClick={copy} title="Copy">
+      <button
+        type="button"
+        className="toolbar-btn"
+        disabled={!hasSelection || isPreviewMode}
+        onClick={copy}
+        title="Copy"
+      >
         <Copy size={16} />
       </button>
-      <button type="button" className="toolbar-btn" disabled={!hasSelection || isPreviewMode} onClick={cut} title="Cut">
+      <button
+        type="button"
+        className="toolbar-btn"
+        disabled={!hasSelection || isPreviewMode}
+        onClick={cut}
+        title="Cut"
+      >
         <Scissors size={16} />
       </button>
 
@@ -346,7 +391,9 @@ function Toolbar() {
 // ─── Component Palette ────────────────────────────────────────────────────
 
 function getIcon(iconName: string) {
-  const IconComponent = (Icons as Record<string, React.ComponentType<{ size?: number; className?: string }>>)[iconName];
+  const IconComponent = (
+    Icons as Record<string, React.ComponentType<{ size?: number; className?: string }>>
+  )[iconName];
   return IconComponent ?? Icons.Box;
 }
 
@@ -409,11 +456,7 @@ function ComponentPalette() {
   return (
     <>
       {/* Off-screen drag ghost element */}
-      <div
-        ref={ghostRef}
-        className="drag-ghost"
-        style={{ display: 'none' }}
-      />
+      <div ref={ghostRef} className="drag-ghost" style={{ display: 'none' }} />
       <div className="palette-grid">
         {Object.entries(categories).map(([category, components]) => {
           if (components.length === 0) return null;
@@ -448,7 +491,11 @@ function ComponentPalette() {
 
 // ─── Layer Tree ───────────────────────────────────────────────────────────
 
-function LayerNode({ elementId, spec, depth }: { elementId: string; spec: DesignSpec; depth: number }) {
+function LayerNode({
+  elementId,
+  spec,
+  depth,
+}: { elementId: string; spec: DesignSpec; depth: number }) {
   const element = spec.elements[elementId];
   const selectedIds = useEditorStore((s) => s.selectedIds);
   const hoveredId = useEditorStore((s) => s.hoveredId);
@@ -487,7 +534,11 @@ function LayerNode({ elementId, spec, depth }: { elementId: string; spec: Design
         onMouseLeave={() => hover(null)}
       >
         {hasChildren ? (
-          isCollapsed ? <ChevronRight size={12} /> : <ChevronDown size={12} />
+          isCollapsed ? (
+            <ChevronRight size={12} />
+          ) : (
+            <ChevronDown size={12} />
+          )
         ) : (
           <span className="layer-item-indent" />
         )}
@@ -496,7 +547,8 @@ function LayerNode({ elementId, spec, depth }: { elementId: string; spec: Design
         {isLocked && <Lock size={10} style={{ opacity: 0.4 }} />}
         {isHidden && <EyeOff size={10} style={{ opacity: 0.4 }} />}
       </div>
-      {hasChildren && !isCollapsed &&
+      {hasChildren &&
+        !isCollapsed &&
         childIds.map((childId) => (
           <LayerNode key={childId} elementId={childId} spec={spec} depth={depth + 1} />
         ))}
@@ -524,7 +576,11 @@ const EditingContext = createContext<{
   setEditingId: () => {},
 });
 
-function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: DesignSpec; isPreview?: boolean }) {
+function CanvasNode({
+  elementId,
+  spec,
+  isPreview,
+}: { elementId: string; spec: DesignSpec; isPreview?: boolean }) {
   const element = spec.elements[elementId];
   const selectedIds = useEditorStore((s) => s.selectedIds);
   const hoveredId = useEditorStore((s) => s.hoveredId);
@@ -542,26 +598,46 @@ function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: D
   const isSelected = !isPreview && selectedIds.includes(elementId);
   const isHovered = !isPreview && hoveredId === elementId;
   const isEditing = !isPreview && editingId === elementId;
-  const children = childIds.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />);
+  const children = childIds.map((cid) => (
+    <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />
+  ));
 
   const renderElement = () => {
     const props = element.props ?? {};
     const ctx = {
       scale: 1,
-      interactive: !isPreview,
-      onPropsChange: !isPreview ? (newProps: Record<string, unknown>) => {
-        setProps(elementId, newProps);
-      } : undefined,
+      interactive: true,
+      onPropsChange: !isPreview
+        ? (newProps: Record<string, unknown>) => {
+            setProps(elementId, newProps);
+          }
+        : undefined,
       isEditing,
-      onStartEdit: !isPreview ? () => {
-        setEditingId(elementId);
-      } : undefined,
+      onStartEdit: !isPreview
+        ? () => {
+            setEditingId(elementId);
+          }
+        : undefined,
     };
     const renderer = renderers[element.type];
     if (renderer) {
       return renderer(props, children, ctx);
     }
-    return <div style={{ padding: '12px', border: '1px dashed var(--color-border-default)', borderRadius: '6px', fontSize: '12px', color: 'var(--color-text-muted)', textAlign: 'center' }}>{element.type}{children}</div>;
+    return (
+      <div
+        style={{
+          padding: '12px',
+          border: '1px dashed var(--color-border-default)',
+          borderRadius: '6px',
+          fontSize: '12px',
+          color: 'var(--color-text-muted)',
+          textAlign: 'center',
+        }}
+      >
+        {element.type}
+        {children}
+      </div>
+    );
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -620,8 +696,22 @@ function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: D
       onKeyDown={isPreview ? undefined : () => {}}
       role={isPreview ? undefined : 'treeitem'}
       tabIndex={isPreview ? undefined : 0}
-      onMouseEnter={isPreview ? undefined : (e) => { e.stopPropagation(); hover(elementId); }}
-      onMouseLeave={isPreview ? undefined : (e) => { e.stopPropagation(); hover(null); }}
+      onMouseEnter={
+        isPreview
+          ? undefined
+          : (e) => {
+              e.stopPropagation();
+              hover(elementId);
+            }
+      }
+      onMouseLeave={
+        isPreview
+          ? undefined
+          : (e) => {
+              e.stopPropagation();
+              hover(null);
+            }
+      }
       onDragOver={isPreview ? undefined : handleDragOver}
       onDragLeave={isPreview ? undefined : handleDragLeave}
       onDrop={isPreview ? undefined : handleDrop}
@@ -713,9 +803,15 @@ function Canvas() {
                 <span className="browser-dot browser-dot--maximize" />
               </div>
               <div className="browser-chrome-nav">
-                <button type="button" className="browser-nav-btn" disabled><ArrowLeft size={13} /></button>
-                <button type="button" className="browser-nav-btn" disabled><ArrowRight size={13} /></button>
-                <button type="button" className="browser-nav-btn" disabled><RotateCw size={13} /></button>
+                <button type="button" className="browser-nav-btn" disabled>
+                  <ArrowLeft size={13} />
+                </button>
+                <button type="button" className="browser-nav-btn" disabled>
+                  <ArrowRight size={13} />
+                </button>
+                <button type="button" className="browser-nav-btn" disabled>
+                  <RotateCw size={13} />
+                </button>
               </div>
               <div className="browser-address-bar">
                 <Shield size={12} className="browser-address-icon" />
@@ -740,10 +836,20 @@ function PropsPanel() {
   const setProps = useEditorStore((s) => s.setProps);
 
   if (selectedIds.length === 0) {
-    return <div className="empty-state"><MousePointer className="empty-state-icon" /><p className="empty-state-text">Select an element to edit properties</p></div>;
+    return (
+      <div className="empty-state">
+        <MousePointer className="empty-state-icon" />
+        <p className="empty-state-text">Select an element to edit properties</p>
+      </div>
+    );
   }
   if (selectedIds.length > 1) {
-    return <div className="empty-state"><Box className="empty-state-icon" /><p className="empty-state-text">{selectedIds.length} elements selected</p></div>;
+    return (
+      <div className="empty-state">
+        <Box className="empty-state-icon" />
+        <p className="empty-state-text">{selectedIds.length} elements selected</p>
+      </div>
+    );
   }
 
   const elementId = selectedIds[0];
@@ -757,19 +863,36 @@ function PropsPanel() {
     <div className="props-panel animate-fade-in">
       <div className="props-section">
         <div className="props-section-title">Element</div>
-        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>{element.__editor?.name ?? element.type}</div>
-        <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>Type: {element.type} · ID: {elementId.slice(0, 8)}…</div>
+        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px' }}>
+          {element.__editor?.name ?? element.type}
+        </div>
+        <div style={{ fontSize: '11px', color: 'var(--color-text-muted)' }}>
+          Type: {element.type} · ID: {elementId.slice(0, 8)}…
+        </div>
       </div>
       <div className="props-section">
         <div className="props-section-title">Properties</div>
         {schema
           ? Object.entries(schema.shape).map(([key, field]) => (
-              <SchemaField key={key} fieldKey={key} field={field as z.ZodType} value={element.props[key]} onChange={(k, v) => setProps(elementId, { [k]: v })} />
+              <SchemaField
+                key={key}
+                fieldKey={key}
+                field={field as z.ZodType}
+                value={element.props[key]}
+                onChange={(k, v) => setProps(elementId, { [k]: v })}
+              />
             ))
           : Object.entries(element.props).map(([key, value]) => (
               <div key={key} className="props-field">
-                <label className="props-label" htmlFor={`prop-${key}`}>{key}</label>
-                <input id={`prop-${key}`} className="props-input" value={String(value ?? '')} onChange={(e) => setProps(elementId, { [key]: e.target.value })} />
+                <label className="props-label" htmlFor={`prop-${key}`}>
+                  {key}
+                </label>
+                <input
+                  id={`prop-${key}`}
+                  className="props-input"
+                  value={String(value ?? '')}
+                  onChange={(e) => setProps(elementId, { [key]: e.target.value })}
+                />
               </div>
             ))}
       </div>
@@ -777,7 +900,17 @@ function PropsPanel() {
   );
 }
 
-function SchemaField({ fieldKey, field, value, onChange }: { fieldKey: string; field: z.ZodType; value: unknown; onChange: (key: string, value: unknown) => void }) {
+function SchemaField({
+  fieldKey,
+  field,
+  value,
+  onChange,
+}: {
+  fieldKey: string;
+  field: z.ZodType;
+  value: unknown;
+  onChange: (key: string, value: unknown) => void;
+}) {
   let inner = field;
   while (inner instanceof z.ZodDefault || inner instanceof z.ZodNullable) {
     inner = inner.unwrap() as z.ZodType;
@@ -788,9 +921,20 @@ function SchemaField({ fieldKey, field, value, onChange }: { fieldKey: string; f
   if (inner instanceof z.ZodEnum) {
     return (
       <div className="props-field">
-        <label className="props-label" htmlFor={id}>{fieldKey}</label>
-        <select id={id} className="props-select" value={String(value ?? '')} onChange={(e) => onChange(fieldKey, e.target.value)}>
-          {(inner.options as string[]).map((opt) => <option key={opt} value={opt}>{opt}</option>)}
+        <label className="props-label" htmlFor={id}>
+          {fieldKey}
+        </label>
+        <select
+          id={id}
+          className="props-select"
+          value={String(value ?? '')}
+          onChange={(e) => onChange(fieldKey, e.target.value)}
+        >
+          {(inner.options as string[]).map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
         </select>
       </div>
     );
@@ -799,8 +943,16 @@ function SchemaField({ fieldKey, field, value, onChange }: { fieldKey: string; f
     return (
       <div className="props-field">
         <div className="props-checkbox-row">
-          <input id={id} type="checkbox" className="props-checkbox" checked={Boolean(value)} onChange={(e) => onChange(fieldKey, e.target.checked)} />
-          <label className="props-label" htmlFor={id}>{fieldKey}</label>
+          <input
+            id={id}
+            type="checkbox"
+            className="props-checkbox"
+            checked={Boolean(value)}
+            onChange={(e) => onChange(fieldKey, e.target.checked)}
+          />
+          <label className="props-label" htmlFor={id}>
+            {fieldKey}
+          </label>
         </div>
       </div>
     );
@@ -808,15 +960,30 @@ function SchemaField({ fieldKey, field, value, onChange }: { fieldKey: string; f
   if (inner instanceof z.ZodNumber) {
     return (
       <div className="props-field">
-        <label className="props-label" htmlFor={id}>{fieldKey}</label>
-        <input id={id} type="number" className="props-input" value={Number(value ?? 0)} onChange={(e) => onChange(fieldKey, Number(e.target.value))} />
+        <label className="props-label" htmlFor={id}>
+          {fieldKey}
+        </label>
+        <input
+          id={id}
+          type="number"
+          className="props-input"
+          value={Number(value ?? 0)}
+          onChange={(e) => onChange(fieldKey, Number(e.target.value))}
+        />
       </div>
     );
   }
   return (
     <div className="props-field">
-      <label className="props-label" htmlFor={id}>{fieldKey}</label>
-      <input id={id} className="props-input" value={String(value ?? '')} onChange={(e) => onChange(fieldKey, e.target.value)} />
+      <label className="props-label" htmlFor={id}>
+        {fieldKey}
+      </label>
+      <input
+        id={id}
+        className="props-input"
+        value={String(value ?? '')}
+        onChange={(e) => onChange(fieldKey, e.target.value)}
+      />
     </div>
   );
 }
@@ -832,7 +999,11 @@ export function App() {
   // Listens for spec changes pushed from the main process file watcher.
   // When an external MCP agent edits via --file mode, the canvas updates live.
   useEffect(() => {
-    const api = (window as unknown as { designforge?: { watch?: { onSpecChanged: (cb: (spec: DesignSpec) => void) => () => void } } }).designforge;
+    const api = (
+      window as unknown as {
+        designforge?: { watch?: { onSpecChanged: (cb: (spec: DesignSpec) => void) => () => void } };
+      }
+    ).designforge;
     if (!api?.watch?.onSpecChanged) return;
 
     const unsubscribe = api.watch.onSpecChanged((spec: DesignSpec) => {
@@ -843,20 +1014,22 @@ export function App() {
 
   // Publish the live editor context so external MCP clients can join the desktop channel.
   useEffect(() => {
-    const api = (window as unknown as {
-      designforge?: {
-        mcp?: {
-          publishContext: (snapshot: {
-            filePath: string | null;
-            spec: DesignSpec;
-            selectedIds: string[];
-            hoveredId: string | null;
-            zoom: number;
-            pan: [number, number];
-          }) => Promise<unknown>;
+    const api = (
+      window as unknown as {
+        designforge?: {
+          mcp?: {
+            publishContext: (snapshot: {
+              filePath: string | null;
+              spec: DesignSpec;
+              selectedIds: string[];
+              hoveredId: string | null;
+              zoom: number;
+              pan: [number, number];
+            }) => Promise<unknown>;
+          };
         };
-      };
-    }).designforge;
+      }
+    ).designforge;
 
     if (!api?.mcp?.publishContext) return;
 
@@ -864,16 +1037,18 @@ export function App() {
 
     const publish = () => {
       const state = useEditorStore.getState();
-      void api.mcp!.publishContext({
-        filePath: state.filePath,
-        spec: state.spec,
-        selectedIds: state.selectedIds,
-        hoveredId: state.hoveredId,
-        zoom: state.zoom,
-        pan: [0, 0],
-      }).catch((error) => {
-        console.warn('[MCP] Failed to publish live context', error);
-      });
+      void api
+        .mcp!.publishContext({
+          filePath: state.filePath,
+          spec: state.spec,
+          selectedIds: state.selectedIds,
+          hoveredId: state.hoveredId,
+          zoom: state.zoom,
+          pan: [0, 0],
+        })
+        .catch((error) => {
+          console.warn('[MCP] Failed to publish live context', error);
+        });
     };
 
     const schedulePublish = () => {
@@ -905,21 +1080,23 @@ export function App() {
 
   // Apply live mutation requests coming from the spawned MCP server.
   useEffect(() => {
-    const api = (window as unknown as {
-      designforge?: {
-        mcp?: {
-          onApplyLiveMutation: (cb: (request: LiveMutationRequest) => void) => () => void;
-          respondMutationResult: (
-            requestId: string,
-            result: {
-              success: boolean;
-              error?: string;
-              context?: ReturnType<typeof getLiveContextSnapshot>;
-            },
-          ) => Promise<unknown>;
+    const api = (
+      window as unknown as {
+        designforge?: {
+          mcp?: {
+            onApplyLiveMutation: (cb: (request: LiveMutationRequest) => void) => () => void;
+            respondMutationResult: (
+              requestId: string,
+              result: {
+                success: boolean;
+                error?: string;
+                context?: ReturnType<typeof getLiveContextSnapshot>;
+              },
+            ) => Promise<unknown>;
+          };
         };
-      };
-    }).designforge;
+      }
+    ).designforge;
 
     if (!api?.mcp?.onApplyLiveMutation || !api?.mcp?.respondMutationResult) return;
 
@@ -947,28 +1124,82 @@ export function App() {
         target instanceof HTMLTextAreaElement ||
         target.isContentEditable;
 
-      if (ctrl && e.key === 'z' && !e.shiftKey && !isTextEditable) { e.preventDefault(); useEditorStore.getState().undo(); }
-      if (ctrl && e.key === 'z' && e.shiftKey && !isTextEditable) { e.preventDefault(); useEditorStore.getState().redo(); }
+      if (ctrl && e.key === 'z' && !e.shiftKey && !isTextEditable) {
+        e.preventDefault();
+        useEditorStore.getState().undo();
+      }
+      if (ctrl && e.key === 'z' && e.shiftKey && !isTextEditable) {
+        e.preventDefault();
+        useEditorStore.getState().redo();
+      }
 
       // Clipboard shortcuts: only intercept when NOT in a text-editable field
       if (!isTextEditable) {
-        if (ctrl && e.key === 'c') { e.preventDefault(); useEditorStore.getState().copy(); }
-        if (ctrl && e.key === 'x') { e.preventDefault(); useEditorStore.getState().cut(); }
-        if (ctrl && e.key === 'v') { e.preventDefault(); const s = useEditorStore.getState(); s.paste(s.selectedIds[0] ?? s.spec.root); }
-        if (ctrl && e.key === 'd') { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.duplicateElement(s.selectedIds[0]); }
+        if (ctrl && e.key === 'c') {
+          e.preventDefault();
+          useEditorStore.getState().copy();
+        }
+        if (ctrl && e.key === 'x') {
+          e.preventDefault();
+          useEditorStore.getState().cut();
+        }
+        if (ctrl && e.key === 'v') {
+          e.preventDefault();
+          const s = useEditorStore.getState();
+          s.paste(s.selectedIds[0] ?? s.spec.root);
+        }
+        if (ctrl && e.key === 'd') {
+          e.preventDefault();
+          const s = useEditorStore.getState();
+          if (s.selectedIds.length === 1) s.duplicateElement(s.selectedIds[0]);
+        }
       }
 
-      if (ctrl && e.key === 'n') { e.preventDefault(); useEditorStore.getState().newFile(); }
-      if (ctrl && e.key === 'o') { e.preventDefault(); useEditorStore.getState().openFile(); }
-      if (ctrl && e.key === 's' && !e.shiftKey) { e.preventDefault(); useEditorStore.getState().saveFile(); }
-      if (ctrl && e.key === 's' && e.shiftKey) { e.preventDefault(); useEditorStore.getState().saveAsFile(); }
-      if (ctrl && e.key === 'g' && !e.shiftKey) { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length > 1) s.groupElements(s.selectedIds); }
-      if (ctrl && e.key === 'g' && e.shiftKey) { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.ungroupElement(s.selectedIds[0]); }
-      if (e.key === 'Escape') { useEditorStore.getState().clearSelection(); }
-      if (ctrl && e.key === ',') { e.preventDefault(); useSettingsStore.getState().toggleSettings(); }
-      if (ctrl && e.key === 'p') { e.preventDefault(); useEditorStore.getState().togglePreviewMode(); }
+      if (ctrl && e.key === 'n') {
+        e.preventDefault();
+        useEditorStore.getState().newFile();
+      }
+      if (ctrl && e.key === 'o') {
+        e.preventDefault();
+        useEditorStore.getState().openFile();
+      }
+      if (ctrl && e.key === 's' && !e.shiftKey) {
+        e.preventDefault();
+        useEditorStore.getState().saveFile();
+      }
+      if (ctrl && e.key === 's' && e.shiftKey) {
+        e.preventDefault();
+        useEditorStore.getState().saveAsFile();
+      }
+      if (ctrl && e.shiftKey && e.key.toLowerCase() === 'e') {
+        e.preventDefault();
+        void useEditorStore.getState().exportCode();
+      }
+      if (ctrl && e.key === 'g' && !e.shiftKey) {
+        e.preventDefault();
+        const s = useEditorStore.getState();
+        if (s.selectedIds.length > 1) s.groupElements(s.selectedIds);
+      }
+      if (ctrl && e.key === 'g' && e.shiftKey) {
+        e.preventDefault();
+        const s = useEditorStore.getState();
+        if (s.selectedIds.length === 1) s.ungroupElement(s.selectedIds[0]);
+      }
+      if (e.key === 'Escape') {
+        useEditorStore.getState().clearSelection();
+      }
+      if (ctrl && e.key === ',') {
+        e.preventDefault();
+        useSettingsStore.getState().toggleSettings();
+      }
+      if (ctrl && e.key === 'p') {
+        e.preventDefault();
+        useEditorStore.getState().togglePreviewMode();
+      }
       if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextEditable) {
-        e.preventDefault(); const s = useEditorStore.getState(); for (const id of [...s.selectedIds]) s.removeElement(id);
+        e.preventDefault();
+        const s = useEditorStore.getState();
+        for (const id of [...s.selectedIds]) s.removeElement(id);
       }
       // Ctrl+A: select all design elements only when not in a text field
       if (ctrl && e.key === 'a' && !isTextEditable) {
@@ -991,8 +1222,22 @@ export function App() {
 
         <div className="editor-left-panel">
           <div className="panel-tabs">
-            <button type="button" className="panel-tab" data-active={activePanel === 'palette'} onClick={() => setActivePanel('palette')}>Components</button>
-            <button type="button" className="panel-tab" data-active={activePanel === 'layers'} onClick={() => setActivePanel('layers')}>Layers</button>
+            <button
+              type="button"
+              className="panel-tab"
+              data-active={activePanel === 'palette'}
+              onClick={() => setActivePanel('palette')}
+            >
+              Components
+            </button>
+            <button
+              type="button"
+              className="panel-tab"
+              data-active={activePanel === 'layers'}
+              onClick={() => setActivePanel('layers')}
+            >
+              Layers
+            </button>
           </div>
           {activePanel === 'palette' ? <ComponentPalette /> : <LayerTree />}
         </div>
@@ -1001,8 +1246,22 @@ export function App() {
 
         <div className="editor-right-panel">
           <div className="panel-tabs">
-            <button type="button" className="panel-tab" data-active={rightTab === 'properties'} onClick={() => setRightTab('properties')}>Properties</button>
-            <button type="button" className="panel-tab" data-active={rightTab === 'chat'} onClick={() => setRightTab('chat')}>AI Chat</button>
+            <button
+              type="button"
+              className="panel-tab"
+              data-active={rightTab === 'properties'}
+              onClick={() => setRightTab('properties')}
+            >
+              Properties
+            </button>
+            <button
+              type="button"
+              className="panel-tab"
+              data-active={rightTab === 'chat'}
+              onClick={() => setRightTab('chat')}
+            >
+              AI Chat
+            </button>
           </div>
           {rightTab === 'properties' ? <PropsPanel /> : <ChatPanel />}
         </div>

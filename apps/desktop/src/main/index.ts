@@ -9,8 +9,8 @@
  */
 
 import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme, Menu } from 'electron';
-import { join } from 'node:path';
-import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { watch, type FSWatcher } from 'node:fs';
 import { is } from '@electron-toolkit/utils';
 import { setupMCPIPC } from './mcp-client';
@@ -82,6 +82,13 @@ function setupIPC(): void {
     return result.canceled ? null : result.filePaths[0];
   });
 
+  ipcMain.handle('fs:pick-directory', async () => {
+    const result = await dialog.showOpenDialog(mainWindow!, {
+      properties: ['openDirectory', 'createDirectory'],
+    });
+    return result.canceled ? null : result.filePaths[0];
+  });
+
   ipcMain.handle('fs:save-dialog', async (_event) => {
     const result = await dialog.showSaveDialog(mainWindow!, {
       filters: [
@@ -90,6 +97,14 @@ function setupIPC(): void {
       ],
     });
     return result.canceled ? null : result.filePath;
+  });
+
+  ipcMain.handle('fs:write-batch', async (_event, basePath: string, files: Array<{ path: string; content: string }>) => {
+    for (const file of files) {
+      const targetPath = join(basePath, file.path);
+      await mkdir(dirname(targetPath), { recursive: true });
+      await writeFile(targetPath, file.content, 'utf-8');
+    }
   });
 
   // Theme

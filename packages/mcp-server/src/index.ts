@@ -15,12 +15,13 @@
  * - designforge_generate — prompt → new design spec
  * - designforge_read_spec — read current .dfg file
  * - designforge_edit — natural language edit → patches
- * - designforge_export — spec → code files
+ * - designforge_export — spec → .dfg payload
+ * - designforge_export_code — spec → standalone React project files
  */
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { catalogToPrompt, getComponentTypes } from '@next-dev/catalog';
+import { catalogToPrompt, generateReactViteProject, getComponentTypes } from '@next-dev/catalog';
 import { Document, type DesignSpec } from '@next-dev/editor-core';
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { mkdir, readFile as readFileAsync, unlink, writeFile } from 'node:fs/promises';
@@ -100,7 +101,7 @@ interface LiveMutationOperation {
 
 type LiveMutation =
   | { kind: 'applyOperations'; operations: LiveMutationOperation[] }
-  | { kind: 'replaceSpec'; spec: DesignSpec }
+  | { kind: 'replaceSpec'; spec: DesignSpec; filePath?: string | null }
   | { kind: 'undo' }
   | { kind: 'redo' }
   | { kind: 'setSelection'; selectedIds: string[] };
@@ -1530,6 +1531,34 @@ server.tool(
 // ─── Tool: Load File ─────────────────────────────────────────────────────────
 
 server.tool(
+  'designforge_export_code',
+  'Export the current design as a standalone React + Vite project. Returns the generated file map and export metadata.',
+  {
+    projectName: z.string().optional().describe('Optional project name to use for the generated package and folder.'),
+  },
+  async ({ projectName }) => {
+    try {
+      const liveContext = getLiveContext();
+      const project = generateReactViteProject(liveContext.spec, { projectName });
+
+      return specResult(JSON.stringify({
+        framework: project.framework,
+        displayName: project.displayName,
+        packageName: project.packageName,
+        entryFile: project.entryFile,
+        componentTypes: project.componentTypes,
+        unsupportedComponents: project.unsupportedComponents,
+        statePaths: project.statePaths,
+        actions: project.actions,
+        files: project.files,
+      }, null, 2));
+    } catch (error) {
+      return errorResult(`Error: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  },
+);
+
+server.tool(
   'designforge_load_file',
   'Load a .dfg design file from disk into the current session. The design becomes the active document.',
   {
@@ -1547,6 +1576,7 @@ server.tool(
       const liveContext = await applyLiveMutation({
         kind: 'replaceSpec',
         spec: parsedDocument.spec,
+        filePath: resolvedPath,
       });
       if (liveContext) {
         return specResult(`Loaded design from ${resolvedPath} (${Object.keys(liveContext.spec.elements).length} elements).\n\n${JSON.stringify(liveContext.spec, null, 2)}`);

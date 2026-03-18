@@ -31,6 +31,8 @@ export {
   RN_UNIWIND_CATALOG_ID,
   RN_UNIWIND_CATALOG_ID as ACTIVE_CATALOG_ID,
 } from './json-render.js';
+export { generateReactViteProject } from './code-export.js';
+export type { ExportCodeOptions, GeneratedCodeProject } from './code-export.js';
 
 // Registry (requires React)
 export { createRegistry, resolveComponent } from './registry.js';

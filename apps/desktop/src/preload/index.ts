@@ -12,7 +12,9 @@ export interface DesignForgeAPI {
     read(path: string): Promise<string>;
     write(path: string, content: string): Promise<void>;
     pick(filters?: string[]): Promise<string | null>;
+    pickDirectory(): Promise<string | null>;
     saveDialog(): Promise<string | null>;
+    writeBatch(basePath: string, files: Array<{ path: string; content: string }>): Promise<void>;
   };
   theme: {
     get(): Promise<'light' | 'dark'>;
@@ -85,7 +87,10 @@ const api: DesignForgeAPI = {
     read: (path: string) => ipcRenderer.invoke('fs:read', path),
     write: (path: string, content: string) => ipcRenderer.invoke('fs:write', path, content),
     pick: (filters?: string[]) => ipcRenderer.invoke('fs:pick', filters),
+    pickDirectory: () => ipcRenderer.invoke('fs:pick-directory'),
     saveDialog: () => ipcRenderer.invoke('fs:save-dialog'),
+    writeBatch: (basePath: string, files: Array<{ path: string; content: string }>) =>
+      ipcRenderer.invoke('fs:write-batch', basePath, files),
   },
   theme: {
     get: () => ipcRenderer.invoke('theme:get'),

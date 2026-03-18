@@ -57,7 +57,7 @@ interface LiveMutationOperation {
 
 type LiveMutation =
   | { kind: 'applyOperations'; operations: LiveMutationOperation[] }
-  | { kind: 'replaceSpec'; spec: unknown }
+  | { kind: 'replaceSpec'; spec: unknown; filePath?: string | null }
   | { kind: 'undo' }
   | { kind: 'redo' }
   | { kind: 'setSelection'; selectedIds: string[] };
