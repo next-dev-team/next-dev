@@ -1,6 +1,6 @@
-import { cn } from '~/lib/utils'
-import * as LabelPrimitive from '@rn-primitives/label'
-import { Platform } from 'react-native'
+import { cn } from '~/lib/utils';
+import * as LabelPrimitive from '@rn-primitives/label';
+import { Platform } from 'react-native';
 
 function Label({
   className,
@@ -34,7 +34,7 @@ function Label({
         {...props}
       />
     </LabelPrimitive.Root>
-  )
+  );
 }
 
-export { Label }
+export { Label };

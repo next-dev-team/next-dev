@@ -244,6 +244,363 @@ export const componentSchemas = {
     orientation: z.enum(['horizontal', 'vertical']).default('horizontal'),
     className: z.string().nullable().default(null),
   }),
+
+  Progress: z.object({
+    value: z.number().nullable().default(0),
+    indicatorClassName: z.string().nullable().default(null),
+    className: z.string().nullable().default(null),
+  }),
+
+  Skeleton: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  Alert: z.object({
+    variant: z.enum(['default', 'destructive']).default('default'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertTitle: z.object({
+    children: z.string().default('Alert Title'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDescription: z.object({
+    children: z.string().default('Alert description text'),
+    className: z.string().nullable().default(null),
+  }),
+
+  // ─── Layout (new) ───────────────────────────────────────────────────
+
+  Accordion: z.object({
+    type: z.enum(['single', 'multiple']).default('single'),
+    collapsible: z.boolean().default(true),
+    className: z.string().nullable().default(null),
+  }),
+
+  AccordionItem: z.object({
+    value: z.string().default('item-1'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AccordionTrigger: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AccordionContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AspectRatio: z.object({
+    ratio: z.number().default(16 / 9),
+    className: z.string().nullable().default(null),
+  }),
+
+  Collapsible: z.object({
+    open: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  CollapsibleTrigger: z.object({
+    asChild: z.boolean().default(true),
+    className: z.string().nullable().default(null),
+  }),
+
+  CollapsibleContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  // ─── Display (new) ──────────────────────────────────────────────────
+
+  Avatar: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AvatarImage: z.object({
+    src: z.string().default(''),
+    alt: z.string().default('Avatar'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AvatarFallback: z.object({
+    children: z.string().default('AB'),
+    className: z.string().nullable().default(null),
+  }),
+
+  // ─── Input (new) ────────────────────────────────────────────────────
+
+  RadioGroup: z.object({
+    defaultValue: z.string().nullable().default(null),
+    className: z.string().nullable().default(null),
+  }),
+
+  RadioGroupItem: z.object({
+    value: z.string().default('option-1'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  Toggle: z.object({
+    variant: z.enum(['default', 'outline']).default('default'),
+    size: z.enum(['default', 'sm', 'lg']).default('default'),
+    pressed: z.boolean().default(false),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ToggleGroup: z.object({
+    type: z.enum(['single', 'multiple']).default('single'),
+    variant: z.enum(['default', 'outline']).default('default'),
+    size: z.enum(['default', 'sm', 'lg']).default('default'),
+    className: z.string().nullable().default(null),
+  }),
+
+  ToggleGroupItem: z.object({
+    value: z.string().default('item-1'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  // ─── Overlay (new) ──────────────────────────────────────────────────
+
+  AlertDialog: z.object({
+    open: z.boolean().default(false),
+  }),
+
+  AlertDialogTrigger: z.object({
+    asChild: z.boolean().default(true),
+  }),
+
+  AlertDialogContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogHeader: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogTitle: z.object({
+    children: z.string().default('Are you sure?'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogDescription: z.object({
+    children: z.string().default('This action cannot be undone.'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogFooter: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogAction: z.object({
+    children: z.string().default('Continue'),
+    className: z.string().nullable().default(null),
+  }),
+
+  AlertDialogCancel: z.object({
+    children: z.string().default('Cancel'),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenu: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuTrigger: z.object({
+    asChild: z.boolean().default(true),
+  }),
+
+  ContextMenuContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuItem: z.object({
+    inset: z.boolean().default(false),
+    variant: z.enum(['default', 'destructive']).default('default'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuCheckboxItem: z.object({
+    checked: z.boolean().default(false),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuRadioGroup: z.object({
+    value: z.string().nullable().default(null),
+  }),
+
+  ContextMenuRadioItem: z.object({
+    value: z.string().default('option-1'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuLabel: z.object({
+    children: z.string().default('Label'),
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuSeparator: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuSub: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuSubTrigger: z.object({
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  ContextMenuSubContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenu: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuTrigger: z.object({
+    asChild: z.boolean().default(true),
+  }),
+
+  DropdownMenuContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuGroup: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuItem: z.object({
+    inset: z.boolean().default(false),
+    variant: z.enum(['default', 'destructive']).default('default'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuCheckboxItem: z.object({
+    checked: z.boolean().default(false),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuRadioGroup: z.object({
+    value: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuRadioItem: z.object({
+    value: z.string().default('option-1'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuLabel: z.object({
+    children: z.string().default('Label'),
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuSeparator: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuSub: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuSubTrigger: z.object({
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  DropdownMenuSubContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  HoverCard: z.object({
+    open: z.boolean().default(false),
+  }),
+
+  HoverCardTrigger: z.object({
+    asChild: z.boolean().default(true),
+  }),
+
+  HoverCardContent: z.object({
+    align: z.enum(['start', 'center', 'end']).default('center'),
+    sideOffset: z.number().default(4),
+    className: z.string().nullable().default(null),
+  }),
+
+  // ─── Navigation (new) ───────────────────────────────────────────────
+
+  Menubar: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarMenu: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarTrigger: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarContent: z.object({
+    align: z.enum(['start', 'center', 'end']).default('start'),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarItem: z.object({
+    inset: z.boolean().default(false),
+    variant: z.enum(['default', 'destructive']).default('default'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarCheckboxItem: z.object({
+    checked: z.boolean().default(false),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarRadioGroup: z.object({
+    value: z.string().nullable().default(null),
+  }),
+
+  MenubarRadioItem: z.object({
+    value: z.string().default('option-1'),
+    disabled: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarLabel: z.object({
+    children: z.string().default('Label'),
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarSeparator: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarSub: z.object({
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarSubTrigger: z.object({
+    inset: z.boolean().default(false),
+    className: z.string().nullable().default(null),
+  }),
+
+  MenubarSubContent: z.object({
+    className: z.string().nullable().default(null),
+  }),
 } as const;
 
 /** Type-safe component name union */
@@ -822,6 +1179,939 @@ export const catalog: Record<ComponentType, CatalogEntry> = {
       acceptsChildren: false,
       defaultProps: defaultsFromSchema(componentSchemas.Separator),
       description: 'Visual separator line',
+    },
+  },
+
+  Progress: {
+    schema: componentSchemas.Progress,
+    description: 'Progress bar showing completion percentage',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Loader',
+      category: 'feedback',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.Progress),
+      description: 'Progress bar showing completion percentage',
+    },
+  },
+
+  Skeleton: {
+    schema: componentSchemas.Skeleton,
+    description: 'Placeholder loading skeleton with pulse animation',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Loader2',
+      category: 'feedback',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.Skeleton),
+      description: 'Placeholder loading skeleton with pulse animation',
+    },
+  },
+
+  Alert: {
+    schema: componentSchemas.Alert,
+    description: 'Alert banner with icon and variant styles',
+    acceptsChildren: true,
+    meta: {
+      icon: 'AlertTriangle',
+      category: 'feedback',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Alert),
+      description: 'Alert banner with icon and variant styles',
+    },
+  },
+
+  AlertTitle: {
+    schema: componentSchemas.AlertTitle,
+    description: 'Alert title text',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Heading',
+      category: 'feedback',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertTitle),
+      description: 'Alert title text',
+    },
+  },
+
+  AlertDescription: {
+    schema: componentSchemas.AlertDescription,
+    description: 'Alert description text',
+    acceptsChildren: false,
+    meta: {
+      icon: 'AlignLeft',
+      category: 'feedback',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDescription),
+      description: 'Alert description text',
+    },
+  },
+
+  // ─── Layout (new) ───────────────────────────────────────────────────
+
+  Accordion: {
+    schema: componentSchemas.Accordion,
+    description: 'Expandable accordion root with single or multiple mode',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronsUpDown',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Accordion),
+      description: 'Expandable accordion root',
+    },
+  },
+
+  AccordionItem: {
+    schema: componentSchemas.AccordionItem,
+    description: 'Single accordion item container',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ListCollapse',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AccordionItem),
+      description: 'Single accordion item container',
+    },
+  },
+
+  AccordionTrigger: {
+    schema: componentSchemas.AccordionTrigger,
+    description: 'Clickable header that toggles accordion content',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronDown',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AccordionTrigger),
+      description: 'Clickable accordion header',
+    },
+  },
+
+  AccordionContent: {
+    schema: componentSchemas.AccordionContent,
+    description: 'Collapsible content inside an accordion item',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AccordionContent),
+      description: 'Collapsible accordion content',
+    },
+  },
+
+  AspectRatio: {
+    schema: componentSchemas.AspectRatio,
+    description: 'Container that enforces a specific aspect ratio',
+    acceptsChildren: true,
+    meta: {
+      icon: 'RectangleHorizontal',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AspectRatio),
+      description: 'Container with fixed aspect ratio',
+    },
+  },
+
+  Collapsible: {
+    schema: componentSchemas.Collapsible,
+    description: 'Collapsible content root with open/closed state',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronsUpDown',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Collapsible),
+      description: 'Collapsible content root',
+    },
+  },
+
+  CollapsibleTrigger: {
+    schema: componentSchemas.CollapsibleTrigger,
+    description: 'Button that toggles collapsible visibility',
+    acceptsChildren: true,
+    meta: {
+      icon: 'MousePointerClick',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.CollapsibleTrigger),
+      description: 'Collapsible toggle trigger',
+    },
+  },
+
+  CollapsibleContent: {
+    schema: componentSchemas.CollapsibleContent,
+    description: 'Content shown when collapsible is open',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'layout',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.CollapsibleContent),
+      description: 'Collapsible content area',
+    },
+  },
+
+  // ─── Display (new) ──────────────────────────────────────────────────
+
+  Avatar: {
+    schema: componentSchemas.Avatar,
+    description: 'User avatar with image and fallback',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CircleUser',
+      category: 'display',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Avatar),
+      description: 'User avatar container',
+    },
+  },
+
+  AvatarImage: {
+    schema: componentSchemas.AvatarImage,
+    description: 'Avatar image source',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Image',
+      category: 'display',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AvatarImage),
+      description: 'Avatar image',
+    },
+  },
+
+  AvatarFallback: {
+    schema: componentSchemas.AvatarFallback,
+    description: 'Fallback content when avatar image fails to load',
+    acceptsChildren: false,
+    meta: {
+      icon: 'User',
+      category: 'display',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AvatarFallback),
+      description: 'Avatar fallback initials',
+    },
+  },
+
+  // ─── Input (new) ────────────────────────────────────────────────────
+
+  RadioGroup: {
+    schema: componentSchemas.RadioGroup,
+    description: 'Radio button group for single selection',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CircleDot',
+      category: 'input',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.RadioGroup),
+      description: 'Radio button group',
+    },
+  },
+
+  RadioGroupItem: {
+    schema: componentSchemas.RadioGroupItem,
+    description: 'A single radio button option',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Circle',
+      category: 'input',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.RadioGroupItem),
+      description: 'Radio button option',
+    },
+  },
+
+  Toggle: {
+    schema: componentSchemas.Toggle,
+    description: 'Toggle button with pressed state and variant styles',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ToggleRight',
+      category: 'input',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Toggle),
+      description: 'Toggle button with pressed state',
+    },
+  },
+
+  ToggleGroup: {
+    schema: componentSchemas.ToggleGroup,
+    description: 'Group of toggle buttons for single or multiple selection',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutGrid',
+      category: 'input',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ToggleGroup),
+      description: 'Toggle button group',
+    },
+  },
+
+  ToggleGroupItem: {
+    schema: componentSchemas.ToggleGroupItem,
+    description: 'A single toggle button within a group',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ToggleRight',
+      category: 'input',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ToggleGroupItem),
+      description: 'Toggle group item',
+    },
+  },
+
+  // ─── Overlay (new) ──────────────────────────────────────────────────
+
+  AlertDialog: {
+    schema: componentSchemas.AlertDialog,
+    description: 'Alert dialog root for confirmations and warnings',
+    acceptsChildren: true,
+    meta: {
+      icon: 'AlertCircle',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialog),
+      description: 'Alert dialog for confirmations',
+    },
+  },
+
+  AlertDialogTrigger: {
+    schema: componentSchemas.AlertDialogTrigger,
+    description: 'Element that triggers the alert dialog to open',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Pointer',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogTrigger),
+      description: 'Alert dialog trigger',
+    },
+  },
+
+  AlertDialogContent: {
+    schema: componentSchemas.AlertDialogContent,
+    description: 'Alert dialog content container',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogContent),
+      description: 'Alert dialog content container',
+    },
+  },
+
+  AlertDialogHeader: {
+    schema: componentSchemas.AlertDialogHeader,
+    description: 'Alert dialog header section',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogHeader),
+      description: 'Alert dialog header',
+    },
+  },
+
+  AlertDialogTitle: {
+    schema: componentSchemas.AlertDialogTitle,
+    description: 'Alert dialog title text',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Heading',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogTitle),
+      description: 'Alert dialog title',
+    },
+  },
+
+  AlertDialogDescription: {
+    schema: componentSchemas.AlertDialogDescription,
+    description: 'Alert dialog description text',
+    acceptsChildren: false,
+    meta: {
+      icon: 'AlignLeft',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogDescription),
+      description: 'Alert dialog description',
+    },
+  },
+
+  AlertDialogFooter: {
+    schema: componentSchemas.AlertDialogFooter,
+    description: 'Alert dialog footer for action buttons',
+    acceptsChildren: true,
+    meta: {
+      icon: 'PanelBottom',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogFooter),
+      description: 'Alert dialog footer',
+    },
+  },
+
+  AlertDialogAction: {
+    schema: componentSchemas.AlertDialogAction,
+    description: 'Primary action button in the alert dialog',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Check',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogAction),
+      description: 'Alert dialog action button',
+    },
+  },
+
+  AlertDialogCancel: {
+    schema: componentSchemas.AlertDialogCancel,
+    description: 'Cancel button in the alert dialog',
+    acceptsChildren: false,
+    meta: {
+      icon: 'X',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.AlertDialogCancel),
+      description: 'Alert dialog cancel button',
+    },
+  },
+
+  ContextMenu: {
+    schema: componentSchemas.ContextMenu,
+    description: 'Context menu root triggered by right-click or long press',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Menu',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenu),
+      description: 'Context menu root',
+    },
+  },
+
+  ContextMenuTrigger: {
+    schema: componentSchemas.ContextMenuTrigger,
+    description: 'Element that triggers context menu on interaction',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Pointer',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuTrigger),
+      description: 'Context menu trigger area',
+    },
+  },
+
+  ContextMenuContent: {
+    schema: componentSchemas.ContextMenuContent,
+    description: 'Context menu popup content container',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuContent),
+      description: 'Context menu content',
+    },
+  },
+
+  ContextMenuItem: {
+    schema: componentSchemas.ContextMenuItem,
+    description: 'A clickable item in a context menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'List',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuItem),
+      description: 'Context menu item',
+    },
+  },
+
+  ContextMenuCheckboxItem: {
+    schema: componentSchemas.ContextMenuCheckboxItem,
+    description: 'Checkbox item in a context menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CheckSquare',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuCheckboxItem),
+      description: 'Context menu checkbox item',
+    },
+  },
+
+  ContextMenuRadioGroup: {
+    schema: componentSchemas.ContextMenuRadioGroup,
+    description: 'Radio group within a context menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CircleDot',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuRadioGroup),
+      description: 'Context menu radio group',
+    },
+  },
+
+  ContextMenuRadioItem: {
+    schema: componentSchemas.ContextMenuRadioItem,
+    description: 'Radio item in a context menu radio group',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Circle',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuRadioItem),
+      description: 'Context menu radio item',
+    },
+  },
+
+  ContextMenuLabel: {
+    schema: componentSchemas.ContextMenuLabel,
+    description: 'Label in a context menu',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Tag',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuLabel),
+      description: 'Context menu label',
+    },
+  },
+
+  ContextMenuSeparator: {
+    schema: componentSchemas.ContextMenuSeparator,
+    description: 'Separator line in a context menu',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Minus',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuSeparator),
+      description: 'Context menu separator',
+    },
+  },
+
+  ContextMenuSub: {
+    schema: componentSchemas.ContextMenuSub,
+    description: 'Sub-menu root within a context menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuSub),
+      description: 'Context menu sub-menu',
+    },
+  },
+
+  ContextMenuSubTrigger: {
+    schema: componentSchemas.ContextMenuSubTrigger,
+    description: 'Item that opens a context menu sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuSubTrigger),
+      description: 'Context menu sub-trigger',
+    },
+  },
+
+  ContextMenuSubContent: {
+    schema: componentSchemas.ContextMenuSubContent,
+    description: 'Content of a context menu sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.ContextMenuSubContent),
+      description: 'Context menu sub-content',
+    },
+  },
+
+  DropdownMenu: {
+    schema: componentSchemas.DropdownMenu,
+    description: 'Dropdown menu root',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronDown',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenu),
+      description: 'Dropdown menu root',
+    },
+  },
+
+  DropdownMenuTrigger: {
+    schema: componentSchemas.DropdownMenuTrigger,
+    description: 'Element that opens the dropdown menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Pointer',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuTrigger),
+      description: 'Dropdown menu trigger',
+    },
+  },
+
+  DropdownMenuContent: {
+    schema: componentSchemas.DropdownMenuContent,
+    description: 'Dropdown menu popup content container',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuContent),
+      description: 'Dropdown menu content',
+    },
+  },
+
+  DropdownMenuGroup: {
+    schema: componentSchemas.DropdownMenuGroup,
+    description: 'Logical grouping for dropdown menu items',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Group',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuGroup),
+      description: 'Dropdown menu group',
+    },
+  },
+
+  DropdownMenuItem: {
+    schema: componentSchemas.DropdownMenuItem,
+    description: 'A clickable item in a dropdown menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'List',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuItem),
+      description: 'Dropdown menu item',
+    },
+  },
+
+  DropdownMenuCheckboxItem: {
+    schema: componentSchemas.DropdownMenuCheckboxItem,
+    description: 'Checkbox item in a dropdown menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CheckSquare',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuCheckboxItem),
+      description: 'Dropdown menu checkbox item',
+    },
+  },
+
+  DropdownMenuRadioGroup: {
+    schema: componentSchemas.DropdownMenuRadioGroup,
+    description: 'Radio group within a dropdown menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CircleDot',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuRadioGroup),
+      description: 'Dropdown menu radio group',
+    },
+  },
+
+  DropdownMenuRadioItem: {
+    schema: componentSchemas.DropdownMenuRadioItem,
+    description: 'Radio item in a dropdown menu radio group',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Circle',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuRadioItem),
+      description: 'Dropdown menu radio item',
+    },
+  },
+
+  DropdownMenuLabel: {
+    schema: componentSchemas.DropdownMenuLabel,
+    description: 'Label in a dropdown menu',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Tag',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuLabel),
+      description: 'Dropdown menu label',
+    },
+  },
+
+  DropdownMenuSeparator: {
+    schema: componentSchemas.DropdownMenuSeparator,
+    description: 'Separator line in a dropdown menu',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Minus',
+      category: 'overlay',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuSeparator),
+      description: 'Dropdown menu separator',
+    },
+  },
+
+  DropdownMenuSub: {
+    schema: componentSchemas.DropdownMenuSub,
+    description: 'Sub-menu root within a dropdown menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuSub),
+      description: 'Dropdown menu sub-menu',
+    },
+  },
+
+  DropdownMenuSubTrigger: {
+    schema: componentSchemas.DropdownMenuSubTrigger,
+    description: 'Item that opens a dropdown menu sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuSubTrigger),
+      description: 'Dropdown menu sub-trigger',
+    },
+  },
+
+  DropdownMenuSubContent: {
+    schema: componentSchemas.DropdownMenuSubContent,
+    description: 'Content of a dropdown menu sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.DropdownMenuSubContent),
+      description: 'Dropdown menu sub-content',
+    },
+  },
+
+  HoverCard: {
+    schema: componentSchemas.HoverCard,
+    description: 'Hover card root that shows content on hover',
+    acceptsChildren: true,
+    meta: {
+      icon: 'PanelTopOpen',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.HoverCard),
+      description: 'Hover card root',
+    },
+  },
+
+  HoverCardTrigger: {
+    schema: componentSchemas.HoverCardTrigger,
+    description: 'Element that shows hover card on hover',
+    acceptsChildren: true,
+    meta: {
+      icon: 'MousePointerClick',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.HoverCardTrigger),
+      description: 'Hover card trigger',
+    },
+  },
+
+  HoverCardContent: {
+    schema: componentSchemas.HoverCardContent,
+    description: 'Floating content shown when hovering the trigger',
+    acceptsChildren: true,
+    meta: {
+      icon: 'PanelsTopLeft',
+      category: 'overlay',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.HoverCardContent),
+      description: 'Hover card content',
+    },
+  },
+
+  // ─── Navigation (new) ───────────────────────────────────────────────
+
+  Menubar: {
+    schema: componentSchemas.Menubar,
+    description: 'Horizontal menu bar container',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Menu',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.Menubar),
+      description: 'Horizontal menu bar',
+    },
+  },
+
+  MenubarMenu: {
+    schema: componentSchemas.MenubarMenu,
+    description: 'A single menu within the menu bar',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Menu',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarMenu),
+      description: 'Menubar menu',
+    },
+  },
+
+  MenubarTrigger: {
+    schema: componentSchemas.MenubarTrigger,
+    description: 'Button in the menu bar that opens a menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronDown',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarTrigger),
+      description: 'Menubar trigger',
+    },
+  },
+
+  MenubarContent: {
+    schema: componentSchemas.MenubarContent,
+    description: 'Dropdown content for a menubar menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarContent),
+      description: 'Menubar content',
+    },
+  },
+
+  MenubarItem: {
+    schema: componentSchemas.MenubarItem,
+    description: 'A clickable item in a menubar menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'List',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarItem),
+      description: 'Menubar item',
+    },
+  },
+
+  MenubarCheckboxItem: {
+    schema: componentSchemas.MenubarCheckboxItem,
+    description: 'Checkbox item in a menubar',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CheckSquare',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarCheckboxItem),
+      description: 'Menubar checkbox item',
+    },
+  },
+
+  MenubarRadioGroup: {
+    schema: componentSchemas.MenubarRadioGroup,
+    description: 'Radio group within a menubar',
+    acceptsChildren: true,
+    meta: {
+      icon: 'CircleDot',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarRadioGroup),
+      description: 'Menubar radio group',
+    },
+  },
+
+  MenubarRadioItem: {
+    schema: componentSchemas.MenubarRadioItem,
+    description: 'Radio item in a menubar radio group',
+    acceptsChildren: true,
+    meta: {
+      icon: 'Circle',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarRadioItem),
+      description: 'Menubar radio item',
+    },
+  },
+
+  MenubarLabel: {
+    schema: componentSchemas.MenubarLabel,
+    description: 'Label in a menubar',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Tag',
+      category: 'navigation',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarLabel),
+      description: 'Menubar label',
+    },
+  },
+
+  MenubarSeparator: {
+    schema: componentSchemas.MenubarSeparator,
+    description: 'Separator line in a menubar menu',
+    acceptsChildren: false,
+    meta: {
+      icon: 'Minus',
+      category: 'navigation',
+      acceptsChildren: false,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarSeparator),
+      description: 'Menubar separator',
+    },
+  },
+
+  MenubarSub: {
+    schema: componentSchemas.MenubarSub,
+    description: 'Sub-menu root within a menubar',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarSub),
+      description: 'Menubar sub-menu',
+    },
+  },
+
+  MenubarSubTrigger: {
+    schema: componentSchemas.MenubarSubTrigger,
+    description: 'Item that opens a menubar sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'ChevronRight',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarSubTrigger),
+      description: 'Menubar sub-trigger',
+    },
+  },
+
+  MenubarSubContent: {
+    schema: componentSchemas.MenubarSubContent,
+    description: 'Content of a menubar sub-menu',
+    acceptsChildren: true,
+    meta: {
+      icon: 'LayoutDashboard',
+      category: 'navigation',
+      acceptsChildren: true,
+      defaultProps: defaultsFromSchema(componentSchemas.MenubarSubContent),
+      description: 'Menubar sub-content',
     },
   },
 };

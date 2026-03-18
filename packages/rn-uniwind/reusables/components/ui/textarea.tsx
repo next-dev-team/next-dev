@@ -1,23 +1,13 @@
 import { cn } from '~/lib/utils';
 import { Platform, TextInput, type TextInputProps } from 'react-native';
 
-type TextareaProps = TextInputProps &
-  React.RefAttributes<TextInput> & {
-    disabled?: boolean;
-    placeholderClassName?: string;
-  };
-
 function Textarea({
   className,
-  placeholderClassName: _placeholderClassName,
-  disabled,
-  editable,
   multiline = true,
-  numberOfLines = Platform.select({ web: 2, native: 8 }),
+  numberOfLines = Platform.select({ web: 2, native: 8 }), // On web, numberOfLines also determines initial height. On native, it determines the maximum height.
+  placeholderClassName,
   ...props
-}: TextareaProps) {
-  const resolvedEditable = disabled ? false : editable;
-
+}: TextInputProps & React.RefAttributes<TextInput>) {
   return (
     <TextInput
       className={cn(
@@ -25,10 +15,10 @@ function Textarea({
         Platform.select({
           web: 'placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive field-sizing-content resize-y outline-none transition-[color,box-shadow] focus-visible:ring-[3px] disabled:cursor-not-allowed',
         }),
-        resolvedEditable === false && 'opacity-50',
+        props.editable === false && 'opacity-50',
         className
       )}
-      editable={resolvedEditable}
+      placeholderClassName={cn('text-muted-foreground', placeholderClassName)}
       multiline={multiline}
       numberOfLines={numberOfLines}
       textAlignVertical="top"
@@ -38,4 +28,3 @@ function Textarea({
 }
 
 export { Textarea };
-export type { TextareaProps };

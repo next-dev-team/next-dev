@@ -609,6 +609,12 @@ body,
   outline-offset: 1px;
 }
 
+.canvas-element[data-editing='true'] {
+  outline: 2px dashed var(--color-accent);
+  outline-offset: 1px;
+  cursor: text;
+}
+
 /* ─── Drag & Drop ──────────────────────────────────────────────────── */
 
 /* Custom drag ghost */

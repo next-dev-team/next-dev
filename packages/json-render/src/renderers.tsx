@@ -11,7 +11,7 @@
  * full size, while the chat preview can render at a smaller scale.
  */
 
-import type React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -20,6 +20,12 @@ export interface RenderContext {
   scale: number;
   /** Whether this is an interactive canvas or a static preview */
   interactive: boolean;
+  /** Optional callback to update element props from the renderer (inline editing) */
+  onPropsChange?: (props: Record<string, unknown>) => void;
+  /** Whether this element is currently in inline-editing mode */
+  isEditing?: boolean;
+  /** Callback to enter inline-editing mode */
+  onStartEdit?: () => void;
 }
 
 export type ComponentRenderer = (
@@ -32,6 +38,98 @@ export type ComponentRenderer = (
 
 function s(base: number, ctx: RenderContext): string {
   return `${Math.round(base * ctx.scale)}px`;
+}
+
+// ─── Inline Editable Text ───────────────────────────────────────────────────
+
+function getTextStyle(variant: string, ctx: RenderContext): React.CSSProperties {
+  const base = 14;
+  const styles: Record<string, React.CSSProperties> = {
+    default: { fontSize: s(base, ctx) },
+    h1: { fontSize: s(36, ctx), fontWeight: 800 },
+    h2: { fontSize: s(30, ctx), fontWeight: 600 },
+    h3: { fontSize: s(24, ctx), fontWeight: 600 },
+    h4: { fontSize: s(20, ctx), fontWeight: 600 },
+    p: { fontSize: s(base, ctx), lineHeight: 1.75 },
+    muted: { fontSize: s(13, ctx), color: 'var(--color-text-muted)' },
+  };
+  return styles[variant] ?? styles.default;
+}
+
+function InlineEditableText({ props, ctx }: { props: Record<string, unknown>; ctx: RenderContext }) {
+  const text = (props.children as string) ?? 'Text';
+  const variant = (props.variant as string) ?? 'default';
+  const spanRef = useRef<HTMLSpanElement>(null);
+  const isEditing = ctx.isEditing ?? false;
+
+  // When entering edit mode, focus the element and select all text
+  useEffect(() => {
+    if (isEditing && spanRef.current) {
+      spanRef.current.focus();
+      // Select all text inside
+      const range = document.createRange();
+      range.selectNodeContents(spanRef.current);
+      const sel = window.getSelection();
+      sel?.removeAllRanges();
+      sel?.addRange(range);
+    }
+  }, [isEditing]);
+
+  const commitEdit = useCallback(() => {
+    if (!spanRef.current || !ctx.onPropsChange) return;
+    const newText = spanRef.current.textContent ?? '';
+    if (newText !== text) {
+      ctx.onPropsChange({ children: newText });
+    }
+  }, [ctx, text]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      commitEdit();
+      spanRef.current?.blur();
+    }
+    if (e.key === 'Escape') {
+      // Revert text
+      if (spanRef.current) spanRef.current.textContent = text;
+      spanRef.current?.blur();
+    }
+    // Stop propagation so the editor keyboard shortcuts (delete, etc.) don't fire while typing
+    e.stopPropagation();
+  }, [commitEdit, text]);
+
+  const handleDoubleClick = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (ctx.interactive && ctx.onStartEdit) {
+      ctx.onStartEdit();
+    }
+  }, [ctx]);
+
+  const style: React.CSSProperties = {
+    ...getTextStyle(variant, ctx),
+    outline: 'none',
+    cursor: isEditing ? 'text' : 'default',
+    minWidth: isEditing ? '20px' : undefined,
+  };
+
+  if (!ctx.interactive || !ctx.onPropsChange) {
+    // Static preview mode — no editing
+    return <span style={getTextStyle(variant, ctx)}>{text}</span>;
+  }
+
+  return (
+    <span
+      ref={spanRef}
+      style={style}
+      contentEditable={isEditing}
+      suppressContentEditableWarning
+      onDoubleClick={handleDoubleClick}
+      onBlur={isEditing ? commitEdit : undefined}
+      onKeyDown={isEditing ? handleKeyDown : undefined}
+    >
+      {text}
+    </span>
+  );
 }
 
 // ─── Renderers ──────────────────────────────────────────────────────────────
@@ -280,19 +378,7 @@ export const renderers: Record<string, ComponentRenderer> = {
   // ── Display ──────────────────────────────────────────────────────────
 
   Text: (props, _children, ctx) => {
-    const text = (props.children as string) ?? 'Text';
-    const variant = (props.variant as string) ?? 'default';
-    const base = 14;
-    const styles: Record<string, React.CSSProperties> = {
-      default: { fontSize: s(base, ctx) },
-      h1: { fontSize: s(36, ctx), fontWeight: 800 },
-      h2: { fontSize: s(30, ctx), fontWeight: 600 },
-      h3: { fontSize: s(24, ctx), fontWeight: 600 },
-      h4: { fontSize: s(20, ctx), fontWeight: 600 },
-      p: { fontSize: s(base, ctx), lineHeight: 1.75 },
-      muted: { fontSize: s(13, ctx), color: 'var(--color-text-muted)' },
-    };
-    return <span style={styles[variant]}>{text}</span>;
+    return <InlineEditableText props={props} ctx={ctx} />;
   },
 
   Badge: (props, _children, ctx) => {

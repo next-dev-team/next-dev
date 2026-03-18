@@ -514,25 +514,47 @@ function LayerTree() {
 
 // ─── Canvas ───────────────────────────────────────────────────────────────
 
+// Context to track which element is currently being inline-edited
+const EditingContext = createContext<{
+  editingId: string | null;
+  setEditingId: (id: string | null) => void;
+}>({
+  editingId: null,
+  setEditingId: () => {},
+});
+
 function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: DesignSpec; isPreview?: boolean }) {
   const element = spec.elements[elementId];
   const selectedIds = useEditorStore((s) => s.selectedIds);
   const hoveredId = useEditorStore((s) => s.hoveredId);
   const select = useEditorStore((s) => s.select);
   const hover = useEditorStore((s) => s.hover);
+  const setProps = useEditorStore((s) => s.setProps);
   const addElement = useEditorStore((s) => s.addElement);
   const { state: dragState } = useContext(DragContext);
+  const { editingId, setEditingId } = useContext(EditingContext);
   const [isDropTarget, setIsDropTarget] = useState(false);
 
   if (!element || element.__editor?.hidden) return null;
 
   const isSelected = !isPreview && selectedIds.includes(elementId);
   const isHovered = !isPreview && hoveredId === elementId;
+  const isEditing = !isPreview && editingId === elementId;
   const children = element.children.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />);
 
   const renderElement = () => {
     const props = element.props ?? {};
-    const ctx = { scale: 1, interactive: !isPreview };
+    const ctx = {
+      scale: 1,
+      interactive: !isPreview,
+      onPropsChange: !isPreview ? (newProps: Record<string, unknown>) => {
+        setProps(elementId, newProps);
+      } : undefined,
+      isEditing,
+      onStartEdit: !isPreview ? () => {
+        setEditingId(elementId);
+      } : undefined,
+    };
     const renderer = renderers[element.type];
     if (renderer) {
       return renderer(props, children, ctx);
@@ -571,6 +593,18 @@ function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: D
     });
   };
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (isPreview) return;
+    e.stopPropagation();
+    // If we're editing this element, don't re-select (let contentEditable handle clicks)
+    if (isEditing) return;
+    // Exit any other editing if clicking a different element
+    if (editingId && editingId !== elementId) {
+      setEditingId(null);
+    }
+    select(elementId, e.shiftKey);
+  };
+
   return (
     <div
       className="canvas-element"
@@ -579,7 +613,8 @@ function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: D
       data-drop-target={!isPreview && isDropTarget}
       data-drag-active={!isPreview && dragState.isDragging}
       data-preview={isPreview}
-      onClick={isPreview ? undefined : (e) => { e.stopPropagation(); select(elementId, e.shiftKey); }}
+      data-editing={isEditing}
+      onClick={isPreview ? undefined : handleClick}
       onKeyDown={isPreview ? undefined : () => {}}
       role={isPreview ? undefined : 'treeitem'}
       tabIndex={isPreview ? undefined : 0}
@@ -603,6 +638,12 @@ function Canvas() {
   const filePath = useEditorStore((s) => s.filePath);
   const { state: dragState } = useContext(DragContext);
   const [isDropTarget, setIsDropTarget] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  // Clear editing state when entering preview mode
+  useEffect(() => {
+    if (isPreviewMode) setEditingId(null);
+  }, [isPreviewMode]);
 
   const handleDragOver = (e: React.DragEvent) => {
     if (isPreviewMode) return;
@@ -632,52 +673,60 @@ function Canvas() {
     });
   };
 
+  const handleCanvasClick = () => {
+    if (isPreviewMode) return;
+    setEditingId(null);
+    clearSelection();
+  };
+
   const displayUrl = filePath
     ? `designforge://localhost/${filePath.split(/[\\/]/).pop()}`
     : 'designforge://localhost/untitled';
 
   return (
-    <div
-      className="editor-canvas"
-      data-drop-target={!isPreviewMode && isDropTarget}
-      data-drag-active={!isPreviewMode && dragState.isDragging}
-      data-preview-mode={isPreviewMode}
-      onClick={isPreviewMode ? undefined : () => clearSelection()}
-      onKeyDown={isPreviewMode ? undefined : () => {}}
-      role="presentation"
-      tabIndex={-1}
-      onDragOver={isPreviewMode ? undefined : handleDragOver}
-      onDragLeave={isPreviewMode ? undefined : handleDragLeave}
-      onDrop={isPreviewMode ? undefined : handleDrop}
-    >
+    <EditingContext.Provider value={{ editingId, setEditingId }}>
       <div
-        className={`canvas-frame ${isPreviewMode ? 'canvas-frame--preview' : ''}`}
-        style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
+        className="editor-canvas"
+        data-drop-target={!isPreviewMode && isDropTarget}
+        data-drag-active={!isPreviewMode && dragState.isDragging}
+        data-preview-mode={isPreviewMode}
+        onClick={isPreviewMode ? undefined : handleCanvasClick}
+        onKeyDown={isPreviewMode ? undefined : () => {}}
+        role="presentation"
+        tabIndex={-1}
+        onDragOver={isPreviewMode ? undefined : handleDragOver}
+        onDragLeave={isPreviewMode ? undefined : handleDragLeave}
+        onDrop={isPreviewMode ? undefined : handleDrop}
       >
-        {/* Browser-like chrome in preview mode */}
-        {isPreviewMode && (
-          <div className="browser-chrome">
-            <div className="browser-chrome-dots">
-              <span className="browser-dot browser-dot--close" />
-              <span className="browser-dot browser-dot--minimize" />
-              <span className="browser-dot browser-dot--maximize" />
+        <div
+          className={`canvas-frame ${isPreviewMode ? 'canvas-frame--preview' : ''}`}
+          style={{ transform: `scale(${zoom})`, transformOrigin: 'top center' }}
+        >
+          {/* Browser-like chrome in preview mode */}
+          {isPreviewMode && (
+            <div className="browser-chrome">
+              <div className="browser-chrome-dots">
+                <span className="browser-dot browser-dot--close" />
+                <span className="browser-dot browser-dot--minimize" />
+                <span className="browser-dot browser-dot--maximize" />
+              </div>
+              <div className="browser-chrome-nav">
+                <button type="button" className="browser-nav-btn" disabled><ArrowLeft size={13} /></button>
+                <button type="button" className="browser-nav-btn" disabled><ArrowRight size={13} /></button>
+                <button type="button" className="browser-nav-btn" disabled><RotateCw size={13} /></button>
+              </div>
+              <div className="browser-address-bar">
+                <Shield size={12} className="browser-address-icon" />
+                <span className="browser-address-text">{displayUrl}</span>
+              </div>
             </div>
-            <div className="browser-chrome-nav">
-              <button type="button" className="browser-nav-btn" disabled><ArrowLeft size={13} /></button>
-              <button type="button" className="browser-nav-btn" disabled><ArrowRight size={13} /></button>
-              <button type="button" className="browser-nav-btn" disabled><RotateCw size={13} /></button>
-            </div>
-            <div className="browser-address-bar">
-              <Shield size={12} className="browser-address-icon" />
-              <span className="browser-address-text">{displayUrl}</span>
-            </div>
+          )}
+          <div className="canvas-frame-content">
+            <CanvasNode elementId={spec.root} spec={spec} isPreview={isPreviewMode} />
           </div>
-        )}
-        <div className="canvas-frame-content">
-          <CanvasNode elementId={spec.root} spec={spec} isPreview={isPreviewMode} />
         </div>
       </div>
-    </div>
+    </EditingContext.Provider>
   );
 }
 
@@ -886,12 +935,26 @@ export function App() {
     const handler = (e: KeyboardEvent) => {
       const ctrl = e.ctrlKey || e.metaKey;
 
-      if (ctrl && e.key === 'z' && !e.shiftKey) { e.preventDefault(); useEditorStore.getState().undo(); }
-      if (ctrl && e.key === 'z' && e.shiftKey) { e.preventDefault(); useEditorStore.getState().redo(); }
-      if (ctrl && e.key === 'c') { e.preventDefault(); useEditorStore.getState().copy(); }
-      if (ctrl && e.key === 'x') { e.preventDefault(); useEditorStore.getState().cut(); }
-      if (ctrl && e.key === 'v') { e.preventDefault(); const s = useEditorStore.getState(); s.paste(s.selectedIds[0] ?? s.spec.root); }
-      if (ctrl && e.key === 'd') { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.duplicateElement(s.selectedIds[0]); }
+      // Check if focus is on a text-editable element (input, textarea, contenteditable).
+      // If so, let the browser handle clipboard/delete shortcuts natively so text
+      // copy-paste works in inputs, the chat panel, etc.
+      const target = e.target as HTMLElement;
+      const isTextEditable =
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement ||
+        target.isContentEditable;
+
+      if (ctrl && e.key === 'z' && !e.shiftKey && !isTextEditable) { e.preventDefault(); useEditorStore.getState().undo(); }
+      if (ctrl && e.key === 'z' && e.shiftKey && !isTextEditable) { e.preventDefault(); useEditorStore.getState().redo(); }
+
+      // Clipboard shortcuts: only intercept when NOT in a text-editable field
+      if (!isTextEditable) {
+        if (ctrl && e.key === 'c') { e.preventDefault(); useEditorStore.getState().copy(); }
+        if (ctrl && e.key === 'x') { e.preventDefault(); useEditorStore.getState().cut(); }
+        if (ctrl && e.key === 'v') { e.preventDefault(); const s = useEditorStore.getState(); s.paste(s.selectedIds[0] ?? s.spec.root); }
+        if (ctrl && e.key === 'd') { e.preventDefault(); const s = useEditorStore.getState(); if (s.selectedIds.length === 1) s.duplicateElement(s.selectedIds[0]); }
+      }
+
       if (ctrl && e.key === 'n') { e.preventDefault(); useEditorStore.getState().newFile(); }
       if (ctrl && e.key === 'o') { e.preventDefault(); useEditorStore.getState().openFile(); }
       if (ctrl && e.key === 's' && !e.shiftKey) { e.preventDefault(); useEditorStore.getState().saveFile(); }
@@ -901,8 +964,15 @@ export function App() {
       if (e.key === 'Escape') { useEditorStore.getState().clearSelection(); }
       if (ctrl && e.key === ',') { e.preventDefault(); useSettingsStore.getState().toggleSettings(); }
       if (ctrl && e.key === 'p') { e.preventDefault(); useEditorStore.getState().togglePreviewMode(); }
-      if ((e.key === 'Delete' || e.key === 'Backspace') && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
+      if ((e.key === 'Delete' || e.key === 'Backspace') && !isTextEditable) {
         e.preventDefault(); const s = useEditorStore.getState(); for (const id of [...s.selectedIds]) s.removeElement(id);
+      }
+      // Ctrl+A: select all design elements only when not in a text field
+      if (ctrl && e.key === 'a' && !isTextEditable) {
+        e.preventDefault();
+        const s = useEditorStore.getState();
+        const allIds = Object.keys(s.spec.elements).filter((id) => id !== s.spec.root);
+        s.document.selection.selectAll(allIds);
       }
     };
 

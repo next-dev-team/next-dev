@@ -1,14 +1,28 @@
 {
   "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "10000"
+      },
+      "disabled": false
+    },
     "designforge": {
       "command": "npx",
-      "args": ["tsx", "packages/mcp-server/src/index.ts"],
-      "cwd": ".",
+      "args": ["tsx", "packages/mcp-server/src/index.ts", "--file", "temp/live.dfg"],
+      "cwd": "c:\\Users\\xxx\\Documents\\GitHub\\next-dev",
       "env": {}
     },
-    "context7": {
-      "type": "http",
-      "url": "https://mcp.context7.com/mcp"
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
     }
   }
 }

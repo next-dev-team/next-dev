@@ -8,7 +8,7 @@
  * 4. Spawn MCP server as child process
  */
 
-import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme } from 'electron';
+import { app, BrowserWindow, ipcMain, dialog, shell, nativeTheme, Menu } from 'electron';
 import { join } from 'node:path';
 import { readFile, writeFile } from 'node:fs/promises';
 import { watch, type FSWatcher } from 'node:fs';
@@ -177,6 +177,39 @@ function setupIPC(): void {
 // ─── App Lifecycle ────────────────────────────────────────────────────────
 
 app.whenReady().then(() => {
+  // Build an application menu with Edit roles so native clipboard shortcuts
+  // (Ctrl/Cmd + C/V/X/A) work inside the BrowserWindow.
+  const template: Electron.MenuItemConstructorOptions[] = [
+    ...(process.platform === 'darwin'
+      ? [{ label: app.getName(), submenu: [{ role: 'quit' as const }] }]
+      : []),
+    {
+      label: 'Edit',
+      submenu: [
+        { role: 'undo' as const },
+        { role: 'redo' as const },
+        { type: 'separator' as const },
+        { role: 'cut' as const },
+        { role: 'copy' as const },
+        { role: 'paste' as const },
+        { role: 'selectAll' as const },
+      ],
+    },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' as const },
+        { role: 'toggleDevTools' as const },
+        { type: 'separator' as const },
+        { role: 'resetZoom' as const },
+        { role: 'zoomIn' as const },
+        { role: 'zoomOut' as const },
+        { role: 'togglefullscreen' as const },
+      ],
+    },
+  ];
+  Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
   setupIPC();
   setupMCPIPC();
   createWindow();

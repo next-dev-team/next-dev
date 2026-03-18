@@ -1,31 +1,19 @@
-import { cn } from '~/lib/utils'
-import { Platform, TextInput, type TextInputProps } from 'react-native'
-
-type InputProps = TextInputProps &
-  React.RefAttributes<TextInput> & {
-    disabled?: boolean
-    placeholderClassName?: string
-  }
+import { cn } from '~/lib/utils';
+import { Platform, TextInput, type TextInputProps } from 'react-native';
 
 function Input({
   className,
-  placeholderClassName: _placeholderClassName,
-  disabled,
-  editable,
+  placeholderClassName,
   ...props
-}: InputProps) {
-  const resolvedEditable = disabled ? false : editable
-
+}: TextInputProps & React.RefAttributes<TextInput>) {
   return (
     <TextInput
       className={cn(
         'dark:bg-input/30 border-input bg-background text-foreground flex h-10 w-full min-w-0 flex-row items-center rounded-md border px-3 py-1 text-base leading-5 shadow-sm shadow-black/5 sm:h-9',
-        resolvedEditable === false &&
+        props.editable === false &&
           cn(
             'opacity-50',
-            Platform.select({
-              web: 'disabled:pointer-events-none disabled:cursor-not-allowed',
-            })
+            Platform.select({ web: 'disabled:pointer-events-none disabled:cursor-not-allowed' })
           ),
         Platform.select({
           web: cn(
@@ -37,11 +25,9 @@ function Input({
         }),
         className
       )}
-      editable={resolvedEditable}
       {...props}
     />
-  )
+  );
 }
 
-export { Input }
-export type { InputProps }
+export { Input };
