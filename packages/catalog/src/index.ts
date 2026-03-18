@@ -16,6 +16,22 @@ export {
 } from './definitions.js';
 export type { CatalogEntry, ComponentType } from './definitions.js';
 
+export {
+  activeCatalog,
+  activeCatalogToPrompt,
+  getActiveCatalogId,
+  getCatalogContract,
+  getLegacyCatalogIds,
+  activeCatalogToPrompt as jsonRenderCatalogToPrompt,
+  getCatalogContract as getJsonRenderCatalogContract,
+  getLegacyCatalogIds as getJsonRenderLegacyCatalogIds,
+  resolveCatalogId,
+  resolveCatalogId as resolveJsonRenderCatalogId,
+  rnUniwindJsonRenderCatalog,
+  RN_UNIWIND_CATALOG_ID,
+  RN_UNIWIND_CATALOG_ID as ACTIVE_CATALOG_ID,
+} from './json-render.js';
+
 // Registry (requires React)
 export { createRegistry, resolveComponent } from './registry.js';
 export type { RendererEntry } from './registry.js';

@@ -17,6 +17,28 @@ export type {
   HistoryEntry,
   PatchOperation,
 } from './types.js';
+export type {
+  DesignDocumentV2,
+  DesignFileV2,
+  EditorStateV2,
+  JsonRenderElement,
+  JsonRenderSpecLike,
+  PlatformTarget,
+  RuntimeId,
+} from './design-file.js';
+export {
+  extractEditorNodes,
+  inflateLegacyDesignFile,
+  isDesignFileV2,
+  migrateLegacyDesignFile,
+  stripEditorMetaFromSpec,
+} from './design-file.js';
+export {
+  normalizeDesignSpec,
+  normalizeElement,
+  normalizeDesignSpec as normalizeSpec,
+  normalizeElement as normalizeSpecElement,
+} from './normalize.js';
 
 // Document controller
 export { Document } from './document.js';

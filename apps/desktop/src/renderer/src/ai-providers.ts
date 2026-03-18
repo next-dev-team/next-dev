@@ -663,10 +663,16 @@ function extractQuotedText(input: string): string | null {
 
 function extractDefaults(schema: { shape: Record<string, unknown> }): Record<string, unknown> {
   const defaults: Record<string, unknown> = {};
-  const shape = schema.shape as Record<string, { _def?: { defaultValue?: () => unknown } }>;
+  const shape = schema.shape as Record<string, {
+    _def?: { defaultValue?: unknown };
+    def?: { defaultValue?: unknown };
+  }>;
   for (const [key, field] of Object.entries(shape)) {
-    if (field?._def?.defaultValue) {
-      defaults[key] = field._def.defaultValue();
+    const defaultValue = field?.def?.defaultValue ?? field?._def?.defaultValue;
+    if (typeof defaultValue === 'function') {
+      defaults[key] = defaultValue();
+    } else if (defaultValue !== undefined) {
+      defaults[key] = defaultValue;
     }
   }
   return defaults;

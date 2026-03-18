@@ -14,6 +14,12 @@ import jsonpatch from 'fast-json-patch';
 const { applyPatch } = jsonpatch;
 import type { Operation } from 'fast-json-patch';
 import { Clipboard } from './clipboard.js';
+import {
+  inflateLegacyDesignFile,
+  isDesignFileV2,
+  migrateLegacyDesignFile,
+  type DesignFileV2,
+} from './design-file.js';
 import { History, type HistoryOptions } from './history.js';
 import {
   addElement,
@@ -27,6 +33,7 @@ import {
   updateEditorMeta,
   updateProps,
 } from './operations.js';
+import { normalizeDesignSpec } from './normalize.js';
 import { Selection } from './selection.js';
 import type { DesignFile, DesignSpec, EditorState, Element, PatchOperation } from './types.js';
 
@@ -45,7 +52,7 @@ export class Document {
   private listeners: Set<DocumentListener> = new Set();
 
   constructor(options?: DocumentOptions) {
-    this._spec = options?.spec ?? createEmptySpec();
+    this._spec = normalizeDesignSpec(options?.spec ?? createEmptySpec());
     this.history = new History(options);
     this.selection = new Selection();
     this.clipboard = new Clipboard();
@@ -86,7 +93,7 @@ export class Document {
    */
   applyPatches(patches: PatchOperation[]): void {
     const result = applyPatch(this._spec, patches as Operation[], false, true);
-    this._spec = result.newDocument as DesignSpec;
+    this._spec = normalizeDesignSpec(result.newDocument as DesignSpec);
     this.pruneSelection();
     this.notify();
   }
@@ -257,7 +264,11 @@ export class Document {
   }
 
   /** Load from .dfg file */
-  static fromFile(file: DesignFile): Document {
+  static fromFile(file: DesignFile | DesignFileV2): Document {
+    if (isDesignFileV2(file)) {
+      return Document.fromFile(inflateLegacyDesignFile(file));
+    }
+
     const doc = new Document({ spec: file.spec });
     // Restore selection from file
     if (file.editor?.selection) {
@@ -271,10 +282,20 @@ export class Document {
     return JSON.stringify(this.toFile(), null, 2);
   }
 
+  /** Serialize to the v2 DesignForge file format */
+  toFileV2(editorState?: Partial<EditorState>): DesignFileV2 {
+    return migrateLegacyDesignFile(this.toFile(editorState));
+  }
+
+  /** Serialize the v2 file format to JSON */
+  toJSONV2(editorState?: Partial<EditorState>): string {
+    return JSON.stringify(this.toFileV2(editorState), null, 2);
+  }
+
   /** Parse a .dfg JSON string */
   static fromJSON(json: string): Document {
-    const file = JSON.parse(json) as DesignFile;
-    return Document.fromFile(file);
+    const parsed = JSON.parse(json) as DesignFile | DesignFileV2;
+    return Document.fromFile(parsed);
   }
 
   /** Get a clean spec for code export (no editor metadata) */

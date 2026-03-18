@@ -2,8 +2,8 @@
 
 @theme {
   /* ─── Sizing (theme-invariant) ─── */
-  --spacing-panel-width: 220px;
-  --spacing-panel-right-width: 240px;
+  --spacing-panel-width: 20%;
+  --spacing-panel-right-width: 20%;
   --spacing-toolbar-height: 44px;
   --spacing-titlebar-height: 32px;
 
@@ -255,7 +255,7 @@ body,
 
 .editor-layout {
   display: grid;
-  grid-template-columns: var(--spacing-panel-width) 1fr var(--spacing-panel-right-width);
+  grid-template-columns: minmax(0, var(--spacing-panel-width)) minmax(0, 1fr) minmax(0, var(--spacing-panel-right-width));
   grid-template-rows: var(--spacing-toolbar-height) 1fr;
   grid-template-areas:
     'toolbar toolbar toolbar'
@@ -277,6 +277,7 @@ body,
 
 .editor-left-panel {
   grid-area: left;
+  min-width: 0;
   background: var(--color-panel-bg);
   border-right: 1px solid var(--color-border-dim);
   display: flex;
@@ -286,6 +287,7 @@ body,
 
 .editor-canvas {
   grid-area: canvas;
+  min-width: 0;
   background: var(--color-canvas-bg);
   overflow: auto;
   position: relative;
@@ -297,6 +299,7 @@ body,
 
 .editor-right-panel {
   grid-area: right;
+  min-width: 0;
   background: var(--color-panel-bg);
   border-left: 1px solid var(--color-border-dim);
   display: flex;
@@ -2505,4 +2508,3 @@ body,
   --color-json-number: oklch(0.72 0.18 50);
   --color-json-null: oklch(0.50 0.10 260);
 }
-

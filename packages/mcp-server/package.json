@@ -20,7 +20,7 @@
     "@modelcontextprotocol/sdk": "^1.12.1",
     "@next-dev/catalog": "workspace:*",
     "@next-dev/editor-core": "workspace:*",
-    "zod": "^3.25.67"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",

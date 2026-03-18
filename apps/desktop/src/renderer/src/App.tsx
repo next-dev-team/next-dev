@@ -457,9 +457,10 @@ function LayerNode({ elementId, spec, depth }: { elementId: string; spec: Design
 
   if (!element) return null;
 
+  const childIds = Array.isArray(element.children) ? element.children : [];
   const isSelected = selectedIds.includes(elementId);
   const isHovered = hoveredId === elementId;
-  const hasChildren = element.children.length > 0;
+  const hasChildren = childIds.length > 0;
   const displayName = element.__editor?.name ?? element.type;
   const isCollapsed = element.__editor?.collapsed ?? false;
   const isLocked = element.__editor?.locked ?? false;
@@ -496,7 +497,7 @@ function LayerNode({ elementId, spec, depth }: { elementId: string; spec: Design
         {isHidden && <EyeOff size={10} style={{ opacity: 0.4 }} />}
       </div>
       {hasChildren && !isCollapsed &&
-        element.children.map((childId) => (
+        childIds.map((childId) => (
           <LayerNode key={childId} elementId={childId} spec={spec} depth={depth + 1} />
         ))}
     </>
@@ -537,10 +538,11 @@ function CanvasNode({ elementId, spec, isPreview }: { elementId: string; spec: D
 
   if (!element || element.__editor?.hidden) return null;
 
+  const childIds = Array.isArray(element.children) ? element.children : [];
   const isSelected = !isPreview && selectedIds.includes(elementId);
   const isHovered = !isPreview && hoveredId === elementId;
   const isEditing = !isPreview && editingId === elementId;
-  const children = element.children.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />);
+  const children = childIds.map((cid) => <CanvasNode key={cid} elementId={cid} spec={spec} isPreview={isPreview} />);
 
   const renderElement = () => {
     const props = element.props ?? {};
@@ -777,8 +779,9 @@ function PropsPanel() {
 
 function SchemaField({ fieldKey, field, value, onChange }: { fieldKey: string; field: z.ZodType; value: unknown; onChange: (key: string, value: unknown) => void }) {
   let inner = field;
-  if (inner instanceof z.ZodDefault) inner = inner._def.innerType;
-  if (inner instanceof z.ZodNullable) inner = inner._def.innerType;
+  while (inner instanceof z.ZodDefault || inner instanceof z.ZodNullable) {
+    inner = inner.unwrap() as z.ZodType;
+  }
 
   const id = `prop-${fieldKey}`;
 

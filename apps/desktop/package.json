@@ -34,7 +34,7 @@
     "typescript": "~5.9.2",
     "vite-tsconfig-paths": "^4.3.0",
     "zustand": "^5.0.5",
-    "zod": "^3.25.67"
+    "zod": "^4.3.6"
   },
   "build": {
     "appId": "com.nextdev.designforge",

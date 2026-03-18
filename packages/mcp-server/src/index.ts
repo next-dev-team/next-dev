@@ -632,7 +632,7 @@ const liveMutationOperationSchema = z.object({
   type: z.enum(['add', 'remove', 'move', 'updateProps', 'duplicate', 'group', 'ungroup']),
   parentId: z.string().optional(),
   elementType: z.string().optional(),
-  props: z.record(z.unknown()).optional(),
+  props: z.record(z.string(), z.unknown()).optional(),
   index: z.number().optional(),
   elementId: z.string().optional(),
   newParentId: z.string().optional(),
@@ -641,7 +641,7 @@ const liveMutationOperationSchema = z.object({
 
 const batchPropsUpdateSchema = z.object({
   elementId: z.string(),
-  props: z.record(z.unknown()),
+  props: z.record(z.string(), z.unknown()),
 });
 
 // ─── Server ─────────────────────────────────────────────────────────────────

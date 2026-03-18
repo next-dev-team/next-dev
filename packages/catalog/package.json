@@ -11,6 +11,14 @@
       "types": "./src/index.ts",
       "import": "./src/index.ts"
     },
+    "./json-render": {
+      "types": "./src/json-render.ts",
+      "import": "./src/json-render.ts"
+    },
+    "./json-render-registry": {
+      "types": "./src/json-render-registry.tsx",
+      "import": "./src/json-render-registry.tsx"
+    },
     "./registry": {
       "types": "./src/registry.ts",
       "import": "./src/registry.ts"
@@ -23,12 +31,14 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "build": "tsup src/index.ts src/registry.ts src/definitions.ts --format esm --dts",
+    "build": "tsup src/index.ts src/registry.ts src/definitions.ts src/json-render.ts src/json-render-registry.tsx --format esm --dts",
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
+    "@json-render/core": "^0.14.1",
+    "@json-render/react-native": "^0.14.1",
     "@next-dev/editor-core": "workspace:*",
-    "zod": "^3.25.67"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",

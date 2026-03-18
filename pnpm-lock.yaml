@@ -111,8 +111,8 @@ importers:
         specifier: ^4.3.0
         version: 4.3.2(typescript@5.9.3)(vite@7.3.1(@types/node@22.19.15)(jiti@2.6.1)(lightningcss@1.27.0)(terser@5.46.0)(tsx@4.21.0)(yaml@2.8.2))
       zod:
-        specifier: ^3.25.67
-        version: 3.25.76
+        specifier: ^4.3.6
+        version: 4.3.6
       zustand:
         specifier: ^5.0.5
         version: 5.0.11(@types/react@19.1.17)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
@@ -188,6 +188,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.19(tsx@4.21.0)(yaml@2.8.2))
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@types/mdx':
         specifier: ^2.0.13
@@ -476,6 +479,12 @@ importers:
 
   packages/catalog:
     dependencies:
+      '@json-render/core':
+        specifier: ^0.14.1
+        version: 0.14.1(zod@4.3.6)
+      '@json-render/react-native':
+        specifier: ^0.14.1
+        version: 0.14.1(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.2.0))(react@19.2.0)(zod@4.3.6)
       '@next-dev/editor-core':
         specifier: workspace:*
         version: link:../editor-core
@@ -486,8 +495,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0
       zod:
-        specifier: ^3.25.67
-        version: 3.25.76
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@tsconfig/recommended':
         specifier: ^1.0.1
@@ -556,6 +565,9 @@ importers:
       react-native-web:
         specifier: ^0.21.0
         version: 0.21.2(encoding@0.1.13)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
       zustand:
         specifier: ^5.0.5
         version: 5.0.11(@types/react@19.1.17)(react@19.2.0)(use-sync-external-store@1.6.0(react@19.2.0))
@@ -614,7 +626,7 @@ importers:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: ^1.12.1
-        version: 1.27.1(zod@3.25.76)
+        version: 1.27.1(zod@4.3.6)
       '@next-dev/catalog':
         specifier: workspace:*
         version: link:../catalog
@@ -622,8 +634,8 @@ importers:
         specifier: workspace:*
         version: link:../editor-core
       zod:
-        specifier: ^3.25.67
-        version: 3.25.76
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@tsconfig/recommended':
         specifier: ^1.0.1
@@ -2142,6 +2154,18 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@json-render/core@0.14.1':
+    resolution: {integrity: sha512-Z1lctUILswRS9xvQbLgsLGRXY4M31CtG0H6wCouGlk9lxXpB5hkuoIoAJ4bJ/HXDVoBgYzI18XI/O8luE3CuzA==}
+    peerDependencies:
+      zod: ^4.0.0
+
+  '@json-render/react-native@0.14.1':
+    resolution: {integrity: sha512-7snzgPIa7xO91Ct7odd/6Y2+i/nng2aNLNXDGxSsRO9snBU33ZudRf+Tkz6sR1vfiLjacPU+ZbOZUezDsO0stw==}
+    peerDependencies:
+      react: 19.2.0
+      react-native: 0.81.5
+      zod: ^4.0.0
 
   '@malept/cross-spawn-promise@2.0.0':
     resolution: {integrity: sha512-1DpKU0Z5ThltBwjNySMC14g0CkbyhCaz9FkhxqNsZI6uAPJXFS8cMXlBKo26FJ8ZuW6S9GCMcR9IO5k2X5/9Fg==}
@@ -11603,6 +11627,17 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
+  '@json-render/core@0.14.1(zod@4.3.6)':
+    dependencies:
+      zod: 4.3.6
+
+  '@json-render/react-native@0.14.1(react-native@0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.2.0))(react@19.2.0)(zod@4.3.6)':
+    dependencies:
+      '@json-render/core': 0.14.1(zod@4.3.6)
+      react: 19.2.0
+      react-native: 0.81.5(@babel/core@7.29.0)(@types/react@19.1.17)(react@19.2.0)
+      zod: 4.3.6
+
   '@malept/cross-spawn-promise@2.0.0':
     dependencies:
       cross-spawn: 7.0.6
@@ -11665,6 +11700,28 @@ snapshots:
       raw-body: 3.0.2
       zod: 3.25.76
       zod-to-json-schema: 3.25.1(zod@3.25.76)
+    transitivePeerDependencies:
+      - supports-color
+
+  '@modelcontextprotocol/sdk@1.27.1(zod@4.3.6)':
+    dependencies:
+      '@hono/node-server': 1.19.11(hono@4.12.8)
+      ajv: 8.18.0
+      ajv-formats: 3.0.1(ajv@8.18.0)
+      content-type: 1.0.5
+      cors: 2.8.6
+      cross-spawn: 7.0.6
+      eventsource: 3.0.7
+      eventsource-parser: 3.0.6
+      express: 5.2.1
+      express-rate-limit: 8.3.1(express@5.2.1)
+      hono: 4.12.8
+      jose: 6.2.1
+      json-schema-typed: 8.0.2
+      pkce-challenge: 5.0.1
+      raw-body: 3.0.2
+      zod: 4.3.6
+      zod-to-json-schema: 3.25.1(zod@4.3.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -21678,6 +21735,10 @@ snapshots:
   zod-to-json-schema@3.25.1(zod@3.25.76):
     dependencies:
       zod: 3.25.76
+
+  zod-to-json-schema@3.25.1(zod@4.3.6):
+    dependencies:
+      zod: 4.3.6
 
   zod@3.25.76: {}
 

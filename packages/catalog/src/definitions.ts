@@ -628,11 +628,39 @@ function defaultsFromSchema(schema: z.ZodObject<z.ZodRawShape>): Record<string, 
   const defaults: Record<string, unknown> = {};
   const shape = schema.shape;
   for (const [key, field] of Object.entries(shape)) {
-    if (field instanceof z.ZodDefault) {
-      defaults[key] = field._def.defaultValue();
+    const defaultValue = getDefaultValue(field as z.ZodType);
+    if (defaultValue !== undefined) {
+      defaults[key] = defaultValue;
     }
   }
   return defaults;
+}
+
+function getDefaultValue(field: z.ZodType): unknown {
+  const def = (
+    field as z.ZodType & {
+      _def?: { defaultValue?: unknown };
+      def?: { defaultValue?: unknown };
+    }
+  ).def ?? (
+    field as z.ZodType & {
+      _def?: { defaultValue?: unknown };
+    }
+  )._def;
+
+  const defaultValue = def?.defaultValue;
+  if (typeof defaultValue === 'function') {
+    return defaultValue();
+  }
+  return defaultValue;
+}
+
+function unwrapField(field: z.ZodType): z.ZodType {
+  let inner = field;
+  while (inner instanceof z.ZodDefault || inner instanceof z.ZodNullable) {
+    inner = inner.unwrap() as z.ZodType;
+  }
+  return inner;
 }
 
 /** The complete component catalog with schemas and editor metadata */
@@ -2175,12 +2203,13 @@ export function catalogToPrompt(): string {
       const shape = schema.shape;
       const propDescriptions = Object.entries(shape)
         .map(([key, field]) => {
-          if (field instanceof z.ZodDefault) {
-            const inner = field._def.innerType;
+          const defaultValue = getDefaultValue(field as z.ZodType);
+          if (defaultValue !== undefined) {
+            const inner = unwrapField(field as z.ZodType);
             if (inner instanceof z.ZodEnum) {
-              return `  - ${key}: ${inner.options.map((o: string) => `"${o}"`).join(' | ')} (default: "${field._def.defaultValue()}")`;
+              return `  - ${key}: ${inner.options.map((option) => `"${String(option)}"`).join(' | ')} (default: "${defaultValue}")`;
             }
-            return `  - ${key}: ${inner.constructor.name.replace('Zod', '').toLowerCase()} (default: ${JSON.stringify(field._def.defaultValue())})`;
+            return `  - ${key}: ${inner.constructor.name.replace('Zod', '').toLowerCase()} (default: ${JSON.stringify(defaultValue)})`;
           }
           return `  - ${key}: ${(field as z.ZodType).constructor.name.replace('Zod', '').toLowerCase()}`;
         })

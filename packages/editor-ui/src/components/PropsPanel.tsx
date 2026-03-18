@@ -157,12 +157,8 @@ function SchemaField({
   );
 
   let innerField = field;
-  if (innerField instanceof z.ZodDefault) {
-    innerField = innerField._def.innerType;
-  }
-
-  if (innerField instanceof z.ZodNullable) {
-    innerField = innerField._def.innerType;
+  while (innerField instanceof z.ZodDefault || innerField instanceof z.ZodNullable) {
+    innerField = innerField.unwrap() as z.ZodType;
   }
 
   if (innerField instanceof z.ZodEnum) {
