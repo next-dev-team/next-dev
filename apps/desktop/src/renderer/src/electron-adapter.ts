@@ -1,12 +1,32 @@
 /**
  * Electron Host Adapter
  *
- * Implements the HostAdapter interface from editor-ui using
+ * Implements the host adapter contract using
  * the `window.designforge` API exposed by the preload script.
  */
 
-import type { HostAdapter } from '@next-dev/editor-ui/host';
 import type { DesignForgeAPI } from '../../preload/index';
+
+interface HostAdapter {
+  fs: {
+    read(path: string): Promise<string>;
+    write(path: string, content: string): Promise<void>;
+    pick(filters?: string[]): Promise<string | null>;
+    watch(path: string, cb: () => void): () => void;
+  };
+  theme: {
+    get(): 'light' | 'dark';
+    onChange(cb: (t: 'light' | 'dark') => void): () => void;
+  };
+  shell: {
+    open(url: string): void;
+    notify(msg: string): void;
+    clipboard: {
+      read(): Promise<string>;
+      write(s: string): Promise<void>;
+    };
+  };
+}
 
 declare global {
   interface Window {

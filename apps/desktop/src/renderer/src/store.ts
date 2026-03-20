@@ -6,7 +6,7 @@
  */
 
 import { generateReactViteProject } from '@next-dev/catalog';
-import { Document, type DesignSpec } from '@next-dev/editor-core';
+import { Document, type DesignSpec, type ElementBlueprint } from '@next-dev/editor-core';
 import { create } from 'zustand';
 import { subscribeWithSelector } from 'zustand/middleware';
 
@@ -18,7 +18,7 @@ interface PersistedEditorSession {
   spec: DesignSpec;
   filePath: string | null;
   isDirty: boolean;
-  activePanel: 'palette' | 'layers';
+  activePanel: 'providers' | 'palette' | 'blocks' | 'layers';
   zoom: number;
   isPreviewMode: boolean;
 }
@@ -52,7 +52,12 @@ function loadPersistedSession(): PersistedEditorSession | null {
       spec: parsed.spec,
       filePath: typeof parsed.filePath === 'string' ? parsed.filePath : null,
       isDirty: parsed.isDirty === true,
-      activePanel: parsed.activePanel === 'layers' ? 'layers' : 'palette',
+      activePanel:
+        parsed.activePanel === 'providers' ||
+        parsed.activePanel === 'layers' ||
+        parsed.activePanel === 'blocks'
+          ? parsed.activePanel
+          : 'palette',
       zoom: typeof parsed.zoom === 'number' ? parsed.zoom : 1,
       isPreviewMode: parsed.isPreviewMode === true,
     };
@@ -164,7 +169,7 @@ export interface DesktopEditorState {
   hoveredId: string | null;
 
   // ─── UI State ───────────────────────────────────────────────────────
-  activePanel: 'palette' | 'layers';
+  activePanel: 'providers' | 'palette' | 'blocks' | 'layers';
   zoom: number;
   canUndo: boolean;
   canRedo: boolean;
@@ -176,6 +181,7 @@ export interface DesktopEditorState {
     element: { type: string; props: Record<string, unknown>; __editor?: Record<string, unknown> },
     index?: number,
   ) => void;
+  insertElementTree: (parentId: string, blueprint: ElementBlueprint, index?: number) => void;
   removeElement: (elementId: string) => void;
   moveElement: (elementId: string, newParentId: string, index: number) => void;
   setProps: (elementId: string, props: Record<string, unknown>) => void;
@@ -198,7 +204,7 @@ export interface DesktopEditorState {
   paste: (parentId: string) => void;
 
   // ─── UI ─────────────────────────────────────────────────────────────
-  setActivePanel: (panel: 'palette' | 'layers') => void;
+  setActivePanel: (panel: 'providers' | 'palette' | 'blocks' | 'layers') => void;
   setZoom: (zoom: number) => void;
   togglePreviewMode: () => void;
 
@@ -225,7 +231,7 @@ export const useEditorStore = create<DesktopEditorState>()(
       isDirty: restoredSession?.isDirty ?? false,
       selectedIds: [],
       hoveredId: null,
-      activePanel: restoredSession?.activePanel ?? 'palette',
+      activePanel: restoredSession?.activePanel ?? 'providers',
       zoom: restoredSession?.zoom ?? 1,
       canUndo: false,
       canRedo: false,
@@ -234,6 +240,9 @@ export const useEditorStore = create<DesktopEditorState>()(
       // Element operations
       addElement: (parentId, element, index) => {
         get().document.add(parentId, element, index);
+      },
+      insertElementTree: (parentId, blueprint, index) => {
+        get().document.addTree(parentId, blueprint, index);
       },
       removeElement: (elementId) => {
         get().document.remove(elementId);

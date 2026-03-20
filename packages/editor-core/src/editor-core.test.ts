@@ -3,6 +3,7 @@ import { Document } from './document.js';
 import {
   createEmptySpec,
   addElement,
+  addSubtree,
   removeElement,
   moveElement,
   updateProps,
@@ -62,10 +63,15 @@ describe('addElement', () => {
     spec = applyPatch(spec, f1, false, true).newDocument;
 
     // Add second element at index 0
-    const [f2] = addElement(spec, spec.root, {
-      type: 'Text',
-      props: { children: 'Second' },
-    }, 0);
+    const [f2] = addElement(
+      spec,
+      spec.root,
+      {
+        type: 'Text',
+        props: { children: 'Second' },
+      },
+      0,
+    );
     spec = applyPatch(spec, f2, false, true).newDocument;
 
     // The Text should be first
@@ -81,6 +87,52 @@ describe('addElement', () => {
         props: {},
       }),
     ).toThrow('not found');
+  });
+});
+
+describe('addSubtree', () => {
+  it('adds a nested subtree to a parent in one operation', () => {
+    const spec = createEmptySpec();
+    const [forward] = addSubtree(spec, spec.root, {
+      type: 'Card',
+      props: { className: 'w-full max-w-md' },
+      __editor: { name: 'Login Card' },
+      children: [
+        {
+          type: 'CardHeader',
+          props: {},
+          children: [
+            {
+              type: 'CardTitle',
+              props: { children: 'Welcome back' },
+            },
+          ],
+        },
+        {
+          type: 'CardContent',
+          props: {},
+          children: [
+            {
+              type: 'Button',
+              props: { children: 'Continue' },
+            },
+          ],
+        },
+      ],
+    });
+
+    const newSpec = applyPatch(spec, forward, false, true).newDocument;
+    const cardId = newSpec.elements[spec.root].children[0];
+    const headerId = newSpec.elements[cardId].children[0];
+    const contentId = newSpec.elements[cardId].children[1];
+    const titleId = newSpec.elements[headerId].children[0];
+    const buttonId = newSpec.elements[contentId].children[0];
+
+    expect(newSpec.elements[cardId].type).toBe('Card');
+    expect(newSpec.elements[headerId].type).toBe('CardHeader');
+    expect(newSpec.elements[contentId].type).toBe('CardContent');
+    expect(newSpec.elements[titleId].props.children).toBe('Welcome back');
+    expect(newSpec.elements[buttonId].props.children).toBe('Continue');
   });
 });
 
@@ -324,22 +376,14 @@ describe('History', () => {
   });
 
   it('push enables undo', () => {
-    history.push(
-      [{ op: 'add', path: '/x', value: 1 }],
-      [{ op: 'remove', path: '/x' }],
-      'Add x',
-    );
+    history.push([{ op: 'add', path: '/x', value: 1 }], [{ op: 'remove', path: '/x' }], 'Add x');
     expect(history.canUndo).toBe(true);
     expect(history.undoLabel).toBe('Add x');
   });
 
   it('undo returns reverse patches', () => {
     const reverse = [{ op: 'remove' as const, path: '/x' }];
-    history.push(
-      [{ op: 'add', path: '/x', value: 1 }],
-      reverse,
-      'Add x',
-    );
+    history.push([{ op: 'add', path: '/x', value: 1 }], reverse, 'Add x');
 
     const patches = history.undo();
     expect(patches).toEqual(reverse);
@@ -368,7 +412,11 @@ describe('History', () => {
   it('respects max size', () => {
     const h = new History({ maxSize: 3 });
     for (let i = 0; i < 5; i++) {
-      h.push([{ op: 'add', path: `/${i}`, value: i }], [{ op: 'remove', path: `/${i}` }], `Step ${i}`);
+      h.push(
+        [{ op: 'add', path: `/${i}`, value: i }],
+        [{ op: 'remove', path: `/${i}` }],
+        `Step ${i}`,
+      );
     }
     expect(h.undoCount).toBe(3);
   });
@@ -443,7 +491,9 @@ describe('Selection', () => {
 
   it('onChange notifies listeners', () => {
     let callCount = 0;
-    selection.onChange(() => { callCount++; });
+    selection.onChange(() => {
+      callCount++;
+    });
     selection.select('a');
     expect(callCount).toBe(1);
   });
@@ -466,6 +516,30 @@ describe('Document', () => {
   it('add creates an element', () => {
     doc.add(doc.rootId, { type: 'Button', props: { children: 'Hi' } });
     expect(Object.keys(doc.spec.elements).length).toBe(2);
+  });
+
+  it('addTree inserts a block as a single undoable action', () => {
+    doc.addTree(doc.rootId, {
+      type: 'Stack',
+      props: { direction: 'vertical', className: 'gap-4' },
+      __editor: { name: 'Login Block' },
+      children: [
+        {
+          type: 'Text',
+          props: { children: 'Welcome', variant: 'h1' },
+        },
+        {
+          type: 'Button',
+          props: { children: 'Sign in' },
+        },
+      ],
+    });
+
+    expect(Object.keys(doc.spec.elements).length).toBe(4);
+    doc.undo();
+    expect(Object.keys(doc.spec.elements).length).toBe(1);
+    doc.redo();
+    expect(Object.keys(doc.spec.elements).length).toBe(4);
   });
 
   it('undo reverses add', () => {
@@ -515,7 +589,9 @@ describe('Document', () => {
 
   it('onChange notifies on mutations', () => {
     let callCount = 0;
-    doc.onChange(() => { callCount++; });
+    doc.onChange(() => {
+      callCount++;
+    });
     doc.add(doc.rootId, { type: 'Button', props: {} });
     expect(callCount).toBeGreaterThan(0);
   });

@@ -13,6 +13,12 @@
 
 import type { DesignSpec, Element } from '@next-dev/editor-core';
 import { catalog, catalogToPrompt, type ComponentType } from '@next-dev/catalog';
+import {
+  collectSubtreeElementIds,
+  parsePromptWithContext,
+  resolveSelectedElementTarget,
+  resolveValidationHintTarget,
+} from '@/chat-context';
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -109,7 +115,9 @@ Operation types: add (parentId, elementType, props), remove (elementId), updateP
 Example - "Add a button that says Submit":
 {"description":"Added Submit button","operations":[{"type":"add","parentId":"${spec.root}","elementType":"Button","props":{"children":"Submit","variant":"default"}}]}
 
-Rules: Use ONLY listed components. Return ONLY JSON. No markdown fences.`;
+Rules: Use ONLY listed components. Return ONLY JSON. No markdown fences.
+If the user prompt contains a DesignForge chat context block with selected_element_id, treat relative edit requests as targeting that element first.
+If provider.validation is present in the context block, keep validation-related changes aligned with that provider.`;
 }
 
 // ─── Mock Provider ──────────────────────────────────────────────────────────
@@ -140,17 +148,24 @@ export class MockProvider implements AIProvider {
   }
 
   private parse(prompt: string, spec: DesignSpec): AIResponse {
-    const p = prompt.trim().toLowerCase();
+    const promptContext = parsePromptWithContext(prompt);
+    const request = promptContext.request || prompt.trim();
+    const p = request.toLowerCase();
     const rootId = spec.root;
 
     // Remove commands
     if (p.startsWith('remove') || p.startsWith('delete')) {
-      return this.handleRemove(p, spec);
+      return this.handleRemove(request, spec, promptContext.selectedElementId);
     }
 
     // Update commands
     if (p.startsWith('change') || p.startsWith('update') || p.startsWith('set') || p.startsWith('make')) {
-      return this.handleUpdate(p, spec);
+      return this.handleUpdate(
+        request,
+        spec,
+        promptContext.selectedElementId,
+        promptContext.providerSelection.validation,
+      );
     }
 
     // Login form
@@ -177,7 +192,7 @@ export class MockProvider implements AIProvider {
     if (matchedType) {
       const entry = catalog[matchedType];
       const defaultProps = extractDefaults(entry.schema);
-      const quoted = extractQuotedText(prompt);
+      const quoted = extractQuotedText(request);
       if (quoted && 'children' in defaultProps) defaultProps.children = quoted;
 
       // Variant extraction
@@ -196,7 +211,7 @@ export class MockProvider implements AIProvider {
 
     // Text fallback
     if (p.includes('text') || p.includes('heading') || p.includes('paragraph')) {
-      const text = extractQuotedText(prompt) ?? 'Sample text';
+      const text = extractQuotedText(request) ?? 'Sample text';
       let variant = 'default';
       if (p.includes('heading') || p.includes('h1')) variant = 'h1';
       else if (p.includes('h2')) variant = 'h2';
@@ -215,13 +230,23 @@ export class MockProvider implements AIProvider {
     };
   }
 
-  private handleRemove(prompt: string, spec: DesignSpec): AIResponse {
+  private handleRemove(prompt: string, spec: DesignSpec, selectedElementId: string | null): AIResponse {
+    const normalizedPrompt = prompt.toLowerCase();
     const componentTypes = Object.keys(catalog) as ComponentType[];
-    const matched = componentTypes.find((t) => prompt.includes(t.toLowerCase()));
+    const matched = componentTypes.find((t) => normalizedPrompt.includes(t.toLowerCase()));
+    if (!matched && selectedElementId) {
+      const target = spec.elements[selectedElementId];
+      if (!target) return { operations: [], description: 'Could not determine which element to remove.' };
+      return {
+        operations: [{ type: 'remove', elementId: selectedElementId }],
+        description: `Removed ${describeElement(spec, selectedElementId)}.`,
+      };
+    }
     if (!matched) return { operations: [], description: 'Could not determine which element to remove.' };
 
-    const all = prompt.includes('all');
-    const matches = findByType(spec, matched);
+    const all = normalizedPrompt.includes('all');
+    const scopedMatches = selectedElementId ? findByTypeInScope(spec, matched, selectedElementId) : [];
+    const matches = scopedMatches.length > 0 ? scopedMatches : findByType(spec, matched);
     if (matches.length === 0) return { operations: [], description: `No ${matched} elements found.` };
 
     const targets = all ? matches : [matches[0]];
@@ -231,19 +256,54 @@ export class MockProvider implements AIProvider {
     };
   }
 
-  private handleUpdate(prompt: string, spec: DesignSpec): AIResponse {
+  private handleUpdate(
+    prompt: string,
+    spec: DesignSpec,
+    selectedElementId: string | null,
+    validationProvider?: string,
+  ): AIResponse {
+    const normalizedPrompt = prompt.toLowerCase();
     const componentTypes = Object.keys(catalog) as ComponentType[];
-    const matched = componentTypes.find((t) => prompt.includes(t.toLowerCase()));
-    const targets = matched ? findByType(spec, matched) : Object.entries(spec.elements).filter(([id]) => id !== spec.root);
+    const matched = componentTypes.find((t) => normalizedPrompt.includes(t.toLowerCase()));
+    const targets = resolveUpdateTargets(spec, matched, selectedElementId);
     if (targets.length === 0) return { operations: [], description: 'No matching elements found.' };
 
     const [targetId] = targets[0];
     const updatedProps: Record<string, unknown> = {};
     const quoted = extractQuotedText(prompt);
+    const requiredIntent = /\brequired\b/.test(normalizedPrompt) || /\brequire\b/.test(normalizedPrompt);
+    if (requiredIntent) {
+      const fieldTargetId = resolveSelectedElementTarget(spec, selectedElementId ?? targetId) ?? targetId;
+      const operations: AIOperation[] = [
+        {
+          type: 'updateProps',
+          elementId: fieldTargetId,
+          updatedProps: { required: true },
+        },
+      ];
+
+      const hintTargetId = resolveValidationHintTarget(spec, selectedElementId ?? targetId);
+      if (hintTargetId) {
+        operations.push({
+          type: 'updateProps',
+          elementId: hintTargetId,
+          updatedProps: {
+            children: buildRequiredHint(validationProvider),
+          },
+        });
+      }
+
+      return {
+        operations,
+        description: buildRequiredDescription(spec, fieldTargetId, validationProvider),
+      };
+    }
+
     if (quoted) updatedProps.children = quoted;
-    if (prompt.includes('destructive')) updatedProps.variant = 'destructive';
-    if (prompt.includes('outline')) updatedProps.variant = 'outline';
-    if (prompt.includes('disabled')) updatedProps.disabled = true;
+    if (normalizedPrompt.includes('destructive')) updatedProps.variant = 'destructive';
+    if (normalizedPrompt.includes('outline')) updatedProps.variant = 'outline';
+    if (normalizedPrompt.includes('disabled')) updatedProps.disabled = true;
+    if (normalizedPrompt.includes('enabled')) updatedProps.disabled = false;
 
     if (Object.keys(updatedProps).length === 0) {
       return { operations: [], description: 'Could not determine what to change.' };
@@ -739,6 +799,66 @@ export function createProvider(config: ProviderConfig): AIProvider {
 
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function resolveUpdateTargets(
+  spec: DesignSpec,
+  matchedType: ComponentType | undefined,
+  selectedElementId: string | null,
+): [string, Element][] {
+  if (selectedElementId) {
+    if (matchedType) {
+      const scopedMatches = findByTypeInScope(spec, matchedType, selectedElementId);
+      if (scopedMatches.length > 0) return scopedMatches;
+    }
+
+    const selectedTargetId = resolveSelectedElementTarget(spec, selectedElementId) ?? selectedElementId;
+    const selectedTarget = spec.elements[selectedTargetId];
+    if (selectedTarget) return [[selectedTargetId, selectedTarget]];
+  }
+
+  return matchedType
+    ? findByType(spec, matchedType)
+    : Object.entries(spec.elements).filter(([id]) => id !== spec.root);
+}
+
+function findByTypeInScope(spec: DesignSpec, type: string, rootId: string): [string, Element][] {
+  const scopeIds = new Set(collectSubtreeElementIds(spec, rootId));
+  return findByType(spec, type).filter(([id]) => scopeIds.has(id));
+}
+
+function describeElement(spec: DesignSpec, elementId: string): string {
+  const element = spec.elements[elementId];
+  if (!element) return 'element';
+  return element.__editor?.name ?? element.type;
+}
+
+function buildRequiredHint(validationProvider?: string): string {
+  if (validationProvider === 'react-hook-form') {
+    return 'Required. Enforce this with React Hook Form rules and surface field errors before submit.';
+  }
+
+  if (validationProvider === 'tanstack-form') {
+    return 'Required. Enforce this with TanStack Form validators before submit.';
+  }
+
+  return 'Required. Validate before submit.';
+}
+
+function buildRequiredDescription(
+  spec: DesignSpec,
+  elementId: string,
+  validationProvider?: string,
+): string {
+  const providerLabel =
+    validationProvider === 'react-hook-form'
+      ? 'React Hook Form'
+      : validationProvider === 'tanstack-form'
+        ? 'TanStack Form'
+        : null;
+  return providerLabel
+    ? `Marked ${describeElement(spec, elementId)} as required using ${providerLabel} guidance.`
+    : `Marked ${describeElement(spec, elementId)} as required.`;
 }
 
 function extractQuotedText(input: string): string | null {

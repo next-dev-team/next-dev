@@ -4,7 +4,7 @@
  * Features:
  * - Message thread with user/assistant/system bubbles
  * - Live streaming text with typing indicator
- * - Real-time visual preview via @next-dev/json-render
+ * - Real-time visual preview via json-render's React runtime
  * - JSON operations inspector with syntax highlighting
  * - Accept / Reject buttons for AI-generated changes
  * - Provider settings (Mock, OpenAI/Local LLM, MCP)
@@ -15,8 +15,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useChatStore, type ChatMessage, type ChatMode } from '@/chat-store';
 import { useSettingsStore } from '@/settings-store';
+import { useEditorStore } from '@/store';
 import type { AIOperation, ProviderType } from '@/ai-providers';
-import { renderOperations } from '@next-dev/json-render';
+import {
+  createSelectedElementReference,
+  type SelectedElementReference,
+} from '@/chat-context';
+import type { CatalogBlockProviderSelection } from '@next-dev/catalog';
+import { JsonRenderOperationPreview } from '@next-dev/json-render';
 import {
   Send,
   Square,
@@ -74,9 +80,26 @@ const PROVIDER_LABELS: Record<ProviderType, string> = {
   mcp: 'MCP Server',
 };
 
+function SelectedNodeChip({
+  reference,
+  muted = false,
+}: {
+  reference: SelectedElementReference;
+  muted?: boolean;
+}) {
+  return (
+    <div className="chat-context-chip" data-muted={muted}>
+      <span className="chat-context-chip-label">{reference.label}</span>
+      <span className="chat-context-chip-id">#{reference.shortId}</span>
+    </div>
+  );
+}
+
 // ─── Visual Preview (via json-render) ───────────────────────────────────────
 
 function VisualPreview({ operations }: { operations: AIOperation[] }) {
+  const spec = useEditorStore((state) => state.spec);
+
   if (operations.length === 0) return null;
 
   return (
@@ -86,7 +109,12 @@ function VisualPreview({ operations }: { operations: AIOperation[] }) {
         <span>Live Preview</span>
       </div>
       <div className="op-preview-canvas">
-        {renderOperations(operations, { scale: 0.55, interactive: false })}
+        <JsonRenderOperationPreview
+          baseSpec={spec}
+          operations={operations}
+          scale={0.55}
+          interactive={true}
+        />
       </div>
     </div>
   );
@@ -206,6 +234,11 @@ function MessageBubble({ message }: { message: ChatMessage }) {
         <Icon size={14} />
       </div>
       <div className="chat-message-body">
+        {message.selectionRef && (
+          <div className="chat-message-reference">
+            <SelectedNodeChip reference={message.selectionRef} muted={true} />
+          </div>
+        )}
         <div className="chat-message-content">
           {message.content}
           {message.streaming && <span className="typing-cursor" />}
@@ -301,7 +334,11 @@ function SettingsPanel() {
 
 // ─── Chat Panel ─────────────────────────────────────────────────────────────
 
-export function ChatPanel() {
+export function ChatPanel({
+  providerSelection,
+}: {
+  providerSelection: CatalogBlockProviderSelection;
+}) {
   const messages = useChatStore((s) => s.messages);
   const isStreaming = useChatStore((s) => s.isStreaming);
   const mode = useChatStore((s) => s.mode);
@@ -313,6 +350,8 @@ export function ChatPanel() {
   const setMode = useChatStore((s) => s.setMode);
   const setInputValue = useChatStore((s) => s.setInputValue);
   const openSettings = useSettingsStore((s) => s.openSettings);
+  const spec = useEditorStore((s) => s.spec);
+  const selectedIds = useEditorStore((s) => s.selectedIds);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -337,9 +376,21 @@ export function ChatPanel() {
     inputRef.current?.focus();
   }, []);
 
+  const selectedReference =
+    mode === 'edit' && selectedIds.length === 1
+      ? createSelectedElementReference(spec, selectedIds[0])
+      : null;
+
+  const sendPrompt = (prompt: string) =>
+    sendMessage(prompt, {
+      mode,
+      selectedElement: selectedReference,
+      providerSelection,
+    });
+
   const handleSubmit = () => {
     if (!inputValue.trim() || isStreaming) return;
-    sendMessage(inputValue);
+    sendPrompt(inputValue);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -426,7 +477,7 @@ export function ChatPanel() {
                 key={prompt}
                 type="button"
                 className="chat-suggestion-btn"
-                onClick={() => sendMessage(prompt)}
+                onClick={() => sendPrompt(prompt)}
               >
                 <Sparkles size={12} />
                 {prompt}
@@ -440,16 +491,27 @@ export function ChatPanel() {
       <div className="chat-input-area">
         <div className="chat-input-wrapper">
           <ModeIcon size={14} className="chat-input-mode-icon" style={{ color: modeConfig.color }} />
-          <textarea
-            ref={inputRef}
-            className="chat-input"
-            rows={1}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder={modeConfig.placeholder}
-            disabled={isStreaming}
-          />
+          <div className="chat-input-column">
+            {mode === 'edit' && selectedReference && (
+              <div className="chat-context-row">
+                <span className="chat-context-label">Target</span>
+                <SelectedNodeChip reference={selectedReference} />
+              </div>
+            )}
+            {mode === 'edit' && !selectedReference && (
+              <div className="chat-context-empty">Select one node to target edit-mode changes.</div>
+            )}
+            <textarea
+              ref={inputRef}
+              className="chat-input"
+              rows={1}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder={modeConfig.placeholder}
+              disabled={isStreaming}
+            />
+          </div>
           {isStreaming ? (
             <button type="button" className="chat-send-btn chat-cancel-btn" onClick={cancelStream}>
               <Square size={14} />

@@ -15,6 +15,31 @@ export {
   getComponentTypes,
 } from './definitions.js';
 export type { CatalogEntry, ComponentType } from './definitions.js';
+export {
+  blockCategories,
+  catalogBlockProviders,
+  catalogBlocks,
+  getCatalogBlockProviderFamilies,
+  getDefaultBlockProviderSelection,
+  getDefaultCatalogProviderSelection,
+  getBlockCategories,
+  getCatalogBlock,
+  getCatalogBlocks,
+  getCatalogBlocksByCategory,
+  resolveCatalogProviderSelection,
+  resolveBlockProviderSelection,
+} from './blocks.js';
+export type {
+  CatalogBlock,
+  CatalogBlockCategory,
+  CatalogBlockCategoryId,
+  CatalogBlockId,
+  CatalogBlockProviderFamily,
+  CatalogBlockProviderFamilyId,
+  CatalogBlockProviderId,
+  CatalogBlockProviderOption,
+  CatalogBlockProviderSelection,
+} from './blocks.js';
 
 export {
   activeCatalog,

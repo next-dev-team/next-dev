@@ -20,12 +20,16 @@
     "react": ">=18"
   },
   "dependencies": {
+    "@json-render/react": "^0.14.1",
+    "@json-render/zustand": "^0.14.1",
+    "@next-dev/catalog": "workspace:*",
     "@next-dev/editor-core": "workspace:*"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.1",
     "@types/react": "^19.0.0",
     "react": "^19.0.0",
+    "zustand": "^5.0.5",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3"
   }

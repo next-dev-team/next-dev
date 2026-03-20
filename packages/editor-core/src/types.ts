@@ -34,6 +34,18 @@ export interface Element {
   __editor?: EditorMeta;
 }
 
+/** Nested element input used by blocks/templates before IDs are assigned. */
+export interface ElementBlueprint {
+  /** Component type from the catalog: "Button", "Card", "Stack", etc. */
+  type: string;
+  /** Props passed to the component at render time */
+  props: Record<string, unknown>;
+  /** Nested child elements */
+  children?: ElementBlueprint[];
+  /** Editor-only metadata — stripped on export */
+  __editor?: EditorMeta;
+}
+
 // ─── Spec ───────────────────────────────────────────────────────────────────
 
 /** The DesignSpec is the document. Everything flows from this. */

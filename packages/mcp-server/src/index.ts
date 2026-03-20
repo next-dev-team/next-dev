@@ -19,9 +19,16 @@
  * - designforge_export_code — spec → standalone React project files
  */
 
+import { registerJsonRenderResource, registerJsonRenderTool } from '@json-render/mcp';
+import { buildAppHtml } from '@json-render/mcp/app';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { catalogToPrompt, generateReactViteProject, getComponentTypes } from '@next-dev/catalog';
+import {
+  catalogToPrompt,
+  generateReactViteProject,
+  getCatalogContract,
+  getComponentTypes,
+} from '@next-dev/catalog';
 import { Document, type DesignSpec } from '@next-dev/editor-core';
 import { writeFileSync, readFileSync, existsSync } from 'node:fs';
 import { mkdir, readFile as readFileAsync, unlink, writeFile } from 'node:fs/promises';
@@ -134,6 +141,270 @@ const pendingParentRpc = new Map<number, {
 let nextParentRpcId = 1;
 let nextLiveMutationRequestId = 1;
 const LIVE_MUTATION_TIMEOUT_MS = 30000;
+const JSON_RENDER_APP_RESOURCE_URI = 'ui://designforge/render-ui.html';
+
+function buildJsonRenderAppJs(): string {
+  return `
+import React from "https://esm.sh/react@19.2.4?bundle";
+import { createRoot } from "https://esm.sh/react-dom@19.2.4/client?bundle";
+import { JSONUIProvider, Renderer } from "https://esm.sh/@json-render/react@0.14.1?bundle";
+import { useJsonRenderApp } from "https://esm.sh/@json-render/mcp@0.14.1/app?bundle";
+
+const h = React.createElement;
+
+const surface = {
+  background: "#0f172a",
+  border: "1px solid rgba(148, 163, 184, 0.24)",
+  borderRadius: "16px",
+  boxShadow: "0 20px 45px rgba(15, 23, 42, 0.24)",
+};
+
+const textStyles = {
+  default: {},
+  h1: { fontSize: "2rem", fontWeight: 700, letterSpacing: "-0.025em" },
+  h2: { fontSize: "1.6rem", fontWeight: 600, letterSpacing: "-0.02em" },
+  h3: { fontSize: "1.25rem", fontWeight: 600 },
+  h4: { fontSize: "1.1rem", fontWeight: 600 },
+  p: { lineHeight: 1.7 },
+  lead: { fontSize: "1.1rem", color: "#cbd5e1" },
+  large: { fontSize: "1rem", fontWeight: 600 },
+  small: { fontSize: "0.85rem", fontWeight: 500 },
+  muted: { fontSize: "0.9rem", color: "#94a3b8" },
+  code: {
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
+    fontSize: "0.85rem",
+    background: "rgba(15, 23, 42, 0.75)",
+    padding: "0.15rem 0.4rem",
+    borderRadius: "0.4rem",
+  },
+};
+
+const registry = {
+  Stack: ({ props, children }) =>
+    h("div", {
+      style: {
+        display: "flex",
+        flexDirection: props.direction === "horizontal" ? "row" : "column",
+        gap: "0.75rem",
+        padding: "1rem",
+      },
+      children,
+    }),
+  Card: ({ children }) =>
+    h("div", {
+      style: {
+        ...surface,
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
+        padding: "1.25rem",
+      },
+      children,
+    }),
+  CardHeader: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.35rem" }, children }),
+  CardTitle: ({ props }) => h("div", { style: { fontSize: "1.1rem", fontWeight: 600 }, children: props.children ?? "Card Title" }),
+  CardDescription: ({ props }) => h("div", { style: { color: "#94a3b8", fontSize: "0.95rem" }, children: props.children ?? "Description" }),
+  CardContent: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.75rem" }, children }),
+  CardFooter: ({ children }) => h("div", { style: { display: "flex", gap: "0.75rem", flexWrap: "wrap" }, children }),
+  Text: ({ props }) => h("div", { style: textStyles[props.variant] ?? textStyles.default, children: props.children ?? props.content ?? "Text" }),
+  Badge: ({ props }) => h("span", {
+    style: {
+      display: "inline-flex",
+      alignItems: "center",
+      width: "fit-content",
+      borderRadius: "999px",
+      padding: "0.2rem 0.65rem",
+      fontSize: "0.8rem",
+      fontWeight: 600,
+      background: props.variant === "outline" ? "transparent" : "#2563eb",
+      color: "#ffffff",
+      border: props.variant === "outline" ? "1px solid rgba(148, 163, 184, 0.4)" : "none",
+    },
+    children: props.children ?? "Badge",
+  }),
+  Button: ({ props }) => h("button", {
+    type: "button",
+    style: {
+      border: props.variant === "outline" ? "1px solid rgba(148, 163, 184, 0.4)" : "none",
+      borderRadius: "0.75rem",
+      padding: "0.65rem 1rem",
+      background: props.variant === "secondary" ? "#1e293b" : props.variant === "outline" ? "transparent" : "#2563eb",
+      color: "#ffffff",
+      fontWeight: 600,
+      cursor: "pointer",
+      opacity: props.disabled ? 0.6 : 1,
+    },
+    disabled: props.disabled === true,
+    children: props.children ?? props.label ?? "Button",
+  }),
+  Label: ({ props }) => h("label", { style: { fontSize: "0.85rem", fontWeight: 600, color: "#cbd5e1" }, children: props.children ?? "Label" }),
+  Input: ({ props }) => h("input", {
+    placeholder: props.placeholder ?? "",
+    type: props.type ?? "text",
+    value: props.value ?? "",
+    disabled: props.disabled === true,
+    readOnly: true,
+    style: {
+      width: "100%",
+      borderRadius: "0.75rem",
+      border: "1px solid rgba(148, 163, 184, 0.24)",
+      background: "rgba(15, 23, 42, 0.66)",
+      color: "#e2e8f0",
+      padding: "0.7rem 0.9rem",
+    },
+  }),
+  Textarea: ({ props }) => h("textarea", {
+    placeholder: props.placeholder ?? "",
+    value: props.value ?? "",
+    disabled: props.disabled === true,
+    readOnly: true,
+    rows: props.numberOfLines ?? 4,
+    style: {
+      width: "100%",
+      minHeight: "6rem",
+      borderRadius: "0.75rem",
+      border: "1px solid rgba(148, 163, 184, 0.24)",
+      background: "rgba(15, 23, 42, 0.66)",
+      color: "#e2e8f0",
+      padding: "0.7rem 0.9rem",
+      resize: "vertical",
+    },
+  }),
+  Checkbox: ({ props }) => h("input", { type: "checkbox", checked: !!props.checked, disabled: true }),
+  Switch: ({ props }) => h("div", {
+    style: {
+      width: "2.5rem",
+      height: "1.4rem",
+      borderRadius: "999px",
+      background: props.checked ? "#2563eb" : "#334155",
+      position: "relative",
+      opacity: props.disabled ? 0.6 : 1,
+    },
+    children: h("div", {
+      style: {
+        width: "1rem",
+        height: "1rem",
+        borderRadius: "50%",
+        background: "#ffffff",
+        position: "absolute",
+        top: "0.2rem",
+        left: props.checked ? "1.25rem" : "0.2rem",
+      },
+    }),
+  }),
+  Tabs: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.75rem" }, children }),
+  TabsList: ({ children }) => h("div", { style: { display: "inline-flex", gap: "0.4rem", padding: "0.35rem", borderRadius: "0.9rem", background: "rgba(15, 23, 42, 0.7)" }, children }),
+  TabsTrigger: ({ props }) => h("button", { type: "button", style: { border: "none", borderRadius: "0.65rem", background: "transparent", color: "#e2e8f0", padding: "0.45rem 0.8rem" }, children: props.children ?? "Tab" }),
+  TabsContent: ({ children }) => h("div", { style: { ...surface, padding: "1rem" }, children }),
+  Popover: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.6rem" }, children }),
+  PopoverTrigger: ({ children }) => h("div", { children }),
+  PopoverContent: ({ children }) => h("div", { style: { ...surface, padding: "0.85rem" }, children }),
+  Tooltip: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.4rem" }, children }),
+  TooltipTrigger: ({ children }) => h("div", { children }),
+  TooltipContent: ({ props }) => h("div", { style: { background: "#020617", color: "#ffffff", borderRadius: "0.55rem", padding: "0.35rem 0.6rem", fontSize: "0.78rem" }, children: props.children ?? "Tooltip" }),
+  Dialog: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.75rem" }, children }),
+  DialogTrigger: ({ children }) => h("div", { children }),
+  DialogContent: ({ children }) => h("div", { style: { ...surface, padding: "1rem" }, children }),
+  DialogHeader: ({ children }) => h("div", { style: { display: "flex", flexDirection: "column", gap: "0.4rem" }, children }),
+  DialogTitle: ({ props }) => h("div", { style: { fontWeight: 700, fontSize: "1.05rem" }, children: props.children ?? "Dialog Title" }),
+  DialogDescription: ({ props }) => h("div", { style: { color: "#94a3b8", fontSize: "0.92rem" }, children: props.children ?? "Dialog description" }),
+  DialogFooter: ({ children }) => h("div", { style: { display: "flex", gap: "0.75rem", flexWrap: "wrap" }, children }),
+};
+
+function Fallback({ element }) {
+  return h("div", {
+    style: {
+      border: "1px dashed rgba(148, 163, 184, 0.4)",
+      borderRadius: "0.75rem",
+      padding: "0.85rem",
+      color: "#94a3b8",
+    },
+    children: element.type,
+  });
+}
+
+function EmptyState({ label }) {
+  return h("div", {
+    style: {
+      minHeight: "100vh",
+      display: "grid",
+      placeItems: "center",
+      color: "#94a3b8",
+      padding: "2rem",
+      textAlign: "center",
+    },
+    children: label,
+  });
+}
+
+function App() {
+  const { spec, loading, connecting, connected, error } = useJsonRenderApp({
+    name: "designforge",
+    version: "0.0.1",
+  });
+
+  if (error) {
+    return h(EmptyState, { label: "Failed to connect to the DesignForge MCP app." });
+  }
+
+  if (connecting || !connected) {
+    return h(EmptyState, { label: "Connecting to DesignForge..." });
+  }
+
+  if (!spec) {
+    return h(EmptyState, { label: "Waiting for a json-render spec from the server tool." });
+  }
+
+  return h("div", {
+    style: {
+      minHeight: "100vh",
+      background: "linear-gradient(180deg, #020617 0%, #0f172a 100%)",
+      color: "#e2e8f0",
+      padding: "1.5rem",
+      fontFamily: "Inter, ui-sans-serif, system-ui, sans-serif",
+    },
+    children: h(JSONUIProvider, {
+      registry,
+      initialState: spec.state ?? {},
+      handlers: {},
+      children: h(Renderer, {
+        spec,
+        registry,
+        loading,
+        fallback: Fallback,
+      }),
+    }),
+  });
+}
+
+createRoot(document.getElementById("root")).render(h(App));
+`;
+}
+
+const jsonRenderAppHtml = buildAppHtml({
+  title: 'DesignForge Render UI',
+  js: buildJsonRenderAppJs(),
+  css: `
+    :root {
+      color-scheme: dark;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body,
+    #root {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+  `,
+});
 
 function getChannelFilePath(channelId: string): string {
   return resolve(channelRootDir, `${encodeURIComponent(channelId)}.json`);
@@ -1646,6 +1917,19 @@ server.tool(
 // ─── Start ──────────────────────────────────────────────────────────────────
 
 async function main() {
+  await registerJsonRenderResource(server, {
+    resourceUri: JSON_RENDER_APP_RESOURCE_URI,
+    html: jsonRenderAppHtml,
+  });
+
+  await registerJsonRenderTool(server, {
+    catalog: getCatalogContract(),
+    name: 'designforge_render_ui',
+    title: 'Render Design UI',
+    description: 'Render a DesignForge/json-render spec as an interactive MCP app preview.',
+    resourceUri: JSON_RENDER_APP_RESOURCE_URI,
+  });
+
   const transport = new StdioServerTransport();
   await server.connect(transport);
   console.error('DesignForge MCP Server running on stdio');

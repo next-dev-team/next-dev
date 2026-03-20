@@ -14,7 +14,7 @@
 import jsonpatch from 'fast-json-patch';
 const { compare } = jsonpatch;
 import { nanoid } from 'nanoid';
-import type { DesignSpec, Element, PatchOperation } from './types.js';
+import type { DesignSpec, Element, ElementBlueprint, PatchOperation } from './types.js';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -35,10 +35,7 @@ function clone<T>(value: T): T {
  * Compute RFC 6902 patches between two spec states.
  * Returns [forward, reverse] patch pairs.
  */
-function diffSpec(
-  before: DesignSpec,
-  after: DesignSpec,
-): [PatchOperation[], PatchOperation[]] {
+function diffSpec(before: DesignSpec, after: DesignSpec): [PatchOperation[], PatchOperation[]] {
   const forward = compare(before, after) as PatchOperation[];
   const reverse = compare(after, before) as PatchOperation[];
   return [forward, reverse];
@@ -68,6 +65,24 @@ function collectDescendants(spec: DesignSpec, elementId: string): string[] {
     result.push(...collectDescendants(spec, childId));
   }
   return result;
+}
+
+/** Materialize a nested blueprint tree into the flat element map. */
+function materializeBlueprint(
+  elements: DesignSpec['elements'],
+  blueprint: ElementBlueprint,
+): string {
+  const id = generateId();
+  const childIds = (blueprint.children ?? []).map((child) => materializeBlueprint(elements, child));
+
+  elements[id] = {
+    type: blueprint.type,
+    props: clone(blueprint.props),
+    children: childIds,
+    __editor: blueprint.__editor ? clone(blueprint.__editor) : undefined,
+  };
+
+  return id;
 }
 
 // ─── Create Empty Spec ──────────────────────────────────────────────────────
@@ -125,6 +140,28 @@ export function addElement(
   // Insert into parent's children
   const insertIdx = index ?? parent.children.length;
   after.elements[parentId].children.splice(insertIdx, 0, id);
+
+  return diffSpec(spec, after);
+}
+
+/**
+ * Add a nested subtree to a parent.
+ * Returns [forward, reverse] patches.
+ */
+export function addSubtree(
+  spec: DesignSpec,
+  parentId: string,
+  blueprint: ElementBlueprint,
+  index?: number,
+): [PatchOperation[], PatchOperation[]] {
+  const parent = spec.elements[parentId];
+  if (!parent) throw new Error(`Parent element "${parentId}" not found`);
+
+  const after = clone(spec);
+  const subtreeRootId = materializeBlueprint(after.elements, blueprint);
+  const insertIdx = index ?? parent.children.length;
+
+  after.elements[parentId].children.splice(insertIdx, 0, subtreeRootId);
 
   return diffSpec(spec, after);
 }
@@ -370,11 +407,7 @@ export function duplicateElement(
 
   // Insert the duplicate after the original in the parent
   const newRootId = idMap.get(elementId)!;
-  after.elements[parentInfo.parentId].children.splice(
-    parentInfo.index + 1,
-    0,
-    newRootId,
-  );
+  after.elements[parentInfo.parentId].children.splice(parentInfo.index + 1, 0, newRootId);
 
   return diffSpec(spec, after);
 }

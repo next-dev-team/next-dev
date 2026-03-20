@@ -17,6 +17,7 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
+    "@json-render/mcp": "^0.14.1",
     "@modelcontextprotocol/sdk": "^1.12.1",
     "@next-dev/catalog": "workspace:*",
     "@next-dev/editor-core": "workspace:*",

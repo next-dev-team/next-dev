@@ -17,3 +17,11 @@
 
 export { renderers, type ComponentRenderer, type RenderContext } from './renderers.js';
 export { JsonRender, renderNode, renderOperations, type JsonRenderProps } from './render.js';
+export {
+  buildPreviewSpecFromOperations,
+  JsonRenderOperationPreview,
+  JsonRenderPreview,
+  type JsonRenderOperationPreviewProps,
+  type JsonRenderPreviewProps,
+  type PreviewOperation,
+} from './preview.js';

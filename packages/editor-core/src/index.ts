@@ -11,6 +11,7 @@ export type {
   ComponentMeta,
   DesignFile,
   DesignSpec,
+  ElementBlueprint,
   EditorMeta,
   EditorState,
   Element,
@@ -47,6 +48,7 @@ export type { DocumentListener, DocumentOptions } from './document.js';
 // Operations (pure functions)
 export {
   addElement,
+  addSubtree,
   createEmptySpec,
   duplicateElement,
   findParent,

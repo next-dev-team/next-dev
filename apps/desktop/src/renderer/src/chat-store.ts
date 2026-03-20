@@ -17,6 +17,12 @@ import {
   type AIStreamChunk,
   type ProviderConfig,
 } from '@/ai-providers';
+import {
+  buildPromptWithContext,
+  type ChatRequestContext,
+  type EditorChatMode,
+  type SelectedElementReference,
+} from '@/chat-context';
 import { useEditorStore } from '@/store';
 import { useSettingsStore } from '@/settings-store';
 
@@ -27,6 +33,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant' | 'system';
   content: string;
   timestamp: number;
+  selectionRef?: SelectedElementReference | null;
   /** Structured operations returned by AI (assistant only) */
   operations?: AIOperation[];
   /** Whether operations have been applied to the canvas */
@@ -35,7 +42,7 @@ export interface ChatMessage {
   streaming?: boolean;
 }
 
-export type ChatMode = 'ask' | 'edit' | 'generate';
+export type ChatMode = EditorChatMode;
 
 export interface ChatState {
   // ─── Messages ────────────────────────────────────────────────────
@@ -57,7 +64,7 @@ export interface ChatState {
   pendingMessageId: string | null;
 
   // ─── Actions ─────────────────────────────────────────────────────
-  sendMessage: (content: string) => Promise<void>;
+  sendMessage: (content: string, context?: ChatRequestContext) => Promise<void>;
   cancelStream: () => void;
   clearChat: () => void;
   setMode: (mode: ChatMode) => void;
@@ -114,15 +121,18 @@ export const useChatStore = create<ChatState>()(
       pendingOps: null,
       pendingMessageId: null,
 
-      sendMessage: async (content: string) => {
+      sendMessage: async (content: string, context) => {
         const state = get();
         if (state.isStreaming || !content.trim()) return;
+        const trimmedContent = content.trim();
+        const providerPrompt = context ? buildPromptWithContext(trimmedContent, context) : trimmedContent;
 
         const userMsg: ChatMessage = {
           id: makeId(),
           role: 'user',
-          content: content.trim(),
+          content: trimmedContent,
           timestamp: Date.now(),
+          selectionRef: context?.selectedElement ?? null,
         };
 
         const assistantId = makeId();
@@ -148,7 +158,7 @@ export const useChatStore = create<ChatState>()(
         let ops: AIOperation[] = [];
 
         try {
-          await state.provider.stream(content, spec, (chunk: AIStreamChunk) => {
+          await state.provider.stream(providerPrompt, spec, (chunk: AIStreamChunk) => {
             const current = get();
 
             switch (chunk.type) {

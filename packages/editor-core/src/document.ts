@@ -23,6 +23,7 @@ import {
 import { History, type HistoryOptions } from './history.js';
 import {
   addElement,
+  addSubtree,
   createEmptySpec,
   duplicateElement,
   groupElements,
@@ -35,7 +36,14 @@ import {
 } from './operations.js';
 import { normalizeDesignSpec } from './normalize.js';
 import { Selection } from './selection.js';
-import type { DesignFile, DesignSpec, EditorState, Element, PatchOperation } from './types.js';
+import type {
+  DesignFile,
+  DesignSpec,
+  EditorState,
+  Element,
+  ElementBlueprint,
+  PatchOperation,
+} from './types.js';
 
 export type DocumentListener = (spec: DesignSpec) => void;
 
@@ -101,10 +109,7 @@ export class Document {
   /**
    * Execute an operation, push to history, and notify.
    */
-  private execute(
-    operationFn: () => [PatchOperation[], PatchOperation[]],
-    label: string,
-  ): void {
+  private execute(operationFn: () => [PatchOperation[], PatchOperation[]], label: string): void {
     const [forward, reverse] = operationFn();
     if (forward.length === 0) return;
 
@@ -121,44 +126,35 @@ export class Document {
     index?: number,
   ): void {
     const typeName = element.type;
-    this.execute(
-      () => addElement(this._spec, parentId, element, index),
-      `Add ${typeName}`,
-    );
+    this.execute(() => addElement(this._spec, parentId, element, index), `Add ${typeName}`);
+  }
+
+  /** Add a nested subtree to a parent */
+  addTree(parentId: string, blueprint: ElementBlueprint, index?: number): void {
+    const label = blueprint.__editor?.name ?? blueprint.type;
+    this.execute(() => addSubtree(this._spec, parentId, blueprint, index), `Add ${label}`);
   }
 
   /** Remove an element and its descendants */
   remove(elementId: string): void {
     const element = this._spec.elements[elementId];
     const label = element?.__editor?.name ?? element?.type ?? 'element';
-    this.execute(
-      () => removeElement(this._spec, elementId),
-      `Remove ${label}`,
-    );
+    this.execute(() => removeElement(this._spec, elementId), `Remove ${label}`);
   }
 
   /** Move an element to a new parent */
   move(elementId: string, newParentId: string, index: number): void {
-    this.execute(
-      () => moveElement(this._spec, elementId, newParentId, index),
-      'Move element',
-    );
+    this.execute(() => moveElement(this._spec, elementId, newParentId, index), 'Move element');
   }
 
   /** Update props on an element */
   setProps(elementId: string, props: Record<string, unknown>): void {
-    this.execute(
-      () => updateProps(this._spec, elementId, props),
-      'Update props',
-    );
+    this.execute(() => updateProps(this._spec, elementId, props), 'Update props');
   }
 
   /** Update editor metadata */
   setEditorMeta(elementId: string, meta: Partial<Element['__editor']>): void {
-    this.execute(
-      () => updateEditorMeta(this._spec, elementId, meta),
-      'Update metadata',
-    );
+    this.execute(() => updateEditorMeta(this._spec, elementId, meta), 'Update metadata');
   }
 
   /** Group selected elements into a Stack */
@@ -171,18 +167,12 @@ export class Document {
 
   /** Ungroup an element, promoting its children */
   ungroup(elementId: string): void {
-    this.execute(
-      () => ungroupElement(this._spec, elementId),
-      'Ungroup',
-    );
+    this.execute(() => ungroupElement(this._spec, elementId), 'Ungroup');
   }
 
   /** Duplicate an element */
   duplicate(elementId: string): void {
-    this.execute(
-      () => duplicateElement(this._spec, elementId),
-      'Duplicate',
-    );
+    this.execute(() => duplicateElement(this._spec, elementId), 'Duplicate');
   }
 
   // ─── Undo/Redo ──────────────────────────────────────────────────────
